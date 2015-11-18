@@ -29,9 +29,10 @@ The first time a packaged is used on a machine by `using ...`, the computer has 
 ## For further reference
 Interested in learning more?  
 
-Principles of Condensed Matter Physics- Chaikin & Lubensky
-Condensed Matter in a Nutshell- Mahan
-Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
-https://thiscondensedlife.wordpress.com/
+<ul>
+<li>Principles of Condensed Matter Physics- Chaikin & Lubensky
+<li>Condensed Matter in a Nutshell- Mahan
+<li>Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
+<li>https://thiscondensedlife.wordpress.com/
 
 Know any good ones? Let me know!
