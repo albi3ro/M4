@@ -5,8 +5,8 @@
     <description>Blog Introduction to Computational Condensed Matter Physics</description>
     <link>/M4/</link>
     <atom:link href="/M4/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 02 Dec 2015 23:46:00 +0900</pubDate>
-    <lastBuildDate>Wed, 02 Dec 2015 23:46:00 +0900</lastBuildDate>
+    <pubDate>Thu, 03 Dec 2015 01:19:36 +0900</pubDate>
+    <lastBuildDate>Thu, 03 Dec 2015 01:19:36 +0900</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -81,10 +81,6 @@ Note: Square is Simple Cubic for Nz=1
 &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Please have a correct lattice&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;3-element Array{Int64,1}:
- 0
- 0
- 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Another cell to just evaluate&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# Here we set up some numbers and matrices for our computation&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Nx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ny&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Nz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;#The total number of sites&lt;/span&gt;
@@ -129,9 +125,8 @@ Note: Square is Simple Cubic for Nz=1
 
 &lt;span class=&quot;n&quot;&gt;scatter3D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png&quot; alt=&quot;png&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;PyObject &amp;lt;mpl_toolkits.mplot3d.art3d.Path3DCollection object at 0x7f741ab7f290&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/M4/Images/Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png&quot; alt=&quot;png&quot;&gt;&lt;/p&gt;
+
 &lt;h2&gt;Go Back and Fiddle!&lt;/h2&gt;
 
 &lt;p&gt;As you might have noticed, this isn&amp;#39;t just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?  &lt;/p&gt;
@@ -141,13 +136,12 @@ Note: Square is Simple Cubic for Nz=1
 &lt;p&gt;Look at different lattice sizes.  &lt;/p&gt;
 
 &lt;p&gt;Can you hand draw them on paper?&lt;br&gt;
-&lt;img src=&quot;baseurl/_posts/handdraw.jpg&quot; alt=&quot;Mydrawing&quot;&gt;&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/M4/Images/handdraw.jpg&quot; alt=&quot;Mydrawing&quot;&gt;&lt;/center&gt;&lt;/p&gt;
 
-&lt;p&gt;Let me know what you think, and stay tuned for the next post:&lt;/p&gt;
+&lt;p&gt;&lt;left&gt; Let me know what you think, and stay tuned for the next post:&lt;/p&gt;
 
 &lt;h2&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+</description>
         <pubDate>Wed, 02 Dec 2015 00:00:00 +0900</pubDate>
         <link>/M4/2015/12/02/Crystal-Shapes.html</link>
         <guid isPermaLink="true">/M4/2015/12/02/Crystal-Shapes.html</guid>

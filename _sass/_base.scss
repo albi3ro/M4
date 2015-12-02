@@ -127,7 +127,7 @@ blockquote {
 pre,
 code {
     font-size: 15px;
-    border: 1px solid $grey-color-light;
+    border: .2em solid $grey-color-light;
     border-radius: 3px;
     background-color: #0000ff;
     color: #ffffff;
@@ -138,7 +138,8 @@ code {
 }
 
 pre {
-    padding: 8px 12px;
+    padding: 1em 1em;
+    padding-bottom:2em;
     overflow-x: scroll;
 
     > code {

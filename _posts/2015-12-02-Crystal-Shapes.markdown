@@ -1,6 +1,7 @@
 ---
 title: Computational Visualizing Crystals
 layout: post
+comments: True
 ---
 
 # Computationally Visualizing Crystals
@@ -90,14 +91,6 @@ end
 
 
 
-    3-element Array{Int64,1}:
-     0
-     0
-     1
-
-
-
-
 ```julia
 # Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
@@ -156,13 +149,8 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 ```
 
 
-![png](Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png)
+![png](/M4/Images/Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png)
 
-
-
-
-
-    PyObject <mpl_toolkits.mplot3d.art3d.Path3DCollection object at 0x7f741ab7f290>
 
 
 
@@ -175,13 +163,9 @@ Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
 Look at different lattice sizes.  
 
 Can you hand draw them on paper?  
-![Mydrawing](baseurl/_posts/handdraw.jpg)
+<center>![Mydrawing](/M4/Images/handdraw.jpg)</center>
 
-Let me know what you think, and stay tuned for the next post:
+
+
+<left> Let me know what you think, and stay tuned for the next post:
 ## <center><i> Multi-site unit cells</i></center>
-
-
-
-```julia
-
-```
