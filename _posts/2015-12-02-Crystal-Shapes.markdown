@@ -156,7 +156,7 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 ```
 
 
-![png](M4/_posts/Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png)
+![png](_M4/_posts/Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png)
 
 
 
@@ -175,7 +175,7 @@ Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
 Look at different lattice sizes.  
 
 Can you hand draw them on paper?  
-![Mydrawing](M4/_posts/handdraw.jpg)
+![Mydrawing]( M4/_posts/handdraw.jpg )
 
 Let me know what you think, and stay tuned for the next post:
 ## <center><i> Multi-site unit cells</i></center>
