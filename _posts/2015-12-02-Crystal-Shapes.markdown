@@ -3,7 +3,7 @@ title: Computational Visualizing Crystals
 layout: post
 ---
 
-# Computationally Visuallizing Crystals
+# Computationally Visualizing Crystals
 
 In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers ($10^{23}$) of extremely small particles (atoms, electrons).  
 
@@ -109,36 +109,6 @@ cM=transpose(repeat(c,outer=[1,Nx*Ny]));
 X=Array{Float64}(N,3);  #where we store the positions
 ```
 
-
-
-
-    27x3 Array{Float64,2}:
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     ⋮            
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
-     0.0  0.0  0.0
 
 
 
