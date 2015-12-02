@@ -26,6 +26,10 @@ If you are using JuliaBox, you will need to evaluate the those lines each time.
 
 The first time a packaged is used on a machine by `using ...`, the computer has to compile the package, and that can take a little bit of time.  As the language develops, the developers intend to create a more efficient system, but for now, we need patience.   
 
+### Using My Packages
+
+I have written packages of my own for use on certain sections.  To add these to the path, download them to the folder you are using, and in your command line, type `push!(LOAD_PATH,"/path/to/my/code")`, where `/path/to/my/code` is the location of the package.  Then, you can type `using Lattices` in just the same way.    
+
 ## For further reference
 Interested in learning more?  
 
