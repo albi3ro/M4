@@ -175,7 +175,7 @@ Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
 Look at different lattice sizes.  
 
 Can you hand draw them on paper?  
-![Mydrawing](handdraw2.jpg)
+![Mydrawing](baseurl/_posts/handdraw.jpg)
 
 Let me know what you think, and stay tuned for the next post:
 ## <center><i> Multi-site unit cells</i></center>

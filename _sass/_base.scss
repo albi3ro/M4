@@ -4,10 +4,9 @@
 body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
-    margin: 0;
-    padding: 0;
+    margin:0;
+    padding:0;
 }
-
 
 
 /**
@@ -130,7 +129,8 @@ code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #eef;
+    background-color: #0000ff;
+    color: #ffffff;
 }
 
 code {
@@ -162,6 +162,8 @@ pre {
     padding-left: $spacing-unit;
     @extend %clearfix;
     background-color: #66ff33;
+    padding-top: 2em;
+    padding-bottom:2em;
 
     @include media-query($on-laptop) {
         max-width: -webkit-calc(800px - (#{$spacing-unit}));
