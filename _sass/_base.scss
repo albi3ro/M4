@@ -161,6 +161,7 @@ pre {
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
     @extend %clearfix;
+    background-color: #66ff33;
 
     @include media-query($on-laptop) {
         max-width: -webkit-calc(800px - (#{$spacing-unit}));

@@ -16,7 +16,7 @@ body {
   line-height: 1.5;
   font-weight: 300;
   color: #111;
-  background-color: #fdfdfd;
+  background-color: #000000;
   -webkit-text-size-adjust: 100%; }
 
 /**
@@ -115,7 +115,8 @@ pre {
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
-  padding-left: 30px; }
+  padding-left: 30px;
+  background-color: #66ff33; }
   @media screen and (max-width: 800px) {
     .wrapper {
       max-width: -webkit-calc(800px - (30px));
@@ -175,7 +176,7 @@ pre {
       position: absolute;
       top: 9px;
       right: 30px;
-      background-color: #fdfdfd;
+      background-color: #000000;
       border: 1px solid #e8e8e8;
       border-radius: 5px;
       text-align: right; }
