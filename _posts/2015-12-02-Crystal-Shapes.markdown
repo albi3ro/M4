@@ -143,7 +143,7 @@ end
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 ```
 
-{% include image.html img="/M4/Images/CrystalShapes/bcc.jpg" title="hi" caption="hi" %}
+{% include image.html img="M4/Images/CrystalShapes/bcc.jpg" title="hi" caption="hi" %}
 
 
 ## Go Back and Fiddle!
