@@ -24,20 +24,7 @@ $grey-color-dark:  darken($grey-color, 25%);
 $on-palm:          600px;
 $on-laptop:        800px;
 
-#downloadzp{
-  background-color: #00ffff;
-  border-radius: 25px;
-  padding: 10px;
-  width: 80px;
-  height: 50px;
-  float: right;
-  margin-right: 50px;
-  text-align: center;
-  border-style: solid;
-  border-width: 5px;
-  border-color: #006600;
-  font-family: Verdana;
-}
+
 
 // Using media queries with like this:
 // @include media-query($palm) {

@@ -29,11 +29,6 @@ Pkg.update();
 using PyPlot;
 ```
 
-    INFO: Nothing to be done
-    INFO: Updating METADATA...
-    INFO: Computing changes...
-    INFO: No packages to install, update or remove
-
 
 ## Define The Relevant Variables
 
@@ -148,10 +143,7 @@ end
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 ```
 
-
-![png](/M4/Images/Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png)
-
-
+{% include image.html img="/M4/Images/CrystalShapes/bcc.jpg" title="hi" caption="hi" %}
 
 
 ## Go Back and Fiddle!
@@ -168,9 +160,4 @@ Can you hand draw them on paper?
 
 
 Let me know what you think, and stay tuned for the next post:
-## <center><i> Multi-site unit cells</i></center>
-
-
-
-<left> Let me know what you think, and stay tuned for the next post:
 ## <center><i> Multi-site unit cells</i></center>

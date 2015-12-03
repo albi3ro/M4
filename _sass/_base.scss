@@ -34,7 +34,14 @@ ul, ol, dl, figure,
     margin-bottom: $spacing-unit / 2;
 }
 
+.image-wrapper {
+    text-align: center;
 
+    .image-caption {
+        color: $grey-color;
+        margin-top: $spacing-unit / 3;
+    }
+}
 
 /**
  * Images
@@ -55,6 +62,7 @@ figure > img {
 
 figcaption {
     font-size: $small-font-size;
+    align:center;
 }
 
 
@@ -129,7 +137,7 @@ code {
     font-size: 15px;
     border: .2em solid $grey-color-light;
     border-radius: 3px;
-    background-color: #0000ff;
+    background-color: #000066;
     color: #ffffff;
 }
 
@@ -162,7 +170,7 @@ pre {
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
     @extend %clearfix;
-    background-color: #66ff33;
+    background-color: #ccffcc;
     padding-top: 2em;
     padding-bottom:2em;
 
@@ -174,7 +182,103 @@ pre {
     }
 }
 
+.downloadzp, .clonelink, .juliadocs, .juliahelp {
+  background-color: #a1e6e6;
+  border-radius: 25px;
+  padding: .5em;
+  margin-right:1em;
+  width: 3.5em;
+  right: 0em;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #336600;
+  font-family: Verdana;
 
+  position:fixed;
+}
+
+.clonelink{
+  margin-right:1em;
+  width: 3.6em;
+  top:4.5em;
+  height:1.5em;
+  background-color: #a1e6e6;
+  border-radius: 25px;
+  padding: .5em;
+  right: 0em;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #336600;
+  font-family: Verdana;
+
+  position:fixed;
+}
+
+.downloadzp{
+  top: 1em;
+  height: 1.5em;
+  margin-right:1em;
+  width: 3.6em;
+}
+
+.juliadocs {
+  height: 1.5em;
+  top: 8em;
+  background-color: #a1e6e6;
+  border-radius: 25px;
+  padding: .5em;
+  margin-right:1em;
+  width: 3.6em;
+  right: 0em;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #336600;
+  font-family: Verdana;
+
+  position:fixed;
+}
+
+.juliahelp {
+  height: 1.5em;
+  top: 11.5em;
+  background-color: #a1e6e6;
+  border-radius: 25px;
+  padding: .5em;
+  margin-right:1em;
+  width: 3.6em;
+  right: 0em;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #336600;
+  font-family: Verdana;
+
+  position:fixed;
+}
+
+
+.comment {
+    background-color: #ccffff;
+    max-width: -webkit-calc(800px - (#{$spacing-unit} * 2));
+    max-width:         calc(800px - (#{$spacing-unit} * 2));
+    align: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 5em;
+    padding-left: 5em;
+    @extend %clearfix;
+
+
+    @include media-query($on-laptop) {
+        max-width: -webkit-calc(800px - (#{$spacing-unit}));
+        max-width:         calc(800px - (#{$spacing-unit}));
+        padding-right: $spacing-unit / 2;
+        padding-left: $spacing-unit / 2;
+      }
+}
 
 /**
  * Clearfix

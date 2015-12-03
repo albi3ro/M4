@@ -9,22 +9,6 @@ Follow this blog to start discovering some of the wonders of materials all aroun
 
 I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to give some a try.  Later, I will develop a difficulty ranking scheme.
 
-## Julia - A possible future for Scientific Computing
-
-The blog will be written in the form of julia (<a href="http://julialang.org/">http://julialang.org/</a>) jupyter notebooks. This new language has a syntax similar to Matlab or Python, and is easily human readable.  I encourage active participation by manipulating the code.
-
-You can either install Julia and jupyter notebook on your own machine, or use juliabox (<a href="https://www.juliabox.org/">https://www.juliabox.org/</a>) to view and interact with the files.
-
-To use juliabox (the easiest option), log in with a google account, and then click on the sync tab.  Under the Github directory, input the clone <a href=https://github.com/albi3ro/M4.git">https://github.com/albi3ro/M4.git</a> , use branch master, and name the folder as you see fit.
-
-Check out <a href="http://julialang.org/">http://julialang.org/</a> for documentation on this new and exciting language, and learn how to install it on your own machine.
-
-### Introductory Note on Packages
-Many times I will use extra packages developed for Julia, such as plotting functionality.  If you are using the package for the first time on your machine, you will need to evaluate `Pkg.add("...")` and `Pkg.update()` before `using ...`
-
-If you are using JuliaBox, you will need to evaluate the those lines each time.
-
-The first time a packaged is used on a machine by `using ...`, the computer has to compile the package, and that can take a little bit of time.  As the language develops, the developers intend to create a more efficient system, but for now, we need patience.
 
 ## For further reference
 Interested in learning more?
@@ -35,3 +19,30 @@ Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
 <a href="https://thiscondensedlife.wordpress.com/">https://thiscondensedlife.wordpress.com/</a>
 
 Know any good ones? Let me know!
+
+## Usage and license
+
+Feel free to use this code as you would like, just please give me credit! And keep the MIT license with it.  
+
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Christina Colleen Lee
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

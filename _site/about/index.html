@@ -22,14 +22,14 @@
 
     <a class="site-title" href="/M4/">Metals, Magnets, and Miscelaneous Materials</a>
 
-    <nav class="site-nav">
+    <!--<nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg viewBox="0 0 18 15">
           <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
           <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
           <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
+      </svg>
+    </a>
 
       <div class="trigger">
         
@@ -42,9 +42,13 @@
           
         
           
+          <a class="page-link" href="/M4/jupyterjulia/">Interacting with Julia</a>
+          
+        
+          
         
       </div>
-    </nav>
+    </nav>-->
 
   </div>
 
@@ -52,7 +56,13 @@
 
 
     <div class="page-content">
-        <div id="downloadzp"><a href="https://github.com/albi3ro/M4.git">Download Zip!</a></div>
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia">Interact</a></div>
 
       <div class="wrapper">
         <div class="post">
@@ -67,24 +77,6 @@ Follow this blog to start discovering some of the wonders of materials all aroun
 
 <p>I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to give some a try.  Later, I will develop a difficulty ranking scheme.</p>
 
-<h2>Julia - A possible future for Scientific Computing</h2>
-
-<p>The blog will be written in the form of julia (<a href="http://julialang.org/">http://julialang.org/</a>) jupyter notebooks. This new language has a syntax similar to Matlab or Python, and is easily human readable.  I encourage active participation by manipulating the code.</p>
-
-<p>You can either install Julia and jupyter notebook on your own machine, or use juliabox (<a href="https://www.juliabox.org/">https://www.juliabox.org/</a>) to view and interact with the files.</p>
-
-<p>To use juliabox (the easiest option), log in with a google account, and then click on the sync tab.  Under the Github directory, input the clone <a href=https://github.com/albi3ro/M4.git">https://github.com/albi3ro/M4.git</a> , use branch master, and name the folder as you see fit.</p>
-
-<p>Check out <a href="http://julialang.org/">http://julialang.org/</a> for documentation on this new and exciting language, and learn how to install it on your own machine.</p>
-
-<h3>Introductory Note on Packages</h3>
-
-<p>Many times I will use extra packages developed for Julia, such as plotting functionality.  If you are using the package for the first time on your machine, you will need to evaluate <code>Pkg.add(&quot;...&quot;)</code> and <code>Pkg.update()</code> before <code>using ...</code></p>
-
-<p>If you are using JuliaBox, you will need to evaluate the those lines each time.</p>
-
-<p>The first time a packaged is used on a machine by <code>using ...</code>, the computer has to compile the package, and that can take a little bit of time.  As the language develops, the developers intend to create a more efficient system, but for now, we need patience.</p>
-
 <h2>For further reference</h2>
 
 <p>Interested in learning more?</p>
@@ -96,6 +88,32 @@ Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
 
 <p>Know any good ones? Let me know!</p>
 
+<h2>Usage and license</h2>
+
+<p>Feel free to use this code as you would like, just please give me credit! And keep the MIT license with it.  </p>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2015 Christina Colleen Lee</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+
   </article>
 
 </div>
@@ -103,8 +121,8 @@ Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
       </div>
     </div>
 
-    
-
+    <div class="comment">
+</div>
 
     <footer class="site-footer">
 
@@ -141,3 +159,14 @@ Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
   </body>
 
 </html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

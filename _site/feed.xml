@@ -5,8 +5,8 @@
     <description>Blog Introduction to Computational Condensed Matter Physics</description>
     <link>/M4/</link>
     <atom:link href="/M4/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 03 Dec 2015 01:40:07 +0900</pubDate>
-    <lastBuildDate>Thu, 03 Dec 2015 01:40:07 +0900</lastBuildDate>
+    <pubDate>Thu, 03 Dec 2015 17:33:47 +0900</pubDate>
+    <lastBuildDate>Thu, 03 Dec 2015 17:33:47 +0900</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -32,10 +32,6 @@
 &lt;span class=&quot;n&quot;&gt;Pkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;PyPlot&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;Pkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PyPlot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;INFO: Nothing to be done
-INFO: Updating METADATA...
-INFO: Computing changes...
-INFO: No packages to install, update or remove
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Define The Relevant Variables&lt;/h2&gt;
 
@@ -125,25 +121,16 @@ Note: Square is Simple Cubic for Nz=1
 
 &lt;span class=&quot;n&quot;&gt;scatter3D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/M4/Images/Simply%20Crystal%20Shapes_files/Simply%20Crystal%20Shapes_9_0.png&quot; alt=&quot;png&quot;&gt;&lt;/p&gt;
+&lt;!-- _includes/image.html --&gt;
 
-&lt;h1&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; HEAD&lt;/h1&gt;
-
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;6c3571c308d15b83fb52d4f372a2392d867968e5&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
+&lt;div class=&quot;image-wrapper&quot; &gt;
+    
+        &lt;img src=&quot;//M4/Images/CrystalShapes/bcc.jpg&quot; alt=&quot;hi&quot;/&gt;
+    
+    
+        &lt;p class=&quot;image-caption&quot;&gt;hi&lt;/p&gt;
+    
+&lt;/div&gt;
 
 &lt;h2&gt;Go Back and Fiddle!&lt;/h2&gt;
 
@@ -153,34 +140,11 @@ Note: Square is Simple Cubic for Nz=1
 
 &lt;p&gt;Look at different lattice sizes.  &lt;/p&gt;
 
-&lt;p&gt;Can you hand draw them on paper?&lt;br&gt;
-&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; HEAD&lt;/p&gt;
+&lt;p&gt;Can you hand draw them on paper?  &lt;/p&gt;
 
-&lt;h1&gt;&lt;center&gt;&lt;img src=&quot;/M4/Images/handdraw.jpg&quot; alt=&quot;Mydrawing&quot;&gt;&lt;/center&gt;&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;/M4/Images/handdraw.jpg&quot; alt=&quot;Mydrawing&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src=&quot;/M4/Images/handdraw.jpg&quot; alt=&quot;Mydrawing&quot;&gt;&lt;/center&gt;&lt;/p&gt;
 
 &lt;p&gt;Let me know what you think, and stay tuned for the next post:&lt;/p&gt;
-
-&lt;h2&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/h2&gt;
-
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;6c3571c308d15b83fb52d4f372a2392d867968e5&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;left&gt; Let me know what you think, and stay tuned for the next post:&lt;/p&gt;
 
 &lt;h2&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/h2&gt;
 </description>
