@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-You thought particle physics and astronomy were the only big fronteirs in physics? Well, you thought wrong.
+You thought particle physics and astronomy were the only big frontiers in physics? Well, you thought wrong.
 Follow this blog to start discovering some of the wonders of materials all around you, and some of the revolutions that are shocking the field.
 
 I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to give some a try.  Later, I will develop a difficulty ranking scheme.

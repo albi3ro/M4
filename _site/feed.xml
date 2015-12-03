@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Metals, Magnets, and Miscelaneous Materials</title>
+    <title>Metals, Magnets, and Miscellaneous Materials</title>
     <description>Blog Introduction to Computational Condensed Matter Physics</description>
     <link>/M4/</link>
     <atom:link href="/M4/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 03 Dec 2015 17:33:47 +0900</pubDate>
-    <lastBuildDate>Thu, 03 Dec 2015 17:33:47 +0900</lastBuildDate>
+    <pubDate>Thu, 03 Dec 2015 18:10:15 +0900</pubDate>
+    <lastBuildDate>Thu, 03 Dec 2015 18:10:15 +0900</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -125,10 +125,43 @@ Note: Square is Simple Cubic for Nz=1
 
 &lt;div class=&quot;image-wrapper&quot; &gt;
     
-        &lt;img src=&quot;//M4/Images/CrystalShapes/bcc.jpg&quot; alt=&quot;hi&quot;/&gt;
+        &lt;img src=&quot;/M4/Images/CrystalShapes/sc.png&quot; alt=&quot;sc&quot;/&gt;
     
     
-        &lt;p class=&quot;image-caption&quot;&gt;hi&lt;/p&gt;
+        &lt;p class=&quot;image-caption&quot;&gt;Simple Cubic: The easiest lattice out there short of the 1D chain.&lt;/p&gt;
+    
+&lt;/div&gt;
+
+&lt;!-- _includes/image.html --&gt;
+
+&lt;div class=&quot;image-wrapper&quot; &gt;
+    
+        &lt;img src=&quot;/M4/Images/CrystalShapes/pt.png&quot; alt=&quot;pt&quot;/&gt;
+    
+    
+        &lt;p class=&quot;image-caption&quot;&gt;Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D.&lt;/p&gt;
+    
+&lt;/div&gt;
+
+&lt;!-- _includes/image.html --&gt;
+
+&lt;div class=&quot;image-wrapper&quot; &gt;
+    
+        &lt;img src=&quot;/M4/Images/CrystalShapes/bcc.jpg&quot; alt=&quot;bcc&quot;/&gt;
+    
+    
+        &lt;p class=&quot;image-caption&quot;&gt;Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D.&lt;/p&gt;
+    
+&lt;/div&gt;
+
+&lt;!-- _includes/image.html --&gt;
+
+&lt;div class=&quot;image-wrapper&quot; &gt;
+    
+        &lt;img src=&quot;/M4/Images/CrystalShapes/fcc.jpg&quot; alt=&quot;fcc&quot;/&gt;
+    
+    
+        &lt;p class=&quot;image-caption&quot;&gt;Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D.&lt;/p&gt;
     
 &lt;/div&gt;
 

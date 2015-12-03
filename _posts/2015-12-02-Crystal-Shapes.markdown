@@ -142,9 +142,13 @@ end
 
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 ```
+{% include image.html img="M4/Images/CrystalShapes/sc.png" title="sc" caption="Simple Cubic: The easiest lattice out there short of the 1D chain." %}
 
-{% include image.html img="/M4/Images/CrystalShapes/bcc.jpg" title="hi" caption="hi" %}
+{% include image.html img="M4/Images/CrystalShapes/pt.png" title="pt" caption="Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D." %}
 
+{% include image.html img="M4/Images/CrystalShapes/bcc.jpg" title="bcc" caption="Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D." %}
+
+{% include image.html img="M4/Images/CrystalShapes/fcc.jpg" title="fcc" caption="Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D." %}
 
 ## Go Back and Fiddle!
 
