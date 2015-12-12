@@ -4,7 +4,7 @@
 ### by Christina Lee,
 ### PhD student at the Okinawa Institute of Science and Technology
 
-### Checkout <a href="http://albi3ro.github.io/M4/">http://albi3ro.github.io/M4/</a> to get the static blog website version of these jupyter notebooks.
+### Checkout http://albi3ro.github.io/M4/ to get the static blog website version of these jupyter notebooks.
 
 
 You thought particle physics and astronomy were the only big fronteirs in physics? Well, you thought wrong.
@@ -43,10 +43,10 @@ Know any good ones? Let me know!
 <sub><center>
 The MIT License (MIT)
 
-<sub><sub><sub>
+<sub><sub>
 Copyright (c) 2015 Christina Colleen Lee
 
-<sub><sub><sub>
+<sub><sub>
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -54,11 +54,11 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-<sub><sub><sub>
+<sub><sub>
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-<sub><sub><sub>
+<sub><sub>
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
