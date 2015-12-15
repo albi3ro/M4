@@ -2,7 +2,8 @@ name: M4
 markdown: redcarpet
 pygments: true
 baseurl: /M4
+permalink: none
 
-title: M4; Metals, Magnets, and Miscellaneous Materials
+title: Metals, Magnets, and Miscellaneous Materials
 email: chrissie.c.l@gmail.com
 description: Blog Introduction to Computational Condensed Matter Physics

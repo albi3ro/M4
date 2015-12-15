@@ -9,7 +9,21 @@
     position: relative;
 }
 
+.tagtable{
+  border: 0em;
+}
 
+.cattype{
+  text-align: center;
+  text-decoration: underline;
+}
+
+.trtag:hover{
+  background-color: #f5f5f5;
+}
+.tagtitle, .tagprop ,.thtitle ,.thprop {
+    padding-right: 2em;
+}
 
 .site-title {
     font-size: 32px;

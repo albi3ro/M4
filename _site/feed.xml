@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>M4; Metals, Magnets, and Miscellaneous Materials</title>
+    <title>Metals, Magnets, and Miscellaneous Materials</title>
     <description>Blog Introduction to Computational Condensed Matter Physics</description>
     <link>/M4/</link>
     <atom:link href="/M4/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 15 Dec 2015 22:13:12 +0900</pubDate>
-    <lastBuildDate>Tue, 15 Dec 2015 22:13:12 +0900</lastBuildDate>
+    <pubDate>Wed, 16 Dec 2015 02:59:46 +0900</pubDate>
+    <lastBuildDate>Wed, 16 Dec 2015 02:59:46 +0900</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Computationally Visualizing Crystals Pt. 2</title>
         <description>&lt;h4&gt;Christina C. Lee, github: albi3ro&lt;/h4&gt;
 
-&lt;p&gt;&lt;b&gt;Prerequisites:&lt;/b&gt; &lt;a href=&quot;/M4/2015/12/02/Crystal-Shapes.html&quot;&gt;Computationally Visuallizing Crystals Pt. 1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Prerequisites:&lt;/b&gt; &lt;a href=&quot;/M4/ug/Crystal-Shapes.html&quot;&gt;Computationally Visuallizing Crystals Pt. 1&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don&amp;#39;t adhere to the &amp;quot;every site the same&amp;quot; policy.  They still repeat, but just take a little bit longer to get around to doing so.&lt;/p&gt;
 
@@ -204,10 +204,14 @@ you&amp;#39;ll notice they&amp;#39;re the same except for a scaling factor.  Thi
 
 &lt;p&gt;Anyway, if you&amp;#39;ve had too many lattices, will move onto some Quantum Mechanics to look at atomic orbitals soon!&lt;/p&gt;
 </description>
-        <pubDate>Tue, 15 Dec 2015 00:00:00 +0900</pubDate>
-        <link>/M4/2015/12/15/MultiSite-Unit-Cells.html</link>
-        <guid isPermaLink="true">/M4/2015/12/15/MultiSite-Unit-Cells.html</guid>
+        <pubDate>Fri, 02 Jan 2015 00:00:00 +0900</pubDate>
+        <link>/M4/ug/MultiSite-Unit-Cells.html</link>
+        <guid isPermaLink="true">/M4/ug/MultiSite-Unit-Cells.html</guid>
         
+        <category>Lattices</category>
+        
+        
+        <category>ug</category>
         
       </item>
     
@@ -217,9 +221,9 @@ you&amp;#39;ll notice they&amp;#39;re the same except for a scaling factor.  Thi
 
 &lt;p&gt;&lt;b&gt;Prerequisites:&lt;/b&gt; none&lt;/p&gt;
 
-&lt;p&gt;In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers $10^{23}$ of extremely small particles, ex. atoms, electrons.  &lt;/p&gt;
+&lt;p&gt;In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers $10^{23}$ of extremely small particles, ex. atoms, electrons.&lt;/p&gt;
 
-&lt;p&gt;Luckily, the particles don&amp;#39;t each do their own thing, but often come in nice, structured, repeated units.  &lt;i&gt;Lattices&lt;/i&gt;.  So as our first step into the field, we will look at the most basic type, a &lt;i&gt;Bravais Lattice&lt;/i&gt;.  &lt;/p&gt;
+&lt;p&gt;Luckily, the particles don&amp;#39;t each do their own thing, but often come in nice, structured, repeated units.  &lt;i&gt;Lattices&lt;/i&gt;.  So as our first step into the field, we will look at the most basic type, a &lt;i&gt;Bravais Lattice&lt;/i&gt;.&lt;/p&gt;
 
 &lt;p&gt;In a Bravais Lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.&lt;/p&gt;
 
@@ -229,7 +233,7 @@ you&amp;#39;ll notice they&amp;#39;re the same except for a scaling factor.  Thi
 
 &lt;p&gt;To keep things working out right, we have to put a constraint on these vectors; that we can&amp;#39;t get one from scaling and adding the other two.  If we could, then we couldn&amp;#39;t put sites in an entire 3 dimensional space.&lt;/p&gt;
 
-&lt;p&gt;Stay tuned for a later post where we explore more elaborate lattices.  &lt;/p&gt;
+&lt;p&gt;Stay tuned for a later post where we explore more elaborate lattices.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;c&quot;&gt;# importing our packages&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;Pkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;PyPlot&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;Pkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
@@ -237,7 +241,7 @@ you&amp;#39;ll notice they&amp;#39;re the same except for a scaling factor.  Thi
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Define The Relevant Variables&lt;/h2&gt;
 
-&lt;p&gt;Choose the lattice you want to look at, and put that string into the lattice variable.&lt;br&gt;
+&lt;p&gt;Choose the lattice you want to look at, and put that string into the lattice variable.
 Current options:
 &lt;ul&gt;
     &lt;li&gt; Simple Cubic = &amp;quot;sc&amp;quot;
@@ -310,7 +314,7 @@ Note: Square is Simple Cubic for Nz=1
     &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;zed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;  
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;plot3D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;plot3D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
@@ -371,24 +375,28 @@ Note: Square is Simple Cubic for Nz=1
 
 &lt;h2&gt;Go Back and Fiddle!&lt;/h2&gt;
 
-&lt;p&gt;As you might have noticed, this isn&amp;#39;t just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?  &lt;/p&gt;
+&lt;p&gt;As you might have noticed, this isn&amp;#39;t just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?&lt;/p&gt;
 
-&lt;p&gt;Chose &lt;code&gt;pygui(true)&lt;/code&gt; to pop open a window and manipulate the plot in 3D.  &lt;/p&gt;
+&lt;p&gt;Chose &lt;code&gt;pygui(true)&lt;/code&gt; to pop open a window and manipulate the plot in 3D.&lt;/p&gt;
 
-&lt;p&gt;Look at different lattice sizes.  &lt;/p&gt;
+&lt;p&gt;Look at different lattice sizes.&lt;/p&gt;
 
-&lt;p&gt;Can you hand draw them on paper?  &lt;/p&gt;
+&lt;p&gt;Can you hand draw them on paper?&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt;&lt;img src=&quot;/M4/Images/handdraw.jpg&quot; alt=&quot;Mydrawing&quot;&gt;&lt;/center&gt;&lt;/p&gt;
 
 &lt;p&gt;Let me know what you think, and enjoy the sequel as well!&lt;/p&gt;
 
-&lt;h2&gt;&lt;a href=&quot;/M4/2015/12/15/MultiSite-Unit-Cells.html&quot;&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a href=&quot;/M4/ug/MultiSite-Unit-Cells.html&quot;&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/a&gt;&lt;/h2&gt;
 </description>
-        <pubDate>Wed, 02 Dec 2015 00:00:00 +0900</pubDate>
-        <link>/M4/2015/12/02/Crystal-Shapes.html</link>
-        <guid isPermaLink="true">/M4/2015/12/02/Crystal-Shapes.html</guid>
+        <pubDate>Thu, 01 Jan 2015 00:00:00 +0900</pubDate>
+        <link>/M4/ug/Crystal-Shapes.html</link>
+        <guid isPermaLink="true">/M4/ug/Crystal-Shapes.html</guid>
         
+        <category>Lattices</category>
+        
+        
+        <category>ug</category>
         
       </item>
     
