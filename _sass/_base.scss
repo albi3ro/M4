@@ -182,6 +182,32 @@ pre {
     }
 }
 
+a.sidebar:link{
+  color: #000000;
+  font-family: $base-font-family;
+  font-weight: bold;
+  text-decoration:none;
+}
+a.sidebar:visited{
+  color: #000000;
+  font-family: $base-font-family;
+  font-weight: bold;
+    text-decoration:none;
+}
+a.sidebar:hover{
+  color: #336600;
+  font-family: $base-font-family;
+  font-weight: bold;
+    text-decoration:none;
+}
+a.sidebar:active{
+  color: #336600;
+  font-family: $base-font-family;
+  font-weight: bold;
+    text-decoration:none;
+}
+
+
 .downloadzp, .clonelink, .juliadocs, .juliahelp {
   background-color: #a1e6e6;
   border-radius: 25px;
@@ -193,7 +219,6 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
 
   position:fixed;
 }
@@ -211,7 +236,6 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
 
   position:fixed;
 }
@@ -236,7 +260,6 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
 
   position:fixed;
 }
@@ -254,7 +277,23 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
+
+  position:fixed;
+}
+
+.about {
+  height: 1.5em;
+  top: 15em;
+  background-color: #a1e6e6;
+  border-radius: 25px;
+  padding: .5em;
+  margin-right:1em;
+  width: 3.6em;
+  right: 0em;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #336600;
 
   position:fixed;
 }

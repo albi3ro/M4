@@ -1,25 +1,27 @@
 ---
-title: Computational Visualizing Crystals
+title: Computationally Visualizing Crystals
 layout: post
 comments: True
 ---
 
-# Computationally Visualizing Crystals
+#### Christina C. Lee, github: albi3ro
 
-In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers ($10^{23}$) of extremely small particles (atoms, electrons).  
+<b>Prerequisites:</b> none
 
-Luckily, the particles don't each do their own thing, but often come in nice, structured, repeated units.  Lattices.  So as our first step into the field, we will look at some of our basic building blocks.  
 
-The first building blocks we will look at today are <i>unit cells</i>. Unit cells can either be thought of as having one particle per block, or as representing the overall translational symmetries.  Some lattices, like honeycomb or diamond, have two sites that are inside one of these unit cells.  
+In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers $10^{23}$ of extremely small particles, ex. atoms, electrons.  
 
-I used an important word there, <i>translational symmetry</i>.  How can we move the lattice such that, if we had an infinite number of them, it looked the same? The unit vectors I use to generate sites also describe the translational symmetries of the lattice.
+Luckily, the particles don't each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  So as our first step into the field, we will look at the most basic type, a <i>Bravais Lattice</i>.  
 
-### Introductory Note on Packages
-Many times I will use extra packages developed for Julia, such as plotting functionality.  If you are using the package for the first time on your machine, you will need to evaluate `Pkg.add("...")` and `Pkg.update()` before `using ...`
+In a Bravais Lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.
 
-If you are using JuliaBox, you will need to evaluate the those lines each time.  
+\begin{equation}
+\mathbf{R}_{lmn}=l \vec{a} + m \vec{b} + n \vec{c}  \;\;\;\; \text{for } l,m,n \in \mathbb{N}
+\end{equation}
 
-The first time a packaged is used on a machine by `using ...`, the computer has to compile the package, and that can take a little bit of time.  As the language develops, the developers intend to create a more efficient system, but for now, we need patience.    
+To keep things working out right, we have to put a constraint on these vectors; that we can't get one from scaling and adding the other two.  If we could, then we couldn't put sites in an entire 3 dimensional space.
+
+Stay tuned for a later post where we explore more elaborate lattices.  
 
 
 ```julia
@@ -41,6 +43,8 @@ Current options:
     <li> Face-Centered Cubic = "fcc"
 Note: Square is Simple Cubic for Nz=1
 </ul>
+
+14 distinct lattice types are possible, but these common four give the important ideas.
 
 Also, input the size of lattice you want to look at.
 
@@ -142,6 +146,7 @@ end
 
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 ```
+
 {% include image.html img="M4/Images/CrystalShapes/sc.png" title="sc" caption="Simple Cubic: The easiest lattice out there short of the 1D chain." %}
 
 {% include image.html img="M4/Images/CrystalShapes/pt.png" title="pt" caption="Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D." %}
@@ -163,5 +168,5 @@ Can you hand draw them on paper?
 <center>![Mydrawing](/M4/Images/handdraw.jpg)</center>
 
 
-Let me know what you think, and stay tuned for the next post:
-## <center><i> Multi-site unit cells</i></center>
+Let me know what you think, and enjoy the sequel as well!
+## [<center><i> Multi-site unit cells</i></center>]({{base.url}}/M4/2015/12/15/MultiSite-Unit-Cells.html)

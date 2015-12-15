@@ -12,7 +12,7 @@ dl, dd, ol, ul, figure {
  */
 body {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
   font-weight: 300;
   color: #111;
@@ -48,7 +48,7 @@ figure > img {
   display: block; }
 
 figcaption {
-  font-size: 14px;
+  font-size: 15.75px;
   align: center; }
 
 /**
@@ -135,6 +135,30 @@ pre {
       padding-right: 15px;
       padding-left: 15px; } }
 
+a.sidebar:link {
+  color: #000000;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none; }
+
+a.sidebar:visited {
+  color: #000000;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none; }
+
+a.sidebar:hover {
+  color: #336600;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none; }
+
+a.sidebar:active {
+  color: #336600;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-decoration: none; }
+
 .downloadzp, .clonelink, .juliadocs, .juliahelp {
   background-color: #a1e6e6;
   border-radius: 25px;
@@ -146,7 +170,6 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
   position: fixed; }
 
 .clonelink {
@@ -162,7 +185,6 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
   position: fixed; }
 
 .downloadzp {
@@ -184,7 +206,6 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
   position: fixed; }
 
 .juliahelp {
@@ -200,7 +221,21 @@ pre {
   border-style: solid;
   border-width: 5px;
   border-color: #336600;
-  font-family: Verdana;
+  position: fixed; }
+
+.about {
+  height: 1.5em;
+  top: 15em;
+  background-color: #a1e6e6;
+  border-radius: 25px;
+  padding: .5em;
+  margin-right: 1em;
+  width: 3.6em;
+  right: 0em;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #336600;
   position: fixed; }
 
 .comment {
@@ -248,7 +283,7 @@ pre {
   position: relative; }
 
 .site-title {
-  font-size: 26px;
+  font-size: 32px;
   line-height: 56px;
   letter-spacing: -1px;
   margin-bottom: 0;
@@ -366,7 +401,7 @@ pre {
     margin-bottom: 30px; }
 
 .post-meta {
-  font-size: 14px;
+  font-size: 15.75px;
   color: #828282; }
 
 .post-link {
