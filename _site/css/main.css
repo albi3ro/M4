@@ -41,6 +41,15 @@ img {
   max-width: 100%;
   vertical-align: middle; }
 
+.progtip {
+  background-color: #004d00;
+  color: #ccffcc;
+  border-radius: 1em;
+  padding: 1em;
+  /*float: right;
+  max-width: -webkit-calc(( 800px - (30px)*2)/3);
+  max-width:         calc(( 800px - (30px)*2)/3);*/ }
+
 /**
  * Figures
  */
@@ -117,21 +126,20 @@ pre {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
+  max-width: 45em;
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px;
   background-color: #ccffcc;
-  padding-top: 2em;
-  padding-bottom: 2em; }
-  @media screen and (max-width: 800px) {
-    .wrapper {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  /*@include media-query($on-laptop) {
       max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
-      padding-right: 15px;
-      padding-left: 15px; } }
+      max-width:         calc(800px - (30px));
+      padding-right: $spacing-unit / 2;
+      padding-left: $spacing-unit / 2;
+  }*/ }
 
 a.sidebar:link {
   color: #000000;
@@ -157,13 +165,14 @@ a.sidebar:active {
   font-weight: bold;
   text-decoration: none; }
 
-.downloadzp, .clonelink, .juliadocs, .juliahelp {
+.downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
   background-color: #a1e6e6;
   border-radius: 25px;
   padding: .5em;
   margin-right: 1em;
   width: 3.5em;
   right: 0em;
+  height: 1.5em;
   text-align: center;
   border-style: solid;
   border-width: 5px;
@@ -171,70 +180,19 @@ a.sidebar:active {
   position: fixed; }
 
 .clonelink {
-  margin-right: 1em;
-  width: 3.6em;
-  top: 4.5em;
-  height: 1.5em;
-  background-color: #a1e6e6;
-  border-radius: 25px;
-  padding: .5em;
-  right: 0em;
-  text-align: center;
-  border-style: solid;
-  border-width: 5px;
-  border-color: #336600;
-  position: fixed; }
+  top: 4.5em; }
 
 .downloadzp {
-  top: 1em;
-  height: 1.5em;
-  margin-right: 1em;
-  width: 3.6em; }
+  top: 1em; }
 
 .juliadocs {
-  height: 1.5em;
-  top: 8em;
-  background-color: #a1e6e6;
-  border-radius: 25px;
-  padding: .5em;
-  margin-right: 1em;
-  width: 3.6em;
-  right: 0em;
-  text-align: center;
-  border-style: solid;
-  border-width: 5px;
-  border-color: #336600;
-  position: fixed; }
+  top: 8em; }
 
 .juliahelp {
-  height: 1.5em;
-  top: 11.5em;
-  background-color: #a1e6e6;
-  border-radius: 25px;
-  padding: .5em;
-  margin-right: 1em;
-  width: 3.6em;
-  right: 0em;
-  text-align: center;
-  border-style: solid;
-  border-width: 5px;
-  border-color: #336600;
-  position: fixed; }
+  top: 11.5em; }
 
 .about {
-  height: 1.5em;
-  top: 15em;
-  background-color: #a1e6e6;
-  border-radius: 25px;
-  padding: .5em;
-  margin-right: 1em;
-  width: 3.6em;
-  right: 0em;
-  text-align: center;
-  border-style: solid;
-  border-width: 5px;
-  border-color: #336600;
-  position: fixed; }
+  top: 15em; }
 
 .comment {
   background-color: #ccffff;
@@ -271,13 +229,35 @@ a.sidebar:active {
   .icon > svg path {
     fill: #828282; }
 
+@media (max-width: 45em) {
+  .downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
+    position: absolute;
+    top: .5em; }
+
+  .downloadzp {
+    left: 1em; }
+
+  .clonelink {
+    left: 6em; }
+
+  .juliadocs {
+    left: 11em; }
+
+  .juliahelp {
+    left: 16em; }
+
+  .about {
+    left: 21em; }
+
+  .site-header {
+    margin-top: 3em; } }
 /**
  * Site header
  */
 .site-header {
   border-top: 5px solid #424242;
   border-bottom: 1px solid #e8e8e8;
-  min-height: 56px;
+  height: 6em;
   position: relative; }
 
 .tagtable {
@@ -349,7 +329,7 @@ a.sidebar:active {
  */
 .site-footer {
   border-top: 1px solid #e8e8e8;
-  padding: 30px 0; }
+  padding: 0em; }
 
 .footer-heading {
   font-size: 18px;

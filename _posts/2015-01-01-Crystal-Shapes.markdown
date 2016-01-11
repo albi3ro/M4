@@ -2,7 +2,7 @@
 title: Computationally Visualizing Crystals
 layout: post
 comments: True
-category: UG
+category: Undergrad
 tags: [Lattices]
 author: Christina C. Lee
 ---
@@ -116,13 +116,22 @@ for i in 1:Nx    #for the first row
 end
 
 for j in 2:Ny    #copying the first row into the first layer
-    X[(Nx*(j-1)+1):(Nx*(j-1)+Nx),:]=X[1:Nx,:]+(j-1)*bM;
+    X[Nx*(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)*bM;
 end
 
 for j in 2:Nz    #copying the first layer into the entire cube
-    X[(Ny*Nx*(j-1)+1):(Ny*Nx*(j-1)+Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
+    X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
 end
 ```
+<div class="progtip">
+<h3 color="black"> Programming Tip:</h3>
+ <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
+ <code>3+(1:3)=4:6</code>,
+ or add a minus sign to force it to iterate in the opposite direction, though with different start/stop:
+ <code>-(1:3)=-1:-1:-3</code></p>
+<p>
+ <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
+</div>
 
 
 ```julia

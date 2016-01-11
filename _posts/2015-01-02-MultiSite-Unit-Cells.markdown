@@ -2,7 +2,7 @@
 title: Computationally Visualizing Crystals Pt. 2
 layout: post
 comments: True
-category: UG
+category: Undergrad
 tags: [Lattices]
 author: Christina C. Lee
 ---
@@ -177,10 +177,7 @@ scatter(X[:,1],X[:,2])
 ```
 
 
-
-
-
-
+{% include image.html img="M4/Images/MultiUnit/shurikenplot.png" title="Shuriken" caption="3x3 Shuriken or Square-Kagome Lattice." %}
 ```julia
 # 3D plotter
 pygui(false)
@@ -197,10 +194,16 @@ scatter3D(X[:,1],X[:,2],X[:,3])
 ### Perdy Pictures
 From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here's a nice graphic I made that might help a little bit more.
 
-{% include image.html img="M4/Images/MultiUnit/pyrochloresvg4.png" title="Pyrochlore" caption="Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me enough to make in inkscape." %}
+{% include image.html img="M4/Images/MultiUnit/pyrochloresvg4.png" title="Pyrochlore"
+ caption="Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape." %}
 
+{% include image.html img="M4/Images/MultiUnit/honeycomb.png" title="honeycomb" caption="Tikz produced Honeycomb.  Coloring indicative of
+the lattice description of the Kitaev model.  "%}
 
+The honeycomb, like several other lattices you see around here, is <i>bipartite</i>.
+You can see in my image that black sites are only next to white sites, and vice versa.
+  This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren't?
 
-If you keep reading, Please Do!, these lattices will keep cropping up again and again.  I'll probably throw in some new ones as well.
+If you keep reading, these lattices will keep cropping up again and again.  I'll probably throw in some new ones as well.
 
-Anyway, if you've had too many lattices, will move onto some Quantum Mechanics to look at atomic orbitals soon!
+Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!
