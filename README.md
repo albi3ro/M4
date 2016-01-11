@@ -29,6 +29,10 @@ If you are using JuliaBox, you will need to evaluate the those lines each time.
 
 The first time a packaged is used on a machine by `using ...`, the computer has to compile the package, and that can take a little bit of time.  As the language develops, the developers intend to create a more efficient system, but for now, we need patience.
 
+### Using My Packages
+
+I have written packages of my own for use on certain sections.  To add these to the path, download them to the folder you are using, and in your command line, type `push!(LOAD_PATH,"/path/to/my/code")`, where `/path/to/my/code` is the location of the package.  Then, you can type `using Lattices` in just the same way.    
+
 ## For further reference
 Interested in learning more?
 
@@ -54,9 +58,17 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
+<<<<<<< HEAD
 <sub><sub>
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+=======
+<ul>
+<li>Principles of Condensed Matter Physics- Chaikin & Lubensky
+<li>Condensed Matter in a Nutshell- Mahan
+<li>Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
+<li>https://thiscondensedlife.wordpress.com/
+>>>>>>> af75f7d02cbf586c0e3b54b3ce3f1f895e6f839f
 
 <sub><sub>
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
