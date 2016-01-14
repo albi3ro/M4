@@ -167,7 +167,7 @@ pre {
  * Wrapper
  */
 .wrapper {
-    max-width: 45em;
+    max-width: $width;
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit;
@@ -301,7 +301,7 @@ a.sidebar:active{
         }
     }
 }
-@media (max-width: 45em){
+@media (max-width: 800px){
   .downloadzp, .clonelink, .juliadocs, .juliahelp, .about{
     position: absolute;
     top: .5em;
@@ -323,6 +323,6 @@ a.sidebar:active{
   }
 
   .site-header{
-    margin-top:3em;
+    margin-top:4em;
   }
 }

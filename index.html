@@ -11,6 +11,8 @@ You thought particle physics and astronomy were the only big frontiers in physic
 <p>Posts are converted jupyter notebooks with Julia code, and are meant for interaction.
 For additional information, see <a href="{{base.url}}/M4/jupyterjulia">Interact</a>.</p>
 
+<p>Posts are also grouped according to difficulty level.  To see these categories, visit <a href="{{base.url}}/M4/categories">Categories</a></p>
+
   <!--<h1 class="page-heading">Posts</h1>-->
 
   <ul class="post-list">
@@ -19,7 +21,8 @@ For additional information, see <a href="{{base.url}}/M4/jupyterjulia">Interact<
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
-          <p class="post-meta">&nbsp;&nbsp;&nbsp;&nbsp;{{post.tags}}&nbsp;{{post.category}}</p>
+          <p class="post-meta">&nbsp;&nbsp;&nbsp;&nbsp;
+            {% for tag in post.tags %}<a href="{{base.url}}/M4/tags/{{ tag }}"> {{tag}}</a> {% endfor %} &nbsp;{{post.category}}</p>
       </li>
     {% endfor %}
   </ul>

@@ -194,11 +194,9 @@ scatter3D(X[:,1],X[:,2],X[:,3])
 ### Perdy Pictures
 From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here's a nice graphic I made that might help a little bit more.
 
-{% include image.html img="M4/Images/MultiUnit/pyrochloresvg4.png" title="Pyrochlore"
- caption="Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape." %}
+{% include image.html img="M4/Images/MultiUnit/pyrochloresvg4.png" title="Pyrochlore" caption="Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape." %}
 
-{% include image.html img="M4/Images/MultiUnit/honeycomb.png" title="honeycomb" caption="Tikz produced Honeycomb.  Coloring indicative of
-the lattice description of the Kitaev model.  "%}
+{% include image.html img="M4/Images/MultiUnit/honeycomb.png" title="honeycomb" caption="Tikz produced Honeycomb.  Coloring indicative of the lattice description of the Kitaev model.  " %}
 
 The honeycomb, like several other lattices you see around here, is <i>bipartite</i>.
 You can see in my image that black sites are only next to white sites, and vice versa.
