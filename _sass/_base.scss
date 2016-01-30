@@ -22,6 +22,27 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+/**
+ * Wrapper
+ */
+.wrapper {
+    max-width: $width;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: $spacing-unit;
+    padding-left: $spacing-unit;
+    @extend %clearfix;
+    background-color: $wrapper-color;
+    padding-top: 1em;
+    padding-bottom:1em;
+
+    /*@include media-query($on-laptop) {
+        max-width: -webkit-calc(800px - (#{$spacing-unit}));
+        max-width:         calc(800px - (#{$spacing-unit}));
+        padding-right: $spacing-unit / 2;
+        padding-left: $spacing-unit / 2;
+    }*/
+}
 
 
 /**
@@ -52,7 +73,7 @@ img {
 }
 
 .progtip{
-  background-color: #004d00;
+  background-color: $progtip-color;
   color: #ccffcc;
   border-radius: 1em;
   padding: 1em;
@@ -104,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #990000;
+  color: #462403;/**#1a3300;**/
     text-decoration: none;
 
     &:hover {
@@ -141,8 +162,8 @@ code {
     font-size: 15px;
     border: .2em solid $grey-color-light;
     border-radius: 3px;
-    background-color: #000066;
-    color: #ffffff;
+    background-color:  #002b36;
+    color:  #93a1a1;
 }
 
 code {
@@ -163,38 +184,18 @@ pre {
 
 
 
-/**
- * Wrapper
- */
-.wrapper {
-    max-width: $width;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: $spacing-unit;
-    padding-left: $spacing-unit;
-    @extend %clearfix;
-    background-color: #ccffcc;
-    padding-top: 1em;
-    padding-bottom:1em;
 
-    /*@include media-query($on-laptop) {
-        max-width: -webkit-calc(800px - (#{$spacing-unit}));
-        max-width:         calc(800px - (#{$spacing-unit}));
-        padding-right: $spacing-unit / 2;
-        padding-left: $spacing-unit / 2;
-    }*/
-}
 
 
 
 a.sidebar:link{
-  color: #000000;
+  color: #7d959d;
   font-family: $base-font-family;
   font-weight: bold;
   text-decoration:none;
 }
 a.sidebar:visited{
-  color: #000000;
+  color: #7d959d;
   font-family: $base-font-family;
   font-weight: bold;
     text-decoration:none;
@@ -214,7 +215,7 @@ a.sidebar:active{
 
 
 .downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
-  background-color: #a1e6e6;
+  background-color: #002b36;
   border-radius: 25px;
   padding: .5em;
   margin-right:1em;
@@ -223,7 +224,7 @@ a.sidebar:active{
   height: 1.5em;
   text-align: center;
   border-style: solid;
-  border-width: 5px;
+  border-width: 1px;
   border-color: #336600;
 
   position:fixed;
