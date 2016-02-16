@@ -2,7 +2,7 @@
 title: Computationally Visualizing Crystals
 layout: post
 comments: True
-category: Undergrad
+category: General
 tags: [Lattices]
 author: Christina C. Lee
 ---

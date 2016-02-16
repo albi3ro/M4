@@ -2,7 +2,7 @@
 title: Atomic Orbitals Pt. 2
 layout: post
 comments: True
-category: Undergrad
+category: Prerequisites
 tags: [Quantum]
 author: Christina C. Lee
 ---
