@@ -21,6 +21,7 @@ Take the Kagome Lattice below,
 {% include image.html img="M4/Images/MultiUnit/kagomebasket.jpg" title="basket" caption="A basket woven in the Japanese kagome style. <sub>Wikimedia commons</sub>" %}
 
 If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>Unit Cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:
+
 >A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.
 
 Now I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?
@@ -34,13 +35,13 @@ In my line of work though, we often use either the easiest to write down, or the
 You saw Kagome above.
 
 The options I've put in now are:
- <ul>
-<li> honeycomb
-<li> kagome
-<li> shuriken aka Square-Kagome
-<li> diamond
-<li> pyrochlore
-</ul>
+
+* honeycomb
+* kagome
+* shuriken aka Square-Kagome
+* diamond
+* pyrochlore
+
 
 The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene, an extremely important material right now, though I work with it in terms of the Kitaev spin model.  Kagome and Pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.
 
