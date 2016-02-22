@@ -40,6 +40,7 @@ we will run a series of transformations,
 \begin{equation}
 A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
 \end{equation}
+# a 3rd title
 where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
 <ul>
 <li> The values of c and s
