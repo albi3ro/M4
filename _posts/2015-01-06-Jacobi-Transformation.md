@@ -9,6 +9,8 @@ author: Christina C. Lee
 
 <i>Based on Numerical Recipes in C++, Sec 11.1</i>
 
+# a big title
+
 So you want to diagonalize a matrix, do you?
 Well, if you have a tiny symmetric matrix, you REALLY want to write up the algorithm by hand, and don't want to spend much time trying to understand the algorithm, then you have come to the right place.
 
