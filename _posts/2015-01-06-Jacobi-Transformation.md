@@ -32,10 +32,12 @@ Start with a base Rotation Matrix of the Form
 
 # a big title
 
-From our starting arbitrary symmetric A,
+From our starting arbitrary symmetric $A$,
 \begin{equation}
 A^{T} = A
 \end{equation}
+# please be a title
+
 we will run a series of transformations,
 \begin{equation}
 A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
