@@ -1,5 +1,5 @@
 name: M4
-markdown: redcarpet
+markdown: kramdown
 pygments: true
 baseurl: /M4
 permalink: none
