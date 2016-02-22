@@ -30,8 +30,6 @@ $$
     \end{pmatrix}
 $$
 
-# a big title
-
 From our starting arbitrary symmetric $$A$$,
 
 $$
@@ -45,7 +43,6 @@ $$
 A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
 $$
 
-# a 3rd title
 where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
 
 * The values of c and s
@@ -54,7 +51,6 @@ where each iteration brings A closer to diagonal form.  Thus in our implementing
 And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.
 
 So lets expand one transformation, and we if we can solve for $c$ and $s$.
-# another title
 
 $$
 a^{\prime}_{rp}  = c a_{rp} - s a_{rq}
