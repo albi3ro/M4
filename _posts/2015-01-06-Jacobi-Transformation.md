@@ -48,7 +48,7 @@ where each iteration brings A closer to diagonal form.  Thus in our implementing
 And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.
 
 So lets expand one transformation, and we if we can solve for $c$ and $s$.
-
+# another title
 \begin{equation}
 a^{\prime}_{rp}  = c a_{rp} - s a_{rq}
 \end{equation}
