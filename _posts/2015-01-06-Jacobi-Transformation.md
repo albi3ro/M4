@@ -100,7 +100,7 @@ D = V^{T} \cdot A \cdot V
 \end{equation}
 and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
 \begin{align}
-V^{\prime} & = V \cdot P_i \\\\
+V^{\prime} &= V \cdot P_i \\\\
 v^{\prime}_{rs} &= v_{rs} \\\\
 v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\\\
 v^{\prime}_{rq} &= s v_{rp} + c v_{rq} \\\\
