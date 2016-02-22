@@ -40,9 +40,11 @@ $$
 
 
 we will run a series of transformations,
+
 $$
 A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
 $$
+
 # a 3rd title
 where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
 
