@@ -12,7 +12,7 @@ Electrons around a nucleus.  Do they look like little well behaved planets orbit
 
 NOPE!
 
-We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, [Atomic Orbitals Pt. 2]({{base.url}}/M4/Prereq/Atomic-Orbitals2.html), uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.
+We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, [Atomic Orbitals Pt. 2]({{base.url}}/M4/prerequisites/Atomic-Orbitals2.html), uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.
 
 The Hamiltonian for our problem is:
 
