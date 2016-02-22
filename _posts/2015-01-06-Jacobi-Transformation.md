@@ -33,9 +33,9 @@ Start with a base Rotation Matrix of the Form
 # a big title
 
 From our starting arbitrary symmetric $A$,
-\\(
-A^{T} = A
-\\)
+\begin{equation}
+A^T = A
+\end{equation}
 # please be a title
 
 we will run a series of transformations,
