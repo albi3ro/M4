@@ -117,7 +117,7 @@ normal text?
 ### Enough with the talking! LETS COMPUTE STUFF
 
 
-```julia
+~~~julia
 # First, Lets make our nice, helpful functions
 
 ## A function to look at the convergence
@@ -132,7 +132,7 @@ function convergence(A::Array)
     end
     return num
 end
-```
+~~~
 
 
 This makes a matrix easier to look at than when its filled
