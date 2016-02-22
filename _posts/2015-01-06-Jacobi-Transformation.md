@@ -49,13 +49,21 @@ And in the end we will need to finally determine if this actually converges, and
 
 So lets expand one transformation, and we if we can solve for $c$ and $s$.
 
-\begin{align}
-a^{\prime}_{rp} & = c a_{rp} - s a_{rq} \\
-a^{\prime}_{rq} & = c a_{rq} + s a_{rp} \\
-a^{\prime}_{pp} & = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq} \\
-a^{\prime}_{qq} & = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq} \\
-a^{\prime}_{pq} & = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)\\
-\end{align}
+\begin{equation}
+a^{\prime}_{rp}  = c a_{rp} - s a_{rq}
+\end{equation}
+\begin{equation}
+a^{\prime}_{rq}  = c a_{rq} + s a_{rp}
+\end{equation}
+\begin{equation}
+a^{\prime}_{pp}  = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq}
+\end{equation}
+\begin{equation}
+a^{\prime}_{qq}  = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq}
+\end{equation}
+\begin{equation}
+a^{\prime}_{pq}  = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)
+\end{equation}
 
 ## Determining $s$ and $c$
 Given we specifically want $a^{\prime}_{pq}$ to be zero, we re-arrange the last equation,
@@ -71,19 +79,26 @@ now quite easily solvable by our friendly quadratic formula.  Though the book do
 t=\frac{\text{sgn}( \theta )}{| \theta | + \sqrt{ \theta ^2 + 1} }.
 \end{equation}
 Then reverse solve back to
-\begin{align}
-c&=\frac{1}{\sqrt{t^2+1}}\\
-s&=tc
-\end{align}
+\begin{equation}
+c=\frac{1}{\sqrt{t^2+1}} \;\;\; s=tc
+\end{equation}
 
 Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are
-\begin{align}
-a^{\prime}_{pq} & = 0\\
-a^{\prime}_{qq} & = a_{qq} + t a_{qp} \\
-a^{\prime}_{pp} &= a_{pp} - t a_{pq} \\
-a^{\prime}_{rp} &= a_{rp} - s \left( a_{rq} +\tau a_{rp} \right) \\
-a^{\prime}_{rq} &= a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)\\
-\end{align}
+\begin{equation}
+a^{\prime}_{pq}  = 0
+\end{equation}
+\begin{equation}
+a^{\prime}_{qq}  = a_{qq} + t a_{qp}
+\end{equation}
+\begin{equation}
+a^{\prime}_{pp} = a_{pp} - t a_{pq}
+\end{equation}
+\begin{equation}
+a^{\prime}_{rp} = a_{rp} - s \left( a_{rq} +\tau a_{rp} \right)
+\end{equation}
+\begin{equation}
+a^{\prime}_{rq} = a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)
+\end{equation}
 with the new variable
 \begin{equation}
 \tau = \frac{s}{1+c}
@@ -103,12 +118,19 @@ By forming a product of every rotation matrix, we also come to approximate the m
 D = V^{T} \cdot A \cdot V
 \end{equation}
 and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
-\begin{align}
-V^{\prime} &= V \cdot P_i \\
-v^{\prime}_{rs} &= v_{rs} \\
-v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\
-v^{\prime}_{rq} &= s v_{rp} + c v_{rq} \\
-\end{align}
+\begin{equation}
+V^{\prime} = V \cdot P_i
+\end{equation}
+\begin{equation}
+v^{\prime}_{rs} = v_{rs}
+\end{equation}
+\begin{equation}
+v^{\prime}_{rp} = c v_{rp} - s v_{rq}
+\end{equation}
+\begin{equation}
+v^{\prime}_{rq} = s v_{rp} + c v_{rq}
+\end{equation}
+
 $f(x)$
 
 
