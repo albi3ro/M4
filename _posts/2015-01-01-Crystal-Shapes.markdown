@@ -177,7 +177,7 @@ Look at different lattice sizes.
 
 Can you hand draw them on paper?
 
-<center>![Mydrawing](/M4/Images/CrystalShapes/handdraw2.jpg)</center>
+<center>![Mydrawing](M4/Images/CrystalShapes/handdraw2.jpg)</center>
 
 
 Let me know what you think, and enjoy the sequel as well!
