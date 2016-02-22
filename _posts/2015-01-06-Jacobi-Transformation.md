@@ -106,6 +106,8 @@ v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\\\
 v^{\prime}_{rq} &= s v_{rp} + c v_{rq}\\\\
 \end{align}
 
+normal text?
+
 ### Enough with the talking! LETS COMPUTE STUFF
 
 
