@@ -2,11 +2,7 @@
 title: Atomic Orbitals
 layout: post
 comments: True
-<<<<<<< HEAD
-category: Prereq
-=======
 category: Prerequisites
->>>>>>> 95aa099096d2cfce0c07458ffaffd0bfe433ab38
 tags: [Quantum]
 author: Christina C. Lee
 ---
