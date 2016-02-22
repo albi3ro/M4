@@ -51,12 +51,12 @@ Instead of going into the precise mechanisms of solving those two seperate equat
 
 
 \begin{equation}
-        Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
+Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
 \end{equation}
 where $P^m_l (\cos (\theta))$ is the associated Legendre Polynomial.
 
 \begin{equation}
-    R^{n,l} (\rho) = \rho^l e^{-\rho/2} L^{2 l+1}_{n-l-1} (\rho)
+R\^{n,l} (\rho) = \rho\^l e\^{-\rho/2} L\^{2 l+1}\_{n-l-1} (\rho)
 \end{equation}
 where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.
 
