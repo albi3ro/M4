@@ -18,13 +18,13 @@ Start with a base Rotation Matrix of the Form
 \begin{equation}
     P_{pq} =
     \begin{pmatrix}
-           1& &  &  & & & & 0 \\\\
-           & \ddots & & & &  &  \\\\
-            & & c & \cdots & s & & \\\\
-                & &\vdots& 1 & \vdots & & \\\\
-               & & -s & \cdots & c & &  \\\\
-               & & & & & \ddots &  \\\\
-               0 & & & &  & & 1\\\\
+           1& &  &  & & & & 0 \\
+           & \ddots & & & &  &  \\
+            & & c & \cdots & s & & \\
+                & &\vdots& 1 & \vdots & & \\
+               & & -s & \cdots & c & &  \\
+               & & & & & \ddots &  \\
+               0 & & & &  & & 1\\
     \end{pmatrix}
 \end{equation}
 
@@ -46,11 +46,11 @@ And in the end we will need to finally determine if this actually converges, and
 So lets expand one transformation, and we if we can solve for $c$ and $s$.
 
 \begin{align}
-a^{\prime}_{rp} & = c a_{rp} - s a_{rq} \\\\
-a^{\prime}_{rq} & = c a_{rq} + s a_{rp} \\\\
-a^{\prime}_{pp} & = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq} \\\\
-a^{\prime}_{qq} & = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq} \\\\
-a^{\prime}_{pq} & = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)\\\\
+a^{\prime}_{rp} & = c a_{rp} - s a_{rq} \\
+a^{\prime}_{rq} & = c a_{rq} + s a_{rp} \\
+a^{\prime}_{pp} & = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq} \\
+a^{\prime}_{qq} & = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq} \\
+a^{\prime}_{pq} & = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)\\
 \end{align}
 
 ## Determining $s$ and $c$
@@ -74,11 +74,11 @@ s&=tc
 
 Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are
 \begin{align}
-a^{\prime}_{pq} & = 0\\\\
-a^{\prime}_{qq} & = a_{qq} + t a_{qp} \\\\
-a^{\prime}_{pp} &= a_{pp} - t a_{pq} \\\\
-a^{\prime}_{rp} &= a_{rp} - s \left( a_{rq} +\tau a_{rp} \right) \\\\
-a^{\prime}_{rq} &= a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)\\\\
+a^{\prime}_{pq} & = 0\\
+a^{\prime}_{qq} & = a_{qq} + t a_{qp} \\
+a^{\prime}_{pp} &= a_{pp} - t a_{pq} \\
+a^{\prime}_{rp} &= a_{rp} - s \left( a_{rq} +\tau a_{rp} \right) \\
+a^{\prime}_{rq} &= a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)\\
 \end{align}
 with the new variable
 \begin{equation}
@@ -100,10 +100,10 @@ D = V^{T} \cdot A \cdot V
 \end{equation}
 and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
 \begin{align}
-V^{\prime} &= V \cdot P_i \\\\
-v^{\prime}_{rs} &= v_{rs} \\\\
-v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\\\
-v^{\prime}_{rq} &= s v_{rp} + c v_{rq} \\\\
+V^{\prime} &= V \cdot P_i \\
+v^{\prime}_{rs} &= v_{rs} \\
+v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\
+v^{\prime}_{rq} &= s v_{rp} + c v_{rq} \\
 \end{align}
 
 normal text?
