@@ -2,14 +2,14 @@
 title: Computationally Visualizing Crystals Pt. 2
 layout: post
 comments: True
-category: Undergrad
+category: General
 tags: [Lattices]
 author: Christina C. Lee
 ---
 
 #### Christina C. Lee, github: albi3ro
 
-<b>Prerequisites:</b> [Computationally Visuallizing Crystals Pt. 1]({{base.url}}/M4/ug/Crystal-Shapes.html)
+<b>Prerequisites:</b> [Computationally Visuallizing Crystals Pt. 1]({{base.url}}/M4/General/Crystal-Shapes.html)
 
 Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don't adhere to the "every site the same" policy.  They still repeat, but just take a little bit longer to get around to doing so.
 

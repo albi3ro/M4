@@ -2,13 +2,13 @@
 title: Atomic Orbitals Pt. 2
 layout: post
 comments: True
-category: Undergrad
+category: Prereq
 tags: [Quantum]
 author: Christina C. Lee
 ---
 <b>Prerequiresites:</b> Quantum Mechanics course
 
-If you haven't read it already, checkout [Atomic Orbitals Pt. 1]({{base.url}}/M4/undergrad/Atomic-Orbitals.html).  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.
+If you haven't read it already, checkout [Atomic Orbitals Pt. 1]({{base.url}}/M4/Prereq/Atomic-Orbitals.html).  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.
 
 To add
 

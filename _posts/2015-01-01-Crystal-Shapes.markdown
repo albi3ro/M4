@@ -2,7 +2,7 @@
 title: Computationally Visualizing Crystals
 layout: post
 comments: True
-category: Undergrad
+category: General
 tags: [Lattices]
 author: Christina C. Lee
 ---
@@ -181,4 +181,4 @@ Can you hand draw them on paper?
 
 
 Let me know what you think, and enjoy the sequel as well!
-## [<center><i> Multi-site unit cells</i></center>]({{base.url}}/M4/undergrad/MultiSite-Unit-Cells.html)
+## [<center><i> Multi-site unit cells</i></center>]({{base.url}}/M4/General/MultiSite-Unit-Cells.html)

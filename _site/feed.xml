@@ -5,15 +5,15 @@
     <description>Blog Introduction to Computational Condensed Matter Physics</description>
     <link>/M4/</link>
     <atom:link href="/M4/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 31 Jan 2016 00:38:20 +0900</pubDate>
-    <lastBuildDate>Sun, 31 Jan 2016 00:38:20 +0900</lastBuildDate>
+    <pubDate>Sun, 31 Jan 2016 14:24:15 +0900</pubDate>
+    <lastBuildDate>Sun, 31 Jan 2016 14:24:15 +0900</lastBuildDate>
     <generator>Jekyll v2.2.0</generator>
     
       <item>
         <title>Atomic Orbitals Pt. 2</title>
         <description>&lt;p&gt;&lt;b&gt;Prerequiresites:&lt;/b&gt; Quantum Mechanics course&lt;/p&gt;
 
-&lt;p&gt;If you haven&amp;#39;t read it already, checkout &lt;a href=&quot;/M4/undergrad/Atomic-Orbitals.html&quot;&gt;Atomic Orbitals Pt. 1&lt;/a&gt;.  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.&lt;/p&gt;
+&lt;p&gt;If you haven&amp;#39;t read it already, checkout &lt;a href=&quot;/M4/Prereq/Atomic-Orbitals.html&quot;&gt;Atomic Orbitals Pt. 1&lt;/a&gt;.  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.&lt;/p&gt;
 
 &lt;p&gt;To add&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;Pkg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;GLVisualize&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -211,13 +211,13 @@
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 05 Jan 2015 00:00:00 +0900</pubDate>
-        <link>/M4/undergrad/Atomic-Orbitals2.html</link>
-        <guid isPermaLink="true">/M4/undergrad/Atomic-Orbitals2.html</guid>
+        <link>/M4/prereq/Atomic-Orbitals2.html</link>
+        <guid isPermaLink="true">/M4/prereq/Atomic-Orbitals2.html</guid>
         
         <category>Quantum</category>
         
         
-        <category>undergrad</category>
+        <category>prereq</category>
         
       </item>
     
@@ -229,7 +229,7 @@
 
 &lt;p&gt;NOPE!&lt;/p&gt;
 
-&lt;p&gt;We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, &lt;a href=&quot;/M4/undergrad/Atomic-Orbitals2.html&quot;&gt;Atomic Orbitals Pt. 2&lt;/a&gt;, uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.&lt;/p&gt;
+&lt;p&gt;We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, &lt;a href=&quot;/M4/Prereq/Atomic-Orbitals2.html&quot;&gt;Atomic Orbitals Pt. 2&lt;/a&gt;, uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.&lt;/p&gt;
 
 &lt;p&gt;The Hamiltonian for our problem is:&lt;/p&gt;
 
@@ -486,16 +486,16 @@ You might need to change &lt;code&gt;rmax&lt;/code&gt; to be able to view higher
     
 &lt;/div&gt;
 
-&lt;p&gt;Don&amp;#39;t forget to checkout &lt;a href=&quot;/M4/undergrad/Atomic-Orbitals2.html&quot;&gt;Atomic Orbitals Pt. 2&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Don&amp;#39;t forget to checkout &lt;a href=&quot;/M4/Prereq/Atomic-Orbitals2.html&quot;&gt;Atomic Orbitals Pt. 2&lt;/a&gt;!&lt;/p&gt;
 </description>
         <pubDate>Sun, 04 Jan 2015 00:00:00 +0900</pubDate>
-        <link>/M4/undergrad/Atomic-Orbitals.html</link>
-        <guid isPermaLink="true">/M4/undergrad/Atomic-Orbitals.html</guid>
+        <link>/M4/prereq/Atomic-Orbitals.html</link>
+        <guid isPermaLink="true">/M4/prereq/Atomic-Orbitals.html</guid>
         
         <category>Quantum</category>
         
         
-        <category>undergrad</category>
+        <category>prereq</category>
         
       </item>
     
@@ -673,13 +673,13 @@ Since the Hermite polynomials, and the wavefunctions after them, are composed on
 &lt;p&gt;This barely scratched the surface into the richness that can be seen in the quantum harmonic osscilator.  Here, just we developed a way for calculating the functions, and visualized the results.  Stay tuned to hear here about ground state energy, ladder operators, and atomic trapping.&lt;/p&gt;
 </description>
         <pubDate>Sat, 03 Jan 2015 00:00:00 +0900</pubDate>
-        <link>/M4/undergrad/QHO.html</link>
-        <guid isPermaLink="true">/M4/undergrad/QHO.html</guid>
+        <link>/M4/prereq/QHO.html</link>
+        <guid isPermaLink="true">/M4/prereq/QHO.html</guid>
         
         <category>Quantum</category>
         
         
-        <category>undergrad</category>
+        <category>prereq</category>
         
       </item>
     
@@ -687,7 +687,7 @@ Since the Hermite polynomials, and the wavefunctions after them, are composed on
         <title>Computationally Visualizing Crystals Pt. 2</title>
         <description>&lt;h4&gt;Christina C. Lee, github: albi3ro&lt;/h4&gt;
 
-&lt;p&gt;&lt;b&gt;Prerequisites:&lt;/b&gt; &lt;a href=&quot;/M4/ug/Crystal-Shapes.html&quot;&gt;Computationally Visuallizing Crystals Pt. 1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Prerequisites:&lt;/b&gt; &lt;a href=&quot;/M4/General/Crystal-Shapes.html&quot;&gt;Computationally Visuallizing Crystals Pt. 1&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don&amp;#39;t adhere to the &amp;quot;every site the same&amp;quot; policy.  They still repeat, but just take a little bit longer to get around to doing so.&lt;/p&gt;
 
@@ -905,13 +905,13 @@ You can see in my image that black sites are only next to white sites, and vice 
 &lt;p&gt;Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!&lt;/p&gt;
 </description>
         <pubDate>Fri, 02 Jan 2015 00:00:00 +0900</pubDate>
-        <link>/M4/undergrad/MultiSite-Unit-Cells.html</link>
-        <guid isPermaLink="true">/M4/undergrad/MultiSite-Unit-Cells.html</guid>
+        <link>/M4/general/MultiSite-Unit-Cells.html</link>
+        <guid isPermaLink="true">/M4/general/MultiSite-Unit-Cells.html</guid>
         
         <category>Lattices</category>
         
         
-        <category>undergrad</category>
+        <category>general</category>
         
       </item>
     
@@ -1097,16 +1097,16 @@ Note: Square is Simple Cubic for Nz=1
 
 &lt;p&gt;Let me know what you think, and enjoy the sequel as well!&lt;/p&gt;
 
-&lt;h2&gt;&lt;a href=&quot;/M4/undergrad/MultiSite-Unit-Cells.html&quot;&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a href=&quot;/M4/General/MultiSite-Unit-Cells.html&quot;&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/a&gt;&lt;/h2&gt;
 </description>
         <pubDate>Thu, 01 Jan 2015 00:00:00 +0900</pubDate>
-        <link>/M4/undergrad/Crystal-Shapes.html</link>
-        <guid isPermaLink="true">/M4/undergrad/Crystal-Shapes.html</guid>
+        <link>/M4/general/Crystal-Shapes.html</link>
+        <guid isPermaLink="true">/M4/general/Crystal-Shapes.html</guid>
         
         <category>Lattices</category>
         
         
-        <category>undergrad</category>
+        <category>general</category>
         
       </item>
     
