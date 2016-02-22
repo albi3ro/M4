@@ -32,7 +32,7 @@ Start with a base Rotation Matrix of the Form
 
 # a big title
 
-From our starting arbitrary symmetric $A$,
+From our starting arbitrary symmetric $$A$$,
 \begin{equation}
 A^T = A
 \end{equation}
