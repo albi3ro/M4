@@ -105,6 +105,8 @@ v^{\prime}_{rs} &= v_{rs} \\
 v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\
 v^{\prime}_{rq} &= s v_{rp} + c v_{rq} \\
 \end{align}
+$f(x)$
+
 
 normal text?
 
