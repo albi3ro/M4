@@ -46,17 +46,17 @@ And in the end we will need to finally determine if this actually converges, and
 So lets expand one transformation, and we if we can solve for $c$ and $s$.
 
 \begin{align}
-a^{\prime}\_{rp} & = c a\_{rp} - s a\_{rq} \\\\
-a^{\prime}\_{rq} & = c a\_{rq} + s a\_{rp} \\\\
-a^{\prime}\_{pp} & = c\^2 a\_{pp} + s\^2 a\_{qq} -2 sc a\_{pq} \\\\
-a^{\prime}\_{qq} & = s\^2 a\_{qq} + c\^2 a\_{qq} + 2sc a\_{pq} \\\\
-a^{\prime}\_{pq} & = \left( c\^2-s\^2 \right) a\_{pq} + sc \left(a\_{pq} - a\_{qq} \right)\\\\
+a^{\prime}_{rp} & = c a_{rp} - s a_{rq} \\\\
+a^{\prime}_{rq} & = c a_{rq} + s a_{rp} \\\\
+a^{\prime}_{pp} & = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq} \\\\
+a^{\prime}_{qq} & = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq} \\\\
+a^{\prime}_{pq} & = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)\\\\
 \end{align}
 
 ## Determining $s$ and $c$
-Given we specifically want $a\^{\prime}\_{pq}$ to be zero, we re-arrange the last equation,
+Given we specifically want $a^{\prime}_{pq}$ to be zero, we re-arrange the last equation,
 \begin{equation}
-        \frac{c\^2-s\^2}{2 sc} = \frac{a\_{pq}-a\_{qq}}{2 a\_{pq}} =\theta
+        \frac{c^2-s^2}{2 sc} = \frac{a_{pq}-a_{qq}}{2 a_{pq}} = \theta
 \end{equation}
 At first glance, this equation might not look easier to solve for $s$ or $c$.  Second either. We define a new parameter $t = s/c$, which now makes the equation,
 \begin{equation}
@@ -64,7 +64,7 @@ At first glance, this equation might not look easier to solve for $s$ or $c$.  S
 \end{equation}
 now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using form that pulls out smaller root through
 \begin{equation}
-t=\frac{\text{sgn}(\theta)}{|\theta| + \sqrt{\theta^2 + 1} }.
+t=\frac{\text{sgn}( \theta )}{| \theta | + \sqrt{ \theta ^2 + 1} }.
 \end{equation}
 Then reverse solve back to
 \begin{align}
@@ -74,11 +74,11 @@ s&=tc
 
 Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are
 \begin{align}
-a\^{\prime}\_{pq} & = 0\\\\
-a\^{\prime}\_{qq} & = a\_{qq} + t a\_{qp} \\\\
-a\^{\prime}\_{pp} &= a\_{pp} - t a\_{pq} \\\\
-a\^{\prime}\_{rp} &= a\_{rp} - s \left( a\_{rq} +\tau a\_{rp} \right) \\\\
-a\^{\prime}\_{rq} &= a\_{rq} + s \left( a\_{rp} -\tau a\_{rq} \right)\\\\
+a^{\prime}_{pq} & = 0\\\\
+a^{\prime}_{qq} & = a_{qq} + t a_{qp} \\\\
+a^{\prime}_{pp} &= a_{pp} - t a_{pq} \\\\
+a^{\prime}_{rp} &= a_{rp} - s \left( a_{rq} +\tau a_{rp} \right) \\\\
+a^{\prime}_{rq} &= a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)\\\\
 \end{align}
 with the new variable
 \begin{equation}
@@ -89,7 +89,7 @@ with the new variable
 
 The sum of the squares of the off diagonal elements ,choosen in either upper or lower triagnles arbitrarily,
 \begin{equation}
-S=\sum\limits_{r < s} |a\_{rs}|^2
+S=\sum\limits_{r < s} |a_{rs}|^2
 \end{equation}
 
 ## Eigenvectors
@@ -101,9 +101,9 @@ D = V^{T} \cdot A \cdot V
 and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
 \begin{align}
 V^{\prime} & = V \cdot P_i \\\\
-v^{\prime}\_{rs} &= v\_{rs} \\\\
-v^{\prime}\_{rp} &= c v\_{rp} - s v\_{rq} \\\\
-v^{\prime}\_{rq} &= s v\_{rp} + c v\_{rq}\\\\
+v^{\prime}_{rs} &= v_{rs} \\\\
+v^{\prime}_{rp} &= c v_{rp} - s v_{rq} \\\\
+v^{\prime}_{rq} &= s v_{rp} + c v_{rq}\\\\
 \end{align}
 
 ### Enough with the talking! LETS COMPUTE STUFF
