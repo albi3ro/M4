@@ -39,6 +39,7 @@ using PyPlot;
 
 Choose the lattice you want to look at, and put that string into the lattice variable.
 Current options:
+
 * Simple Cubic = "sc"
 * Plane triangular lattice = "pt"
 * Body-Centered Cubic = "bcc"
