@@ -39,12 +39,11 @@ using PyPlot;
 
 Choose the lattice you want to look at, and put that string into the lattice variable.
 Current options:
-<ul>
-    <li> Simple Cubic = "sc"
-    <li> Plane triangular lattice = "pt"
-    <li> Body-Centered Cubic = "bcc"
-    <li> Face-Centered Cubic = "fcc"
-</ul>
+* Simple Cubic = "sc"
+* Plane triangular lattice = "pt"
+* Body-Centered Cubic = "bcc"
+* Face-Centered Cubic = "fcc"
+
 Note: Square is Simple Cubic for Nz=1
 
 14 distinct lattice types are possible, but these common four give the important ideas.
