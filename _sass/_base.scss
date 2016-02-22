@@ -18,6 +18,11 @@ body {
     line-height: $base-line-height;
     font-weight: 300;
     color: $text-color;
+    background-image: url("/M4/Images/thedistance.png");
+    background-repeat:no-repeat;
+    background-position: left top;
+    background-attachment: fixed;
+    background-size: contain;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
 }
