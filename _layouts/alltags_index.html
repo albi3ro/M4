@@ -13,7 +13,7 @@ layout: default
               </tr>
   					  <tbody>
   						{% for tag in site.tags %}
-              <tr><td class="cattype"  colspan="3">{{tag || first}}</td></tr>
+              <tr><td class="cattype"  colspan="3" id="#{{tag}}">{{tag || first}}</td></tr>
               {% for posts in tag %}
               {% for post in posts %}
   						<tr class="trtag">
