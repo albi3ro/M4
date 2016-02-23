@@ -12,7 +12,7 @@ layout: default
     <p class="post-meta">Author: {{ page.author }} &nbsp;&nbsp;&nbsp;&nbsp;
       Category: <a href="{{base.url}}/M4/categories">{{ page.category }}</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
       {% for tagname in page.tags %}
-      <a href="{{base.url}}/M4/tags/#{{tagname}}">{{tagname}}</a></p>
+      <a href="{{base.url}}/M4/tags#{{tagname}}">{{tagname}}</a></p>
         {% endfor %}
   </header>
 
