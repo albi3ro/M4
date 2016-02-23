@@ -12,17 +12,17 @@ Follow this blog to start discovering some of the wonders of materials all aroun
 
 I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to peruse.  So you know what you are getting yourself into, I've developed a difficulty ranking scheme:
 
-*<b>General:</b> Those with some background in programming, math, and physics should be able to follow.
-*<b>Prerequisites:</b> I will spell out classes in the beginning that one should have taken
+* <b>General:</b> Those with some background in programming, math, and physics should be able to follow.
+* <b>Prerequisites:</b> I will spell out classes in the beginning that one should have taken
     in order to understand the physics of the post.  For example, in order to understand calculating
     the orbitals of a hydrogen-like atom, I will assume you analytically solved it in a Quantum Mechanics course.
     Even if you haven't taken  the classes, feel free to still try.
-*<b>Research:</b> A general research technique.
-*<b>In Field:</b> A specialized technique.  Unless you are doing research on the topic, or need to use this tool,
+* <b>Research:</b> A general research technique.
+* <b>In Field:</b> A specialized technique.  Unless you are doing research on the topic, or need to use this tool,
      you will probably not learn this technique, though researchers might hear about it. Consider where you want to spend your time.
-*<b>Numerics:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
+* <b>Numerics:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
     numerical method related.
-*<b>Fun:</b> Something off topic and silly for everyone!
+* <b>Fun:</b> Something off topic and silly for everyone!
 
 ## Julia - A possible future for Scientific Computing
 
