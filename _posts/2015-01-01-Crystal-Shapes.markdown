@@ -12,7 +12,7 @@ author: Christina C. Lee
 <b>Prerequisites:</b> none
 
 
-In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers (e.g. $$10^{23}$$) of extremely small particles such as atoms, or electrons.
+In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers, e.g. $$10^{23}$$, of extremely small particles such as atoms, or electrons.
 
 Luckily, the particles don't each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  As our first step into the field, we will look at the most basic type, a <i>Bravais lattice</i>.
 
