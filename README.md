@@ -10,7 +10,20 @@
 You thought particle physics and astronomy were the only big fronteirs in physics? Well, you thought wrong.
 Follow this blog to start discovering some of the wonders of materials all around you, and some of the revolutions that are shocking the field.
 
-I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to give some a try.  Later, I will develop a difficulty ranking scheme.
+I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to peruse.  So you know what you are getting yourself into, I've developed a difficulty ranking scheme:
+
+*<b>General:</b> Those with some background in programming, math, and physics should be able to follow.
+*<b>Prerequisites:</b> I will spell out classes in the beginning that one should have taken
+    in order to understand the physics of the post.  For example, in order to understand calculating
+    the orbitals of a hydrogen-like atom, I will assume you analytically solved it in a Quantum Mechanics course.
+    Even if you haven't taken  the classes, feel free to still try.
+*<b>Research:</b> A general research technique.
+*<b>In Field:</b> A specialized technique.  Unless you are doing research on the topic, or need to use this tool,
+     you will probably not learn this technique, though researchers might hear about it. Consider where you want to spend your time.
+*<b>Numerics:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
+    numerical method related.
+*<b>Fun:</b> Something off topic and silly for everyone!
+
 
 ## Julia - A possible future for Scientific Computing
 
@@ -31,7 +44,7 @@ The first time a packaged is used on a machine by `using ...`, the computer has 
 
 ### Using My Packages
 
-I have written packages of my own for use on certain sections.  To add these to the path, download them to the folder you are using, and in your command line, type `push!(LOAD_PATH,"/path/to/my/code")`, where `/path/to/my/code` is the location of the package.  Then, you can type `using Lattices` in just the same way.    
+I have written packages of my own for use on certain sections.  To add these to the path, download them to the folder you are using, and in your command line, type `push!(LOAD_PATH,"/path/to/my/code")`, where `/path/to/my/code` is the location of the package.  Then, you can type `using Lattices` in just the same way.
 
 ## For further reference
 Interested in learning more?
@@ -42,5 +55,3 @@ Interested in learning more?
 * https://thiscondensedlife.wordpress.com/
 
 Know any good ones? Let me know!
-
-
