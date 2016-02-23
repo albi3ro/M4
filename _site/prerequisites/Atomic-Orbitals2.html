@@ -70,15 +70,15 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
       </div>
@@ -126,88 +126,83 @@
 
 <p>To add this package:</p>
 
-<p><code>julia
-Pkg.add("GLVisualize")
-</code></p>
+<pre><code class="language-julia">Pkg.add("GLVisualize")
+</code></pre>
 
 <p>and test with:</p>
 
-<p><code>julia
-Pkg.test("GLVisualize")
-</code></p>
+<pre><code class="language-julia">Pkg.test("GLVisualize")
+</code></pre>
 
 <p>But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.</p>
 
-<p><code>julia
-#Pkg.update();
+<pre><code class="language-julia">#Pkg.update();
 #Pkg.add("GSL");
 using GSL;
 using GLVisualize;
-</code></p>
+</code></pre>
 
-<p>```julia
-a0=1; #for convenience, or 5.2917721092(17)×10−11 m</p>
+<pre><code class="language-julia">a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
-<h1 id="the-unitless-radial-coordinate">The unitless radial coordinate</h1>
-<p>ρ(r,n)=2r/(n*a0);</p>
+# The unitless radial coordinate
+ρ(r,n)=2r/(n*a0);
 
-<h1 id="the--dependence">The θ dependence</h1>
-<p>function Pmlh(m::Int,l::Int,θ::Real)
+#The θ dependence
+function Pmlh(m::Int,l::Int,θ::Real)
     return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
-end</p>
+end
 
-<h1 id="the--and--dependence">The θ and ϕ dependence</h1>
-<p>function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
-    return  (-1.0)^m<em>sf_legendre_Plm(l,abs(m),cos(θ))</em>e^(im<em>m</em>ϕ)
-end</p>
+#The θ and ϕ dependence
+function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
+    return  (-1.0)^m*sf_legendre_Plm(l,abs(m),cos(θ))*e^(im*m*ϕ)
+end
 
-<h1 id="the-radial-dependence">The Radial dependence</h1>
-<p>function R(n::Int,l::Int,ρ::Real)
+#The Radial dependence
+function R(n::Int,l::Int,ρ::Real)
     if isapprox(ρ,0)
         ρ=.001
     end
-     return sf_laguerre_n(n-l-1,2<em>l+1,ρ)</em>e^(-ρ/2)*ρ^l
-end</p>
+     return sf_laguerre_n(n-l-1,2*l+1,ρ)*e^(-ρ/2)*ρ^l
+end
 
-<h1 id="a-normalization-this-is-dependent-on-the-choice-of-polynomial-representation">A normalization: This is dependent on the choice of polynomial representation</h1>
-<p>function norm(n::Int,l::Int)
+#A normalization: This is dependent on the choice of polynomial representation
+function norm(n::Int,l::Int)
     return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
-end</p>
+end
 
-<h1 id="generates-an-orbital-funtion-of-r-for-a-specificied-nlm">Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.</h1>
-<p>function Orbital(n::Int,l::Int,m::Int)
+#Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.
+function Orbital(n::Int,l::Int,m::Int)
     if (l&gt;n)    # we make sure l and m are within proper bounds
         throw(DomainError())
     end
     if abs(m)&gt;l
        throw(DomainError())
     end
-    psi(ρ,θ,ϕ)=norm(n, l)<em>R(n,l,ρ)</em>Yml(m,l,θ,ϕ);
+    psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
     return psi
-end</p>
+end
 
-<h1 id="we-will-calculate-is-spherical-coordinates-but-plot-in-cartesian-so-we-need-this-array-conversion">We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion</h1>
-<p>function SphtoCart(r::Array,θ::Array,ϕ::Array)
-    x=r.<em>sin(θ).</em>cos(ϕ);
-    y=r.<em>sin(θ).</em>sin(ϕ);
+#We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion
+function SphtoCart(r::Array,θ::Array,ϕ::Array)
+    x=r.*sin(θ).*cos(ϕ);
+    y=r.*sin(θ).*sin(ϕ);
     z=r.*cos(θ);
     return x,y,z;
-end</p>
+end
 
-<p>function CarttoSph(x::Array,y::Array,z::Array)
+function CarttoSph(x::Array,y::Array,z::Array)
     r=sqrt(x.^2+y.^2+z.^2);
     θ=acos(z./r);
     ϕ=atan(y./x);
     return r,θ,ϕ;
-end</p>
+end
 
-<p>“Defined Helper Functions”
-```</p>
+"Defined Helper Functions"
+</code></pre>
 
 <p>Here, create a square cube, and convert those positions over to spherical coordinates.</p>
 
-<p>```julia
-range=-10:.5:10
+<pre><code class="language-julia">range=-10:.5:10
 x=collect(range);
 y=collect(range);
 z=collect(range);
@@ -215,24 +210,21 @@ N=length(x);
 xa=repeat(x,outer=[1,N,N]);
 ya=repeat(transpose(y),outer=[N,1,N]);
 za=repeat(reshape(z,1,1,N),outer=[N,N,1]);
-println(“created x,y,z”)</p>
+println("created x,y,z")
 
-<p>r,θ, ϕ=CarttoSph(xa,ya,za);
-println(“created r,θ,ϕ”)
-```</p>
+r,θ, ϕ=CarttoSph(xa,ya,za);
+println("created r,θ,ϕ")
+</code></pre>
 
-<p><code>julia
-Ψ=Orbital(3,2,-1)
+<pre><code class="language-julia">Ψ=Orbital(3,2,-1)
 Ψp=Orbital(3,1,0)
-</code></p>
+</code></pre>
 
-<p><code>julia
-Ψv = zeros(Float32,N,N,N);
+<pre><code class="language-julia">Ψv = zeros(Float32,N,N,N);
 ϕv = zeros(Float32,N,N,N);
-</code></p>
+</code></pre>
 
-<p>```julia
-for nn in 1:N
+<pre><code class="language-julia">for nn in 1:N
     for jj in 1:N
         for kk in 1:N
             val=Ψ(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
@@ -241,25 +233,24 @@ for nn in 1:N
             ϕv[nn,jj,kk]=convert(Float32,angle(val));
         end
     end
-end</p>
+end
 
-<p>mid=round(Int,(N-1)/2+1);
+mid=round(Int,(N-1)/2+1);
 Ψv[mid,mid,:]=Ψv[mid+1,mid+1,:]; # the one at the center diverges
 Ψv=(Ψv-minimum(Ψv))/(maximum(Ψv)-minimum(Ψv) );
-```</p>
+</code></pre>
 
-<p>```julia
-w,r = glscreen()</p>
+<pre><code class="language-julia">w,r = glscreen()
 
-<p>robj=visualize(Ψv)</p>
+robj=visualize(Ψv)
 
-<h1 id="choose-this-one-for-surfaces-of-constant-of-intensity">choose this one for surfaces of constant of intensity</h1>
-<p>view(visualize(robj[:intensities],:iso))</p>
+#choose this one for surfaces of constant of intensity
+view(visualize(robj[:intensities],:iso))
 
-<h1 id="choose-this-for-a-block-of-3d-density">choose this for a block of 3D density</h1>
-<p>#view(visualize(Ψv))
+#choose this for a block of 3D density
+#view(visualize(Ψv))
 r()
-```</p>
+</code></pre>
 
 <h2 id="p-orbital">2p Orbital</h2>
 

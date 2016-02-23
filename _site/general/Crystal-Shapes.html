@@ -70,15 +70,15 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
       </div>
@@ -138,12 +138,11 @@
 
 <p>Stay tuned for a later post where we explore more elaborate lattices.</p>
 
-<p><code>julia
-# importing our packages
+<pre><code class="language-julia"># importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
 using PyPlot;
-</code></p>
+</code></pre>
 
 <h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
 
@@ -163,16 +162,14 @@ Current options:</p>
 
 <p>Also, input the size of lattice you want to look at.</p>
 
-<p>```julia
-lattice=”sc”;</p>
+<pre><code class="language-julia">lattice="sc";
 
-<p>Nx=3;
+Nx=3;
 Ny=3;
 Nz=3;
-```</p>
+</code></pre>
 
-<p><code>julia
-# A cell to just evaluate
+<pre><code class="language-julia"># A cell to just evaluate
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice=="sc")
@@ -198,34 +195,32 @@ elseif(lattice=="fcc")
 else
     println("Please have a correct lattice")
 end
-</code></p>
+</code></pre>
 
-<p>```julia
-# Another cell to just evaluate
+<pre><code class="language-julia"># Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
-N=Nx<em>Ny</em>Nz;    #The total number of sites
+N=Nx*Ny*Nz;    #The total number of sites
 aM=transpose(a);
 bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or layer at once
-cM=transpose(repeat(c,outer=[1,Nx*Ny]));</p>
+cM=transpose(repeat(c,outer=[1,Nx*Ny]));
 
-<p>X=Array{Float64}(N,3);  #where we store the positions
-```</p>
+X=Array{Float64}(N,3);  #where we store the positions
+</code></pre>
 
-<p>```julia
-# Another cell to just evaluate
+<pre><code class="language-julia"># Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[i,:]=(i-1)*a;
-end</p>
-
-<p>for j in 2:Ny    #copying the first row into the first layer
-    X[Nx<em>(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)</em>bM;
-end</p>
-
-<p>for j in 2:Nz    #copying the first layer into the entire cube
-    X[Ny<em>Nx</em>(j-1)+(1:Nx<em>Ny),:]=X[1:Nx</em>Ny,:]+(j-1)*cM;
 end
-```</p>
+
+for j in 2:Ny    #copying the first row into the first layer
+    X[Nx*(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)*bM;
+end
+
+for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
+end
+</code></pre>
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
  <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
@@ -236,10 +231,9 @@ end
  <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
 </div>
 
-<p>```julia
-pygui(false);  #if true, launches new window with interactive capabilities</p>
+<pre><code class="language-julia">pygui(false);  #if true, launches new window with interactive capabilities
 
-<p>drawcube=true;  #gives lines for a cube, helps interpret the dots
+drawcube=true;  #gives lines for a cube, helps interpret the dots
 ls=2;  # how many cubes to draw
 if(drawcube==true)
     v=collect(0:ls);
@@ -247,19 +241,19 @@ if(drawcube==true)
     for i in 0:ls
         for j in 0:ls
             plot3D(zed+i,v,zed+j)
-            plot3D(zed+i,zed+j,v)</p>
+            plot3D(zed+i,zed+j,v)
 
-<pre><code>        plot3D(v,zed+i,zed+j)
-        plot3D(zed+j,zed+i,v)
+            plot3D(v,zed+i,zed+j)
+            plot3D(zed+j,zed+i,v)
 
-        plot3D(v,zed+j,zed+i)
-        plot3D(zed+j,v,zed+i)
+            plot3D(v,zed+j,zed+i)
+            plot3D(zed+j,v,zed+i)
+        end
     end
-end end
-</code></pre>
+end
 
-<p>scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
-```</p>
+scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
+</code></pre>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -305,7 +299,7 @@ end end
 
 <p>As you might have noticed, this isn’t just a blog where you read through the posts.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?</p>
 
-<p>Chose <code>pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
+<p>Chose <code class="highlighter-rouge">pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
 
 <p>Look at different lattice sizes.</p>
 

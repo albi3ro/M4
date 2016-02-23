@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<div class="post">
+  <h2>{{page.title}}</h2>
+<p>
+
+  					<table class="tagtable">
+              <tr>
+                <th class="thtitle">Title</th>
+                <th class="thprop">Level</th>
+                <th class="thprop">Tags</th>
+              </tr>
+  					  <tbody>
+  						{% for tag in site.tags %}
+              <tr><td class="cattype"  colspan="3">{{cat || first}}</td></tr>
+              {% for posts in tag %}
+              {% for post in posts %}
+  						<tr class="trtag">
+  						  <td class="tagtitle"><h3><a href="{{base.url}}/M4/{{ post.url }}">{{ post.title }}</a></h3></td>
+  							<td class="tagprop"><p class="post-meta">{{ post.category }}</p></td>
+                <td class="tagprop"><o class="post-meta">{{ post.tags }}</p></td>
+  						</tr>
+              {% endfor %}
+              {% endfor %}
+  						{% endfor %}
+  					  </tbody>
+            </table>
+</div>
