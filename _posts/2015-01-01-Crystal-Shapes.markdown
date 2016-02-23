@@ -177,8 +177,8 @@ Look at different lattice sizes.
 
 Can you hand draw them on paper?
 
-<center>![Mydrawing](M4/Images/CrystalShapes/handdraw2.jpg)</center>
+{% include image.html img="M4/Images/CrystalShapes/handdraw2.jpg" title="handdrawn fcc" caption="A face centered cubic I decided to draw myself. " %}
 
 
 Let me know what you think, and enjoy the sequel as well!
-## [<center><i> Multi-site unit cells</i></center>]({{base.url}}/M4/General/MultiSite-Unit-Cells.html)
+## [<center><i> Multi-site unit cells</i></center>]({{base.url}}/M4/general/MultiSite-Unit-Cells.html)

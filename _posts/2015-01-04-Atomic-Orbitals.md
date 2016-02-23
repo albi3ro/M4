@@ -270,4 +270,4 @@ colorbar()
 {% include image.html img="M4/Images/Orbitals/angular2di.png" title="3p in 2d" caption="Slice of a 3p orbital in the x and z plane."%}
 {% include image.html img="M4/Images/Orbitals/angular2d2i.png" title="3dz2 in 2d" caption="Slice of a 3dz2 orbital in the x and z plane."%}
 
-Don't forget to check out [Atomic Orbitals Pt. 2]({{base.url}}/M4/Prereq/Atomic-Orbitals2.html)!
+Don't forget to check out [Atomic Orbitals Pt. 2]({{base.url}}/M4/prerequisites/Atomic-Orbitals2.html)!
