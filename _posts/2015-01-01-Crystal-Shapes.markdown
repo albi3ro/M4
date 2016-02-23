@@ -12,17 +12,17 @@ author: Christina C. Lee
 <b>Prerequisites:</b> none
 
 
-In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers $10^{23}$ of extremely small particles, ex. atoms, electrons.
+In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers (e.g. $10^{23}$) of extremely small particles such as atoms, or electrons.
 
-Luckily, the particles don't each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  So as our first step into the field, we will look at the most basic type, a <i>Bravais Lattice</i>.
+Luckily, the particles don't each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  As our first step into the field, we will look at the most basic type, a <i>Bravais lattice</i>.
 
-In a Bravais Lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.
+In a Bravais lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.
 
 \begin{equation}
 \mathbf{R}_{lmn}=l \vec{a} + m \vec{b} + n \vec{c}  \;\;\;\; \text{for } l,m,n \in \mathbb{N}
 \end{equation}
 
-To keep things working out right, we have to put a constraint on these vectors; that we can't get one from scaling and adding the other two.  If we could, then we couldn't put sites in an entire 3 dimensional space.
+For consistency, we have to put a constraint on these vectors; we cannot combine two of the vectors and obtain the third.  If we could, then we couldn't have sites in an entire three dimensional space.
 
 Stay tuned for a later post where we explore more elaborate lattices.
 
@@ -37,7 +37,7 @@ using PyPlot;
 
 ## Define The Relevant Variables
 
-Choose the lattice you want to look at, and put that string into the lattice variable.
+Choose the lattice you want to look at, and use that string for the lattice variable.
 Current options:
 
 * Simple Cubic = "sc"
@@ -169,7 +169,7 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 
 ## Go Back and Fiddle!
 
-As you might have noticed, this isn't just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?
+As you might have noticed, this isn't just a blog where you read through the posts.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?
 
 Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
 
