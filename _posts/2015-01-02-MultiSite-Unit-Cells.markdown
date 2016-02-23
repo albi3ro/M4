@@ -9,7 +9,7 @@ author: Christina C. Lee
 
 #### Christina C. Lee, github: albi3ro
 
-<b>Prerequisites:</b> [Computationally Visualizing Crystals Pt. 1]({{base.url}}/M4/General/Crystal-Shapes.html)
+<b>Prerequisites:</b> [Computationally Visualizing Crystals Pt. 1]({{base.url}}/M4/general/Crystal-Shapes.html)
 
 Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don't adhere to the "every site the same" policy.  They still repeat, but just take a little bit longer to get around to doing so.
 
