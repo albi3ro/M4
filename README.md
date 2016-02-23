@@ -43,7 +43,6 @@ Interested in learning more?
 
 Know any good ones? Let me know!
 
-
 <sub><center>
 The MIT License (MIT)
 
@@ -58,17 +57,10 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-<<<<<<< HEAD
 <sub><sub>
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-=======
-<ul>
-<li>Principles of Condensed Matter Physics- Chaikin & Lubensky
-<li>Condensed Matter in a Nutshell- Mahan
-<li>Inna Vishik on Quora https://www.quora.com/profile/Inna-Vishik
-<li>https://thiscondensedlife.wordpress.com/
->>>>>>> af75f7d02cbf586c0e3b54b3ce3f1f895e6f839f
+
 
 <sub><sub>
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
