@@ -9,6 +9,8 @@ permalink: /about/
 I'm a PhD student at the Okinawa Institute of Science and Technology studying Quantum Spin Liquids,
 a subset of Frustration, a subset of Condensed Matter Physics.
 
+I would greatly like to thank Lee O'Riordan, github: mlxd, for conversations, advice, and the large amount of grammer checking this physicist needs.
+
 ## For further reference
 Interested in learning more?
 

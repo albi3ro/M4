@@ -105,6 +105,10 @@
       <div class="wrapper">
         <div class="post">
 
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
   <header class="post-header">
     <h1 class="post-title">Computationally Visualizing Crystals Pt. 2</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
@@ -116,19 +120,18 @@
 
   <article class="post-content">
 
-    <h4>Christina C. Lee, github: albi3ro</h4>
+    <h4 id="christina-c-lee-github-albi3ro">Christina C. Lee, github: albi3ro</h4>
 
-<p><b>Prerequisites:</b> <a href="/M4/General/Crystal-Shapes.html">Computationally Visuallizing Crystals Pt. 1</a></p>
+<p><b>Prerequisites:</b> <a href="/M4/general/Crystal-Shapes.html">Computationally Visualizing Crystals Pt. 1</a></p>
 
-<p>Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don&#39;t adhere to the &quot;every site the same&quot; policy.  They still repeat, but just take a little bit longer to get around to doing so.</p>
+<p>Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don’t adhere to the “every site the same” policy.  They still repeat, but just take a little bit longer to get around to doing so.</p>
 
 <p>Take the Kagome Lattice below,</p>
 
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/kagomesvg.png" alt="kagome"/>
+        <img src="/M4/Images/MultiUnit/kagomesvg.png" alt="kagome" />
     
     
         <p class="image-caption">A Kagome Lattice.</p>
@@ -136,180 +139,197 @@
 </div>
 
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/kagomebasket.jpg" alt="basket"/>
+        <img src="/M4/Images/MultiUnit/kagomebasket.jpg" alt="basket" />
     
     
         <p class="image-caption">A basket woven in the Japanese kagome style. <sub>Wikimedia commons</sub></p>
     
 </div>
 
-<p>If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>Unit Cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:</p>
+<p>If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>unit cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:</p>
 
 <blockquote>
-<p>A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.</p>
+  <p>A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.</p>
 </blockquote>
 
-<p>Now I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?</p>
+<p>I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?</p>
 
-<p>Turns out, there isn&#39;t a unique way.  We can go further and define the <i>Wigner-Seitz</i> unit cell, which uses the Bravais translations to pick out just ONE of the various possible definitions.</p>
+<p>Turns out, there isn’t a unique way.  We can go further and define the <i>Wigner-Seitz</i> unit cell, which uses the Bravais translations to pick out just ONE of the various possible definitions.</p>
 
 <p>In my line of work though, we often use either the easiest to write down, or the one that has the symmetries we want.</p>
 
-<h3>Introducing Some Lattice Options</h3>
+<h3 id="introducing-some-lattice-options">Introducing Some Lattice Options</h3>
 
 <p>You saw Kagome above.</p>
 
-<p>The options I&#39;ve put in now are:
- <ul>
-<li> honeycomb
-<li> kagome
-<li> shuriken aka Square-Kagome
-<li> diamond
-<li> pyrochlore
-</ul></p>
+<p>The options I’ve put in now are:</p>
 
-<p>The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene, an extremely important material right now, though I work with it in terms of the Kitaev spin model.  Kagome and Pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.</p>
+<ul>
+  <li>honeycomb</li>
+  <li>kagome</li>
+  <li>shuriken (a.k.a. square-Kagome)</li>
+  <li>diamond</li>
+  <li>pyrochlore</li>
+</ul>
+
+<p>The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene. This is an extremely important material right now, though I work with it in terms of the Kitaev spin model (to be discussed at a later date). Kagome and pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.</p>
 
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/Shurikens.jpg" alt="Shurikens"/>
+        <img src="/M4/Images/MultiUnit/Shurikens.jpg" alt="Shurikens" />
     
     
         <p class="image-caption">Japanese Shurikens- a type of ninja fighting star. <sub>By kaex0r (http://www.flickr.com/photos/kaex0r414/191765028/) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons</sub></p>
     
 </div>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># importing our packages</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;PyPlot&quot;</span><span class="p">);</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">();</span>
-<span class="k">using</span> <span class="n">PyPlot</span><span class="p">;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">lattice</span><span class="o">=</span><span class="s">&quot;shuriken&quot;</span><span class="p">;</span>
 
-<span class="n">Nx</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">Ny</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">Nz</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># A cell to just evaluate</span>
-<span class="c"># This one sets the unit vectors (a,b,c) for the different unit cells</span>
-<span class="c"># Can you guess what a lattice will look like by looking at the vectors?</span>
-<span class="k">if</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;honeycomb&quot;</span><span class="p">)</span> <span class="c">#also the graphite lattice</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="mi">0</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;kagome&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">5</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="mi">0</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>       <span class="c">#Look familiar? Checkout pt from Pt. 1</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;shuriken&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">6</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="o">.</span><span class="mi">5</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="mi">0</span> <span class="o">.</span><span class="mi">5</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="o">.</span><span class="mi">5</span> <span class="o">.</span><span class="mi">5</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">25</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">.</span><span class="mi">25</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">25</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="mi">0</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;diamond&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>    <span class="c">#Look familiar? Checkout fcc from Pt.1</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;pyrochlore&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">25</span><span class="p">]</span>
-        <span class="p">[</span><span class="mi">0</span> <span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
+<p><code>julia
+# importing our packages
+Pkg.add("PyPlot");
+Pkg.update();
+using PyPlot;
+</code></p>
 
-<span class="k">else</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Please have a correct lattice&quot;</span><span class="p">)</span>
-<span class="k">end</span>
-<span class="s">&quot;Cell finished&quot;</span>
-</code></pre></div>
-<h3>Connections to Bravais Lattices</h3>
+<p>```julia
+lattice=”shuriken”;</p>
 
-<p>If look at some of the comments above, and checkout the basis vectors from Crystal Shapes, like pt,
+<p>Nx=3;
+Ny=3;
+Nz=1;
+```</p>
+
+<p>```julia
+# A cell to just evaluate
+# This one sets the unit vectors (a,b,c) for the different unit cells
+# Can you guess what a lattice will look like by looking at the vectors?
+if(lattice==”honeycomb”) #also the graphite lattice
+    d=2;
+    Ncell=2;
+    unit=[[0 0 0]
+        [sqrt(3)/2 1/2 0]];
+    a=[sqrt(3),0,0];
+    b=[sqrt(3)/2,3/2,0];
+    c=[0,0,1];
+elseif(lattice==”kagome”)
+    d=2;
+    Ncell=3;
+    unit=[[0 0 0]
+          [1 0 0]
+        [.5 sqrt(3)/2 0]];
+    a=[2,0,0];       #Look familiar? Checkout pt from Pt. 1
+    b=[1, sqrt(3), 0];
+    c=[0,0,1];
+elseif(lattice==”shuriken”)
+    d=2;
+    Ncell=6;
+    unit=[[0 0 0]
+          [.5 0 0]
+          [0 .5 0]
+          [.5 .5 0]
+        [.5+.25<em>sqrt(3) .25 0]
+        [.25 .5+.25</em>sqrt(3) 0]];
+    a=[.5+.5<em>sqrt(3),0,0];
+    b=[0,.5+.5</em>sqrt(3),0];
+    c=[0,0,1];
+elseif(lattice==”diamond”)
+    d=3;
+    Ncell=2;
+    unit=[[0 0 0]
+          [.25 .25 .25]];
+    a=[.5,.5,0];    #Look familiar? Checkout fcc from Pt.1
+    b=[.5,0,.5];
+    c=[0,.5,.5];
+elseif(lattice==”pyrochlore”)
+    d=3;
+    Ncell=4;
+    unit=[[0 0 0]
+        [.25 .25 0]
+        [.25 0 .25]
+        [0 .25 .25]];
+    a=[.5,.5,0];
+    b=[.5,0,.5];
+    c=[0,.5,.5];</p>
+
+<p>else
+    println(“Please have a correct lattice”)
+end
+“Cell finished”
+```</p>
+
+<h3 id="connections-to-bravais-lattices">Connections to Bravais Lattices</h3>
+
+<p>If you look at some of the comments above, and checkout the basis vectors from <a href="/M4/General/Crystal-Shapes.html"><i>Crystal Shapes</i></a>, like pt,
         \begin{equation}
             a=[1,0,0]\;\;\;\;\;\;\;\;\; b=[.5,\frac{\sqrt{3}}{2},0],
         \end{equation}
-you&#39;ll notice they&#39;re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.</p>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
-<span class="c"># Here we set up some numbers and matrices for our computation</span>
-<span class="n">N</span><span class="o">=</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="o">*</span><span class="n">Ncell</span><span class="p">;</span>    <span class="c">#The total number of sites</span>
-<span class="n">aM</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Ncell</span><span class="p">]));</span>
-<span class="n">bM</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="p">]));</span> <span class="c">#these allow us to copy an entire row or layer at once</span>
-<span class="n">cM</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">]));</span>
+you’ll notice they’re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.</p>
 
-<span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}(</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>  <span class="c">#where we store the positions</span>
-<span class="s">&quot;Cell finished&quot;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
-<span class="c"># Here we are actually calculating the positions for every site</span>
-<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">Nx</span>    <span class="c">#for the first row</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="n">Ncell</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">i</span><span class="p">,:]</span><span class="o">=</span><span class="n">unit</span><span class="o">+</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">aM</span><span class="p">;</span>
-<span class="k">end</span>
+<p>```julia
+# Another cell to just evaluate
+# Here we set up some numbers and matrices for our computation
+N=Nx<em>Ny</em>Nz<em>Ncell;    #The total number of sites
+aM=transpose(repeat(a,outer=[1,Ncell]));
+bM=transpose(repeat(b,outer=[1,Ncell</em>Nx])); #these allow us to copy an entire row or layer at once
+cM=transpose(repeat(c,outer=[1,Ncell<em>Nx</em>Ny]));</p>
 
-<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Ny</span>    <span class="c">#copying the first row into the first layer</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">bM</span><span class="p">;</span>
-<span class="k">end</span>
+<p>X=Array{Float64}(N,3);  #where we store the positions
+“Cell finished”
+```</p>
 
-<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Nz</span>    <span class="c">#copying the first layer into the entire cube</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cM</span><span class="p">;</span>
-<span class="k">end</span>
-<span class="s">&quot;Cell finished&quot;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># 2D plotter</span>
-<span class="n">pygui</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="p">[:</span><span class="n">figaspect</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
-<span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span>
-</code></pre></div>
+<p>```julia
+# Another cell to just evaluate
+# Here we are actually calculating the positions for every site
+for i in 1:Nx    #for the first row
+    X[Ncell<em>i-Ncell+1:Ncell</em>i,:]=unit+(i-1)*aM;
+end</p>
+
+<p>for j in 2:Ny    #copying the first row into the first layer
+    X[Ncell<em>Nx</em>(j-1)+(1:Ncell<em>Nx),:]=X[1:Ncell</em>Nx,:]+(j-1)*bM;
+end</p>
+
+<p>for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ncell<em>Ny</em>Nx<em>(j-1)+(1:Ncell</em>Nx<em>Ny),:]=X[1:Ncell</em>Nx<em>Ny,:]+(j-1)</em>cM;
+end
+“Cell finished”
+```</p>
+
+<p><code>julia
+# 2D plotter
+pygui(false)
+w, h = plt[:figaspect](1)
+figure(figsize=(w,h))
+scatter(X[:,1],X[:,2])
+</code></p>
+
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/shurikenplot.png" alt="Shuriken"/>
+        <img src="/M4/Images/MultiUnit/shurikenplot.png" alt="Shuriken" />
     
     
         <p class="image-caption">3x3 Shuriken or Square-Kagome Lattice.</p>
     
 </div>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># 3D plotter</span>
-<span class="n">pygui</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="p">[:</span><span class="n">figaspect</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
-<span class="n">areas</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">scatter3D</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])</span>
-</code></pre></div>
-<h3>Perdy Pictures</h3>
 
-<p>From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here&#39;s a nice graphic I made that might help a little bit more.</p>
+<p><code>julia
+# 3D plotter
+pygui(false)
+w, h = plt[:figaspect](1)
+figure(figsize=(w,h))
+areas=100*ones(length(X[:,1]))
+scatter3D(X[:,1],X[:,2],X[:,3])
+</code></p>
+
+<h3 id="perdy-pictures">Perdy Pictures</h3>
+<p>From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here’s a nice graphic I made that might help a little bit more.</p>
 
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/pyrochloresvg4.png" alt="Pyrochlore"/>
+        <img src="/M4/Images/MultiUnit/pyrochloresvg4.png" alt="Pyrochlore" />
     
     
         <p class="image-caption">Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape.</p>
@@ -317,10 +337,9 @@ you&#39;ll notice they&#39;re the same except for a scaling factor.  This has to
 </div>
 
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/honeycomb.png" alt="honeycomb"/>
+        <img src="/M4/Images/MultiUnit/honeycomb.png" alt="honeycomb" />
     
     
         <p class="image-caption">Tikz produced Honeycomb.  Coloring indicative of the lattice description of the Kitaev model.  </p>
@@ -329,9 +348,9 @@ you&#39;ll notice they&#39;re the same except for a scaling factor.  This has to
 
 <p>The honeycomb, like several other lattices you see around here, is <i>bipartite</i>.
 You can see in my image that black sites are only next to white sites, and vice versa.
-  This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren&#39;t?</p>
+  This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren’t?</p>
 
-<p>If you keep reading, these lattices will keep cropping up again and again.  I&#39;ll probably throw in some new ones as well.</p>
+<p>If you keep reading, these lattices will keep cropping up again and again.  I’ll probably throw in some new ones as well.</p>
 
 <p>Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!</p>
 

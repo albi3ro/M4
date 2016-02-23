@@ -105,42 +105,44 @@
       <div class="wrapper">
         <div class="post">
 
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
 
   <header class="post-header">
     <h1 class="post-title">Interacting with Julia</h1>
   </header>
 
   <article class="post-content">
-    <h2>Julia - A possible future for Scientific Computing</h2>
+    <h2 id="julia---a-possible-future-for-scientific-computing">Julia - A possible future for Scientific Computing</h2>
 
 <p>The blog will be written in the form of julia (<a href="http://julialang.org/">http://julialang.org/</a>) jupyter notebooks. This new language has a syntax similar to Matlab or Python, and is easily human readable.  I encourage active participation by manipulating the code.</p>
 
-<p>Check out <a href="http://julialang.org/">http://julialang.org/</a> for documentation on this new and exciting language, and learn how to install it on your own machine.  &quot;Docs&quot; on the right hand side provides an easy link to the documentation.  </p>
+<p>Check out <a href="http://julialang.org/">http://julialang.org/</a> for documentation on this new and exciting language, and learn how to install it on your own machine.  “Docs” on the right hand side provides an easy link to the documentation.</p>
 
 <p>You can either install Julia and jupyter notebook on your own machine, or use juliabox (<a href="https://www.juliabox.org/">https://www.juliabox.org/</a>) to view and interact with the files.</p>
 
 <p>To use juliabox (the easiest option), log in with a google account, and then click on the sync tab.  Under the Github directory, input the clone <a href="https://github.com/albi3ro/M4.git">https://github.com/albi3ro/M4.git</a> , use branch master, and name the folder as you see fit.</p>
 
-<h3>Introductory Note on Packages</h3>
-
-<p>Many times I will use extra packages developed for Julia, such as plotting functionality.  If you are using the package for the first time on your machine, you will need to evaluate <code>Pkg.add(&quot;...&quot;)</code> and <code>Pkg.update()</code> before <code>using ...</code></p>
+<h3 id="introductory-note-on-packages">Introductory Note on Packages</h3>
+<p>Many times I will use extra packages developed for Julia, such as plotting functionality.  If you are using the package for the first time on your machine, you will need to evaluate <code>Pkg.add("...")</code> and <code>Pkg.update()</code> before <code>using ...</code></p>
 
 <p>If you are using JuliaBox, you will need to evaluate the those lines each time.</p>
 
 <p>The first time a packaged is used on a machine by <code>using ...</code>, the computer has to compile the package, and that can take a little bit of time.  As the language develops, the developers intend to create a more efficient system, but for now, we need patience.</p>
 
-<h3>My Packages</h3>
+<h3 id="my-packages">My Packages</h3>
 
 <p>In some blogs, I use modules that I have personally written in order to reduce the amount of unnesseary code present in the notebook.  When one of these is present:</p>
 
 <ul>
-<li>Make sure the corresponding *.jl file is downloaded</li>
-<li>Make sure the *.jl file is on your path</li>
+  <li>Make sure the corresponding *.jl file is downloaded</li>
+  <li>Make sure the *.jl file is on your path</li>
 </ul>
 
-<p>You add the location of the file each time by typing <code>push!(LOAD_PATH,&quot;\path\to\code&quot;)</code>.</p>
+<p>You add the location of the file each time by typing <code>push!(LOAD_PATH,"\path\to\code")</code>.</p>
 
-<p>You can permanently add a location to julia by adding the line <code>@everywhere push!(LOAD_PATH,&quot;\path\to\code&quot;)</code> to the file <code>.juliarc.jl</code> in your home directory.</p>
+<p>You can permanently add a location to julia by adding the line <code>@everywhere push!(LOAD_PATH,"\path\to\code")</code> to the file <code>.juliarc.jl</code> in your home directory.</p>
 
   </article>
 

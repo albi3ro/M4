@@ -105,6 +105,10 @@
       <div class="wrapper">
         <div class="post">
 
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
   <header class="post-header">
     <h1 class="post-title">Atomic Orbitals</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
@@ -122,12 +126,12 @@
 
 <p>NOPE!</p>
 
-<p>We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, <a href="/M4/undergrad/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>, uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.</p>
+<p>We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, <a href="/M4/prerequisites/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>, uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.</p>
 
 <p>The Hamiltonian for our problem is:</p>
 
 <p>\begin{equation}
-{\cal H}\Psi(x) =\left[ -\frac{\hbar}{2 m} \nabla^2 - \frac{Z e^2}{4 \pi \epsilon_0 r}\right]\Psi(x) = E \Psi(x)
+{\cal H}\Psi(\mathbf{x}) =\left[ -\frac{\hbar}{2 m} \nabla^2 - \frac{Z e^2}{4 \pi \epsilon_0 r}\right]\Psi(\mathbf{x}) = E \Psi(\mathbf{x})
 \end{equation}
 with
 \begin{equation}
@@ -140,9 +144,9 @@ r^2 \frac{\partial}{\partial r}
 \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2}{\partial \phi^2}
 \end{equation}</p>
 
-<p>To solve this problem, we begin by guessing a solution with seperated Radial and Angular variables,
+<p>To solve this problem, we begin by guessing a solution with separated <i>radial</i> and <i>angular</i> variables,
 \begin{equation}
-\Psi(x) = R(r) \Theta ( \theta,\phi)
+\Psi(\mathbf{x}) = R(r) \Theta ( \theta,\phi)
 \end{equation}</p>
 
 <p>\begin{equation}
@@ -154,15 +158,15 @@ r^2 \frac{\partial}{\partial r}
 =C
 \end{equation}</p>
 
-<p>Instead of going into the precise mechanisms of solving those two seperate equations here, trust for now that they follow standard special functions, the associated Legendre Polynomial and the generalized Laguerre Polynomial.  Try a standard Quantum Mechanics textbook for more information about this.</p>
+<p>Instead of going into the precise mechanisms of solving those two separate equations here, trust for now that they follow standard special functions, the associated <i>Legendre polynomial</i> and the generalized <i>Laguerre polynomial</i>.  Try a standard quantum mechanics textbook for more information about this.</p>
 
 <p>\begin{equation}
-        Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
+Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
 \end{equation}
-where $P^m_l (\cos (\theta))$ is the associated Legendre Polynomial.</p>
+where $P^m_l (\cos (\theta))$ is the associated Legendre polynomial.</p>
 
 <p>\begin{equation}
-    R^{n,l} (\rho) = \rho^l e^{-\rho/2} L^{2 l+1}_{n-l-1} (\rho)
+ R^{n,l} ( \rho ) = \rho ^l e^{- \rho  /2} L^{2 l+1}_{n-l-1} ( \rho )
 \end{equation}
 where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.</p>
 
@@ -173,195 +177,212 @@ where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.</p>
 <p>\begin{equation}
     N=\sqrt{\left(\frac{2}{n}\right)^3 \frac{(n-l-1)}{2n(n+l)!}}
 \end{equation}</p>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#Pkg.update();</span>
-<span class="c">#Pkg.add(&quot;GSL&quot;);</span>
-<span class="c">#Pkg.add(&quot;PyPlot&quot;);</span>
-<span class="k">using</span> <span class="n">GSL</span><span class="p">;</span>    <span class="c">#GSL holds the special functions</span>
-<span class="k">using</span> <span class="n">PyPlot</span><span class="p">;</span>
-</code></pre></div>
-<h4>Cell to Evaluate</h4>
 
-<p>What&#39;s below is a bunch of definitions that makes our calculations easier later on.  Here I utalize the Gnu scientific library, GSL imported above, to calculate the special functions.</p>
+<p><code>julia
+#Pkg.update();
+#Pkg.add("GSL");
+#Pkg.add("PyPlot");
+using GSL;    #GSL holds the special functions
+using PyPlot;
+</code></p>
+
+<h4 id="cell-to-evaluate">Cell to Evaluate</h4>
+<p>What’s below is a bunch of definitions that makes our calculations easier later on.  Here I utilize the GNU scientific library, GSL imported above, to calculate the special functions.</p>
 
 <div class="progtip">
 <h3 color="black"> Programming Tip!</h3>
-<p>Even though its not necessary, specifying the type of inputs to a function through <code>m::Int</code> helps prevent improper inputs and allows the compiler to perform additional optimizations.  Julia also implements <i>Abstract Types</i>, so we don't have to specify the exact type of Int.  Real allows and numerical, non-complex type.</p>
+<p>Even though it's not necessary, specifying the type of inputs to a function through <code>m::Int</code> helps prevent improper inputs and allows the compiler to perform additional optimizations.  Julia also implements <i>abstract types</i>, so we don't have to specify the exact type of Int.  Real allows a numerical, non-complex type.</p>
 <p>
-Type greek characters in Jupyter notebooks via LaTeX syntax.  ex: \alpha+tab</p>
+Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab</p>
 <p>
 The function <code>Orbital</code> throws <code>DomainError()</code> when <code>l</code> or <code>m</code> do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
 </p>
 </div>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">a0</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="c">#for convenience, or 5.2917721092(17)×10−11 m</span>
+<p>```julia
+a0=1; #for convenience, or 5.2917721092(17)×10−11 m</p>
 
-<span class="c"># The unitless radial coordinate</span>
-<span class="err">ρ</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">=</span><span class="mi">2</span><span class="n">r</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">a0</span><span class="p">);</span>
+<h1 id="the-unitless-radial-coordinate">The unitless radial coordinate</h1>
+<p>ρ(r,n)=2r/(n*a0);</p>
 
-<span class="c">#The θ dependence</span>
-<span class="k">function</span><span class="nf"> Pmlh</span><span class="p">(</span><span class="n">m</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="err">θ</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">^</span><span class="n">m</span> <span class="o">*</span><span class="n">sf_legendre_Plm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="err">θ</span><span class="p">));</span>
-<span class="k">end</span>
+<h1 id="the--dependence">The θ dependence</h1>
+<p>function Pmlh(m::Int,l::Int,θ::Real)
+    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
+end</p>
 
-<span class="c">#The θ and ϕ dependence</span>
-<span class="k">function</span><span class="nf"> Yml</span><span class="p">(</span><span class="n">m</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="err">θ</span><span class="p">::</span><span class="n">Real</span><span class="p">,</span><span class="err">ϕ</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
-    <span class="k">return</span>  <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">^</span><span class="n">m</span><span class="o">*</span><span class="n">sf_legendre_Plm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="err">θ</span><span class="p">))</span><span class="o">*</span><span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="nb">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="err">ϕ</span><span class="p">)</span>
-<span class="k">end</span>
+<h1 id="the--and--dependence">The θ and ϕ dependence</h1>
+<p>function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
+    return  (-1.0)^m<em>sf_legendre_Plm(l,m,cos(θ))</em>e^(im<em>m</em>ϕ)
+end</p>
 
-<span class="c">#The Radial dependence</span>
-<span class="k">function</span><span class="nf"> R</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="err">ρ</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">isapprox</span><span class="p">(</span><span class="err">ρ</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-        <span class="err">ρ</span><span class="o">=.</span><span class="mi">01</span>
-    <span class="k">end</span>
-     <span class="k">return</span> <span class="n">sf_laguerre_n</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="err">ρ</span><span class="p">)</span><span class="o">*</span><span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="err">ρ</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="err">ρ</span><span class="o">^</span><span class="n">l</span>
-<span class="k">end</span>
+<h1 id="the-radial-dependence">The Radial dependence</h1>
+<p>function R(n::Int,l::Int,ρ::Real)
+    if isapprox(ρ,0)
+        ρ=.01
+    end
+     return sf_laguerre_n(n-l-1,2<em>l+1,ρ)</em>e^(-ρ/2)*ρ^l
+end</p>
 
-<span class="c">#A normalization: This is dependent on the choice of polynomial representation</span>
-<span class="k">function</span><span class="nf"> norm</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="kt">Int</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="n">n</span><span class="o">*</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">l</span><span class="p">)))</span>
-<span class="k">end</span>
+<h1 id="a-normalization-this-is-dependent-on-the-choice-of-polynomial-representation">A normalization: This is dependent on the choice of polynomial representation</h1>
+<p>function norm(n::Int,l::Int)
+    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
+end</p>
 
-<span class="c">#Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.</span>
-<span class="k">function</span><span class="nf"> Orbital</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="kt">Int</span><span class="p">,</span><span class="n">m</span><span class="p">::</span><span class="kt">Int</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">l</span><span class="o">&gt;</span><span class="n">n</span>    <span class="c"># we make sure l and m are within proper bounds</span>
-        <span class="nb">throw</span><span class="p">(</span><span class="n">DomainError</span><span class="p">())</span>
-    <span class="k">end</span>
-    <span class="k">if</span> <span class="n">abs</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">&gt;</span><span class="n">l</span>
-        <span class="nb">throw</span><span class="p">(</span><span class="n">DomainError</span><span class="p">())</span>
-    <span class="k">end</span>
-    <span class="n">psi</span><span class="p">(</span><span class="err">ρ</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">)</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">ρ</span><span class="p">)</span><span class="o">*</span><span class="n">Yml</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">psi</span>
-<span class="k">end</span>
+<h1 id="generates-an-orbital-function-of-r-for-a-specified-nlm">Generates an Orbital function of (r,θ,ϕ) for a specified n,l,m.</h1>
+<p>function Orbital(n::Int,l::Int,m::Int)
+    if l&gt;n    # we make sure l and m are within proper bounds
+        throw(DomainError())
+    end
+    if abs(m)&gt;l
+        throw(DomainError())
+    end
+    psi(ρ,θ,ϕ)=norm(n, l)<em>R(n,l,ρ)</em>Yml(m,l,θ,ϕ);
+    return psi
+end</p>
 
-<span class="c">#We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion</span>
-<span class="k">function</span><span class="nf"> SphtoCart</span><span class="p">(</span><span class="n">r</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="err">θ</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="err">ϕ</span><span class="p">::</span><span class="n">Array</span><span class="p">)</span>
-    <span class="n">x</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="n">sin</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="o">.*</span><span class="n">cos</span><span class="p">(</span><span class="err">ϕ</span><span class="p">);</span>
-    <span class="n">y</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="n">sin</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="o">.*</span><span class="n">sin</span><span class="p">(</span><span class="err">ϕ</span><span class="p">);</span>
-    <span class="n">z</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="n">cos</span><span class="p">(</span><span class="err">θ</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">;</span>
-<span class="k">end</span>
+<h1 id="we-will-calculate-is-spherical-coordinates-but-plot-in-cartesian-so-we-need-this-array-conversion">We will calculate is spherical coordinates, but plot in Cartesian, so we need this array conversion</h1>
+<p>function SphtoCart(r::Array,θ::Array,ϕ::Array)
+    x=r.<em>sin(θ).</em>cos(ϕ);
+    y=r.<em>sin(θ).</em>sin(ϕ);
+    z=r.*cos(θ);
+    return x,y,z;
+end</p>
 
-<span class="k">function</span><span class="nf"> CarttoSph</span><span class="p">(</span><span class="n">x</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="n">y</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="n">z</span><span class="p">::</span><span class="n">Array</span><span class="p">)</span>
-    <span class="n">r</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">z</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span>
-    <span class="err">θ</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="n">z</span><span class="o">./</span><span class="n">r</span><span class="p">);</span>
-    <span class="err">ϕ</span><span class="o">=</span><span class="n">atan</span><span class="p">(</span><span class="n">y</span><span class="o">./</span><span class="n">x</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">;</span>
-<span class="k">end</span>
+<p>function CarttoSph(x::Array,y::Array,z::Array)
+    r=sqrt(x.^2+y.^2+z.^2);
+    θ=acos(z./r);
+    ϕ=atan(y./x);
+    return r,θ,ϕ;
+end</p>
 
-<span class="s">&quot;Defined Helper Functions&quot;</span>
-</code></pre></div>
-<h4>Parameters</h4>
+<p>“Defined Helper Functions”
+```</p>
 
+<h4 id="parameters">Parameters</h4>
 <p>Grid parameters:
-You might need to change <code>rmax</code> to be able to view higher n orbitals.</p>
+You might need to change <code>rmax</code> to be able to view higher $n$ orbitals.</p>
 
 <p>Remember that
 \begin{equation}
 0&lt;n \;\;\;\;\; \;\;\;\; 0 \leq l &lt; n \;\;\;\;\; \;\;\;\; -l \leq m \leq l
 \;\;\;\;\; \;\;\;\; n,l,m \in {\cal Z}
 \end{equation}</p>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Grid Parameters</span>
-<span class="n">rmin</span><span class="o">=.</span><span class="mi">05</span>
-<span class="n">rmax</span><span class="o">=</span><span class="mi">10</span>
-<span class="n">Nr</span><span class="o">=</span><span class="mi">100</span> <span class="c">#Sampling frequency</span>
-<span class="n">N</span><span class="err">θ</span><span class="o">=</span><span class="mi">100</span>
-<span class="n">N</span><span class="err">ϕ</span><span class="o">=</span><span class="mi">100</span>
 
-<span class="c"># Choose which Orbital to look at</span>
-<span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-<span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-<span class="s">&quot;Defined parameters&quot;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#Linear Array of spherical coordinates</span>
-<span class="n">r</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="n">rmin</span><span class="p">,</span><span class="n">rmax</span><span class="p">,</span><span class="n">Nr</span><span class="p">));</span>
-<span class="err">ϕ</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="err">π</span><span class="p">,</span><span class="n">N</span><span class="err">θ</span><span class="p">));</span>
-<span class="err">θ</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="err">π</span><span class="p">,</span><span class="n">N</span><span class="err">ϕ</span><span class="p">));</span>
-<span class="c">#3D arrays of spherical coordinates, in order r,θ,ϕ</span>
-<span class="n">ra</span><span class="o">=</span><span class="n">repeat</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="err">θ</span><span class="p">,</span><span class="n">N</span><span class="err">ϕ</span><span class="p">]);</span>
-<span class="err">θ</span><span class="n">a</span><span class="o">=</span><span class="n">repeat</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="err">θ</span><span class="p">),</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="n">Nr</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="err">ϕ</span><span class="p">]);</span>
-<span class="err">ϕ</span><span class="n">a</span><span class="o">=</span><span class="n">repeat</span><span class="p">(</span><span class="n">reshape</span><span class="p">(</span><span class="err">ϕ</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="err">ϕ</span><span class="p">),</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="n">Nr</span><span class="p">,</span><span class="n">N</span><span class="err">θ</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span>
+<p>```julia
+# Grid Parameters
+rmin=.05
+rmax=10
+Nr=100 #Sampling frequency
+Nθ=100
+Nϕ=100</p>
 
-<span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="n">SphtoCart</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span><span class="err">θ</span><span class="n">a</span><span class="p">,</span><span class="err">ϕ</span><span class="n">a</span><span class="p">);</span>
-</code></pre></div>
-<p>Though I could create a wrapped up function with <code>Orbital(n,l,m)</code> and evaluate that at each point, the below evaluation takes advantage of the seperatability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.</p>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="err">Ψ</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span><span class="n">Nr</span><span class="p">,</span><span class="n">N</span><span class="err">ϕ</span><span class="p">,</span><span class="n">N</span><span class="err">θ</span><span class="p">)</span>
-<span class="err">θ</span><span class="n">d</span><span class="o">=</span><span class="kt">Int64</span><span class="p">(</span><span class="n">round</span><span class="p">(</span><span class="n">N</span><span class="err">θ</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>  <span class="c">## gives approximately the equator.  Will be useful later</span>
+<h1 id="choose-which-orbital-to-look-at">Choose which Orbital to look at</h1>
+<p>n=3;
+l=1;
+m=0;
+“Defined parameters”
+```</p>
 
-<span class="n">p1</span><span class="o">=</span><span class="n">Pmlh</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">θ</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-<span class="n">p2</span><span class="o">=</span><span class="n">exp</span><span class="p">(</span><span class="nb">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="err">ϕ</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">Nr</span>
-    <span class="err">Ψ</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">norm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">ρ</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">n</span><span class="p">))</span><span class="o">*</span><span class="n">p1</span><span class="o">*</span><span class="n">p2</span><span class="p">;</span>
-<span class="k">end</span>
+<p>```julia
+#Linear Array of spherical coordinates
+r=collect(linspace(rmin,rmax,Nr));
+ϕ=collect(linspace(0,2π,Nθ));
+θ=collect(linspace(0,π,Nϕ));
+#3D arrays of spherical coordinates, in order r,θ,ϕ
+ra=repeat(r,outer=[1,Nθ,Nϕ]);
+θa=repeat(transpose(θ),outer=[Nr,1,Nϕ]);
+ϕa=repeat(reshape(ϕ,1,1,Nϕ),outer=[Nr,Nθ,1]);</p>
 
-<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="err">θ</span>
-    <span class="err">Ψ</span><span class="p">[:,</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="err">Ψ</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">Pmlh</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">θ</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">/</span><span class="n">p1</span><span class="p">;</span>
-<span class="k">end</span>
+<p>x,y,z=SphtoCart(ra,θa,ϕa);
+```</p>
 
-<span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="err">ϕ</span>
-    <span class="err">Ψ</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="err">Ψ</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="nb">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="err">ϕ</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="o">/</span><span class="n">p2</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;θ&quot;</span><span class="p">)</span>
-<span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;Ψ&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;Wavefunction for n= </span><span class="si">$</span><span class="s">n ,l= </span><span class="si">$</span><span class="s">l ,m= </span><span class="si">$</span><span class="s">m &quot;</span><span class="p">)</span>
+<p>Though I could create a wrapped up function with <code>Orbital(n,l,m)</code> and evaluate that at each point, the below evaluation takes advantage of the separability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.</p>
 
-<span class="n">annotate</span><span class="p">(</span><span class="s">&quot;l= </span><span class="si">$</span><span class="s">l Angular Node&quot;</span><span class="p">,</span>
-<span class="n">xy</span><span class="o">=</span><span class="p">[</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="mi">0</span><span class="p">],</span>
-<span class="n">xytext</span><span class="o">=</span><span class="p">[</span><span class="err">π</span><span class="o">/</span><span class="mi">2</span><span class="o">+.</span><span class="mi">1</span><span class="p">;</span><span class="o">.</span><span class="mi">02</span><span class="p">],</span>
-<span class="n">xycoords</span><span class="o">=</span><span class="s">&quot;data&quot;</span><span class="p">,</span>
-<span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="p">(</span><span class="s">&quot;facecolor&quot;</span><span class="o">=&gt;</span><span class="s">&quot;black&quot;</span><span class="p">))</span>
+<p>```julia
+Ψ=zeros(Float64,Nr,Nϕ,Nθ)
+θd=Int64(round(Nθ/2))  ## gives approximately the equator.  Will be useful later</p>
 
-<span class="n">plot</span><span class="p">(</span><span class="err">θ</span><span class="p">,</span><span class="n">zeros</span><span class="p">(</span><span class="err">θ</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="err">θ</span><span class="p">,</span><span class="n">reshape</span><span class="p">(</span><span class="err">Ψ</span><span class="p">[</span><span class="mi">50</span><span class="p">,:,</span><span class="mi">1</span><span class="p">],</span><span class="mi">100</span><span class="p">))</span> <span class="c">#reshape makes Ψ 1D</span>
-</code></pre></div>
+<p>p1=Pmlh(m,l,θ[1]);
+p2=exp(im<em>m</em>ϕ[1]);
+for i in 1:Nr
+    Ψ[i,1,1]=norm(n,l)<em>R(n,l,ρ(r[i],n))</em>p1*p2;
+end</p>
+
+<p>for j in 1:Nθ
+    Ψ[:,j,1]=Ψ[:,1,1]*Pmlh(m,l,θ[j])/p1;
+end</p>
+
+<p>for k in 1:Nϕ
+    Ψ[:,:,k]=Ψ[:,:,1]<em>exp(im</em>m*ϕ[k])/p2;
+end
+```</p>
+
+<p>```julia
+pygui(false)
+xlabel(“θ”)
+ylabel(“Ψ”)
+title(“Wavefunction for n= $n ,l= $l ,m= $m “)</p>
+
+<p>annotate(“l= $l Angular Node”,
+xy=[π/2;0],
+xytext=[π/2+.1;.02],
+xycoords=”data”,
+arrowprops=Dict(“facecolor”=&gt;”black”))</p>
+
+<p>plot(θ,zeros(θ))
+plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
+```</p>
+
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/Orbitals/angular1di.png" alt="2p Angle Slice"/>
+        <img src="/M4/Images/Orbitals/angular1di.png" alt="2p Angle Slice" />
     
     
         <p class="image-caption">A slice along the θ plane showing an angular node for the 2p orbital.</p>
     
 </div>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;r&quot;</span><span class="p">)</span>
-<span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;Ψ&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;Wavefunction for n= </span><span class="si">$</span><span class="s">n ,l= </span><span class="si">$</span><span class="s">l ,m= </span><span class="si">$</span><span class="s">m &quot;</span><span class="p">)</span>
 
-<span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">zeros</span><span class="p">(</span><span class="n">r</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">reshape</span><span class="p">(</span><span class="err">Ψ</span><span class="p">[:,</span><span class="mi">50</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mi">100</span><span class="p">))</span> <span class="c">#reshape makes Ψ 1D</span>
-</code></pre></div>
-<!-- _includes/image.html -->
+<p>```julia
+pygui(false)
+xlabel(“r”)
+ylabel(“Ψ”)
+title(“Wavefunction for n= $n ,l= $l ,m= $m “)</p>
 
-<div class="image-wrapper" >
+<p>plot(r,zeros(r))
+plot(r,reshape(Ψ[:,50,1],100)) #reshape makes Ψ 1D
+```
+<!-- _includes/image.html --></p>
+<div class="image-wrapper">
     
-        <img src="/M4/Images/Orbitals/radial1di.png" alt="3p Radial Slice"/>
+        <img src="/M4/Images/Orbitals/radial1di.png" alt="3p Radial Slice" />
     
     
         <p class="image-caption">A slice along the radial plane showing a radial node in the 3p orbital.</p>
     
 </div>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#rap=squeeze(ra[:,:,50],3)</span>
-<span class="c">#θap=squeeze(θa[:,:,50],3)</span>
-<span class="c">#ϕap=squeeze(ϕa[:,:,50],3)</span>
-<span class="c">#Ψp=squeeze(Ψ[:,:,50],3)</span>
-<span class="n">rap</span><span class="o">=</span><span class="n">ra</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">]</span>
-<span class="err">θ</span><span class="n">ap</span><span class="o">=</span><span class="err">θ</span><span class="n">a</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">]</span>
-<span class="err">ϕ</span><span class="n">ap</span><span class="o">=</span><span class="err">ϕ</span><span class="n">a</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">]</span>
-<span class="err">Ψ</span><span class="n">p</span><span class="o">=</span><span class="err">Ψ</span><span class="p">[:,:,</span><span class="mi">50</span><span class="p">]</span>
-<span class="n">xp</span><span class="p">,</span><span class="n">yp</span><span class="p">,</span><span class="n">zp</span><span class="o">=</span><span class="n">SphtoCart</span><span class="p">(</span><span class="n">rap</span><span class="p">,</span><span class="err">θ</span><span class="n">ap</span><span class="p">,</span><span class="err">ϕ</span><span class="n">ap</span><span class="p">);</span>
-<span class="n">pygui</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;x&quot;</span><span class="p">)</span>
-<span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;z&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;ϕ-slice of Ψ for n=</span><span class="si">$</span><span class="s">n, l=</span><span class="si">$</span><span class="s">l, m=</span><span class="si">$</span><span class="s">m&quot;</span><span class="p">)</span>
-<span class="n">pcolor</span><span class="p">(</span><span class="n">xp</span><span class="p">[:,:],</span><span class="n">zp</span><span class="p">[:,:],</span><span class="err">Ψ</span><span class="n">p</span><span class="p">[:,:],</span><span class="n">cmap</span><span class="o">=</span><span class="s">&quot;coolwarm&quot;</span><span class="p">)</span>
-<span class="n">colorbar</span><span class="p">()</span>
-</code></pre></div>
-<!-- _includes/image.html -->
 
-<div class="image-wrapper" >
+<p><code>julia
+#rap=squeeze(ra[:,:,50],3)
+#θap=squeeze(θa[:,:,50],3)
+#ϕap=squeeze(ϕa[:,:,50],3)
+#Ψp=squeeze(Ψ[:,:,50],3)
+rap=ra[:,:,50]
+θap=θa[:,:,50]
+ϕap=ϕa[:,:,50]
+Ψp=Ψ[:,:,50]
+xp,yp,zp=SphtoCart(rap,θap,ϕap);
+pygui(false)
+xlabel("x")
+ylabel("z")
+title("ϕ-slice of Ψ for n=$n, l=$l, m=$m")
+pcolor(xp[:,:],zp[:,:],Ψp[:,:],cmap="coolwarm")
+colorbar()
+</code></p>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
     
-        <img src="/M4/Images/Orbitals/angular2di.png" alt="3p in 2d"/>
+        <img src="/M4/Images/Orbitals/angular2di.png" alt="3p in 2d" />
     
     
         <p class="image-caption">Slice of a 3p orbital in the x and z plane.</p>
@@ -369,17 +390,16 @@ You might need to change <code>rmax</code> to be able to view higher n orbitals.
 </div>
 
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/Orbitals/angular2d2i.png" alt="3dz2 in 2d"/>
+        <img src="/M4/Images/Orbitals/angular2d2i.png" alt="3dz2 in 2d" />
     
     
         <p class="image-caption">Slice of a 3dz2 orbital in the x and z plane.</p>
     
 </div>
 
-<p>Don&#39;t forget to checkout <a href="/M4/undergrad/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>!</p>
+<p>Don’t forget to check out <a href="/M4/prerequisites/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>!</p>
 
   </article>
 
