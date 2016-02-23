@@ -17,7 +17,7 @@ We get spread out blobs in special little patterns called orbitals.  Here, we wi
 The Hamiltonian for our problem is:
 
 \begin{equation}
-{\cal H}\Psi(x) =\left[ -\frac{\hbar}{2 m} \nabla^2 - \frac{Z e^2}{4 \pi \epsilon_0 r}\right]\Psi(x) = E \Psi(x)
+{\cal H}\Psi(\mathbf{x}) =\left[ -\frac{\hbar}{2 m} \nabla^2 - \frac{Z e^2}{4 \pi \epsilon_0 r}\right]\Psi(\mathbf{x}) = E \Psi(\mathbf{x})
 \end{equation}
 with
 \begin{equation}
@@ -30,9 +30,9 @@ r^2 \frac{\partial}{\partial r}
 \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2}{\partial \phi^2}
 \end{equation}
 
-To solve this problem, we begin by guessing a solution with seperated Radial and Angular variables,
+To solve this problem, we begin by guessing a solution with separated <i>radial</i> and <i>angular</i> variables,
 \begin{equation}
-\Psi(x) = R(r) \Theta ( \theta,\phi)
+\Psi(\mathbf{x}) = R(r) \Theta ( \theta,\phi)
 \end{equation}
 
 \begin{equation}
@@ -44,7 +44,7 @@ To solve this problem, we begin by guessing a solution with seperated Radial and
 =C
 \end{equation}
 
-Instead of going into the precise mechanisms of solving those two seperate equations here, trust for now that they follow standard special functions, the associated Legendre Polynomial and the generalized Laguerre Polynomial.  Try a standard Quantum Mechanics textbook for more information about this.
+Instead of going into the precise mechanisms of solving those two separate equations here, trust for now that they follow standard special functions, the associated <i>Legendre polynomial</i> and the generalized <i>Laguerre polynomial</i>.  Try a standard quantum mechanics textbook for more information about this.
 
 
 
@@ -53,7 +53,7 @@ Instead of going into the precise mechanisms of solving those two seperate equat
 \begin{equation}
 Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
 \end{equation}
-where $P^m_l (\cos (\theta))$ is the associated Legendre Polynomial.
+where $P^m_l (\cos (\theta))$ is the associated Legendre polynomial.
 
 \begin{equation}
  R^\{n,l\} ( \rho ) = \rho ^l e^\{- \rho  /2\} L^\{2 l+1\}\_{n-l-1} ( \rho )
@@ -80,13 +80,13 @@ using PyPlot;
 ```
 
 #### Cell to Evaluate
-What's below is a bunch of definitions that makes our calculations easier later on.  Here I utalize the Gnu scientific library, GSL imported above, to calculate the special functions.
+What's below is a bunch of definitions that makes our calculations easier later on.  Here I utilize the GNU scientific library, GSL imported above, to calculate the special functions.
 
 <div class="progtip">
 <h3 color="black"> Programming Tip!</h3>
-<p>Even though its not necessary, specifying the type of inputs to a function through <code>m::Int</code> helps prevent improper inputs and allows the compiler to perform additional optimizations.  Julia also implements <i>Abstract Types</i>, so we don't have to specify the exact type of Int.  Real allows and numerical, non-complex type.</p>
+<p>Even though it's not necessary, specifying the type of inputs to a function through <code>m::Int</code> helps prevent improper inputs and allows the compiler to perform additional optimizations.  Julia also implements <i>abstract types</i>, so we don't have to specify the exact type of Int.  Real allows a numerical, non-complex type.</p>
 <p>
-Type greek characters in Jupyter notebooks via LaTeX syntax.  ex: \alpha+tab</p>
+Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab</p>
 <p>
 The function <code>Orbital</code> throws <code>DomainError()</code> when <code>l</code> or <code>m</code> do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
 </p>
@@ -120,7 +120,7 @@ function norm(n::Int,l::Int)
     return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
 end
 
-#Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.
+#Generates an Orbital function of (r,θ,ϕ) for a specified n,l,m.
 function Orbital(n::Int,l::Int,m::Int)
     if l>n    # we make sure l and m are within proper bounds
         throw(DomainError())
@@ -132,7 +132,7 @@ function Orbital(n::Int,l::Int,m::Int)
     return psi
 end
 
-#We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion
+#We will calculate is spherical coordinates, but plot in Cartesian, so we need this array conversion
 function SphtoCart(r::Array,θ::Array,ϕ::Array)
     x=r.*sin(θ).*cos(ϕ);
     y=r.*sin(θ).*sin(ϕ);
@@ -154,7 +154,7 @@ end
 
 #### Parameters
 Grid parameters:
-You might need to change `rmax` to be able to view higher n orbitals.
+You might need to change `rmax` to be able to view higher $n$ orbitals.
 
 Remember that
 \begin{equation}
@@ -194,7 +194,7 @@ ra=repeat(r,outer=[1,Nθ,Nϕ]);
 x,y,z=SphtoCart(ra,θa,ϕa);
 ```
 
-Though I could create a wrapped up function with `Orbital(n,l,m)` and evaluate that at each point, the below evaluation takes advantage of the seperatability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.
+Though I could create a wrapped up function with `Orbital(n,l,m)` and evaluate that at each point, the below evaluation takes advantage of the separability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.
 
 
 ```julia
@@ -270,4 +270,4 @@ colorbar()
 {% include image.html img="M4/Images/Orbitals/angular2di.png" title="3p in 2d" caption="Slice of a 3p orbital in the x and z plane."%}
 {% include image.html img="M4/Images/Orbitals/angular2d2i.png" title="3dz2 in 2d" caption="Slice of a 3dz2 orbital in the x and z plane."%}
 
-Don't forget to checkout [Atomic Orbitals Pt. 2]({{base.url}}/M4/Prereq/Atomic-Orbitals2.html)!
+Don't forget to check out [Atomic Orbitals Pt. 2]({{base.url}}/M4/prerequisites/Atomic-Orbitals2.html)!

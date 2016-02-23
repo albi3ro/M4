@@ -14,9 +14,9 @@ author: Christina C. Lee
 So you want to diagonalize a matrix, do you?
 Well, if you have a tiny symmetric matrix, you REALLY want to write up the algorithm by hand, and don't want to spend much time trying to understand the algorithm, then you have come to the right place.
 
-Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices.  Julia has those libraries built in already.  Even if you do call those matrices, you can make them work better by understanding what's going on underneath the hood, which is why we are going through this now.
+Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices. Julia has those libraries built in already. Even if you do call those matrices, you can make them work better by understanding what's going on underneath the hood, which is why we are going through this now.
 
-Start with a base Rotation Matrix of the Form
+Start with a base <i>rotation matrix</i> of the Form
 $$
     P_{pq} =
     \begin{pmatrix}
@@ -43,10 +43,10 @@ $$
 A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
 $$
 
-where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
+where each iteration brings $$A$$ closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
 
-* The values of c and s
-* The pattern of sweeping p and q
+* The values of $$c$$ and $$s$$
+* The pattern of sweeping $$p$$ and $$q$$
 
 And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.
 
@@ -79,13 +79,13 @@ $$
         \frac{c^2-s^2}{2 sc} = \frac{a_{pq}-a_{qq}}{2 a_{pq}} = \theta
 $$
 
-At first glance, this equation might not look easier to solve for $s$ or $c$.  Second either. We define a new parameter $t = s/c$, which now makes the equation,
+At first glance, this equation might not look easier to solve for $s$ or $c$.  At second glance either. We define a new parameter $t = s/c$, which now makes the equation,
 
 $$
 \frac{1-t^2}{2 t} = \theta \;\;\;\; \implies \;\;\; t^2 -2 \theta t -1=0,
 $$
 
-now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using form that pulls out smaller root through
+now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using a form that pulls out smaller roots through
 
 $$
 t=\frac{\text{sgn}( \theta )}{| \theta | + \sqrt{ \theta ^2 + 1} }.
@@ -127,7 +127,7 @@ $$
 
 ## Convergence
 
-The sum of the squares of the off diagonal elements ,choosen in either upper or lower triagnles arbitrarily,
+The sum of the squares of the off diagonal elements, choosen in either upper or lower triangles arbitrarily,
 
 $$
 S=\sum\limits_{r < s} |a_{rs}|^2
@@ -141,7 +141,7 @@ $$
 D = V^{T} \cdot A \cdot V
 $$
 
-and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
+and $D$ is the diagonal form of $A$.  $V$ is computed through iterative computation
 
 $$
 V^{\prime} = V \cdot P_i
@@ -211,7 +211,7 @@ end
 ## One A returned will be stored to compare initial and final
 ```
 
-Now on to the Rotations!
+Now on to the rotations!
 
  We don't always want to compute the eigenvectors, so those are in the optional entries slot.
 Both tell the function to compute the vectors with `computeV=true`

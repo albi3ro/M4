@@ -9,7 +9,7 @@ author: Christina C. Lee
 
 #### Christina C. Lee, github: albi3ro
 
-<b>Prerequisites:</b> [Computationally Visuallizing Crystals Pt. 1]({{base.url}}/M4/General/Crystal-Shapes.html)
+<b>Prerequisites:</b> [Computationally Visualizing Crystals Pt. 1]({{base.url}}/M4/general/Crystal-Shapes.html)
 
 Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don't adhere to the "every site the same" policy.  They still repeat, but just take a little bit longer to get around to doing so.
 
@@ -20,11 +20,11 @@ Take the Kagome Lattice below,
 
 {% include image.html img="M4/Images/MultiUnit/kagomebasket.jpg" title="basket" caption="A basket woven in the Japanese kagome style. <sub>Wikimedia commons</sub>" %}
 
-If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>Unit Cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:
+If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>unit cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:
 
 >A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.
 
-Now I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?
+I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?
 
 Turns out, there isn't a unique way.  We can go further and define the <i>Wigner-Seitz</i> unit cell, which uses the Bravais translations to pick out just ONE of the various possible definitions.
 
@@ -38,12 +38,12 @@ The options I've put in now are:
 
 * honeycomb
 * kagome
-* shuriken aka Square-Kagome
+* shuriken (a.k.a. square-Kagome)
 * diamond
 * pyrochlore
 
 
-The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene, an extremely important material right now, though I work with it in terms of the Kitaev spin model.  Kagome and Pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.
+The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene. This is an extremely important material right now, though I work with it in terms of the Kitaev spin model (to be discussed at a later date). Kagome and pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.
 
 {% include image.html img="M4/Images/MultiUnit/Shurikens.jpg" title="Shurikens" caption="Japanese Shurikens- a type of ninja fighting star. <sub>By kaex0r (http://www.flickr.com/photos/kaex0r414/191765028/) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons</sub>" %}
 
@@ -127,7 +127,7 @@ end
 
 ### Connections to Bravais Lattices
 
-If look at some of the comments above, and checkout the basis vectors from Crystal Shapes, like pt,
+If you look at some of the comments above, and checkout the basis vectors from [<i>Crystal Shapes</i>]({{base.url}}/M4/General/Crystal-Shapes.html), like pt,
         \begin{equation}
             a=[1,0,0]\;\;\;\;\;\;\;\;\; b=[.5,\frac{\sqrt{3}}{2},0],
         \end{equation}
