@@ -1,5 +1,5 @@
 # M4
-## Metals, Magnets, and Miscelaneous Materials: Blog Introduction to Computational Condensed Matter
+## Metals, Magnets, and Miscellaneous Materials: Blog Introduction to Computational Condensed Matter
 
 ### by Christina Lee,
 ### PhD student at Okinawa Institute of Science and Technology Graduate University, Japan.
