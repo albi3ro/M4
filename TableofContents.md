@@ -1,5 +1,5 @@
 # General
-*Lattces
+* Lattces
     * Crystal Shapes
     * MultiSite Unit Cells
 
@@ -14,4 +14,4 @@
 * Exact Diagonalization
     * Jacobi Transformation
 * Monte Carlo
-* Monte Carlo: Calculation of Pi 
+    * Monte Carlo: Calculation of Pi 
