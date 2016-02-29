@@ -1,18 +1,17 @@
 # General
-* Crystal Shapes
-** Lattices
-* MultiSite Unit Cells
-** Lattices
+*Lattces
+    * Crystal Shapes
+    * MultiSite Unit Cells
+
 # Prerequisites
-* Atomic Orbitals
-** Quantum Mechanics
-* Atomic Orbitals 2
-** Quantum Mechanics
-* QHO - Quantum Harmonic Osscillator
-** Quantum Mechanics
+* Quantum Mechanics
+    * Atomic Orbitals
+    * Atomic Orbitals 2
+    * QHO - Quantum Harmonic Osscillator
+
 
 # Numerics
-* Jacobi Transformation
-** Exact Diagonalization
-* Monte Carlo: Calculation of Pi
-** Monte Carlo 
+* Exact Diagonalization
+    * Jacobi Transformation
+* Monte Carlo
+* Monte Carlo: Calculation of Pi 
