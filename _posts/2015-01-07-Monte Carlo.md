@@ -154,7 +154,7 @@ semilogx(N,π*ones(N));
 semilogx(N,πave,marker="o");
 ```
 
-{% include image.html img="M4/Images/MonteCarlo/ave.png" title="Result" caption="Image result. Colors tweaked."}
+{% include image.html img="M4/Images/MonteCarlo/ave.png" title="Result" caption="Image result. Colors tweaked."%}
 
 
 Now lets just make a graphical representation of what we've been doing this whole time.  Plot our points on unit square, and color the ones inside a circle a different color.
@@ -182,10 +182,10 @@ scatter(X,Y);
 scatter(Xc,Yc,color="red");
 ```
 
-{% include image.html img="M4/Images/MonteCarlo/dartboardpyplot.png" title="Result" caption="Result. Colors tweaked"}
+{% include image.html img="M4/Images/MonteCarlo/dartboardpyplot.png" title="Result" caption="Result. Colors tweaked"%}
 
 
 That's all folks!
 Now here's a picture of some pie to congratulate you on calculating π.
 {% include image.html img="M4/Images/MonteCarlo/pie.jpg" title="pie" caption="
-By Scott Bauer, USDA ARS - This image was released by the Agricultural Research Service, the research agency of the United States Department of Agriculture, with the ID K7252-47 (next).This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.English | français | македонски | +/−, Public Domain, https://commons.wikimedia.org/w/index.php?curid=264106"%}
+By Scott Bauer, USDA ARS - This image was released by the Agricultural Research Service, the research agency of the United States Department of Agriculture, with the ID K7252-47 (next).This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.English | français | македонски | +/−, Public Domain, https://commons.wikimedia.org/w/index.php?curid=264106" %}
