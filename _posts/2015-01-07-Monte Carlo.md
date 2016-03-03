@@ -7,11 +7,6 @@ tags: [Monte Carlo]
 author: Christina C. Lee
 ---
 
-#### Christina C. Lee, github: albi3ro
-
-# Table of Contents
- <p><div class="lev1"><a href="#Monte-Carlo-Calculation-of-π-1">Monte Carlo Calculation of π</a></div><div class="lev2"><a href="#Monte-Carlo--Random-Numbers-to-Improve-Calculations-1.1">Monte Carlo- Random Numbers to Improve Calculations</a></div><div class="lev2"><a href="#Buffon's-Needle:-Calculation-of-π-1.2">Buffon's Needle: Calculation of π</a></div><div class="lev2"><a href="#Onto-the-Code!-1.3">Onto the Code!</a></div><div class="lev2"><a href="#Analysis-1.4">Analysis</a></div>
-
 ## Monte Carlo- Random Numbers to Improve Calculations
 
 When one hears "Monte Carlo", most people might think of something like this:
@@ -41,12 +36,12 @@ Suppose we have a square dartboard, and someone with really bad, completely rand
 {% include image.html img="M4/Images/MonteCarlo/dartboard.png" title="dartboard" caption="Randomly thrown darts than can either be in the circle or not." %}
 
 
-\begin{equation}
-    f= \frac{N_{circle}}{N_{square}} =\frac{\text{Area of circle}}{\text{Area of square}} =\frac{\pi r^2}{4 r^2}= \frac{\pi}{4}
-\end{equation}
-\begin{equation}
+$$
+f= \frac{N_{circle}}{N_{square}} =\frac{\text{Area of circle}}{\text{Area of square}} =\frac{\pi r^2}{4 r^2}= \frac{\pi}{4}
+$$
+$$
     \pi = 4 f
-\end{equation}
+$$
 
 ## Onto the Code!
 
