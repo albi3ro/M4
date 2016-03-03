@@ -17,11 +17,11 @@ Monte Carlo, Monaco: known for extremely large amounts of money, car racing, no 
 
 In addition to Monaco, Europe, Las Vegas decided to host a Monte Carlo-themed casino as well.  So during the Manhattan project, when the best minds in the United States were camped out in the New Mexican desert, they had plenty of inspiration from Las Vegas, and plenty of difficult problems to work on in the form of quantifying the inner workings of nuclei.  Enrico Fermi first played with these ideas, but Stanislaw Ulam invented the modern Monte Carlo Markov Chain later.
 
-At the same time, these scientists now had computers at their disposal.  John von Neumann programmed Ulam's algorithm onto ENIAC (Electronic Numerical Integrator and Computer), the very first electronic, general purpose computer, even though it did still run on vacuum tubes.
+At the same time, these scientists now had computers at their disposal.  John von Neumann programmed Ulam's algorithm onto ENIAC, Electronic Numerical Integrator and Computer, the very first electronic, general purpose computer, even though it did still run on vacuum tubes.
 
 That still doesn't answer, why do random numbers actually help us solve problems?
 
-Imagine you are visiting a new city for the first time (maybe Monte Carlo). You only have a day or two, and you want to really get to know the city.  You have two options for your visit
+Imagine you are visiting a new city for the first time, maybe Monte Carlo. You only have a day or two, and you want to really get to know the city.  You have two options for your visit
 
 * Hit the tourist sites you researched online
 * Wander around.  Try and communicate with the locals.  Find an out-of-the-way restaurant and sample food not tamed for foreigners.  Watch people interact.  Get lost.
@@ -39,6 +39,7 @@ Suppose we have a square dartboard, and someone with really bad, completely rand
 $$
 f= \frac{N_{circle}}{N_{square}} =\frac{\text{Area of circle}}{\text{Area of square}} =\frac{\pi r^2}{4 r^2}= \frac{\pi}{4}
 $$
+
 $$
     \pi = 4 f
 $$
