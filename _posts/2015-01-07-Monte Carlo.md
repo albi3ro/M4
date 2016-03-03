@@ -140,7 +140,7 @@ ylabel("standard deviation")
 xlabel("N points")
 semilogx(N,πstd,marker="o");
 ```
-{% include image.html img="M4/Images/MonteCarlo/error.png" title="Result" caption="Image result. Colors tweaked."}
+{% include image.html img="M4/Images/MonteCarlo/error.png" title="Result" caption="Image result. Colors tweaked." %}
 
 
 So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002
