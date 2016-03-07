@@ -116,13 +116,13 @@
 
   <article class="post-content">
 
-    <h4>Christina C. Lee, github: albi3ro</h4>
+    <h4 id="christina-c-lee-github-albi3ro">Christina C. Lee, github: albi3ro</h4>
 
 <p><b>Prerequisites:</b> none</p>
 
 <p>In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers $10^{23}$ of extremely small particles, ex. atoms, electrons.</p>
 
-<p>Luckily, the particles don&#39;t each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  So as our first step into the field, we will look at the most basic type, a <i>Bravais Lattice</i>.</p>
+<p>Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  So as our first step into the field, we will look at the most basic type, a <i>Bravais Lattice</i>.</p>
 
 <p>In a Bravais Lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.</p>
 
@@ -130,82 +130,105 @@
 \mathbf{R}_{lmn}=l \vec{a} + m \vec{b} + n \vec{c}  \;\;\;\; \text{for } l,m,n \in \mathbb{N}
 \end{equation}</p>
 
-<p>To keep things working out right, we have to put a constraint on these vectors; that we can&#39;t get one from scaling and adding the other two.  If we could, then we couldn&#39;t put sites in an entire 3 dimensional space.</p>
+<p>To keep things working out right, we have to put a constraint on these vectors; that we can’t get one from scaling and adding the other two.  If we could, then we couldn’t put sites in an entire 3 dimensional space.</p>
 
 <p>Stay tuned for a later post where we explore more elaborate lattices.</p>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># importing our packages</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;PyPlot&quot;</span><span class="p">);</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">();</span>
-<span class="k">using</span> <span class="n">PyPlot</span><span class="p">;</span>
-</code></pre></div>
-<h2>Define The Relevant Variables</h2>
+
+<p><code>julia
+# importing our packages
+Pkg.add("PyPlot");
+Pkg.update();
+using PyPlot;
+</code></p>
+
+<h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
 
 <p>Choose the lattice you want to look at, and put that string into the lattice variable.
-Current options:
+Current options:</p>
 <ul>
-    <li> Simple Cubic = &quot;sc&quot;
-    <li> Plane triangular lattice = &quot;pt&quot;
-    <li> Body-Centered Cubic = &quot;bcc&quot;
-    <li> Face-Centered Cubic = &quot;fcc&quot;
+    <li> Simple Cubic = "sc"
+    <li> Plane triangular lattice = "pt"
+    <li> Body-Centered Cubic = "bcc"
+    <li> Face-Centered Cubic = "fcc"
 Note: Square is Simple Cubic for Nz=1
-</ul></p>
 
-<p>14 distinct lattice types are possible, but these common four give the important ideas.</p>
 
-<p>Also, input the size of lattice you want to look at.</p>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">lattice</span><span class="o">=</span><span class="s">&quot;sc&quot;</span><span class="p">;</span>
+14 distinct lattice types are possible, but these common four give the important ideas.
 
-<span class="n">Nx</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">Ny</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">Nz</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># A cell to just evaluate</span>
-<span class="c"># This one sets the unit vectors (a,b,c) for the different unit cells</span>
-<span class="c"># Can you guess what a lattice will look like by looking at the vectors?</span>
-<span class="k">if</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;sc&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;pt&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;bcc&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">&quot;fcc&quot;</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-<span class="k">else</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Please have a correct lattice&quot;</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
-<span class="c"># Here we set up some numbers and matrices for our computation</span>
-<span class="n">N</span><span class="o">=</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="p">;</span>    <span class="c">#The total number of sites</span>
-<span class="n">aM</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-<span class="n">bM</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Nx</span><span class="p">]));</span> <span class="c">#these allow us to copy an entire row or layer at once</span>
-<span class="n">cM</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">]));</span>
+Also, input the size of lattice you want to look at.
 
-<span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}(</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>  <span class="c">#where we store the positions</span>
-</code></pre></div><div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
-<span class="c"># Here we are actually calculating the positions for every site</span>
-<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">Nx</span>    <span class="c">#for the first row</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">;</span>
-<span class="k">end</span>
 
-<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Ny</span>    <span class="c">#copying the first row into the first layer</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">bM</span><span class="p">;</span>
-<span class="k">end</span>
+```julia
+lattice="sc";
 
-<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Nz</span>    <span class="c">#copying the first layer into the entire cube</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cM</span><span class="p">;</span>
-<span class="k">end</span>
-</code></pre></div>
+Nx=3;
+Ny=3;
+Nz=3;
+```
+
+
+```julia
+# A cell to just evaluate
+# This one sets the unit vectors (a,b,c) for the different unit cells
+# Can you guess what a lattice will look like by looking at the vectors?
+if(lattice=="sc")
+    d=3;
+    a=[1,0,0];
+    b=[0,1,0];
+    c=[0,0,1];
+elseif(lattice=="pt")
+    d=2;
+    a=[1,0,0];
+    b=[.5,sqrt(3)/2,0];
+    c=[0,0,1];
+elseif(lattice=="bcc")
+    d=3;
+    a=[.5,.5,.5];
+    b=[.5,.5,-.5];
+    c=[.5,-.5,.5];
+elseif(lattice=="fcc")
+    d=3;
+    a=[.5,.5,0];
+    b=[.5,0,.5];
+    c=[0,.5,.5];
+else
+    println("Please have a correct lattice")
+end
+```
+
+
+
+
+```julia
+# Another cell to just evaluate
+# Here we set up some numbers and matrices for our computation
+N=Nx*Ny*Nz;    #The total number of sites
+aM=transpose(a);
+bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or layer at once
+cM=transpose(repeat(c,outer=[1,Nx*Ny]));
+
+X=Array{Float64}(N,3);  #where we store the positions
+```
+
+
+
+
+
+```julia
+# Another cell to just evaluate
+# Here we are actually calculating the positions for every site
+for i in 1:Nx    #for the first row
+    X[i,:]=(i-1)*a;
+end
+
+for j in 2:Ny    #copying the first row into the first layer
+    X[Nx*(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)*bM;
+end
+
+for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
+end
+```
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
  <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
@@ -215,88 +238,93 @@ Note: Square is Simple Cubic for Nz=1
 <p>
  <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
 </div>
-<div class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>  <span class="c">#if true, launches new window with interactive capabilities</span>
 
-<span class="n">drawcube</span><span class="o">=</span><span class="n">true</span><span class="p">;</span>  <span class="c">#gives lines for a cube, helps interpret the dots</span>
-<span class="n">ls</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>  <span class="c"># how many cubes to draw</span>
-<span class="k">if</span><span class="p">(</span><span class="n">drawcube</span><span class="o">==</span><span class="n">true</span><span class="p">)</span>
-    <span class="n">v</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="n">ls</span><span class="p">);</span>
-    <span class="n">zed</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="p">:</span><span class="n">ls</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">0</span><span class="p">:</span><span class="n">ls</span>
-            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="p">)</span>
-            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
 
-            <span class="n">plot3D</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="p">)</span>
-            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+```julia
+pygui(false);  #if true, launches new window with interactive capabilities
 
-            <span class="n">plot3D</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
-            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">end</span>
-    <span class="k">end</span>
-<span class="k">end</span>
+drawcube=true;  #gives lines for a cube, helps interpret the dots
+ls=2;  # how many cubes to draw
+if(drawcube==true)
+    v=collect(0:ls);
+    zed=zeros(v);
+    for i in 0:ls
+        for j in 0:ls
+            plot3D(zed+i,v,zed+j)
+            plot3D(zed+i,zed+j,v)
 
-<span class="n">scatter3D</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
+            plot3D(v,zed+i,zed+j)
+            plot3D(zed+j,zed+i,v)
+
+            plot3D(v,zed+j,zed+i)
+            plot3D(zed+j,v,zed+i)
+        end
+    end
+end
+
+scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
+```
+
 <!-- _includes/image.html -->
-
-<div class="image-wrapper" >
+<div class="image-wrapper">
     
-        <img src="/M4/Images/CrystalShapes/sc.png" alt="sc"/>
+        <img src="/M4/Images/CrystalShapes/sc.png" alt="sc" />
     
     
         <p class="image-caption">Simple Cubic: The easiest lattice out there short of the 1D chain.</p>
     
 </div>
 
-<!-- _includes/image.html -->
 
-<div class="image-wrapper" >
+<!-- _includes/image.html -->
+<div class="image-wrapper">
     
-        <img src="/M4/Images/CrystalShapes/pt.png" alt="pt"/>
+        <img src="/M4/Images/CrystalShapes/pt.png" alt="pt" />
     
     
         <p class="image-caption">Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D.</p>
     
 </div>
 
-<!-- _includes/image.html -->
 
-<div class="image-wrapper" >
+<!-- _includes/image.html -->
+<div class="image-wrapper">
     
-        <img src="/M4/Images/CrystalShapes/bcc.jpg" alt="bcc"/>
+        <img src="/M4/Images/CrystalShapes/bcc.jpg" alt="bcc" />
     
     
         <p class="image-caption">Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D.</p>
     
 </div>
 
-<!-- _includes/image.html -->
 
-<div class="image-wrapper" >
+<!-- _includes/image.html -->
+<div class="image-wrapper">
     
-        <img src="/M4/Images/CrystalShapes/fcc.jpg" alt="fcc"/>
+        <img src="/M4/Images/CrystalShapes/fcc.jpg" alt="fcc" />
     
     
         <p class="image-caption">Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D.</p>
     
 </div>
 
-<h2>Go Back and Fiddle!</h2>
 
-<p>As you might have noticed, this isn&#39;t just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?</p>
+## Go Back and Fiddle!
 
-<p>Chose <code>pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
+As you might have noticed, this isn't just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?
 
-<p>Look at different lattice sizes.</p>
+Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
 
-<p>Can you hand draw them on paper?</p>
+Look at different lattice sizes.
 
-<p><center><img src="/M4/Images/CrystalShapes/handdraw2.jpg" alt="Mydrawing"></center></p>
+Can you hand draw them on paper?
 
-<p>Let me know what you think, and enjoy the sequel as well!</p>
+<center>![Mydrawing](/M4/Images/CrystalShapes/handdraw2.jpg)</center>
 
-<h2><a href="/M4/undergrad/MultiSite-Unit-Cells.html"><center><i> Multi-site unit cells</i></center></a></h2>
+
+Let me know what you think, and enjoy the sequel as well!
+## [<center><i> Multi-site unit cells</i></center>](/M4/undergrad/MultiSite-Unit-Cells.html)
+</li></li></li></li></ul>
 
   </article>
 
