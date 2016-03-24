@@ -9,107 +9,160 @@ author: Christina C. Lee
 
 <i>Based on Numerical Recipes in C++, Sec 11.1</i>
 
+
+
 So you want to diagonalize a matrix, do you?
 Well, if you have a tiny symmetric matrix, you REALLY want to write up the algorithm by hand, and don't want to spend much time trying to understand the algorithm, then you have come to the right place.
 
-Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices.  Julia has those libraries built in already.  Even if you do call those matrices, you can make them work better by understanding what's going on underneath the hood, which is why we are going through this now.
+Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices. Julia has those libraries built in already. Even if you do call those matrices, you can make them work better by understanding what's going on underneath the hood, which is why we are going through this now.
 
-Start with a base Rotation Matrix of the Form
-\begin{equation}
+Start with a base <i>rotation matrix</i> of the Form
+$$
     P_{pq} =
     \begin{pmatrix}
-           1& &  &  & & & & 0 \\\\
-           & \ddots & & & &  &  \\\\
-            & & c & \cdots & s & & \\\\
-                & &\vdots& 1 & \vdots & & \\\\
-               & & -s & \cdots & c & &  \\\\
-               & & & & & \ddots &  \\\\
-               0 & & & &  & & 1\\\\
+           1& &  &  & & & & 0 \\
+           & \ddots & & & &  &  \\
+            & & c & \cdots & s & & \\
+                & &\vdots& 1 & \vdots & & \\
+               & & -s & \cdots & c & &  \\
+               & & & & & \ddots &  \\
+               0 & & & &  & & 1\\
     \end{pmatrix}
-\end{equation}
+$$
 
-From our starting arbitrary symmetric A,
-\begin{equation}
-A^{T} = A
-\end{equation}
+From our starting arbitrary symmetric $$A$$,
+
+$$
+A^T = A
+$$
+
+
 we will run a series of transformations,
-\begin{equation}
+
+$$
 A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
-\end{equation}
-where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
-<ul>
-<li> The values of c and s
-<li> The pattern of sweeping p and q
-</ul>
+$$
+
+where each iteration brings $$A$$ closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things
+
+* The values of $$c$$ and $$s$$
+* The pattern of sweeping $$p$$ and $$q$$
+
 And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.
 
 So lets expand one transformation, and we if we can solve for $c$ and $s$.
 
-\begin{align}
-a^{\prime}\_{rp} & = c a\_{rp} - s a\_{rq} \\\\
-a^{\prime}\_{rq} & = c a\_{rq} + s a\_{rp} \\\\
-a^{\prime}\_{pp} & = c\^2 a\_{pp} + s\^2 a\_{qq} -2 sc a\_{pq} \\\\
-a^{\prime}\_{qq} & = s\^2 a\_{qq} + c\^2 a\_{qq} + 2sc a\_{pq} \\\\
-a^{\prime}\_{pq} & = \left( c\^2-s\^2 \right) a\_{pq} + sc \left(a\_{pq} - a\_{qq} \right)\\\\
-\end{align}
+$$
+a^{\prime}_{rp}  = c a_{rp} - s a_{rq}
+$$
+
+$$
+a^{\prime}_{rq}  = c a_{rq} + s a_{rp}
+$$
+
+$$
+a^{\prime}_{pp}  = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq}
+$$
+
+$$
+a^{\prime}_{qq}  = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq}
+$$
+
+$$
+a^{\prime}_{pq}  = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)
+$$
 
 ## Determining $s$ and $c$
-Given we specifically want $a\^{\prime}\_{pq}$ to be zero, we re-arrange the last equation,
-\begin{equation}
-        \frac{c\^2-s\^2}{2 sc} = \frac{a\_{pq}-a\_{qq}}{2 a\_{pq}} =\theta
-\end{equation}
-At first glance, this equation might not look easier to solve for $s$ or $c$.  Second either. We define a new parameter $t = s/c$, which now makes the equation,
-\begin{equation}
+Given we specifically want $a^{\prime}_{pq}$ to be zero, we re-arrange the last equation,
+
+$$
+        \frac{c^2-s^2}{2 sc} = \frac{a_{pq}-a_{qq}}{2 a_{pq}} = \theta
+$$
+
+At first glance, this equation might not look easier to solve for $s$ or $c$.  At second glance either. We define a new parameter $t = s/c$, which now makes the equation,
+
+$$
 \frac{1-t^2}{2 t} = \theta \;\;\;\; \implies \;\;\; t^2 -2 \theta t -1=0,
-\end{equation}
-now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using form that pulls out smaller root through
-\begin{equation}
-t=\frac{\text{sgn}(\theta)}{|\theta| + \sqrt{\theta^2 + 1} }.
-\end{equation}
+$$
+
+now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using a form that pulls out smaller roots through
+
+$$
+t=\frac{\text{sgn}( \theta )}{| \theta | + \sqrt{ \theta ^2 + 1} }.
+$$
+
 Then reverse solve back to
-\begin{align}
-c&=\frac{1}{\sqrt{t^2+1}}\\
-s&=tc
-\end{align}
+
+$$
+c=\frac{1}{\sqrt{t^2+1}} \;\;\; s=tc
+$$
 
 Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are
-\begin{align}
-a\^{\prime}\_{pq} & = 0\\\\
-a\^{\prime}\_{qq} & = a\_{qq} + t a\_{qp} \\\\
-a\^{\prime}\_{pp} &= a\_{pp} - t a\_{pq} \\\\
-a\^{\prime}\_{rp} &= a\_{rp} - s \left( a\_{rq} +\tau a\_{rp} \right) \\\\
-a\^{\prime}\_{rq} &= a\_{rq} + s \left( a\_{rp} -\tau a\_{rq} \right)\\\\
-\end{align}
+
+$$
+a^{\prime}_{pq}  = 0
+$$
+
+$$
+a^{\prime}_{qq}  = a_{qq} + t a_{qp}
+$$
+
+$$
+a^{\prime}_{pp} = a_{pp} - t a_{pq}
+$$
+
+$$
+a^{\prime}_{rp} = a_{rp} - s \left( a_{rq} +\tau a_{rp} \right)
+$$
+
+$$
+a^{\prime}_{rq} = a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)
+$$
+
 with the new variable
-\begin{equation}
+
+$$
 \tau = \frac{s}{1+c}
-\end{equation}
+$$
 
 ## Convergence
 
-The sum of the squares of the off diagonal elements ,choosen in either upper or lower triagnles arbitrarily,
-\begin{equation}
-S=\sum\limits_{r < s} |a\_{rs}|^2
-\end{equation}
+The sum of the squares of the off diagonal elements, choosen in either upper or lower triangles arbitrarily,
+
+$$
+S=\sum\limits_{r < s} |a_{rs}|^2
+$$
 
 ## Eigenvectors
 
 By forming a product of every rotation matrix, we also come to approximate the matrix $V$ where
-\begin{equation}
+
+$$
 D = V^{T} \cdot A \cdot V
-\end{equation}
-and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
-\begin{align}
-V^{\prime} & = V \cdot P_i \\\\
-v^{\prime}\_{rs} &= v\_{rs} \\\\
-v^{\prime}\_{rp} &= c v\_{rp} - s v\_{rq} \\\\
-v^{\prime}\_{rq} &= s v\_{rp} + c v\_{rq}\\\\
-\end{align}
+$$
+
+and $D$ is the diagonal form of $A$.  $V$ is computed through iterative computation
+
+$$
+V^{\prime} = V \cdot P_i
+$$
+
+$$
+v^{\prime}_{rs} = v_{rs}
+$$
+
+$$
+v^{\prime}_{rp} = c v_{rp} - s v_{rq}
+$$
+
+$$
+v^{\prime}_{rq} = s v_{rp} + c v_{rq}
+$$
 
 ### Enough with the talking! LETS COMPUTE STUFF
 
 
-```julia
+~~~julia
 # First, Lets make our nice, helpful functions
 
 ## A function to look at the convergence
@@ -124,7 +177,7 @@ function convergence(A::Array)
     end
     return num
 end
-```
+~~~
 
 
 This makes a matrix easier to look at than when its filled
@@ -158,7 +211,7 @@ end
 ## One A returned will be stored to compare initial and final
 ```
 
-Now on to the Rotations!
+Now on to the rotations!
 
  We don't always want to compute the eigenvectors, so those are in the optional entries slot.
 Both tell the function to compute the vectors with `computeV=true`

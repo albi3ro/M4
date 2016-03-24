@@ -8,23 +8,23 @@ author: Christina C. Lee
 ---
 <b>Prerequiresites:</b> Quantum Mechanics course
 
-If you haven't read it already, checkout [Atomic Orbitals Pt. 1]({{base.url}}/M4/undergrad/Atomic-Orbitals.html).  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.
+If you haven't read it already, check out [Atomic Orbitals Pt. 1]({{base.url}}/M4/prerequisites/Atomic-Orbitals.html).  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.
 
-To add
+To add this package:
 
 
 ```julia
 Pkg.add("GLVisualize")
 ```
 
-and test with
+and test with:
 
 
 ```julia
 Pkg.test("GLVisualize")
 ```
 
-But other steps may be necessary to get the package working.  On a Mac, I needed to install the Homebrew.jl package.
+But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.
 
 
 ```julia
@@ -96,7 +96,7 @@ end
 
 
 
-Here create a square cube, and convert those positions over to spherical coordinates.
+Here, create a square cube, and convert those positions over to spherical coordinates.
 
 
 ```julia
@@ -170,11 +170,11 @@ r()
 {% include image.html img="M4/Images/Orbitals2/2p_surface.png" title="2p" caption="2p Orbital shown via isosurface."%}
 
 ## 3d orbitals
-{% include image.html img="M4/Images/Orbitals2/3d0_surface.png" title="3d0" caption="3dz2 Orbital shown via isosurface. This corresponds to n=3, l=2, m=0." %}
+{% include image.html img="M4/Images/Orbitals2/3d0_surface.png" title="3d0" caption="3dz2 Orbital shown via isosurface. This corresponds to $n=3$, $l=2$, $m=0$." %}
 
-{% include image.html img="M4/Images/Orbitals2/3d-1_surface.png" title="3dm1" caption="A 3d Orbital shown via isosurface. This corresponds to n=3, l=2, m=neg 1. This is not one of the cannonical images, but instead an m shape." %}
+{% include image.html img="M4/Images/Orbitals2/3d-1_surface.png" title="3dm1" caption="A 3d Orbital shown via isosurface. This corresponds to $n=3$, $l=2$, $m=-1$. This is not one of the canonical images, but instead an $m$ shape." %}
 
-{% include image.html img="M4/Images/Orbitals2/3d2-2_spaceb.png" title="3dxy" caption="3dxy (x2-y2) orbital shown in density.  This is the sum of an m=neg 2 and m=2 state, for n=3,l=2. "%}
+{% include image.html img="M4/Images/Orbitals2/3d2-2_spaceb.png" title="3dxy" caption="3dxy (x2-y2) orbital shown in density.  This is the sum of an $m=-2$ and $m=2$ state, for $n=3,l=2$. "%}
 
 ## 3p
 In order to get this 3p surface image to come out correctly, I used the square root of the values instead in order to be able to see the much fainter outer lobe.

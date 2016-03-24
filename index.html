@@ -22,7 +22,7 @@ For additional information, see <a href="{{base.url}}/M4/jupyterjulia">Interact<
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
           <p class="post-meta">&nbsp;&nbsp;&nbsp;&nbsp;
-            {% for tag in post.tags %}<a href="{{base.url}}/M4/tags/{{ tag }}"> {{tag}}</a> {% endfor %} &nbsp;{{post.category}}</p>
+            {% for tag in post.tags %}<a href="{{base.url}}/M4/tags"> {{tag}}</a> {% endfor %} &nbsp;{{post.category}}</p>
       </li>
     {% endfor %}
   </ul>

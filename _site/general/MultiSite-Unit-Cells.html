@@ -70,15 +70,21 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
+        
+          
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
           
         
       </div>
@@ -105,12 +111,16 @@
       <div class="wrapper">
         <div class="post">
 
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
   <header class="post-header">
     <h1 class="post-title">Computationally Visualizing Crystals Pt. 2</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
       Category: <a href="/M4/categories">General</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
       
-      <a href="/M4/tags/Lattices">Lattices</a></p>
+      <a href="/M4/tags">Lattices</a></p>
         
   </header>
 
@@ -118,7 +128,7 @@
 
     <h4 id="christina-c-lee-github-albi3ro">Christina C. Lee, github: albi3ro</h4>
 
-<p><b>Prerequisites:</b> <a href="/M4/ug/Crystal-Shapes.html">Computationally Visuallizing Crystals Pt. 1</a></p>
+<p><b>Prerequisites:</b> <a href="/M4/general/Crystal-Shapes.html">Computationally Visualizing Crystals Pt. 1</a></p>
 
 <p>Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don’t adhere to the “every site the same” policy.  They still repeat, but just take a little bit longer to get around to doing so.</p>
 
@@ -144,10 +154,18 @@
     
 </div>
 
+<<<<<<< HEAD
 <p>If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>Unit Cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:
 &gt;A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.</p>
+=======
+<p>If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>unit cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:</p>
 
-<p>Now I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?</p>
+<blockquote>
+  <p>A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.</p>
+</blockquote>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+
+<p>I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?</p>
 
 <p>Turns out, there isn’t a unique way.  We can go further and define the <i>Wigner-Seitz</i> unit cell, which uses the Bravais translations to pick out just ONE of the various possible definitions.</p>
 
@@ -158,6 +176,7 @@
 <p>You saw Kagome above.</p>
 
 <p>The options I’ve put in now are:</p>
+<<<<<<< HEAD
 <ul>
 <li> honeycomb
 <li> kagome
@@ -167,6 +186,18 @@
 
 
 The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene, an extremely important material right now, though I work with it in terms of the Kitaev spin model.  Kagome and Pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.
+=======
+
+<ul>
+  <li>honeycomb</li>
+  <li>kagome</li>
+  <li>shuriken (a.k.a. square-Kagome)</li>
+  <li>diamond</li>
+  <li>pyrochlore</li>
+</ul>
+
+<p>The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene. This is an extremely important material right now, though I work with it in terms of the Kitaev spin model (to be discussed at a later date). Kagome and pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -178,6 +209,7 @@ The ones implemented here, except for diamond, are frustrated lattices that I wo
     
 </div>
 
+<<<<<<< HEAD
 
 ```julia
 # importing our packages
@@ -190,15 +222,30 @@ using PyPlot;
 
 ```julia
 lattice="shuriken";
+=======
+<pre><code class="language-julia"># importing our packages
+Pkg.add("PyPlot");
+Pkg.update();
+using PyPlot;
+</code></pre>
+
+<pre><code class="language-julia">lattice="shuriken";
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 Nx=3;
 Ny=3;
 Nz=1;
+<<<<<<< HEAD
 ```
 
 
 ```julia
 # A cell to just evaluate
+=======
+</code></pre>
+
+<pre><code class="language-julia"># A cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice=="honeycomb") #also the graphite lattice
@@ -253,6 +300,7 @@ else
     println("Please have a correct lattice")
 end
 "Cell finished"
+<<<<<<< HEAD
 ```
 
 
@@ -268,6 +316,19 @@ you'll notice they're the same except for a scaling factor.  This has to be true
 
 ```julia
 # Another cell to just evaluate
+=======
+</code></pre>
+
+<h3 id="connections-to-bravais-lattices">Connections to Bravais Lattices</h3>
+
+<p>If you look at some of the comments above, and checkout the basis vectors from <a href="/M4/General/Crystal-Shapes.html"><i>Crystal Shapes</i></a>, like pt,
+        \begin{equation}
+            a=[1,0,0]\;\;\;\;\;\;\;\;\; b=[.5,\frac{\sqrt{3}}{2},0],
+        \end{equation}
+you’ll notice they’re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.</p>
+
+<pre><code class="language-julia"># Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz*Ncell;    #The total number of sites
 aM=transpose(repeat(a,outer=[1,Ncell]));
@@ -276,6 +337,7 @@ cM=transpose(repeat(c,outer=[1,Ncell*Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
 "Cell finished"
+<<<<<<< HEAD
 ```
 
 
@@ -283,6 +345,11 @@ X=Array{Float64}(N,3);  #where we store the positions
 
 ```julia
 # Another cell to just evaluate
+=======
+</code></pre>
+
+<pre><code class="language-julia"># Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[Ncell*i-Ncell+1:Ncell*i,:]=unit+(i-1)*aM;
@@ -291,6 +358,7 @@ end
 for j in 2:Ny    #copying the first row into the first layer
     X[Ncell*Nx*(j-1)+(1:Ncell*Nx),:]=X[1:Ncell*Nx,:]+(j-1)*bM;
 end
+<<<<<<< HEAD
 
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
@@ -310,6 +378,22 @@ scatter(X[:,1],X[:,2])
 ```
 
 
+=======
+
+for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
+end
+"Cell finished"
+</code></pre>
+
+<pre><code class="language-julia"># 2D plotter
+pygui(false)
+w, h = plt[:figaspect](1)
+figure(figsize=(w,h))
+scatter(X[:,1],X[:,2])
+</code></pre>
+
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -320,13 +404,18 @@ scatter(X[:,1],X[:,2])
     
 </div>
 
+<<<<<<< HEAD
 ```julia
 # 3D plotter
+=======
+<pre><code class="language-julia"># 3D plotter
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 areas=100*ones(length(X[:,1]))
 scatter3D(X[:,1],X[:,2],X[:,3])
+<<<<<<< HEAD
 ```
 
 
@@ -336,6 +425,13 @@ scatter3D(X[:,1],X[:,2],X[:,3])
 ### Perdy Pictures
 From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here's a nice graphic I made that might help a little bit more.
 
+=======
+</code></pre>
+
+<h3 id="perdy-pictures">Perdy Pictures</h3>
+<p>From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here’s a nice graphic I made that might help a little bit more.</p>
+
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -346,7 +442,10 @@ From these plots, some 3D structures like the pyrochlore are hard to visualize. 
     
 </div>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -360,9 +459,15 @@ From these plots, some 3D structures like the pyrochlore are hard to visualize. 
 
 The honeycomb, like several other lattices you see around here, is <i>bipartite</i>.
 You can see in my image that black sites are only next to white sites, and vice versa.
+<<<<<<< HEAD
   This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren't?
 
 If you keep reading, these lattices will keep cropping up again and again.  I'll probably throw in some new ones as well.
+=======
+  This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren’t?</p>
+
+<p>If you keep reading, these lattices will keep cropping up again and again.  I’ll probably throw in some new ones as well.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!
 </li></li></li></li></li></ul>
