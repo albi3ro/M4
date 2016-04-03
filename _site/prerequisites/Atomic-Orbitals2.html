@@ -128,6 +128,62 @@
 
     <p><b>Prerequiresites:</b> Quantum Mechanics course</p>
 
+<<<<<<< HEAD
+<p>If you haven’t read it already, checkout <a href="/M4/undergrad/Atomic-Orbitals.html">Atomic Orbitals Pt. 1</a>.  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.</p>
+
+<p>To add</p>
+
+<p><code>julia
+Pkg.add("GLVisualize")
+</code></p>
+
+<p>and test with</p>
+
+<p><code>julia
+Pkg.test("GLVisualize")
+</code></p>
+
+<p>But other steps may be necessary to get the package working.  On a Mac, I needed to install the Homebrew.jl package.</p>
+
+<p><code>julia
+#Pkg.update();
+#Pkg.add("GSL");
+using GSL;
+using GLVisualize;
+</code></p>
+
+<p>```julia
+a0=1; #for convenience, or 5.2917721092(17)×10−11 m</p>
+
+<h1 id="the-unitless-radial-coordinate">The unitless radial coordinate</h1>
+<p>ρ(r,n)=2r/(n*a0);</p>
+
+<h1 id="the--dependence">The θ dependence</h1>
+<p>function Pmlh(m::Int,l::Int,θ::Real)
+    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
+end</p>
+
+<h1 id="the--and--dependence">The θ and ϕ dependence</h1>
+<p>function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
+    return  (-1.0)^m<em>sf_legendre_Plm(l,abs(m),cos(θ))</em>e^(im<em>m</em>ϕ)
+end</p>
+
+<h1 id="the-radial-dependence">The Radial dependence</h1>
+<p>function R(n::Int,l::Int,ρ::Real)
+    if isapprox(ρ,0)
+        ρ=.001
+    end
+     return sf_laguerre_n(n-l-1,2<em>l+1,ρ)</em>e^(-ρ/2)*ρ^l
+end</p>
+
+<h1 id="a-normalization-this-is-dependent-on-the-choice-of-polynomial-representation">A normalization: This is dependent on the choice of polynomial representation</h1>
+<p>function norm(n::Int,l::Int)
+    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
+end</p>
+
+<h1 id="generates-an-orbital-funtion-of-r-for-a-specificied-nlm">Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.</h1>
+<p>function Orbital(n::Int,l::Int,m::Int)
+=======
 <p>If you haven’t read it already, check out <a href="/M4/prerequisites/Atomic-Orbitals.html">Atomic Orbitals Pt. 1</a>.  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.</p>
 
 <p>To add this package:</p>
@@ -178,12 +234,28 @@ end
 
 #Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.
 function Orbital(n::Int,l::Int,m::Int)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     if (l&gt;n)    # we make sure l and m are within proper bounds
         throw(DomainError())
     end
     if abs(m)&gt;l
        throw(DomainError())
     end
+<<<<<<< HEAD
+    psi(ρ,θ,ϕ)=norm(n, l)<em>R(n,l,ρ)</em>Yml(m,l,θ,ϕ);
+    return psi
+end</p>
+
+<h1 id="we-will-calculate-is-spherical-coordinates-but-plot-in-cartesian-so-we-need-this-array-conversion">We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion</h1>
+<p>function SphtoCart(r::Array,θ::Array,ϕ::Array)
+    x=r.<em>sin(θ).</em>cos(ϕ);
+    y=r.<em>sin(θ).</em>sin(ϕ);
+    z=r.*cos(θ);
+    return x,y,z;
+end</p>
+
+<p>function CarttoSph(x::Array,y::Array,z::Array)
+=======
     psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
     return psi
 end
@@ -197,10 +269,77 @@ function SphtoCart(r::Array,θ::Array,ϕ::Array)
 end
 
 function CarttoSph(x::Array,y::Array,z::Array)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     r=sqrt(x.^2+y.^2+z.^2);
     θ=acos(z./r);
     ϕ=atan(y./x);
     return r,θ,ϕ;
+<<<<<<< HEAD
+end</p>
+
+<p>“Defined Helper Functions”
+```</p>
+
+<p>Here create a square cube, and convert those positions over to spherical coordinates.</p>
+
+<p>```julia
+range=-10:.5:10
+x=collect(range);
+y=collect(range);
+z=collect(range);
+N=length(x);
+xa=repeat(x,outer=[1,N,N]);
+ya=repeat(transpose(y),outer=[N,1,N]);
+za=repeat(reshape(z,1,1,N),outer=[N,N,1]);
+println(“created x,y,z”)</p>
+
+<p>r,θ, ϕ=CarttoSph(xa,ya,za);
+println(“created r,θ,ϕ”)
+```</p>
+
+<p><code>julia
+Ψ=Orbital(3,2,-1)
+Ψp=Orbital(3,1,0)
+</code></p>
+
+<p><code>julia
+Ψv = zeros(Float32,N,N,N);
+ϕv = zeros(Float32,N,N,N);
+</code></p>
+
+<p>```julia
+for nn in 1:N
+    for jj in 1:N
+        for kk in 1:N
+            val=Ψ(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
+            #val+=Ψp(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
+            Ψv[nn,jj,kk]=convert(Float32,abs(val));
+            ϕv[nn,jj,kk]=convert(Float32,angle(val));
+        end
+    end
+end</p>
+
+<p>mid=round(Int,(N-1)/2+1);
+Ψv[mid,mid,:]=Ψv[mid+1,mid+1,:]; # the one at the center diverges
+Ψv=(Ψv-minimum(Ψv))/(maximum(Ψv)-minimum(Ψv) );
+```</p>
+
+<p>```julia
+w,r = glscreen()</p>
+
+<p>robj=visualize(Ψv)</p>
+
+<h1 id="choose-this-one-for-surfaces-of-constant-of-intensity">choose this one for surfaces of constant of intensity</h1>
+<p>view(visualize(robj[:intensities],:iso))</p>
+
+<h1 id="choose-this-for-a-block-of-3d-density">choose this for a block of 3D density</h1>
+<p>#view(visualize(Ψv))
+r()
+```</p>
+
+<h2 id="p-orbital">2p Orbital</h2>
+
+=======
 end
 
 "Defined Helper Functions"
@@ -260,6 +399,7 @@ r()
 
 <h2 id="p-orbital">2p Orbital</h2>
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     

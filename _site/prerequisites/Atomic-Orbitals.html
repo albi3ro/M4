@@ -167,14 +167,22 @@ r^2 \frac{\partial}{\partial r}
 <p>Instead of going into the precise mechanisms of solving those two separate equations here, trust for now that they follow standard special functions, the associated <i>Legendre polynomial</i> and the generalized <i>Laguerre polynomial</i>.  Try a standard quantum mechanics textbook for more information about this.</p>
 
 <p>\begin{equation}
+<<<<<<< HEAD
+        Y\^m_l(θ,ϕ) = (-1)\^m e\^{i m \phi} P\^m_l (\cos(θ))
+=======
 Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 \end{equation}
 where $P^m_l (\cos (\theta))$ is the associated Legendre polynomial.</p>
 
 <p>\begin{equation}
+<<<<<<< HEAD
+    R\^{n,l} (\rho) = \rho\^l e\^{-\rho/2} L\^{2 l+1}_{n-l-1} (\rho)
+=======
  R^{n,l} ( \rho ) = \rho ^l e^{- \rho  /2} L^{2 l+1}_{n-l-1} ( \rho )
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 \end{equation}
-where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.</p>
+where $L\^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.</p>
 
 <p>\begin{equation}
     \rho=\frac{2r}{n a_0}
@@ -184,15 +192,27 @@ where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.</p>
     N=\sqrt{\left(\frac{2}{n}\right)^3 \frac{(n-l-1)}{2n(n+l)!}}
 \end{equation}</p>
 
+<<<<<<< HEAD
+<p><code>julia
+#Pkg.update();
+=======
 <pre><code class="language-julia">#Pkg.update();
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 #Pkg.add("GSL");
 #Pkg.add("PyPlot");
 using GSL;    #GSL holds the special functions
 using PyPlot;
+<<<<<<< HEAD
+</code></p>
+
+<h4 id="cell-to-evaluate">Cell to Evaluate</h4>
+<p>What’s below is a bunch of definitions that makes our calculations easier later on.  Here I utalize the Gnu scientific library, GSL imported above, to calculate the special functions.</p>
+=======
 </code></pre>
 
 <h4 id="cell-to-evaluate">Cell to Evaluate</h4>
 <p>What’s below is a bunch of definitions that makes our calculations easier later on.  Here I utilize the GNU scientific library, GSL imported above, to calculate the special functions.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <div class="progtip">
 <h3 color="black"> Programming Tip!</h3>
@@ -203,6 +223,39 @@ Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab</p
 The function <code>Orbital</code> throws <code>DomainError()</code> when <code>l</code> or <code>m</code> do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
 </p>
 </div>
+<<<<<<< HEAD
+<p>```julia
+a0=1; #for convenience, or 5.2917721092(17)×10−11 m</p>
+
+<h1 id="the-unitless-radial-coordinate">The unitless radial coordinate</h1>
+<p>ρ(r,n)=2r/(n*a0);</p>
+
+<h1 id="the--dependence">The θ dependence</h1>
+<p>function Pmlh(m::Int,l::Int,θ::Real)
+    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
+end</p>
+
+<h1 id="the--and--dependence">The θ and ϕ dependence</h1>
+<p>function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
+    return  (-1.0)^m<em>sf_legendre_Plm(l,m,cos(θ))</em>e^(im<em>m</em>ϕ)
+end</p>
+
+<h1 id="the-radial-dependence">The Radial dependence</h1>
+<p>function R(n::Int,l::Int,ρ::Real)
+    if isapprox(ρ,0)
+        ρ=.01
+    end
+     return sf_laguerre_n(n-l-1,2<em>l+1,ρ)</em>e^(-ρ/2)*ρ^l
+end</p>
+
+<h1 id="a-normalization-this-is-dependent-on-the-choice-of-polynomial-representation">A normalization: This is dependent on the choice of polynomial representation</h1>
+<p>function norm(n::Int,l::Int)
+    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
+end</p>
+
+<h1 id="generates-an-orbital-funtion-of-r-for-a-specificied-nlm">Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.</h1>
+<p>function Orbital(n::Int,l::Int,m::Int)
+=======
 <pre><code class="language-julia">a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
 # The unitless radial coordinate
@@ -233,12 +286,28 @@ end
 
 #Generates an Orbital function of (r,θ,ϕ) for a specified n,l,m.
 function Orbital(n::Int,l::Int,m::Int)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     if l&gt;n    # we make sure l and m are within proper bounds
         throw(DomainError())
     end
     if abs(m)&gt;l
         throw(DomainError())
     end
+<<<<<<< HEAD
+    psi(ρ,θ,ϕ)=norm(n, l)<em>R(n,l,ρ)</em>Yml(m,l,θ,ϕ);
+    return psi
+end</p>
+
+<h1 id="we-will-calculate-is-spherical-coordinates-but-plot-in-cartesian-so-we-need-this-array-conversion">We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion</h1>
+<p>function SphtoCart(r::Array,θ::Array,ϕ::Array)
+    x=r.<em>sin(θ).</em>cos(ϕ);
+    y=r.<em>sin(θ).</em>sin(ϕ);
+    z=r.*cos(θ);
+    return x,y,z;
+end</p>
+
+<p>function CarttoSph(x::Array,y::Array,z::Array)
+=======
     psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
     return psi
 end
@@ -252,14 +321,22 @@ function SphtoCart(r::Array,θ::Array,ϕ::Array)
 end
 
 function CarttoSph(x::Array,y::Array,z::Array)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     r=sqrt(x.^2+y.^2+z.^2);
     θ=acos(z./r);
     ϕ=atan(y./x);
     return r,θ,ϕ;
+<<<<<<< HEAD
+end</p>
+
+<p>“Defined Helper Functions”
+```</p>
+=======
 end
 
 "Defined Helper Functions"
 </code></pre>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <h4 id="parameters">Parameters</h4>
 <p>Grid parameters:
@@ -270,6 +347,73 @@ You might need to change <code class="highlighter-rouge">rmax</code> to be able 
 0&lt;n \;\;\;\;\; \;\;\;\; 0 \leq l &lt; n \;\;\;\;\; \;\;\;\; -l \leq m \leq l
 \;\;\;\;\; \;\;\;\; n,l,m \in {\cal Z}
 \end{equation}</p>
+<<<<<<< HEAD
+
+<p>```julia
+# Grid Parameters
+rmin=.05
+rmax=10
+Nr=100 #Sampling frequency
+Nθ=100
+Nϕ=100</p>
+
+<h1 id="choose-which-orbital-to-look-at">Choose which Orbital to look at</h1>
+<p>n=3;
+l=1;
+m=0;
+“Defined parameters”
+```</p>
+
+<p>```julia
+#Linear Array of spherical coordinates
+r=collect(linspace(rmin,rmax,Nr));
+ϕ=collect(linspace(0,2π,Nθ));
+θ=collect(linspace(0,π,Nϕ));
+#3D arrays of spherical coordinates, in order r,θ,ϕ
+ra=repeat(r,outer=[1,Nθ,Nϕ]);
+θa=repeat(transpose(θ),outer=[Nr,1,Nϕ]);
+ϕa=repeat(reshape(ϕ,1,1,Nϕ),outer=[Nr,Nθ,1]);</p>
+
+<p>x,y,z=SphtoCart(ra,θa,ϕa);
+```</p>
+
+<p>Though I could create a wrapped up function with <code>Orbital(n,l,m)</code> and evaluate that at each point, the below evaluation takes advantage of the seperatability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.</p>
+
+<p>```julia
+Ψ=zeros(Float64,Nr,Nϕ,Nθ)
+θd=Int64(round(Nθ/2))  ## gives approximately the equator.  Will be useful later</p>
+
+<p>p1=Pmlh(m,l,θ[1]);
+p2=exp(im<em>m</em>ϕ[1]);
+for i in 1:Nr
+    Ψ[i,1,1]=norm(n,l)<em>R(n,l,ρ(r[i],n))</em>p1*p2;
+end</p>
+
+<p>for j in 1:Nθ
+    Ψ[:,j,1]=Ψ[:,1,1]*Pmlh(m,l,θ[j])/p1;
+end</p>
+
+<p>for k in 1:Nϕ
+    Ψ[:,:,k]=Ψ[:,:,1]<em>exp(im</em>m*ϕ[k])/p2;
+end
+```</p>
+
+<p>```julia
+pygui(false)
+xlabel(“θ”)
+ylabel(“Ψ”)
+title(“Wavefunction for n= $n ,l= $l ,m= $m “)</p>
+
+<p>annotate(“l= $l Angular Node”,
+xy=[π/2;0],
+xytext=[π/2+.1;.02],
+xycoords=”data”,
+arrowprops=Dict(“facecolor”=&gt;”black”))</p>
+
+<p>plot(θ,zeros(θ))
+plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
+```</p>
+=======
 
 <pre><code class="language-julia"># Grid Parameters
 rmin=.05
@@ -331,6 +475,7 @@ arrowprops=Dict("facecolor"=&gt;"black"))
 plot(θ,zeros(θ))
 plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
 </code></pre>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -342,6 +487,46 @@ plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
     
 </div>
 
+<<<<<<< HEAD
+<p>```julia
+pygui(false)
+xlabel(“r”)
+ylabel(“Ψ”)
+title(“Wavefunction for n= $n ,l= $l ,m= $m “)</p>
+
+<p>plot(r,zeros(r))
+plot(r,reshape(Ψ[:,50,1],100)) #reshape makes Ψ 1D
+```
+<!-- _includes/image.html -->
+&lt;div class="image-wrapper" &gt;</p>
+
+<pre><code>    &lt;img src="/M4/Images/Orbitals/radial1di.png" alt="3p Radial Slice"/&gt;
+
+
+    &lt;p class="image-caption"&gt;A slice along the radial plane showing a radial node in the 3p orbital.&lt;/p&gt;
+</code></pre>
+
+<p>&lt;/div&gt;</p>
+
+<p><code>julia
+#rap=squeeze(ra[:,:,50],3)
+#θap=squeeze(θa[:,:,50],3)
+#ϕap=squeeze(ϕa[:,:,50],3)
+#Ψp=squeeze(Ψ[:,:,50],3)
+rap=ra[:,:,50]
+θap=θa[:,:,50]
+ϕap=ϕa[:,:,50]
+Ψp=Ψ[:,:,50]
+xp,yp,zp=SphtoCart(rap,θap,ϕap);
+pygui(false)
+xlabel("x")
+ylabel("z")
+title("ϕ-slice of Ψ for n=$n, l=$l, m=$m")
+pcolor(xp[:,:],zp[:,:],Ψp[:,:],cmap="coolwarm")
+colorbar()
+</code></p>
+
+=======
 <pre><code class="language-julia">pygui(false)
 xlabel("r")
 ylabel("Ψ")
@@ -377,6 +562,7 @@ pcolor(xp[:,:],zp[:,:],Ψp[:,:],cmap="coolwarm")
 colorbar()
 </code></pre>
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -397,7 +583,11 @@ colorbar()
     
 </div>
 
+<<<<<<< HEAD
+<p>Don’t forget to checkout <a href="/M4/undergrad/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>!</p>
+=======
 <p>Don’t forget to check out <a href="/M4/prerequisites/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>!</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
   </article>
 

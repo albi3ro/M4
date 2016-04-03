@@ -154,11 +154,16 @@
     
 </div>
 
+<<<<<<< HEAD
+<p>If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>Unit Cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:
+&gt;A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.</p>
+=======
 <p>If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a <i>unit cell</i>.  According to <a href="http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell">Chem Wiki</a>, a unit cell is:</p>
 
 <blockquote>
   <p>A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.</p>
 </blockquote>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <p>I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?</p>
 
@@ -171,6 +176,17 @@
 <p>You saw Kagome above.</p>
 
 <p>The options I’ve put in now are:</p>
+<<<<<<< HEAD
+<ul>
+<li> honeycomb
+<li> kagome
+<li> shuriken aka Square-Kagome
+<li> diamond
+<li> pyrochlore
+
+
+The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene, an extremely important material right now, though I work with it in terms of the Kitaev spin model.  Kagome and Pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.
+=======
 
 <ul>
   <li>honeycomb</li>
@@ -181,6 +197,7 @@
 </ul>
 
 <p>The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene. This is an extremely important material right now, though I work with it in terms of the Kitaev spin model (to be discussed at a later date). Kagome and pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -192,6 +209,20 @@
     
 </div>
 
+<<<<<<< HEAD
+
+```julia
+# importing our packages
+Pkg.add("PyPlot");
+Pkg.update();
+using PyPlot;
+```
+
+
+
+```julia
+lattice="shuriken";
+=======
 <pre><code class="language-julia"># importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
@@ -199,13 +230,22 @@ using PyPlot;
 </code></pre>
 
 <pre><code class="language-julia">lattice="shuriken";
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 Nx=3;
 Ny=3;
 Nz=1;
+<<<<<<< HEAD
+```
+
+
+```julia
+# A cell to just evaluate
+=======
 </code></pre>
 
 <pre><code class="language-julia"># A cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice=="honeycomb") #also the graphite lattice
@@ -260,6 +300,23 @@ else
     println("Please have a correct lattice")
 end
 "Cell finished"
+<<<<<<< HEAD
+```
+
+
+
+### Connections to Bravais Lattices
+
+If look at some of the comments above, and checkout the basis vectors from Crystal Shapes, like pt,
+        \begin{equation}
+            a=[1,0,0]\;\;\;\;\;\;\;\;\; b=[.5,\frac{\sqrt{3}}{2},0],
+        \end{equation}
+you'll notice they're the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.
+
+
+```julia
+# Another cell to just evaluate
+=======
 </code></pre>
 
 <h3 id="connections-to-bravais-lattices">Connections to Bravais Lattices</h3>
@@ -271,6 +328,7 @@ end
 you’ll notice they’re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.</p>
 
 <pre><code class="language-julia"># Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz*Ncell;    #The total number of sites
 aM=transpose(repeat(a,outer=[1,Ncell]));
@@ -279,9 +337,19 @@ cM=transpose(repeat(c,outer=[1,Ncell*Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
 "Cell finished"
+<<<<<<< HEAD
+```
+
+
+
+
+```julia
+# Another cell to just evaluate
+=======
 </code></pre>
 
 <pre><code class="language-julia"># Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[Ncell*i-Ncell+1:Ncell*i,:]=unit+(i-1)*aM;
@@ -290,6 +358,27 @@ end
 for j in 2:Ny    #copying the first row into the first layer
     X[Ncell*Nx*(j-1)+(1:Ncell*Nx),:]=X[1:Ncell*Nx,:]+(j-1)*bM;
 end
+<<<<<<< HEAD
+
+for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
+end
+"Cell finished"
+```
+
+
+
+
+```julia
+# 2D plotter
+pygui(false)
+w, h = plt[:figaspect](1)
+figure(figsize=(w,h))
+scatter(X[:,1],X[:,2])
+```
+
+
+=======
 
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
@@ -304,6 +393,7 @@ figure(figsize=(w,h))
 scatter(X[:,1],X[:,2])
 </code></pre>
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -314,17 +404,34 @@ scatter(X[:,1],X[:,2])
     
 </div>
 
+<<<<<<< HEAD
+```julia
+# 3D plotter
+=======
 <pre><code class="language-julia"># 3D plotter
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 areas=100*ones(length(X[:,1]))
 scatter3D(X[:,1],X[:,2],X[:,3])
+<<<<<<< HEAD
+```
+
+
+
+
+
+### Perdy Pictures
+From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here's a nice graphic I made that might help a little bit more.
+
+=======
 </code></pre>
 
 <h3 id="perdy-pictures">Perdy Pictures</h3>
 <p>From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here’s a nice graphic I made that might help a little bit more.</p>
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -335,6 +442,10 @@ scatter3D(X[:,1],X[:,2],X[:,3])
     
 </div>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -345,13 +456,21 @@ scatter3D(X[:,1],X[:,2],X[:,3])
     
 </div>
 
-<p>The honeycomb, like several other lattices you see around here, is <i>bipartite</i>.
+
+The honeycomb, like several other lattices you see around here, is <i>bipartite</i>.
 You can see in my image that black sites are only next to white sites, and vice versa.
+<<<<<<< HEAD
+  This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren't?
+
+If you keep reading, these lattices will keep cropping up again and again.  I'll probably throw in some new ones as well.
+=======
   This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren’t?</p>
 
 <p>If you keep reading, these lattices will keep cropping up again and again.  I’ll probably throw in some new ones as well.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-<p>Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!</p>
+Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!
+</li></li></li></li></li></ul>
 
   </article>
 

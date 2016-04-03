@@ -5,6 +5,11 @@
     <description>Blog Introduction to Computational Condensed Matter Physics</description>
     <link>/M4/</link>
     <atom:link href="/M4/feed.xml" rel="self" type="application/rss+xml" />
+<<<<<<< HEAD
+    <pubDate>Wed, 17 Feb 2016 02:31:52 +0900</pubDate>
+    <lastBuildDate>Wed, 17 Feb 2016 02:31:52 +0900</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+=======
     <pubDate>Thu, 03 Mar 2016 13:41:48 +0900</pubDate>
     <lastBuildDate>Thu, 03 Mar 2016 13:41:48 +0900</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
@@ -236,6 +241,7 @@ By Scott Bauer, USDA ARS - This image was released by the Agricultural Research 
         <category>Numerics</category>
         
       </item>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     
       <item>
         <title>Jacobi Transformation of a Symmetric Matrix</title>
@@ -244,12 +250,40 @@ By Scott Bauer, USDA ARS - This image was released by the Agricultural Research 
 &lt;p&gt;So you want to diagonalize a matrix, do you?
 Well, if you have a tiny symmetric matrix, you REALLY want to write up the algorithm by hand, and don’t want to spend much time trying to understand the algorithm, then you have come to the right place.&lt;/p&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices.  Julia has those libraries built in already.  Even if you do call those matrices, you can make them work better by understanding what’s going on underneath the hood, which is why we are going through this now.&lt;/p&gt;
+=======
 &lt;p&gt;Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices. Julia has those libraries built in already. Even if you do call those matrices, you can make them work better by understanding what’s going on underneath the hood, which is why we are going through this now.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;p&gt;Start with a base &lt;i&gt;rotation matrix&lt;/i&gt; of the Form
 &lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
 P_{pq} =
     \begin{pmatrix}
+<<<<<<< HEAD
+           1&amp;amp; &amp;amp;  &amp;amp;  &amp;amp; &amp;amp; &amp;amp; &amp;amp; 0 \&lt;br /&gt;
+           &amp;amp; \ddots &amp;amp; &amp;amp; &amp;amp; &amp;amp;  &amp;amp;  \&lt;br /&gt;
+            &amp;amp; &amp;amp; c &amp;amp; \cdots &amp;amp; s &amp;amp; &amp;amp; \&lt;br /&gt;
+                &amp;amp; &amp;amp;\vdots&amp;amp; 1 &amp;amp; \vdots &amp;amp; &amp;amp; \&lt;br /&gt;
+               &amp;amp; &amp;amp; -s &amp;amp; \cdots &amp;amp; c &amp;amp; &amp;amp;  \&lt;br /&gt;
+               &amp;amp; &amp;amp; &amp;amp; &amp;amp; &amp;amp; \ddots &amp;amp;  \&lt;br /&gt;
+               0 &amp;amp; &amp;amp; &amp;amp; &amp;amp;  &amp;amp; &amp;amp; 1\&lt;br /&gt;
+    \end{pmatrix}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;From our starting arbitrary symmetric A,
+\begin{equation}
+A^{T} = A
+\end{equation}
+we will run a series of transformations,
+\begin{equation}
+A^{\prime}= P^{T}_{pq} \cdot A \cdot P_{pq}
+\end{equation}
+where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; The values of c and s
+&lt;li&gt; The pattern of sweeping p and q
+=======
            1&amp; &amp;  &amp;  &amp; &amp; &amp; &amp; 0 \\
            &amp; \ddots &amp; &amp; &amp; &amp;  &amp;  \\
             &amp; &amp; c &amp; \cdots &amp; s &amp; &amp; \\
@@ -275,9 +309,101 @@ P_{pq} =
 &lt;/ul&gt;
 
 &lt;p&gt;And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-&lt;p&gt;So lets expand one transformation, and we if we can solve for $c$ and $s$.&lt;/p&gt;
+And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.
 
+<<<<<<< HEAD
+So lets expand one transformation, and we if we can solve for $c$ and $s$.
+
+\begin{align}
+a^{\prime}\_{rp} &amp;amp; = c a\_{rp} - s a\_{rq} \\\\
+a^{\prime}\_{rq} &amp;amp; = c a\_{rq} + s a\_{rp} \\\\
+a^{\prime}\_{pp} &amp;amp; = c\^2 a\_{pp} + s\^2 a\_{qq} -2 sc a\_{pq} \\\\
+a^{\prime}\_{qq} &amp;amp; = s\^2 a\_{qq} + c\^2 a\_{qq} + 2sc a\_{pq} \\\\
+a^{\prime}\_{pq} &amp;amp; = \left( c\^2-s\^2 \right) a\_{pq} + sc \left(a\_{pq} - a\_{qq} \right)\\\\
+\end{align}
+
+## Determining $s$ and $c$
+Given we specifically want $a\^{\prime}\_{pq}$ to be zero, we re-arrange the last equation,
+\begin{equation}
+        \frac{c\^2-s\^2}{2 sc} = \frac{a\_{pq}-a\_{qq}}{2 a\_{pq}} =\theta
+\end{equation}
+At first glance, this equation might not look easier to solve for $s$ or $c$.  Second either. We define a new parameter $t = s/c$, which now makes the equation,
+\begin{equation}
+\frac{1-t^2}{2 t} = \theta \;\;\;\; \implies \;\;\; t^2 -2 \theta t -1=0,
+\end{equation}
+now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using form that pulls out smaller root through
+\begin{equation}
+t=\frac{\text{sgn}(\theta)}{|\theta| + \sqrt{\theta^2 + 1} }.
+\end{equation}
+Then reverse solve back to
+\begin{align}
+c&amp;amp;=\frac{1}{\sqrt{t^2+1}}\\
+s&amp;amp;=tc
+\end{align}
+
+Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are
+\begin{align}
+a\^{\prime}\_{pq} &amp;amp; = 0\\\\
+a\^{\prime}\_{qq} &amp;amp; = a\_{qq} + t a\_{qp} \\\\
+a\^{\prime}\_{pp} &amp;amp;= a\_{pp} - t a\_{pq} \\\\
+a\^{\prime}\_{rp} &amp;amp;= a\_{rp} - s \left( a\_{rq} +\tau a\_{rp} \right) \\\\
+a\^{\prime}\_{rq} &amp;amp;= a\_{rq} + s \left( a\_{rp} -\tau a\_{rq} \right)\\\\
+\end{align}
+with the new variable
+\begin{equation}
+\tau = \frac{s}{1+c}
+\end{equation}
+
+## Convergence
+
+The sum of the squares of the off diagonal elements ,choosen in either upper or lower triagnles arbitrarily,
+\begin{equation}
+S=\sum\limits_{r &amp;lt; s} |a\_{rs}|^2
+\end{equation}
+
+## Eigenvectors
+
+By forming a product of every rotation matrix, we also come to approximate the matrix $V$ where
+\begin{equation}
+D = V^{T} \cdot A \cdot V
+\end{equation}
+and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
+\begin{align}
+V^{\prime} &amp;amp; = V \cdot P_i \\\\
+v^{\prime}\_{rs} &amp;amp;= v\_{rs} \\\\
+v^{\prime}\_{rp} &amp;amp;= c v\_{rp} - s v\_{rq} \\\\
+v^{\prime}\_{rq} &amp;amp;= s v\_{rp} + c v\_{rq}\\\\
+\end{align}
+
+### Enough with the talking! LETS COMPUTE STUFF
+
+
+```julia
+# First, Lets make our nice, helpful functions
+
+## A function to look at the convergence
+function convergence(A::Array)
+    num=0.0
+    l=size(A)[1]
+    for ii in 1:(l-1)
+        for jj in (ii+1):l ## just looking at the lower triangle
+            num+=A[ii,jj]^2
+            #println(ii,&#39; &#39;,jj,&#39; &#39;,num,&#39; &#39;,A[ii,jj])
+        end
+    end
+    return num
+end
+```
+
+
+This makes a matrix easier to look at than when its filled
+with 1.043848974e-12 everywhere
+
+```julia
+function roundmatrix(A::Array,rtol::Real)
+=======
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;a^{\prime}_{rp}  = c a_{rp} - s a_{rq}&lt;/script&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;a^{\prime}_{rq}  = c a_{rq} + s a_{rp}&lt;/script&gt;
@@ -366,6 +492,7 @@ end
 with 1.043848974e-12 everywhere&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;function roundmatrix(A::Array,rtol::Real)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     Ap=copy(A)
     for ii in 1:length(A)
         if abs(Ap[ii])&amp;lt;rtol
@@ -374,9 +501,19 @@ with 1.043848974e-12 everywhere&lt;/p&gt;
     end
     return Ap;
 end
+<<<<<<< HEAD
+```
+
+
+
+
+```julia
+## Here we create a random symmetric matrix
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;## Here we create a random symmetric matrix
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 function makeA(n::Int)
     A=randn(n,n);
     for ii in 1:n
@@ -386,6 +523,19 @@ function makeA(n::Int)
     return A,copy(A),V
 end
 ## One A returned will be stored to compare initial and final
+<<<<<<< HEAD
+```
+
+Now on to the Rotations!
+
+ We don&#39;t always want to compute the eigenvectors, so those are in the optional entries slot.
+Both tell the function to compute the vectors with `computeV=true`
+and input the `V=V` after the semicolon.
+
+
+```julia
+function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now on to the rotations!&lt;/p&gt;
@@ -395,6 +545,7 @@ Both tell the function to compute the vectors with &lt;code class=&quot;highligh
 and input the &lt;code class=&quot;highlighter-rouge&quot;&gt;V=V&lt;/code&gt; after the semicolon.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     θ=(A[q,q]-A[p,p])/(2*A[p,q]);
     t=sign(θ)/(abs(θ)+sqrt(θ^2+1));
 
@@ -429,11 +580,20 @@ and input the &lt;code class=&quot;highlighter-rouge&quot;&gt;V=V&lt;/code&gt; a
         return A;
     end
 end
+<<<<<<< HEAD
+```
+
+This function performs one sweep
+
+```julia
+
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This function performs one sweep&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 function Sweep(A;compV=false,V=eye(1))
     n=size(A)[1]
     for ii in 2:n
@@ -452,6 +612,93 @@ function Sweep(A;compV=false,V=eye(1))
         return A,V
     end
 end
+<<<<<<< HEAD
+```
+
+
+
+Just creating some size of matrix
+
+```julia
+A,A0,V=makeA(5);
+```
+
+
+```julia
+## keep evaluating for a couple iterations
+## watch how it changes
+A,V=Sweep(A;compV=true,V=V);
+roundmatrix(A,1e-10),A,V,convergence(A)
+```
+
+
+This output is after several sweeps
+
+        (
+        5x5 Array{Float64,2}:
+         -1.59942  0.0       0.0       0.0      0.0
+          0.0      1.03678   0.0       0.0      0.0
+          0.0      0.0      -0.823094  0.0      0.0
+          0.0      0.0       0.0       3.09433  0.0
+          0.0      0.0       0.0       0.0      1.3409,
+
+        5x5 Array{Float64,2}:
+         -1.59942      5.1314e-30    2.32594e-36  -9.54088e-49  -1.22782e-53
+          5.1314e-30   1.03678       2.65014e-38   9.13791e-56   6.64996e-67
+          2.32594e-36  2.65014e-38  -0.823094     -9.56652e-61   2.08002e-92
+         -9.54088e-49  9.13791e-56  -9.56652e-61   3.09433       0.0
+         -1.22782e-53  6.64996e-67   2.08002e-92   0.0           1.3409     ,
+
+        5x5 Array{Float64,2}:
+          0.0537334   0.0599494  -0.735228  0.139      0.658511
+          0.310018    0.612957   -0.14049   0.611348  -0.367001
+          0.759653   -0.475834    0.264118  0.282571   0.216575
+         -0.480405   -0.546544   -0.132383  0.644217  -0.194831
+         -0.305189    0.30913     0.593648  0.33477    0.588905,
+
+        2.6331310238375346e-59)
+
+
+
+Compare the Optimized LAPLACK routine to your results
+
+```julia
+eig(A0)
+```
+
+          ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
+          1.3408963512476402,3.0943321944116593],
+          5x5 Array{Float64,2}:
+           -0.0537334   0.735228   0.0599494  -0.658511  -0.139
+           -0.310018    0.14049    0.612957    0.367001  -0.611348
+           -0.759653   -0.264118  -0.475834   -0.216575  -0.282571
+            0.480405    0.132383  -0.546544    0.194831  -0.644217
+            0.305189   -0.593648   0.30913    -0.588905  -0.33477 )
+
+
+
+
+```julia
+## A good check to make sure V is an orthonomal transformation
+roundmatrix(V*A*transpose(V)-A0,1e-12)
+```
+
+          5x5 Array{Float64,2}:
+           0.0  0.0  0.0  0.0  0.0
+           0.0  0.0  0.0  0.0  0.0
+           0.0  0.0  0.0  0.0  0.0
+           0.0  0.0  0.0  0.0  0.0
+           0.0  0.0  0.0  0.0  0.0
+
+
+How long does it take to make a Sweep?
+How much memory will the computation take?
+This is dependent on how large the matrix is, and determines whether or not we
+want to use this algorithm.
+
+```julia
+
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Just creating some size of matrix&lt;/p&gt;
@@ -528,12 +775,27 @@ This is dependent on how large the matrix is, and determines whether or not we
 want to use this algorithm.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 A,A0,V=makeA(10);
 @time Sweep(A);
 A,A0,V=makeA(20);
 @time Sweep(A);
 A,A0,V=makeA(100);
 @time Sweep(A);
+<<<<<<< HEAD
+```
+
+      0.000028 seconds (320 allocations: 30.469 KB)
+      0.000099 seconds (1.33 k allocations: 187.266 KB)
+      0.007413 seconds (34.66 k allocations: 17.448 MB, 14.20% gc time)
+
+
+In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.
+
+
+```julia
+A10,Ap10,V=makeA(10);
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  0.000028 seconds (320 allocations: 30.469 KB)
@@ -545,6 +807,7 @@ A,A0,V=makeA(100);
 &lt;p&gt;In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;A10,Ap10,V=makeA(10);
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 A20,Ap20,V=makeA(20);
 A100,Ap100,V=makeA(100);
 nsweep=collect(1:7);
@@ -561,6 +824,28 @@ for i in nsweep
 end
 
 [nsweep conv10/10 conv20/20 conv100/100]
+<<<<<<< HEAD
+```
+
+
+
+
+    7x4 Array{Float64,2}:
+     1.0  1.10944       2.43759      14.6644
+     2.0  0.105628      0.312076      2.87182
+     3.0  0.000265288   0.017073      0.498082
+     4.0  6.64324e-9    0.000119472   0.0390564
+     5.0  4.05463e-18   3.56679e-11   0.00133833
+     6.0  3.17274e-42   1.96318e-23   6.07661e-7
+     7.0  6.76289e-110  4.07871e-49   3.98102e-13
+
+
+
+Well, so we&#39;ve seen how to do one form of exact diagonalization that works, but doesn&#39;t scale very well up to 100x100 matrices.  So stay tuned for the Householder method, hopefully coming up soon.
+
+Until then, happy computing :)
+&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;7x4 Array{Float64,2}:
@@ -577,6 +862,7 @@ end
 &lt;p&gt;Well, so we’ve seen how to do one form of exact diagonalization that works, but doesn’t scale very well up to 100x100 matrices.  So stay tuned for the Householder method, hopefully coming up soon.&lt;/p&gt;
 
 &lt;p&gt;Until then, happy computing :)&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 </description>
         <pubDate>Tue, 06 Jan 2015 00:00:00 +0900</pubDate>
         <link>/M4/numerics/Jacobi-Transformation.html</link>
@@ -593,6 +879,62 @@ end
         <title>Atomic Orbitals Pt. 2</title>
         <description>&lt;p&gt;&lt;b&gt;Prerequiresites:&lt;/b&gt; Quantum Mechanics course&lt;/p&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;If you haven’t read it already, checkout &lt;a href=&quot;/M4/undergrad/Atomic-Orbitals.html&quot;&gt;Atomic Orbitals Pt. 1&lt;/a&gt;.  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.&lt;/p&gt;
+
+&lt;p&gt;To add&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+Pkg.add(&quot;GLVisualize&quot;)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;and test with&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+Pkg.test(&quot;GLVisualize&quot;)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;But other steps may be necessary to get the package working.  On a Mac, I needed to install the Homebrew.jl package.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+#Pkg.update();
+#Pkg.add(&quot;GSL&quot;);
+using GSL;
+using GLVisualize;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```julia
+a0=1; #for convenience, or 5.2917721092(17)×10−11 m&lt;/p&gt;
+
+&lt;h1 id=&quot;the-unitless-radial-coordinate&quot;&gt;The unitless radial coordinate&lt;/h1&gt;
+&lt;p&gt;ρ(r,n)=2r/(n*a0);&lt;/p&gt;
+
+&lt;h1 id=&quot;the--dependence&quot;&gt;The θ dependence&lt;/h1&gt;
+&lt;p&gt;function Pmlh(m::Int,l::Int,θ::Real)
+    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;the--and--dependence&quot;&gt;The θ and ϕ dependence&lt;/h1&gt;
+&lt;p&gt;function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
+    return  (-1.0)^m&lt;em&gt;sf_legendre_Plm(l,abs(m),cos(θ))&lt;/em&gt;e^(im&lt;em&gt;m&lt;/em&gt;ϕ)
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;the-radial-dependence&quot;&gt;The Radial dependence&lt;/h1&gt;
+&lt;p&gt;function R(n::Int,l::Int,ρ::Real)
+    if isapprox(ρ,0)
+        ρ=.001
+    end
+     return sf_laguerre_n(n-l-1,2&lt;em&gt;l+1,ρ)&lt;/em&gt;e^(-ρ/2)*ρ^l
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;a-normalization-this-is-dependent-on-the-choice-of-polynomial-representation&quot;&gt;A normalization: This is dependent on the choice of polynomial representation&lt;/h1&gt;
+&lt;p&gt;function norm(n::Int,l::Int)
+    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;generates-an-orbital-funtion-of-r-for-a-specificied-nlm&quot;&gt;Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.&lt;/h1&gt;
+&lt;p&gt;function Orbital(n::Int,l::Int,m::Int)
+=======
 &lt;p&gt;If you haven’t read it already, check out &lt;a href=&quot;/M4/prerequisites/Atomic-Orbitals.html&quot;&gt;Atomic Orbitals Pt. 1&lt;/a&gt;.  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.&lt;/p&gt;
 
 &lt;p&gt;To add this package:&lt;/p&gt;
@@ -643,12 +985,28 @@ end
 
 #Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.
 function Orbital(n::Int,l::Int,m::Int)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     if (l&amp;gt;n)    # we make sure l and m are within proper bounds
         throw(DomainError())
     end
     if abs(m)&amp;gt;l
        throw(DomainError())
     end
+<<<<<<< HEAD
+    psi(ρ,θ,ϕ)=norm(n, l)&lt;em&gt;R(n,l,ρ)&lt;/em&gt;Yml(m,l,θ,ϕ);
+    return psi
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;we-will-calculate-is-spherical-coordinates-but-plot-in-cartesian-so-we-need-this-array-conversion&quot;&gt;We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion&lt;/h1&gt;
+&lt;p&gt;function SphtoCart(r::Array,θ::Array,ϕ::Array)
+    x=r.&lt;em&gt;sin(θ).&lt;/em&gt;cos(ϕ);
+    y=r.&lt;em&gt;sin(θ).&lt;/em&gt;sin(ϕ);
+    z=r.*cos(θ);
+    return x,y,z;
+end&lt;/p&gt;
+
+&lt;p&gt;function CarttoSph(x::Array,y::Array,z::Array)
+=======
     psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
     return psi
 end
@@ -662,10 +1020,77 @@ function SphtoCart(r::Array,θ::Array,ϕ::Array)
 end
 
 function CarttoSph(x::Array,y::Array,z::Array)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     r=sqrt(x.^2+y.^2+z.^2);
     θ=acos(z./r);
     ϕ=atan(y./x);
     return r,θ,ϕ;
+<<<<<<< HEAD
+end&lt;/p&gt;
+
+&lt;p&gt;“Defined Helper Functions”
+```&lt;/p&gt;
+
+&lt;p&gt;Here create a square cube, and convert those positions over to spherical coordinates.&lt;/p&gt;
+
+&lt;p&gt;```julia
+range=-10:.5:10
+x=collect(range);
+y=collect(range);
+z=collect(range);
+N=length(x);
+xa=repeat(x,outer=[1,N,N]);
+ya=repeat(transpose(y),outer=[N,1,N]);
+za=repeat(reshape(z,1,1,N),outer=[N,N,1]);
+println(“created x,y,z”)&lt;/p&gt;
+
+&lt;p&gt;r,θ, ϕ=CarttoSph(xa,ya,za);
+println(“created r,θ,ϕ”)
+```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+Ψ=Orbital(3,2,-1)
+Ψp=Orbital(3,1,0)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+Ψv = zeros(Float32,N,N,N);
+ϕv = zeros(Float32,N,N,N);
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;```julia
+for nn in 1:N
+    for jj in 1:N
+        for kk in 1:N
+            val=Ψ(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
+            #val+=Ψp(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
+            Ψv[nn,jj,kk]=convert(Float32,abs(val));
+            ϕv[nn,jj,kk]=convert(Float32,angle(val));
+        end
+    end
+end&lt;/p&gt;
+
+&lt;p&gt;mid=round(Int,(N-1)/2+1);
+Ψv[mid,mid,:]=Ψv[mid+1,mid+1,:]; # the one at the center diverges
+Ψv=(Ψv-minimum(Ψv))/(maximum(Ψv)-minimum(Ψv) );
+```&lt;/p&gt;
+
+&lt;p&gt;```julia
+w,r = glscreen()&lt;/p&gt;
+
+&lt;p&gt;robj=visualize(Ψv)&lt;/p&gt;
+
+&lt;h1 id=&quot;choose-this-one-for-surfaces-of-constant-of-intensity&quot;&gt;choose this one for surfaces of constant of intensity&lt;/h1&gt;
+&lt;p&gt;view(visualize(robj[:intensities],:iso))&lt;/p&gt;
+
+&lt;h1 id=&quot;choose-this-for-a-block-of-3d-density&quot;&gt;choose this for a block of 3D density&lt;/h1&gt;
+&lt;p&gt;#view(visualize(Ψv))
+r()
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;p-orbital&quot;&gt;2p Orbital&lt;/h2&gt;
+
+=======
 end
 
 &quot;Defined Helper Functions&quot;
@@ -725,6 +1150,7 @@ r()
 
 &lt;h2 id=&quot;p-orbital&quot;&gt;2p Orbital&lt;/h2&gt;
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -854,14 +1280,22 @@ r^2 \frac{\partial}{\partial r}
 &lt;p&gt;Instead of going into the precise mechanisms of solving those two separate equations here, trust for now that they follow standard special functions, the associated &lt;i&gt;Legendre polynomial&lt;/i&gt; and the generalized &lt;i&gt;Laguerre polynomial&lt;/i&gt;.  Try a standard quantum mechanics textbook for more information about this.&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
+<<<<<<< HEAD
+        Y\^m_l(θ,ϕ) = (-1)\^m e\^{i m \phi} P\^m_l (\cos(θ))
+=======
 Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 \end{equation}
 where $P^m_l (\cos (\theta))$ is the associated Legendre polynomial.&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
+<<<<<<< HEAD
+    R\^{n,l} (\rho) = \rho\^l e\^{-\rho/2} L\^{2 l+1}_{n-l-1} (\rho)
+=======
  R^{n,l} ( \rho ) = \rho ^l e^{- \rho  /2} L^{2 l+1}_{n-l-1} ( \rho )
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 \end{equation}
-where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.&lt;/p&gt;
+where $L\^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
     \rho=\frac{2r}{n a_0}
@@ -871,15 +1305,27 @@ where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.&lt;/p&gt
     N=\sqrt{\left(\frac{2}{n}\right)^3 \frac{(n-l-1)}{2n(n+l)!}}
 \end{equation}&lt;/p&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;&lt;code&gt;julia
+#Pkg.update();
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;#Pkg.update();
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 #Pkg.add(&quot;GSL&quot;);
 #Pkg.add(&quot;PyPlot&quot;);
 using GSL;    #GSL holds the special functions
 using PyPlot;
+<<<<<<< HEAD
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;cell-to-evaluate&quot;&gt;Cell to Evaluate&lt;/h4&gt;
+&lt;p&gt;What’s below is a bunch of definitions that makes our calculations easier later on.  Here I utalize the Gnu scientific library, GSL imported above, to calculate the special functions.&lt;/p&gt;
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&quot;cell-to-evaluate&quot;&gt;Cell to Evaluate&lt;/h4&gt;
 &lt;p&gt;What’s below is a bunch of definitions that makes our calculations easier later on.  Here I utilize the GNU scientific library, GSL imported above, to calculate the special functions.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;div class=&quot;progtip&quot;&gt;
 &lt;h3 color=&quot;black&quot;&gt; Programming Tip!&lt;/h3&gt;
@@ -890,6 +1336,39 @@ Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab&lt
 The function &lt;code&gt;Orbital&lt;/code&gt; throws &lt;code&gt;DomainError()&lt;/code&gt; when &lt;code&gt;l&lt;/code&gt; or &lt;code&gt;m&lt;/code&gt; do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
 &lt;/p&gt;
 &lt;/div&gt;
+<<<<<<< HEAD
+&lt;p&gt;```julia
+a0=1; #for convenience, or 5.2917721092(17)×10−11 m&lt;/p&gt;
+
+&lt;h1 id=&quot;the-unitless-radial-coordinate&quot;&gt;The unitless radial coordinate&lt;/h1&gt;
+&lt;p&gt;ρ(r,n)=2r/(n*a0);&lt;/p&gt;
+
+&lt;h1 id=&quot;the--dependence&quot;&gt;The θ dependence&lt;/h1&gt;
+&lt;p&gt;function Pmlh(m::Int,l::Int,θ::Real)
+    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;the--and--dependence&quot;&gt;The θ and ϕ dependence&lt;/h1&gt;
+&lt;p&gt;function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
+    return  (-1.0)^m&lt;em&gt;sf_legendre_Plm(l,m,cos(θ))&lt;/em&gt;e^(im&lt;em&gt;m&lt;/em&gt;ϕ)
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;the-radial-dependence&quot;&gt;The Radial dependence&lt;/h1&gt;
+&lt;p&gt;function R(n::Int,l::Int,ρ::Real)
+    if isapprox(ρ,0)
+        ρ=.01
+    end
+     return sf_laguerre_n(n-l-1,2&lt;em&gt;l+1,ρ)&lt;/em&gt;e^(-ρ/2)*ρ^l
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;a-normalization-this-is-dependent-on-the-choice-of-polynomial-representation&quot;&gt;A normalization: This is dependent on the choice of polynomial representation&lt;/h1&gt;
+&lt;p&gt;function norm(n::Int,l::Int)
+    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;generates-an-orbital-funtion-of-r-for-a-specificied-nlm&quot;&gt;Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.&lt;/h1&gt;
+&lt;p&gt;function Orbital(n::Int,l::Int,m::Int)
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
 # The unitless radial coordinate
@@ -920,12 +1399,28 @@ end
 
 #Generates an Orbital function of (r,θ,ϕ) for a specified n,l,m.
 function Orbital(n::Int,l::Int,m::Int)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     if l&amp;gt;n    # we make sure l and m are within proper bounds
         throw(DomainError())
     end
     if abs(m)&amp;gt;l
         throw(DomainError())
     end
+<<<<<<< HEAD
+    psi(ρ,θ,ϕ)=norm(n, l)&lt;em&gt;R(n,l,ρ)&lt;/em&gt;Yml(m,l,θ,ϕ);
+    return psi
+end&lt;/p&gt;
+
+&lt;h1 id=&quot;we-will-calculate-is-spherical-coordinates-but-plot-in-cartesian-so-we-need-this-array-conversion&quot;&gt;We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion&lt;/h1&gt;
+&lt;p&gt;function SphtoCart(r::Array,θ::Array,ϕ::Array)
+    x=r.&lt;em&gt;sin(θ).&lt;/em&gt;cos(ϕ);
+    y=r.&lt;em&gt;sin(θ).&lt;/em&gt;sin(ϕ);
+    z=r.*cos(θ);
+    return x,y,z;
+end&lt;/p&gt;
+
+&lt;p&gt;function CarttoSph(x::Array,y::Array,z::Array)
+=======
     psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
     return psi
 end
@@ -939,14 +1434,22 @@ function SphtoCart(r::Array,θ::Array,ϕ::Array)
 end
 
 function CarttoSph(x::Array,y::Array,z::Array)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     r=sqrt(x.^2+y.^2+z.^2);
     θ=acos(z./r);
     ϕ=atan(y./x);
     return r,θ,ϕ;
+<<<<<<< HEAD
+end&lt;/p&gt;
+
+&lt;p&gt;“Defined Helper Functions”
+```&lt;/p&gt;
+=======
 end
 
 &quot;Defined Helper Functions&quot;
 &lt;/code&gt;&lt;/pre&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;h4 id=&quot;parameters&quot;&gt;Parameters&lt;/h4&gt;
 &lt;p&gt;Grid parameters:
@@ -957,6 +1460,73 @@ You might need to change &lt;code class=&quot;highlighter-rouge&quot;&gt;rmax&lt
 0&amp;lt;n \;\;\;\;\; \;\;\;\; 0 \leq l &amp;lt; n \;\;\;\;\; \;\;\;\; -l \leq m \leq l
 \;\;\;\;\; \;\;\;\; n,l,m \in {\cal Z}
 \end{equation}&lt;/p&gt;
+<<<<<<< HEAD
+
+&lt;p&gt;```julia
+# Grid Parameters
+rmin=.05
+rmax=10
+Nr=100 #Sampling frequency
+Nθ=100
+Nϕ=100&lt;/p&gt;
+
+&lt;h1 id=&quot;choose-which-orbital-to-look-at&quot;&gt;Choose which Orbital to look at&lt;/h1&gt;
+&lt;p&gt;n=3;
+l=1;
+m=0;
+“Defined parameters”
+```&lt;/p&gt;
+
+&lt;p&gt;```julia
+#Linear Array of spherical coordinates
+r=collect(linspace(rmin,rmax,Nr));
+ϕ=collect(linspace(0,2π,Nθ));
+θ=collect(linspace(0,π,Nϕ));
+#3D arrays of spherical coordinates, in order r,θ,ϕ
+ra=repeat(r,outer=[1,Nθ,Nϕ]);
+θa=repeat(transpose(θ),outer=[Nr,1,Nϕ]);
+ϕa=repeat(reshape(ϕ,1,1,Nϕ),outer=[Nr,Nθ,1]);&lt;/p&gt;
+
+&lt;p&gt;x,y,z=SphtoCart(ra,θa,ϕa);
+```&lt;/p&gt;
+
+&lt;p&gt;Though I could create a wrapped up function with &lt;code&gt;Orbital(n,l,m)&lt;/code&gt; and evaluate that at each point, the below evaluation takes advantage of the seperatability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.&lt;/p&gt;
+
+&lt;p&gt;```julia
+Ψ=zeros(Float64,Nr,Nϕ,Nθ)
+θd=Int64(round(Nθ/2))  ## gives approximately the equator.  Will be useful later&lt;/p&gt;
+
+&lt;p&gt;p1=Pmlh(m,l,θ[1]);
+p2=exp(im&lt;em&gt;m&lt;/em&gt;ϕ[1]);
+for i in 1:Nr
+    Ψ[i,1,1]=norm(n,l)&lt;em&gt;R(n,l,ρ(r[i],n))&lt;/em&gt;p1*p2;
+end&lt;/p&gt;
+
+&lt;p&gt;for j in 1:Nθ
+    Ψ[:,j,1]=Ψ[:,1,1]*Pmlh(m,l,θ[j])/p1;
+end&lt;/p&gt;
+
+&lt;p&gt;for k in 1:Nϕ
+    Ψ[:,:,k]=Ψ[:,:,1]&lt;em&gt;exp(im&lt;/em&gt;m*ϕ[k])/p2;
+end
+```&lt;/p&gt;
+
+&lt;p&gt;```julia
+pygui(false)
+xlabel(“θ”)
+ylabel(“Ψ”)
+title(“Wavefunction for n= $n ,l= $l ,m= $m “)&lt;/p&gt;
+
+&lt;p&gt;annotate(“l= $l Angular Node”,
+xy=[π/2;0],
+xytext=[π/2+.1;.02],
+xycoords=”data”,
+arrowprops=Dict(“facecolor”=&amp;gt;”black”))&lt;/p&gt;
+
+&lt;p&gt;plot(θ,zeros(θ))
+plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
+```&lt;/p&gt;
+=======
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# Grid Parameters
 rmin=.05
@@ -1018,6 +1588,7 @@ arrowprops=Dict(&quot;facecolor&quot;=&amp;gt;&quot;black&quot;))
 plot(θ,zeros(θ))
 plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
 &lt;/code&gt;&lt;/pre&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
@@ -1029,6 +1600,46 @@ plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;```julia
+pygui(false)
+xlabel(“r”)
+ylabel(“Ψ”)
+title(“Wavefunction for n= $n ,l= $l ,m= $m “)&lt;/p&gt;
+
+&lt;p&gt;plot(r,zeros(r))
+plot(r,reshape(Ψ[:,50,1],100)) #reshape makes Ψ 1D
+```
+&lt;!-- _includes/image.html --&gt;
+&amp;lt;div class=&quot;image-wrapper&quot; &amp;gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;lt;img src=&quot;/M4/Images/Orbitals/radial1di.png&quot; alt=&quot;3p Radial Slice&quot;/&amp;gt;
+
+
+    &amp;lt;p class=&quot;image-caption&quot;&amp;gt;A slice along the radial plane showing a radial node in the 3p orbital.&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;lt;/div&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+#rap=squeeze(ra[:,:,50],3)
+#θap=squeeze(θa[:,:,50],3)
+#ϕap=squeeze(ϕa[:,:,50],3)
+#Ψp=squeeze(Ψ[:,:,50],3)
+rap=ra[:,:,50]
+θap=θa[:,:,50]
+ϕap=ϕa[:,:,50]
+Ψp=Ψ[:,:,50]
+xp,yp,zp=SphtoCart(rap,θap,ϕap);
+pygui(false)
+xlabel(&quot;x&quot;)
+ylabel(&quot;z&quot;)
+title(&quot;ϕ-slice of Ψ for n=$n, l=$l, m=$m&quot;)
+pcolor(xp[:,:],zp[:,:],Ψp[:,:],cmap=&quot;coolwarm&quot;)
+colorbar()
+&lt;/code&gt;&lt;/p&gt;
+
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;pygui(false)
 xlabel(&quot;r&quot;)
 ylabel(&quot;Ψ&quot;)
@@ -1064,6 +1675,7 @@ pcolor(xp[:,:],zp[:,:],Ψp[:,:],cmap=&quot;coolwarm&quot;)
 colorbar()
 &lt;/code&gt;&lt;/pre&gt;
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1084,7 +1696,11 @@ colorbar()
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;Don’t forget to checkout &lt;a href=&quot;/M4/undergrad/Atomic-Orbitals2.html&quot;&gt;Atomic Orbitals Pt. 2&lt;/a&gt;!&lt;/p&gt;
+=======
 &lt;p&gt;Don’t forget to check out &lt;a href=&quot;/M4/prerequisites/Atomic-Orbitals2.html&quot;&gt;Atomic Orbitals Pt. 2&lt;/a&gt;!&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 </description>
         <pubDate>Sun, 04 Jan 2015 00:00:00 +0900</pubDate>
         <link>/M4/prerequisites/Atomic-Orbitals.html</link>
@@ -1107,6 +1723,16 @@ colorbar()
 
 &lt;p&gt;&lt;b&gt;Swings&lt;/b&gt; I still love them, but people seem to not make them in adult sizes for some reason.&lt;/p&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;A person’s perception of these objects start to change as they enter their first physics class.  Even in that beginning classical mechanics, the problems are filled with harmonic osscilators, like slinkies, rubber bands, or swings, which exert a force proportional to their displacement
+\begin{equation}
+F=-kx
+\end{equation}
+and therefore a quadratic potential
+\begin{equation}
+V(x)=k x^2
+\end{equation}&lt;/p&gt;
+=======
 &lt;p&gt;A person’s perception of these objects starts to change as they enter their first physics class. Even in that beginning class of classical mechanics, the problems are filled with harmonic oscillators, like slinkies, rubber bands, or swings, which exert a force proportional to their displacement&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;F=-kx&lt;/script&gt;
@@ -1114,6 +1740,7 @@ colorbar()
 &lt;p&gt;and therefore a quadratic potential&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;V(x)=k x^2&lt;/script&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;p&gt;This is all extremely fun and useful in the classical regime, but we add Quantum Mechanics to the mix, and LOW AND BEHOLD! we have one of the few exactly solvable models in Quantum Mechanics. Moreso, this solution demonstrates some extremely important properties of quantum mechanical systems.&lt;/p&gt;
 
@@ -1121,11 +1748,21 @@ colorbar()
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;{\cal H}= \frac{p^2}{2 m} + \frac{1}{2} m \omega ^2 x^2&lt;/script&gt;
 
+<<<<<<< HEAD
+&lt;h3 id=&quot;physicists-hermite-polynomials&quot;&gt;Physicists’ Hermite Polynomials&lt;/h3&gt;
+&lt;p&gt;Note: These are not the same as the “probabilists’ Hermite Polynomial”.  The two functions differ by scaling factors.&lt;/p&gt;
+
+&lt;p&gt;Physicists’ Hermite polynomials are defined as eigenfunctions for the differential equation
+\begin{equation}
+u^{\prime \prime}-2xu^{\prime} = -2 \lambda u
+\end{equation}&lt;/p&gt;
+=======
 &lt;p&gt;&lt;b&gt; The Solution&lt;/b&gt;&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;\Psi (x) = \frac{1}{\sqrt{2^n n!}} \left(\frac{m \omega}{\hbar \pi}\right)^{1/4} \mathrm{e}^{-m \omega x^2/2 \hbar}  H_n \left( \sqrt{\frac{m \omega}{\hbar}} x \right)&lt;/script&gt;
 
 &lt;p&gt;Today, I just intend to present the form of the solution, calculate this equation numerically, and visualize the results.  If you wish to know how the equation is derived, you can find a standard quantum mechanics textbook, or stay tuned till I manage to write it up.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;h3 id=&quot;physicists-hermite-polynomials&quot;&gt;Physicists’ Hermite Polynomials&lt;/h3&gt;
 &lt;p&gt;Note: These are not the same as the “probabilists’ Hermite Polynomial”. The two functions differ by scaling factors.&lt;/p&gt;
@@ -1134,6 +1771,42 @@ colorbar()
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;u^{\prime \prime}-2xu^{\prime} = -2 \lambda u&lt;/script&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;\begin{equation}
+ \int\limits_b\^a H_{n}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;\begin{equation} \int_{-\infty}\^{\infty} H_m(x) H_n(x) e\^{-x\^2} \mathrm{d}x = \sqrt{\pi} 2\^n n! \delta_{mn} \end{equation}&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt; demonstrate completeness.  This means we can describe every function by a linear combination of Hermite polynomials, provided it is suitably well behaved.
+
+
+Though a formula exists or calculating a function at n directly, the most efficient method at low n for calculating polynomials relies on recurrence relationships.  These recurrence relationships will also be quite handy if you ever need to show orthogonality, or expectation values.
+
+### Recurrence Relations
+
+\begin{equation}
+H\_{n+1}(x) = 2xH\_n(x) - H\^{\prime}\_n(x)
+\end{equation}
+\begin{equation}
+H\^{\prime}\_n(x) = 2n H\_{n-1}(x)
+\end{equation}
+\begin{equation}
+H\_{n+1}(x) = 2x H\_n(x) - 2n H\_{n-1}(x)
+\end{equation}
+
+
+```julia
+#Pkg.update();
+#Pkg.add(&quot;PyPlot&quot;);
+#Pkg.update()
+#Pkg.add(&quot;Roots&quot;)
+using Roots;
+using PyPlot;
+```
+
+=======
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n}
 \left( e^{-x^2} \right)&lt;/script&gt;
 
@@ -1167,12 +1840,18 @@ using Roots;
 using PyPlot;
 &lt;/code&gt;&lt;/pre&gt;
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;div class=&quot;progtip&quot;&gt;
 &lt;h3 color=&quot;black&quot;&gt; Programming Tip!&lt;/h3&gt;
 Since Hermite polynomials are generated recursively, I wanted to generate and save all the functions up to a designated value at once.  In order to do so, I created an array, whose values are anonymous functions.
 &lt;/div&gt;
 
+<<<<<<< HEAD
+```julia
+function GenerateHermite(n)
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;function GenerateHermite(n)
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     Hermite=Function[]
 
     push!(Hermite,x-&amp;gt;1);
@@ -1183,6 +1862,19 @@ Since Hermite polynomials are generated recursively, I wanted to generate and sa
     end
     return Hermite
 end
+<<<<<<< HEAD
+```
+
+
+
+So lets generate some Hermite polynomials and look at them.
+&lt;b&gt; Make sure you don&#39;t call a Hermite you haven&#39;t generated yet!
+
+
+```julia
+Hermite=GenerateHermite(5)
+```
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Let’s generate some Hermite polynomials and look at them.
@@ -1190,18 +1882,29 @@ end
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;Hermite=GenerateHermite(5)
 &lt;/code&gt;&lt;/pre&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;div class=&quot;progtip&quot;&gt;
 &lt;h3 color=&quot;black&quot;&gt;Programming Tip!&lt;/h3&gt;
 Since the Hermite polynomials, and the wavefunctions after them, are composed of anonymous functions, we need to use &lt;code&gt;map(f,x)&lt;/code&gt; in order to map the function &lt;code&gt;f&lt;/code&gt; onto the array &lt;code&gt;x&lt;/code&gt;.  Otherwise our polynomials only work on single values.
 &lt;/div&gt;
 
+<<<<<<< HEAD
+```julia
+x=collect(-2:.01:2);
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;x=collect(-2:.01:2);
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 for j in 1:5
     plot(x,map(Hermite[j],x),label=&quot;H_$j (x)&quot;)
 end
 legend()
 ylim(-50,50)
+<<<<<<< HEAD
+```
+
+=======
 &lt;/code&gt;&lt;/pre&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
@@ -1213,6 +1916,59 @@ ylim(-50,50)
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+
+```julia
+# Lets make our life easy and set all units to 1
+m=1
+ω=1
+ħ=1
+
+#Finally, we define Ψ
+Ψ(n,x)=1/sqrt(factorial(n)*2^n)*(m*ω/(ħ*π))^(1/4)*exp(-m*ω*x^2/(2*ħ))*Hermite[n](sqrt(m*ω/ħ)*x)
+```
+
+
+
+### Finding Zeros
+The eigenvalue maps to the number of zeros in the wavefunction.  Below, I use Julia&#39;s roots package to indentify roots on the interval from -3 to 3.
+
+
+```julia
+zeds=Array{Array{Float64}}(1)
+zeds[1]=[] #ground state has no zeros
+for j in 2:4
+    push!(zeds,fzeros(y-&amp;gt;Ψ(j,y),-3,3))
+end
+```
+
+
+```julia
+# AHHHHH! So Much code!
+# Don&#39;t worry; it&#39;s all just plotting
+x=collect(-3:.01:3)  #Set some good axes
+
+for j in 1:4    #how many do you want to view?
+    plot(x,map(y-&amp;gt;Ψ(j,y),x)+j-1,label=&quot;| $j &amp;gt;&quot;)
+    plot(x,(j-1)*ones(x),color=&quot;black&quot;)
+    scatter(zeds[j],(j-1)*ones(zeds[j]),marker=&quot;o&quot;,s=40)
+end
+plot(x,.5*m*ω^2*x.^2,linestyle=&quot;--&quot;,label=&quot;Potential&quot;)
+
+scatter([],[],marker=&quot;o&quot;,s=40,label=&quot;Zeros&quot;)
+xlabel(&quot;x&quot;)
+ylabel(&quot;Ψ+n&quot;)
+title(&quot;Eigenstates of a Harmonic Osscilator&quot;)
+legend()
+xlim(-3,3);
+ylim(-.5,4.5);
+```
+
+
+## Example Result
+
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# Lets make our life easy and set all units to 1
 m=1
 ω=1
@@ -1254,6 +2010,7 @@ ylim(-.5,4.5);
 
 &lt;h2 id=&quot;example-result&quot;&gt;Example Result&lt;/h2&gt;
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1264,8 +2021,15 @@ ylim(-.5,4.5);
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+## More to come
+This barely scratched the surface into the richness that can be seen in the quantum harmonic osscilator.  Here, just we developed a way for calculating the functions, and visualized the results.  Stay tuned to hear here about ground state energy, ladder operators, and atomic trapping.
+&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
+=======
 &lt;h2 id=&quot;more-to-come&quot;&gt;More to come&lt;/h2&gt;
 &lt;p&gt;This barely scratched the surface into the richness that can be seen in the quantum harmonic oscillator.  Here, we have developed a way for calculating the functions, and visualized the results.  Stay tuned to hear about ground state energy, ladder operators, and atomic trapping.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 </description>
         <pubDate>Sat, 03 Jan 2015 00:00:00 +0900</pubDate>
         <link>/M4/prerequisites/QHO.html</link>
@@ -1308,11 +2072,16 @@ ylim(-.5,4.5);
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a &lt;i&gt;Unit Cell&lt;/i&gt;.  According to &lt;a href=&quot;http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell&quot;&gt;Chem Wiki&lt;/a&gt;, a unit cell is:
+&amp;gt;A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.&lt;/p&gt;
+=======
 &lt;p&gt;If we look at the stars at the center of triangles, we can recognize a point triangular Bravais lattice.  Now each of those stars stands for a grouping of three sites in a &lt;i&gt;unit cell&lt;/i&gt;.  According to &lt;a href=&quot;http://chemwiki.ucdavis.edu/Physical_Chemistry/Physical_Properties_of_Matter/Phases_of_Matter/Solids/Unit_Cell&quot;&gt;Chem Wiki&lt;/a&gt;, a unit cell is:&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;A unit cell is the most basic and least volume consuming repeating structure of any solid. It is used to visually simplify the crystalline patterns solids arrange themselves in.&lt;/p&gt;
 &lt;/blockquote&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;p&gt;I chose these triangles to be be the unit cells above and in my computational representation below, but can you think of any other ways to represent the unit cell?&lt;/p&gt;
 
@@ -1325,6 +2094,17 @@ ylim(-.5,4.5);
 &lt;p&gt;You saw Kagome above.&lt;/p&gt;
 
 &lt;p&gt;The options I’ve put in now are:&lt;/p&gt;
+<<<<<<< HEAD
+&lt;ul&gt;
+&lt;li&gt; honeycomb
+&lt;li&gt; kagome
+&lt;li&gt; shuriken aka Square-Kagome
+&lt;li&gt; diamond
+&lt;li&gt; pyrochlore
+
+
+The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene, an extremely important material right now, though I work with it in terms of the Kitaev spin model.  Kagome and Pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.
+=======
 
 &lt;ul&gt;
   &lt;li&gt;honeycomb&lt;/li&gt;
@@ -1335,6 +2115,7 @@ ylim(-.5,4.5);
 &lt;/ul&gt;
 
 &lt;p&gt;The ones implemented here, except for diamond, are frustrated lattices that I work with in my research. Honeycomb is well known in condensed matter physics for being the structure of graphene. This is an extremely important material right now, though I work with it in terms of the Kitaev spin model (to be discussed at a later date). Kagome and pyrochlore are also popular models within my community.  The shuriken lattice is more uncommon, but gaining ground in the frustration community.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
@@ -1346,6 +2127,20 @@ ylim(-.5,4.5);
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+```julia
+# importing our packages
+Pkg.add(&quot;PyPlot&quot;);
+Pkg.update();
+using PyPlot;
+```
+
+
+
+```julia
+lattice=&quot;shuriken&quot;;
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# importing our packages
 Pkg.add(&quot;PyPlot&quot;);
 Pkg.update();
@@ -1353,13 +2148,22 @@ using PyPlot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;lattice=&quot;shuriken&quot;;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 Nx=3;
 Ny=3;
 Nz=1;
+<<<<<<< HEAD
+```
+
+
+```julia
+# A cell to just evaluate
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# A cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice==&quot;honeycomb&quot;) #also the graphite lattice
@@ -1414,6 +2218,23 @@ else
     println(&quot;Please have a correct lattice&quot;)
 end
 &quot;Cell finished&quot;
+<<<<<<< HEAD
+```
+
+
+
+### Connections to Bravais Lattices
+
+If look at some of the comments above, and checkout the basis vectors from Crystal Shapes, like pt,
+        \begin{equation}
+            a=[1,0,0]\;\;\;\;\;\;\;\;\; b=[.5,\frac{\sqrt{3}}{2},0],
+        \end{equation}
+you&#39;ll notice they&#39;re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.
+
+
+```julia
+# Another cell to just evaluate
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;connections-to-bravais-lattices&quot;&gt;Connections to Bravais Lattices&lt;/h3&gt;
@@ -1425,6 +2246,7 @@ end
 you’ll notice they’re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz*Ncell;    #The total number of sites
 aM=transpose(repeat(a,outer=[1,Ncell]));
@@ -1433,9 +2255,19 @@ cM=transpose(repeat(c,outer=[1,Ncell*Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
 &quot;Cell finished&quot;
+<<<<<<< HEAD
+```
+
+
+
+
+```julia
+# Another cell to just evaluate
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[Ncell*i-Ncell+1:Ncell*i,:]=unit+(i-1)*aM;
@@ -1444,6 +2276,27 @@ end
 for j in 2:Ny    #copying the first row into the first layer
     X[Ncell*Nx*(j-1)+(1:Ncell*Nx),:]=X[1:Ncell*Nx,:]+(j-1)*bM;
 end
+<<<<<<< HEAD
+
+for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
+end
+&quot;Cell finished&quot;
+```
+
+
+
+
+```julia
+# 2D plotter
+pygui(false)
+w, h = plt[:figaspect](1)
+figure(figsize=(w,h))
+scatter(X[:,1],X[:,2])
+```
+
+
+=======
 
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
@@ -1458,6 +2311,7 @@ figure(figsize=(w,h))
 scatter(X[:,1],X[:,2])
 &lt;/code&gt;&lt;/pre&gt;
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1468,17 +2322,34 @@ scatter(X[:,1],X[:,2])
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+```julia
+# 3D plotter
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# 3D plotter
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 areas=100*ones(length(X[:,1]))
 scatter3D(X[:,1],X[:,2],X[:,3])
+<<<<<<< HEAD
+```
+
+
+
+
+
+### Perdy Pictures
+From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here&#39;s a nice graphic I made that might help a little bit more.
+
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;perdy-pictures&quot;&gt;Perdy Pictures&lt;/h3&gt;
 &lt;p&gt;From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here’s a nice graphic I made that might help a little bit more.&lt;/p&gt;
 
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1489,6 +2360,10 @@ scatter3D(X[:,1],X[:,2],X[:,3])
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1499,13 +2374,21 @@ scatter3D(X[:,1],X[:,2],X[:,3])
     
 &lt;/div&gt;
 
-&lt;p&gt;The honeycomb, like several other lattices you see around here, is &lt;i&gt;bipartite&lt;/i&gt;.
+
+The honeycomb, like several other lattices you see around here, is &lt;i&gt;bipartite&lt;/i&gt;.
 You can see in my image that black sites are only next to white sites, and vice versa.
+<<<<<<< HEAD
+  This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren&#39;t?
+
+If you keep reading, these lattices will keep cropping up again and again.  I&#39;ll probably throw in some new ones as well.
+=======
   This property can make the system much easier to work with.  What lattices are bipartite, and which ones aren’t?&lt;/p&gt;
 
 &lt;p&gt;If you keep reading, these lattices will keep cropping up again and again.  I’ll probably throw in some new ones as well.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-&lt;p&gt;Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!&lt;/p&gt;
+Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!
+&lt;/li&gt;&lt;/li&gt;&lt;/li&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;
 </description>
         <pubDate>Fri, 02 Jan 2015 00:00:00 +0900</pubDate>
         <link>/M4/general/MultiSite-Unit-Cells.html</link>
@@ -1526,7 +2409,11 @@ You can see in my image that black sites are only next to white sites, and vice 
 
 &lt;p&gt;In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers, e.g. &lt;script type=&quot;math/tex&quot;&gt;10^{23}&lt;/script&gt;, of extremely small particles such as atoms, or electrons.&lt;/p&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  &lt;i&gt;Lattices&lt;/i&gt;.  So as our first step into the field, we will look at the most basic type, a &lt;i&gt;Bravais Lattice&lt;/i&gt;.&lt;/p&gt;
+=======
 &lt;p&gt;Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  &lt;i&gt;Lattices&lt;/i&gt;.  As our first step into the field, we will look at the most basic type, a &lt;i&gt;Bravais lattice&lt;/i&gt;.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;p&gt;In a Bravais lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.&lt;/p&gt;
 
@@ -1534,6 +2421,38 @@ You can see in my image that black sites are only next to white sites, and vice 
 \mathbf{R}_{lmn}=l \vec{a} + m \vec{b} + n \vec{c}  \;\;\;\; \text{for } l,m,n \in \mathbb{N}
 \end{equation}&lt;/p&gt;
 
+<<<<<<< HEAD
+&lt;p&gt;To keep things working out right, we have to put a constraint on these vectors; that we can’t get one from scaling and adding the other two.  If we could, then we couldn’t put sites in an entire 3 dimensional space.&lt;/p&gt;
+
+&lt;p&gt;Stay tuned for a later post where we explore more elaborate lattices.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;julia
+# importing our packages
+Pkg.add(&quot;PyPlot&quot;);
+Pkg.update();
+using PyPlot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;define-the-relevant-variables&quot;&gt;Define The Relevant Variables&lt;/h2&gt;
+
+&lt;p&gt;Choose the lattice you want to look at, and put that string into the lattice variable.
+Current options:&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt; Simple Cubic = &quot;sc&quot;
+    &lt;li&gt; Plane triangular lattice = &quot;pt&quot;
+    &lt;li&gt; Body-Centered Cubic = &quot;bcc&quot;
+    &lt;li&gt; Face-Centered Cubic = &quot;fcc&quot;
+Note: Square is Simple Cubic for Nz=1
+
+
+14 distinct lattice types are possible, but these common four give the important ideas.
+
+Also, input the size of lattice you want to look at.
+
+
+```julia
+lattice=&quot;sc&quot;;
+=======
 &lt;p&gt;For consistency, we have to put a constraint on these vectors; we cannot combine two of the vectors and obtain the third.  If we could, then we couldn’t have sites in an entire three dimensional space.&lt;/p&gt;
 
 &lt;p&gt;Stay tuned for a later post where we explore more elaborate lattices.&lt;/p&gt;
@@ -1563,13 +2482,22 @@ Current options:&lt;/p&gt;
 &lt;p&gt;Also, input the size of lattice you want to look at.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;lattice=&quot;sc&quot;;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 Nx=3;
 Ny=3;
 Nz=3;
+<<<<<<< HEAD
+```
+
+
+```julia
+# A cell to just evaluate
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# A cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice==&quot;sc&quot;)
@@ -1595,9 +2523,19 @@ elseif(lattice==&quot;fcc&quot;)
 else
     println(&quot;Please have a correct lattice&quot;)
 end
+<<<<<<< HEAD
+```
+
+
+
+
+```julia
+# Another cell to just evaluate
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz;    #The total number of sites
 aM=transpose(a);
@@ -1605,9 +2543,20 @@ bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or l
 cM=transpose(repeat(c,outer=[1,Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
+<<<<<<< HEAD
+```
+
+
+
+
+
+```julia
+# Another cell to just evaluate
+=======
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;# Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[i,:]=(i-1)*a;
@@ -1620,7 +2569,11 @@ end
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
 end
+<<<<<<< HEAD
+```
+=======
 &lt;/code&gt;&lt;/pre&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;div class=&quot;progtip&quot;&gt;
 &lt;h3 color=&quot;black&quot;&gt; Programming Tip:&lt;/h3&gt;
  &lt;p&gt;In Julia, ranges, like &lt;code&gt;1:Nx&lt;/code&gt;, are a special variable type that can be manipulated.  We can add numbers to them:
@@ -1631,7 +2584,13 @@ end
  &lt;span color=&quot;#000000&quot;&gt;Danger!&lt;/span&gt; Make sure to use the parentheses around the range if you are performing these operations.&lt;/p&gt;
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+```julia
+pygui(false);  #if true, launches new window with interactive capabilities
+=======
 &lt;pre&gt;&lt;code class=&quot;language-julia&quot;&gt;pygui(false);  #if true, launches new window with interactive capabilities
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 drawcube=true;  #gives lines for a cube, helps interpret the dots
 ls=2;  # how many cubes to draw
@@ -1653,7 +2612,11 @@ if(drawcube==true)
 end
 
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
+<<<<<<< HEAD
+```
+=======
 &lt;/code&gt;&lt;/pre&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
@@ -1665,6 +2628,10 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1675,6 +2642,10 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1685,6 +2656,10 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1695,16 +2670,28 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 &lt;/div&gt;
 
+<<<<<<< HEAD
+
+## Go Back and Fiddle!
+
+As you might have noticed, this isn&#39;t just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?
+
+Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
+=======
 &lt;h2 id=&quot;go-back-and-fiddle&quot;&gt;Go Back and Fiddle!&lt;/h2&gt;
 
 &lt;p&gt;As you might have noticed, this isn’t just a blog where you read through the posts.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?&lt;/p&gt;
 
 &lt;p&gt;Chose &lt;code class=&quot;highlighter-rouge&quot;&gt;pygui(true)&lt;/code&gt; to pop open a window and manipulate the plot in 3D.&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-&lt;p&gt;Look at different lattice sizes.&lt;/p&gt;
+Look at different lattice sizes.
 
-&lt;p&gt;Can you hand draw them on paper?&lt;/p&gt;
+Can you hand draw them on paper?
 
+<<<<<<< HEAD
+&lt;center&gt;![Mydrawing](/M4/Images/CrystalShapes/handdraw2.jpg)&lt;/center&gt;
+=======
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
@@ -1714,10 +2701,16 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
         &lt;p class=&quot;image-caption&quot;&gt;A face centered cubic I decided to draw myself. &lt;/p&gt;
     
 &lt;/div&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-&lt;p&gt;Let me know what you think, and enjoy the sequel as well!&lt;/p&gt;
 
+<<<<<<< HEAD
+Let me know what you think, and enjoy the sequel as well!
+## [&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;](/M4/undergrad/MultiSite-Unit-Cells.html)
+&lt;/li&gt;&lt;/li&gt;&lt;/li&gt;&lt;/li&gt;&lt;/ul&gt;
+=======
 &lt;p&gt;&lt;a href=&quot;/M4/general/MultiSite-Unit-Cells.html&quot;&gt;&lt;center&gt;&lt;i&gt; Multi-site unit cells&lt;/i&gt;&lt;/center&gt;&lt;/a&gt;&lt;/p&gt;
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 </description>
         <pubDate>Thu, 01 Jan 2015 00:00:00 +0900</pubDate>
         <link>/M4/general/Crystal-Shapes.html</link>

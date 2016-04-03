@@ -132,7 +132,11 @@
 
 <p>In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers, e.g. <script type="math/tex">10^{23}</script>, of extremely small particles such as atoms, or electrons.</p>
 
+<<<<<<< HEAD
+<p>Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  So as our first step into the field, we will look at the most basic type, a <i>Bravais Lattice</i>.</p>
+=======
 <p>Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  As our first step into the field, we will look at the most basic type, a <i>Bravais lattice</i>.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <p>In a Bravais lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.</p>
 
@@ -140,6 +144,38 @@
 \mathbf{R}_{lmn}=l \vec{a} + m \vec{b} + n \vec{c}  \;\;\;\; \text{for } l,m,n \in \mathbb{N}
 \end{equation}</p>
 
+<<<<<<< HEAD
+<p>To keep things working out right, we have to put a constraint on these vectors; that we can’t get one from scaling and adding the other two.  If we could, then we couldn’t put sites in an entire 3 dimensional space.</p>
+
+<p>Stay tuned for a later post where we explore more elaborate lattices.</p>
+
+<p><code>julia
+# importing our packages
+Pkg.add("PyPlot");
+Pkg.update();
+using PyPlot;
+</code></p>
+
+<h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
+
+<p>Choose the lattice you want to look at, and put that string into the lattice variable.
+Current options:</p>
+<ul>
+    <li> Simple Cubic = "sc"
+    <li> Plane triangular lattice = "pt"
+    <li> Body-Centered Cubic = "bcc"
+    <li> Face-Centered Cubic = "fcc"
+Note: Square is Simple Cubic for Nz=1
+
+
+14 distinct lattice types are possible, but these common four give the important ideas.
+
+Also, input the size of lattice you want to look at.
+
+
+```julia
+lattice="sc";
+=======
 <p>For consistency, we have to put a constraint on these vectors; we cannot combine two of the vectors and obtain the third.  If we could, then we couldn’t have sites in an entire three dimensional space.</p>
 
 <p>Stay tuned for a later post where we explore more elaborate lattices.</p>
@@ -169,13 +205,22 @@ Current options:</p>
 <p>Also, input the size of lattice you want to look at.</p>
 
 <pre><code class="language-julia">lattice="sc";
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 Nx=3;
 Ny=3;
 Nz=3;
+<<<<<<< HEAD
+```
+
+
+```julia
+# A cell to just evaluate
+=======
 </code></pre>
 
 <pre><code class="language-julia"># A cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice=="sc")
@@ -201,9 +246,19 @@ elseif(lattice=="fcc")
 else
     println("Please have a correct lattice")
 end
+<<<<<<< HEAD
+```
+
+
+
+
+```julia
+# Another cell to just evaluate
+=======
 </code></pre>
 
 <pre><code class="language-julia"># Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz;    #The total number of sites
 aM=transpose(a);
@@ -211,9 +266,20 @@ bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or l
 cM=transpose(repeat(c,outer=[1,Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
+<<<<<<< HEAD
+```
+
+
+
+
+
+```julia
+# Another cell to just evaluate
+=======
 </code></pre>
 
 <pre><code class="language-julia"># Another cell to just evaluate
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[i,:]=(i-1)*a;
@@ -226,7 +292,11 @@ end
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
 end
+<<<<<<< HEAD
+```
+=======
 </code></pre>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
  <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
@@ -237,7 +307,13 @@ end
  <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
 </div>
 
+<<<<<<< HEAD
+
+```julia
+pygui(false);  #if true, launches new window with interactive capabilities
+=======
 <pre><code class="language-julia">pygui(false);  #if true, launches new window with interactive capabilities
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 drawcube=true;  #gives lines for a cube, helps interpret the dots
 ls=2;  # how many cubes to draw
@@ -259,7 +335,11 @@ if(drawcube==true)
 end
 
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
+<<<<<<< HEAD
+```
+=======
 </code></pre>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -271,6 +351,10 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -281,6 +365,10 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -291,6 +379,10 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -301,16 +393,28 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
+<<<<<<< HEAD
+
+## Go Back and Fiddle!
+
+As you might have noticed, this isn't just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?
+
+Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
+=======
 <h2 id="go-back-and-fiddle">Go Back and Fiddle!</h2>
 
 <p>As you might have noticed, this isn’t just a blog where you read through the posts.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?</p>
 
 <p>Chose <code class="highlighter-rouge">pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-<p>Look at different lattice sizes.</p>
+Look at different lattice sizes.
 
-<p>Can you hand draw them on paper?</p>
+Can you hand draw them on paper?
 
+<<<<<<< HEAD
+<center>![Mydrawing](/M4/Images/CrystalShapes/handdraw2.jpg)</center>
+=======
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -320,10 +424,16 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
         <p class="image-caption">A face centered cubic I decided to draw myself. </p>
     
 </div>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-<p>Let me know what you think, and enjoy the sequel as well!</p>
 
+<<<<<<< HEAD
+Let me know what you think, and enjoy the sequel as well!
+## [<center><i> Multi-site unit cells</i></center>](/M4/undergrad/MultiSite-Unit-Cells.html)
+</li></li></li></li></ul>
+=======
 <p><a href="/M4/general/MultiSite-Unit-Cells.html"><center><i> Multi-site unit cells</i></center></a></p>
+>>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
   </article>
 
