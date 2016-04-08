@@ -3,6 +3,8 @@ markdown: kramdown
 highlighter: rouge
 baseurl: /M4
 permalink: none
+gems:
+  - jekyll-feed
 
 title: Metals, Magnets, and Miscellaneous Materials
 email: chrissie.c.l@gmail.com
