@@ -55,7 +55,7 @@
 
             	<!-- Your share button code -->
             	<div class="fb-share-button"
-            		data-href="{{ page.url }}" 
+            		data-href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" 
             		data-layout="button_count">
 
           </li>
