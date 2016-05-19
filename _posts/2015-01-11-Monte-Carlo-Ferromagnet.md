@@ -4,6 +4,7 @@ layout: post
 comments: True
 category: Prerequisites
 author: Christina C. Lee
+tags: [Magnet],[Monte Carlo],[Phase Transitions]
 ---
 
 Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
@@ -18,7 +19,7 @@ Instead of looking at the liquid-solid problem to understand phase transitions, 
 \end{equation}
 , which is basically just the energy.  This <i>Ising</i> Model has nearest neighbors interacting, and each spin variablesolely points in the $\pm z$ direction.
 
-At a given temperature $T$ (inverse temperature $\beta=1/T$, $k_b=1$), the occupancy of a given configuration $c_i$ follows the Maxwell-Boltzmann Probability Distribution,
+At a given temperature $T$, inverse temperature $\beta=1/T$, $k_b=1$, the occupancy of a given configuration $c_i$ follows the Maxwell-Boltzmann Probability Distribution,
 \begin{equation}
 P(c_i)=\frac{\mathrm{e}^{-\beta E(c_i)}}{\sum\limits_j \mathrm{e}^{-\beta E(c_j)}}
 \end{equation}
@@ -74,7 +75,7 @@ Temperature can also provide other complications when we are studying critical p
 
 * Larger lattice gives more precise results.
 * Larger lattice takes more memory and time.
-* Finite Size effects (to be disscussed later) display some interesting physics.
+* Finite Size effects, to be disscussed later, display some interesting physics.
 
 ### Coupling Constant J
 
@@ -82,7 +83,7 @@ Usually normalized out anyway...
 
 ### Number of time steps
 
-Each Monte Carlo time step is one complete sweep of the lattice ($N$ random flip attempts).  The more time steps, the more accurate the results, but the longer you have to wait.
+Each Monte Carlo time step is one complete sweep of the lattice, $N$ random flip attempts.  The more time steps, the more accurate the results, but the longer you have to wait.
 
 ### When to Measure
 
@@ -102,12 +103,14 @@ using Lattices;
 Instead of going into calculating all the lattice parameters again, we will use a class I define in the file Lattices.jl .  This class contains
 
 Lattice Types
+
 * Chain
 * Square
 * Honeycomb
 You can edit the file to make your own types.
 
 Once a lattice is created, it contains <b>Members of Type</b>:
+
 * `name`, a string
 * `l`, length in number of unit cells
 * `dim`, dimension of lattice
