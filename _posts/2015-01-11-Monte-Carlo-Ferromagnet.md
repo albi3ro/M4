@@ -101,11 +101,11 @@ Though a time step does include $N$ spin flips, that doesn't mean we have actual
 Some less important things: periodic versus open boundary conditions, shape and symmetries of simulation cell.
 
 
-```julia
+{% highlight julia %}
 using PyPlot;
 push!(LOAD_PATH,".")
 using Lattices;
-```
+{% endhighlight %}
 
 Instead of going into calculating all the lattice parameters again, we will use a class I define in the file Lattices.jl .  This class contains
 
@@ -131,17 +131,17 @@ Once a lattice is created, it contains <b>Members of Type</b>:
 Today, I will just look at the square lattice, since that indicates much of the standard phase transition properties.  Some of the lattices I have shown (kagome, triangular, ...) are special frustrated lattices, and thus will behave very wierdly in this situation.
 
 
-```julia
+{% highlight julia %}
 ## Define l here
 l=50;
 
 lt=MakeLattice("Square",l);
 S=ones(Int8,l,l);  #Our spins
 dt=1/(lt.N);
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight julia %}
 # The energy contribution of just one site
 function dE(i::Int)
     Eii=0;
@@ -168,7 +168,7 @@ function M()
     return Mvar;
 end
 "defined functions"
-```
+{% endhighlight %}
 
 
 
@@ -179,29 +179,29 @@ I have set up the simulation so that you can perform two different things.  For 
 Or you can set `video=false` and `t` to a large variable, and actually measure the statistics for the system over a bunch of configurations.
 
 
-```julia
+{% highlight julia %}
 beta=.7;
 J=1;
 t=100000;
 video=false;
 nskip=10;   # don't measure every sweep= better decorrelation
 "Parameters set"
-```
+{% endhighlight %}
 
 
 
 
 
-```julia
+{% highlight julia %}
 nmeas=Int64(t/nskip); # how many times we will measure
 Ma=Array{Int32}(nmeas); # our magnetization measurements
 Ea=Array{Int32}(nmeas); # our energy measurements
 "done"
-```
+{% endhighlight %}
 
 
 
-```julia
+{% highlight julia %}
 tm=1; #Our measurement time step
 pygui(true)
 for ti in 1:t
@@ -234,12 +234,12 @@ Mstd=std(Ma/lt.N);
 Eave=mean(Ea/lt.N);
 Estd=std(Ea/lt.N);
 Mave, Mstd
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight julia %}
 pygui(false)
 title("Magnetization versus Time, Beta=$beta")
 xlabel("Monte Carlo Steps")
@@ -250,13 +250,13 @@ xy=[500, Mave ],
 xytext=[1000, Mave-.0125],
     xycoords="data",
     arrowprops=Dict("facecolor"=>"green"))
-```
+{% endhighlight %}
 
 
 
 
 
-```julia
+{% highlight julia %}
 pygui(false)
 plt[:hist](Ma/lt.N,bins=30,normed=true,label="Samples Normed");
 x=collect(Mave-Mstd*3:.001:Mave+Mstd*3)
@@ -267,12 +267,12 @@ xlabel("Mangetization")
 ylabel("Normed Counts")
 legend(loc="upper right")
 #savefig("Ferromagnet/maghist_bp3.png")
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight julia %}
 pygui(false)
 title("Energy versus Time, Beta=$beta")
 xlabel("Monte Carlo Steps")
@@ -283,12 +283,12 @@ annotate(" White Noise = Well Mixing",
 xytext=[1000, Eave-.03],
    xycoords="data",
    arrowprops=Dict("facecolor"=>"green"))
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight julia %}
 pygui(false)
 plt[:hist](Ea/lt.N,bins=30,normed=true,label="Samples Normed");
 x=collect(Eave-3*Estd:.001:Eave+3*Estd)
@@ -298,7 +298,7 @@ title("Energy Histogram, beta=$beta")
 xlabel("Energy")
 ylabel("Normed Counts")
 #savefig("Ferromagnet/Ehist_bp3.png")
-```
+{% endhighlight %}
 
 
 # Example Results

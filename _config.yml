@@ -1,6 +1,6 @@
 name: M4
 markdown: kramdown
-highlighter: rouge
+highlighter: pygments
 baseurl: /M4
 permalink: none
 gems:

@@ -75,23 +75,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -226,38 +226,36 @@ using PyPlot;
 Since Hermite polynomials are generated recursively, I wanted to generate and save all the functions up to a designated value at once.  In order to do so, I created an array, whose values are anonymous functions.
 </div>
 
-<p>```julia
-function GenerateHermite(n)
-    Hermite=Function[]</p>
+<pre><code class="language-julia">function GenerateHermite(n)
+    Hermite=Function[]
 
-<pre><code>push!(Hermite,x-&gt;1);
-push!(Hermite,x-&gt;2*x);
+    push!(Hermite,x-&gt;1);
+    push!(Hermite,x-&gt;2*x);
 
-for ni in 3:n
-    push!(Hermite,x-&gt;2.*x.*Hermite[ni-1](x).-2.*n.*Hermite[ni-2](x))
+    for ni in 3:n
+        push!(Hermite,x-&gt;2.*x.*Hermite[ni-1](x).-2.*n.*Hermite[ni-2](x))
+    end
+    return Hermite
 end
-return Hermite end ```
 </code></pre>
 
 <p>Let’s generate some Hermite polynomials and look at them.
 <b> Make sure you don’t call a Hermite you haven’t generated yet!</b></p>
 
-<p><code>julia
-Hermite=GenerateHermite(5)
-</code>
-&lt;div class="progtip"&gt;
-&lt;h3 color="black"&gt;Programming Tip!&lt;/h3&gt;
+<pre><code class="language-julia">Hermite=GenerateHermite(5)
+</code></pre>
+<div class="progtip">
+<h3 color="black">Programming Tip!</h3>
 Since the Hermite polynomials, and the wavefunctions after them, are composed of anonymous functions, we need to use <code>map(f,x)</code> in order to map the function <code>f</code> onto the array <code>x</code>.  Otherwise our polynomials only work on single values.
-&lt;/div&gt;</p>
+</div>
 
-<p><code>julia
-x=collect(-2:.01:2);
+<pre><code class="language-julia">x=collect(-2:.01:2);
 for j in 1:5
     plot(x,map(Hermite[j],x),label="H_$j (x)")
 end
 legend()
 ylim(-50,50)
-</code></p>
+</code></pre>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -269,47 +267,44 @@ ylim(-50,50)
     
 </div>
 
-<p>```julia
-# Lets make our life easy and set all units to 1
+<pre><code class="language-julia"># Lets make our life easy and set all units to 1
 m=1
 ω=1
-ħ=1</p>
+ħ=1
 
-<h1 id="finally-we-define-">Finally, we define Ψ</h1>
-<p>Ψ(n,x)=1/sqrt(factorial(n)<em>2^n)</em>(m<em>ω/(ħ</em>π))^(1/4)<em>exp(-m</em>ω<em>x^2/(2</em>ħ))*Hermite<a href="sqrt(m*ω/ħ)*x">n</a>
-```</p>
+#Finally, we define Ψ
+Ψ(n,x)=1/sqrt(factorial(n)*2^n)*(m*ω/(ħ*π))^(1/4)*exp(-m*ω*x^2/(2*ħ))*Hermite[n](sqrt(m*ω/ħ)*x)
+</code></pre>
 
 <h3 id="finding-zeros">Finding Zeros</h3>
 <p>The eigenvalue maps to the number of zeros in the wavefunction.  Below, I use Julia’s roots package to indentify roots on the interval from -3 to 3.</p>
 
-<p><code>julia
-zeds=Array{Array{Float64}}(1)
+<pre><code class="language-julia">zeds=Array{Array{Float64}}(1)
 zeds[1]=[] #ground state has no zeros
 for j in 2:4
     push!(zeds,fzeros(y-&gt;Ψ(j,y),-3,3))
 end
-</code></p>
+</code></pre>
 
-<p>```julia
-# AHHHHH! So Much code!
-# Don’t worry; it’s all just plotting
-x=collect(-3:.01:3)  #Set some good axes</p>
+<pre><code class="language-julia"># AHHHHH! So Much code!
+# Don't worry; it's all just plotting
+x=collect(-3:.01:3)  #Set some good axes
 
-<p>for j in 1:4    #how many do you want to view?
-    plot(x,map(y-&gt;Ψ(j,y),x)+j-1,label=”| $j &gt;”)
-    plot(x,(j-1)<em>ones(x),color=”black”)
-    scatter(zeds[j],(j-1)</em>ones(zeds[j]),marker=”o”,s=40)
+for j in 1:4    #how many do you want to view?
+    plot(x,map(y-&gt;Ψ(j,y),x)+j-1,label="| $j &gt;")
+    plot(x,(j-1)*ones(x),color="black")
+    scatter(zeds[j],(j-1)*ones(zeds[j]),marker="o",s=40)
 end
-plot(x,.5<em>m</em>ω^2*x.^2,linestyle=”–“,label=”Potential”)</p>
+plot(x,.5*m*ω^2*x.^2,linestyle="--",label="Potential")
 
-<p>scatter([],[],marker=”o”,s=40,label=”Zeros”)
-xlabel(“x”)
-ylabel(“Ψ+n”)
-title(“Eigenstates of a Harmonic Osscilator”)
+scatter([],[],marker="o",s=40,label="Zeros")
+xlabel("x")
+ylabel("Ψ+n")
+title("Eigenstates of a Harmonic Osscilator")
 legend()
 xlim(-3,3);
 ylim(-.5,4.5);
-```</p>
+</code></pre>
 
 <h2 id="example-result">Example Result</h2>
 

@@ -75,23 +75,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -199,26 +199,23 @@
     
 </div>
 
-<p><code>julia
-# importing our packages
+<pre><code class="language-julia"># importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
 using PyPlot;
-</code></p>
+</code></pre>
 
-<p>```julia
-lattice=”shuriken”;</p>
+<pre><code class="language-julia">lattice="shuriken";
 
-<p>Nx=3;
+Nx=3;
 Ny=3;
 Nz=1;
-```</p>
+</code></pre>
 
-<p>```julia
-# A cell to just evaluate
+<pre><code class="language-julia"># A cell to just evaluate
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
-if(lattice==”honeycomb”) #also the graphite lattice
+if(lattice=="honeycomb") #also the graphite lattice
     d=2;
     Ncell=2;
     unit=[[0 0 0]
@@ -226,7 +223,7 @@ if(lattice==”honeycomb”) #also the graphite lattice
     a=[sqrt(3),0,0];
     b=[sqrt(3)/2,3/2,0];
     c=[0,0,1];
-elseif(lattice==”kagome”)
+elseif(lattice=="kagome")
     d=2;
     Ncell=3;
     unit=[[0 0 0]
@@ -235,19 +232,19 @@ elseif(lattice==”kagome”)
     a=[2,0,0];       #Look familiar? Checkout pt from Pt. 1
     b=[1, sqrt(3), 0];
     c=[0,0,1];
-elseif(lattice==”shuriken”)
+elseif(lattice=="shuriken")
     d=2;
     Ncell=6;
     unit=[[0 0 0]
           [.5 0 0]
           [0 .5 0]
           [.5 .5 0]
-        [.5+.25<em>sqrt(3) .25 0]
-        [.25 .5+.25</em>sqrt(3) 0]];
-    a=[.5+.5<em>sqrt(3),0,0];
-    b=[0,.5+.5</em>sqrt(3),0];
+        [.5+.25*sqrt(3) .25 0]
+        [.25 .5+.25*sqrt(3) 0]];
+    a=[.5+.5*sqrt(3),0,0];
+    b=[0,.5+.5*sqrt(3),0];
     c=[0,0,1];
-elseif(lattice==”diamond”)
+elseif(lattice=="diamond")
     d=3;
     Ncell=2;
     unit=[[0 0 0]
@@ -255,7 +252,7 @@ elseif(lattice==”diamond”)
     a=[.5,.5,0];    #Look familiar? Checkout fcc from Pt.1
     b=[.5,0,.5];
     c=[0,.5,.5];
-elseif(lattice==”pyrochlore”)
+elseif(lattice=="pyrochlore")
     d=3;
     Ncell=4;
     unit=[[0 0 0]
@@ -264,13 +261,13 @@ elseif(lattice==”pyrochlore”)
         [0 .25 .25]];
     a=[.5,.5,0];
     b=[.5,0,.5];
-    c=[0,.5,.5];</p>
+    c=[0,.5,.5];
 
-<p>else
-    println(“Please have a correct lattice”)
+else
+    println("Please have a correct lattice")
 end
-“Cell finished”
-```</p>
+"Cell finished"
+</code></pre>
 
 <h3 id="connections-to-bravais-lattices">Connections to Bravais Lattices</h3>
 
@@ -280,42 +277,39 @@ end
         \end{equation}
 you’ll notice they’re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.</p>
 
-<p>```julia
-# Another cell to just evaluate
+<pre><code class="language-julia"># Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
-N=Nx<em>Ny</em>Nz<em>Ncell;    #The total number of sites
+N=Nx*Ny*Nz*Ncell;    #The total number of sites
 aM=transpose(repeat(a,outer=[1,Ncell]));
-bM=transpose(repeat(b,outer=[1,Ncell</em>Nx])); #these allow us to copy an entire row or layer at once
-cM=transpose(repeat(c,outer=[1,Ncell<em>Nx</em>Ny]));</p>
+bM=transpose(repeat(b,outer=[1,Ncell*Nx])); #these allow us to copy an entire row or layer at once
+cM=transpose(repeat(c,outer=[1,Ncell*Nx*Ny]));
 
-<p>X=Array{Float64}(N,3);  #where we store the positions
-“Cell finished”
-```</p>
+X=Array{Float64}(N,3);  #where we store the positions
+"Cell finished"
+</code></pre>
 
-<p>```julia
-# Another cell to just evaluate
+<pre><code class="language-julia"># Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
-    X[Ncell<em>i-Ncell+1:Ncell</em>i,:]=unit+(i-1)*aM;
-end</p>
-
-<p>for j in 2:Ny    #copying the first row into the first layer
-    X[Ncell<em>Nx</em>(j-1)+(1:Ncell<em>Nx),:]=X[1:Ncell</em>Nx,:]+(j-1)*bM;
-end</p>
-
-<p>for j in 2:Nz    #copying the first layer into the entire cube
-    X[Ncell<em>Ny</em>Nx<em>(j-1)+(1:Ncell</em>Nx<em>Ny),:]=X[1:Ncell</em>Nx<em>Ny,:]+(j-1)</em>cM;
+    X[Ncell*i-Ncell+1:Ncell*i,:]=unit+(i-1)*aM;
 end
-“Cell finished”
-```</p>
 
-<p><code>julia
-# 2D plotter
+for j in 2:Ny    #copying the first row into the first layer
+    X[Ncell*Nx*(j-1)+(1:Ncell*Nx),:]=X[1:Ncell*Nx,:]+(j-1)*bM;
+end
+
+for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
+end
+"Cell finished"
+</code></pre>
+
+<pre><code class="language-julia"># 2D plotter
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 scatter(X[:,1],X[:,2])
-</code></p>
+</code></pre>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -327,14 +321,13 @@ scatter(X[:,1],X[:,2])
     
 </div>
 
-<p><code>julia
-# 3D plotter
+<pre><code class="language-julia"># 3D plotter
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 areas=100*ones(length(X[:,1]))
 scatter3D(X[:,1],X[:,2],X[:,3])
-</code></p>
+</code></pre>
 
 <h3 id="perdy-pictures">Perdy Pictures</h3>
 <p>From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here’s a nice graphic I made that might help a little bit more.</p>

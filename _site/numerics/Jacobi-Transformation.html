@@ -75,23 +75,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -307,8 +307,7 @@ end
 <p>This makes a matrix easier to look at than when its filled
 with 1.043848974e-12 everywhere</p>
 
-<p><code>julia
-function roundmatrix(A::Array,rtol::Real)
+<pre><code class="language-julia">function roundmatrix(A::Array,rtol::Real)
     Ap=copy(A)
     for ii in 1:length(A)
         if abs(Ap[ii])&lt;rtol
@@ -317,10 +316,9 @@ function roundmatrix(A::Array,rtol::Real)
     end
     return Ap;
 end
-</code></p>
+</code></pre>
 
-<p><code>julia
-## Here we create a random symmetric matrix
+<pre><code class="language-julia">## Here we create a random symmetric matrix
 function makeA(n::Int)
     A=randn(n,n);
     for ii in 1:n
@@ -330,7 +328,7 @@ function makeA(n::Int)
     return A,copy(A),V
 end
 ## One A returned will be stored to compare initial and final
-</code></p>
+</code></pre>
 
 <p>Now on to the rotations!</p>
 
@@ -338,48 +336,47 @@ end
 Both tell the function to compute the vectors with <code>computeV=true</code>
 and input the <code>V=V</code> after the semicolon.</p>
 
-<p>```julia
-function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
+<pre><code class="language-julia">function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
     θ=(A[q,q]-A[p,p])/(2*A[p,q]);
-    t=sign(θ)/(abs(θ)+sqrt(θ^2+1));</p>
+    t=sign(θ)/(abs(θ)+sqrt(θ^2+1));
 
-<pre><code>c=1/sqrt(t^2+1)
-s=t*c
-τ=s/(1+c)
+    c=1/sqrt(t^2+1)
+    s=t*c
+    τ=s/(1+c)
 
-l=size(A)[1]
-Ap=copy(A[:,p])
-Aq=copy(A[:,q])
-for r in 1:l
-    A[r,p]=Ap[r]-s*(Aq[r]+τ*Ap[r])
-    A[r,q]=Aq[r]+s*(Ap[r]-τ*Aq[r])
-
-    A[p,r]=A[r,p]
-    A[q,r]=A[r,q]
-end
-A[p,q]=0
-A[q,p]=0
-A[p,p]=Ap[p]-t*Aq[p]
-A[q,q]=Aq[q]+t*Aq[p]
-
-if computeV==true
-    Vp=copy(V[:,p])
-    Vq=copy(V[:,q])
+    l=size(A)[1]
+    Ap=copy(A[:,p])
+    Aq=copy(A[:,q])
     for r in 1:l
-        V[r,p]=c*Vp[r]-s*Vq[r]
-        V[r,q]=s*Vp[r]+c*Vq[r]
+        A[r,p]=Ap[r]-s*(Aq[r]+τ*Ap[r])
+        A[r,q]=Aq[r]+s*(Ap[r]-τ*Aq[r])
+
+        A[p,r]=A[r,p]
+        A[q,r]=A[r,q]
     end
-    return A,V
-else
-    return A;
-end end ```
+    A[p,q]=0
+    A[q,p]=0
+    A[p,p]=Ap[p]-t*Aq[p]
+    A[q,q]=Aq[q]+t*Aq[p]
+
+    if computeV==true
+        Vp=copy(V[:,p])
+        Vq=copy(V[:,q])
+        for r in 1:l
+            V[r,p]=c*Vp[r]-s*Vq[r]
+            V[r,q]=s*Vp[r]+c*Vq[r]
+        end
+        return A,V
+    else
+        return A;
+    end
+end
 </code></pre>
 
 <p>This function performs one sweep</p>
 
-<p>```julia</p>
-
-<p>function Sweep(A;compV=false,V=eye(1))
+<pre><code class="language-julia">
+function Sweep(A;compV=false,V=eye(1))
     n=size(A)[1]
     for ii in 2:n
         for jj in 1:(ii-1) ## Just over one triangle
@@ -389,27 +386,26 @@ end end ```
                 A,V=Rotate(A,ii,jj;computeV=true,V=V);
             end
         end
-    end</p>
+    end
 
-<pre><code>if compV==false
-    return A
-else
-    return A,V
-end end ```
+    if compV==false
+        return A
+    else
+        return A,V
+    end
+end
 </code></pre>
 
 <p>Just creating some size of matrix</p>
 
-<p><code>julia
-A,A0,V=makeA(5);
-</code></p>
+<pre><code class="language-julia">A,A0,V=makeA(5);
+</code></pre>
 
-<p><code>julia
-## keep evaluating for a couple iterations
+<pre><code class="language-julia">## keep evaluating for a couple iterations
 ## watch how it changes
 A,V=Sweep(A;compV=true,V=V);
 roundmatrix(A,1e-10),A,V,convergence(A)
-</code></p>
+</code></pre>
 
 <p>This output is after several sweeps</p>
 
@@ -440,9 +436,8 @@ roundmatrix(A,1e-10),A,V,convergence(A)
 
 <p>Compare the Optimized LAPLACK routine to your results</p>
 
-<p><code>julia
-eig(A0)
-</code></p>
+<pre><code class="language-julia">eig(A0)
+</code></pre>
 
 <pre><code>      ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
       1.3408963512476402,3.0943321944116593],
@@ -454,10 +449,9 @@ eig(A0)
         0.305189   -0.593648   0.30913    -0.588905  -0.33477 )
 </code></pre>
 
-<p><code>julia
-## A good check to make sure V is an orthonomal transformation
+<pre><code class="language-julia">## A good check to make sure V is an orthonomal transformation
 roundmatrix(V*A*transpose(V)-A0,1e-12)
-</code></p>
+</code></pre>
 
 <pre><code>      5x5 Array{Float64,2}:
        0.0  0.0  0.0  0.0  0.0
@@ -472,15 +466,14 @@ How much memory will the computation take?
 This is dependent on how large the matrix is, and determines whether or not we
 want to use this algorithm.</p>
 
-<p>```julia</p>
-
-<p>A,A0,V=makeA(10);
+<pre><code class="language-julia">
+A,A0,V=makeA(10);
 @time Sweep(A);
 A,A0,V=makeA(20);
 @time Sweep(A);
 A,A0,V=makeA(100);
 @time Sweep(A);
-```</p>
+</code></pre>
 
 <pre><code>  0.000028 seconds (320 allocations: 30.469 KB)
   0.000099 seconds (1.33 k allocations: 187.266 KB)
@@ -489,8 +482,7 @@ A,A0,V=makeA(100);
 
 <p>In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.</p>
 
-<p>```julia
-A10,Ap10,V=makeA(10);
+<pre><code class="language-julia">A10,Ap10,V=makeA(10);
 A20,Ap20,V=makeA(20);
 A100,Ap100,V=makeA(100);
 nsweep=collect(1:7);
@@ -504,10 +496,10 @@ for i in nsweep
     conv10[i]=convergence(A10)
     conv20[i]=convergence(A20)
     conv100[i]=convergence(A100)
-end</p>
+end
 
-<p>[nsweep conv10/10 conv20/20 conv100/100]
-```</p>
+[nsweep conv10/10 conv20/20 conv100/100]
+</code></pre>
 
 <pre><code>7x4 Array{Float64,2}:
  1.0  1.10944       2.43759      14.6644
