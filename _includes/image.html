@@ -1,7 +1,7 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper" >
     {% if include.url %}
-    <a href="{{ include.url }}" title="{{ include.title }}" width="{{ include.width }}"  target="_blank">
+    <a href="{{ include.url }}" title="{{ include.title }}"  target="_blank">
     {% endif %}
         <img src="{{ site.url }}/{{ include.img }}" alt="{{ include.title }}" width="{{ include.width }} " />
     {% if include.url %}
