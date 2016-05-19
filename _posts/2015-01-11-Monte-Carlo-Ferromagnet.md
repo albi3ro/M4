@@ -302,7 +302,7 @@ ylabel("Normed Counts")
 So here are some example results I got.
 
 
-{ß include image.html img="M4/Images/Ferromagnet/ParamagnetL30_b2.gif" title="Paramagnet" caption="States of a Paramagnet at $\beta=0.2$" %}
+{# include image.html img="M4/Images/Ferromagnet/ParamagnetL30_b2.gif" title="Paramagnet" caption="States of a Paramagnet at $\beta=0.2$" %}
 
 {% include image.html img="M4/Images/Ferromagnet/mt.png" title="Samples over Time" caption="Paramagnet Magnetization Samples.  A properly tuned simulations should be showing white noise without correlations or getting stuck in particular areas." %}
 
