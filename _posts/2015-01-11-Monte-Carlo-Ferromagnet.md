@@ -62,9 +62,9 @@ I will say a little bit about the tunable parameters here, but Monte Carlo simul
 
 ### Temperature
 
-{% include image.html img="M4/Images/Ferromagnet/couch1.JPG" title="Couch" caption="Low Temperature search of a Couch Store  " %}
+{% include image.html img="M4/Images/Ferromagnet/couch1.JPG" title="Couch" caption="Low Temperature search of a Couch Store  " width="200px" %}
 
-{% include image.html img="M4/Images/Ferromagnet/mountain.jpg" title="mountain" caption="High temperature search for dimictites " %}
+{% include image.html img="M4/Images/Ferromagnet/mountain.jpg" title="mountain" caption="High temperature search for dimictites " width=200px" %}
 
 On the left I am performing a low temperature search of a couch store.  I found a minimum, and even though I got stuck there, I thoroughly got to know what that minimum had to offer. On the right though, I'm performing a high temperature search of the Alexander Hills, Death Valley, California in pursuit of Neoproterzoic carbonates and dimictites.  I needed to be able to explore a lot more of the environment.
 
