@@ -9,7 +9,9 @@
     
       <item>
         <title>Monte Carlo Ferromagnet</title>
-        <description>&lt;p&gt;Prerequisites: &lt;a href=&quot;/M4/numerics/Monte-Carlo.html&quot;&gt;Monte Carlo Calculation of pi&lt;/a&gt;, &lt;a href=&quot;/M4/numerics/MCMC.html&quot;&gt;Monte Carlo Markov Chain&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;p&gt;Post Prerequisites: &lt;a href=&quot;/M4/numerics/Monte-Carlo.html&quot;&gt;Monte Carlo Calculation of pi&lt;/a&gt;, &lt;a href=&quot;/M4/numerics/MCMC.html&quot;&gt;Monte Carlo Markov Chain&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Prerequisites: Statistical Mechanics&lt;/p&gt;
 
 &lt;h2 id=&quot;the-physics&quot;&gt;The physics&lt;/h2&gt;
 
@@ -66,8 +68,12 @@ which is simply a function of difference in energy between two states.  Therefor
 &lt;p&gt;I will say a little bit about the tunable parameters here, but Monte Carlo simulations are as much an art as a science, so I leave it up to you to play with the numbers and build intuition for what works.&lt;/p&gt;
 
 &lt;h3 id=&quot;temperature&quot;&gt;Temperature&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;M4/Images/Ferromagnet/couch1.JPG&quot; width=&quot;200px&quot; style=&quot;float: left; margin: 20px&quot; /&gt; &lt;img src=&quot;M4/Images/Ferromagnet/mountain.jpg&quot; width=&quot;200px&quot; style=&quot;float: right; margin: 20px&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;image-wrapper&quot;&gt;
+&lt;img src=&quot;/M4/Images/Ferromagnet/couch1.JPG&quot; width=&quot;200px&quot; style=&quot;float: left; margin: 20px&quot; /&gt;
+&lt;/div&gt;
+&lt;div class=&quot;image-wrapper&quot;&gt;
+ &lt;img src=&quot;/M4/Images/Ferromagnet/mountain.jpg&quot; width=&quot;200px&quot; style=&quot;float: right; margin: 20px&quot; /&gt;
+&lt;/div&gt;
 
 &lt;p&gt;On the left I am performing a low temperature search of a couch store.  I found a minimum, and even though I got stuck there, I thoroughly got to know what that minimum had to offer. On the right though, I’m performing a high temperature search of the Alexander Hills, Death Valley, California in pursuit of Neoproterzoic carbonates and dimictites.  I needed to be able to explore a lot more of the environment.&lt;/p&gt;
 
@@ -275,7 +281,15 @@ ylabel(&quot;Normed Counts&quot;)
 &lt;h1 id=&quot;example-results&quot;&gt;Example Results&lt;/h1&gt;
 &lt;p&gt;So here are some example results I got.&lt;/p&gt;
 
-&lt;p&gt;{ß include image.html img=”M4/Images/Ferromagnet/ParamagnetL30_b2.gif” title=”Paramagnet” caption=”States of a Paramagnet at $\beta=0.2$” %}&lt;/p&gt;
+&lt;!-- _includes/image.html --&gt;
+&lt;div class=&quot;image-wrapper&quot;&gt;
+    
+        &lt;img src=&quot;/M4/Images/Ferromagnet/ParamagnetL30_b2.gif&quot; alt=&quot;Paramagnet&quot; /&gt;
+    
+    
+        &lt;p class=&quot;image-caption&quot;&gt;States of a Paramagnet at $\beta=0.2$&lt;/p&gt;
+    
+&lt;/div&gt;
 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
@@ -290,7 +304,7 @@ ylabel(&quot;Normed Counts&quot;)
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
-        &lt;img src=&quot;//maghist_bp3.png&quot; alt=&quot;Magnetization Histogram&quot; /&gt;
+        &lt;img src=&quot;/M4/Images/Ferromagnet/maghist_bp3.png&quot; alt=&quot;Magnetization Histogram&quot; /&gt;
     
     
         &lt;p class=&quot;image-caption&quot;&gt;Magnetization Histogram&lt;/p&gt;
@@ -317,17 +331,15 @@ ylabel(&quot;Normed Counts&quot;)
     
 &lt;/div&gt;
 
-&lt;p&gt;Histogram for Magnetization
 &lt;!-- _includes/image.html --&gt;
-&amp;lt;div class=&quot;image-wrapper&quot; &amp;gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;    &amp;lt;img src=&quot;/M4/Images/Ferromagnet/maghist_bp7.png&quot; alt=&quot;Magnet Histogram&quot; /&amp;gt;
-
-
-    &amp;lt;p class=&quot;image-caption&quot;&amp;gt;Histogram of a magnetization at $\beta=0.7$&amp;lt;/p&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&amp;lt;/div&amp;gt;&lt;/p&gt;
+&lt;div class=&quot;image-wrapper&quot;&gt;
+    
+        &lt;img src=&quot;/M4/Images/Ferromagnet/maghist_bp7.png&quot; alt=&quot;Magnet Histogram&quot; /&gt;
+    
+    
+        &lt;p class=&quot;image-caption&quot;&gt;Histogram of a magnetization at $\beta=0.7$&lt;/p&gt;
+    
+&lt;/div&gt;
 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
