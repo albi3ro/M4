@@ -7,7 +7,7 @@ author: Christina C. Lee
 tags: [Magnet]
 ---
 
-<meta property="og:image" content="albi3ro.github.io/M4/Images/Ferromagnet/ParamagnetL30_b2.gif" \>
+<meta property="og:image" content="/M4/Images/Ferromagnet/ParamagnetL30_b2.gif" \>
 
 Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
 
