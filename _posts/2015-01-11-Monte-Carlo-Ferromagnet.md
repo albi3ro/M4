@@ -7,7 +7,9 @@ author: Christina C. Lee
 tags: [Magnet]
 ---
 
-Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
+Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
+
+Prerequisites: Statistical Mechanics
 
 ## The physics
 
