@@ -4,7 +4,7 @@ layout: post
 comments: True
 category: Prerequisites
 author: Christina C. Lee
-image: {{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif
+image: "{{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif"
 tags: [Magnet]
 ---
 
