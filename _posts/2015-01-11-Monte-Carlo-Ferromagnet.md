@@ -4,7 +4,7 @@ layout: post
 comments: True
 category: Prerequisites
 author: Christina C. Lee
-tags: [Magnet],[Stat Mech],[Monte Carlo]
+tags: [Magnet]
 ---
 
 Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
