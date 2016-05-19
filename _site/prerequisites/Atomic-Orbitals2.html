@@ -10,7 +10,7 @@
     <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
     <link rel="stylesheet" href="/M4/css/main.css">
     <link rel="canonical" href="/M4/prerequisites/Atomic-Orbitals2.html">
-
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     TeX: {
@@ -72,19 +72,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -128,22 +132,21 @@
 
     <p><b>Prerequiresites:</b> Quantum Mechanics course</p>
 
-<<<<<<< HEAD
-<p>If you haven’t read it already, checkout <a href="/M4/undergrad/Atomic-Orbitals.html">Atomic Orbitals Pt. 1</a>.  Today we try and make some prettier pictures.  GLVisualize is a quite beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.</p>
+<p>If you haven’t read it already, check out <a href="/M4/prerequisites/Atomic-Orbitals.html">Atomic Orbitals Pt. 1</a>.  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.</p>
 
-<p>To add</p>
+<p>To add this package:</p>
 
 <p><code>julia
 Pkg.add("GLVisualize")
 </code></p>
 
-<p>and test with</p>
+<p>and test with:</p>
 
 <p><code>julia
 Pkg.test("GLVisualize")
 </code></p>
 
-<p>But other steps may be necessary to get the package working.  On a Mac, I needed to install the Homebrew.jl package.</p>
+<p>But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.</p>
 
 <p><code>julia
 #Pkg.update();
@@ -183,65 +186,12 @@ end</p>
 
 <h1 id="generates-an-orbital-funtion-of-r-for-a-specificied-nlm">Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.</h1>
 <p>function Orbital(n::Int,l::Int,m::Int)
-=======
-<p>If you haven’t read it already, check out <a href="/M4/prerequisites/Atomic-Orbitals.html">Atomic Orbitals Pt. 1</a>.  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.</p>
-
-<p>To add this package:</p>
-
-<pre><code class="language-julia">Pkg.add("GLVisualize")
-</code></pre>
-
-<p>and test with:</p>
-
-<pre><code class="language-julia">Pkg.test("GLVisualize")
-</code></pre>
-
-<p>But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.</p>
-
-<pre><code class="language-julia">#Pkg.update();
-#Pkg.add("GSL");
-using GSL;
-using GLVisualize;
-</code></pre>
-
-<pre><code class="language-julia">a0=1; #for convenience, or 5.2917721092(17)×10−11 m
-
-# The unitless radial coordinate
-ρ(r,n)=2r/(n*a0);
-
-#The θ dependence
-function Pmlh(m::Int,l::Int,θ::Real)
-    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
-end
-
-#The θ and ϕ dependence
-function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
-    return  (-1.0)^m*sf_legendre_Plm(l,abs(m),cos(θ))*e^(im*m*ϕ)
-end
-
-#The Radial dependence
-function R(n::Int,l::Int,ρ::Real)
-    if isapprox(ρ,0)
-        ρ=.001
-    end
-     return sf_laguerre_n(n-l-1,2*l+1,ρ)*e^(-ρ/2)*ρ^l
-end
-
-#A normalization: This is dependent on the choice of polynomial representation
-function norm(n::Int,l::Int)
-    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
-end
-
-#Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.
-function Orbital(n::Int,l::Int,m::Int)
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     if (l&gt;n)    # we make sure l and m are within proper bounds
         throw(DomainError())
     end
     if abs(m)&gt;l
        throw(DomainError())
     end
-<<<<<<< HEAD
     psi(ρ,θ,ϕ)=norm(n, l)<em>R(n,l,ρ)</em>Yml(m,l,θ,ϕ);
     return psi
 end</p>
@@ -255,32 +205,16 @@ end</p>
 end</p>
 
 <p>function CarttoSph(x::Array,y::Array,z::Array)
-=======
-    psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
-    return psi
-end
-
-#We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion
-function SphtoCart(r::Array,θ::Array,ϕ::Array)
-    x=r.*sin(θ).*cos(ϕ);
-    y=r.*sin(θ).*sin(ϕ);
-    z=r.*cos(θ);
-    return x,y,z;
-end
-
-function CarttoSph(x::Array,y::Array,z::Array)
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
     r=sqrt(x.^2+y.^2+z.^2);
     θ=acos(z./r);
     ϕ=atan(y./x);
     return r,θ,ϕ;
-<<<<<<< HEAD
 end</p>
 
 <p>“Defined Helper Functions”
 ```</p>
 
-<p>Here create a square cube, and convert those positions over to spherical coordinates.</p>
+<p>Here, create a square cube, and convert those positions over to spherical coordinates.</p>
 
 <p>```julia
 range=-10:.5:10
@@ -339,67 +273,6 @@ r()
 
 <h2 id="p-orbital">2p Orbital</h2>
 
-=======
-end
-
-"Defined Helper Functions"
-</code></pre>
-
-<p>Here, create a square cube, and convert those positions over to spherical coordinates.</p>
-
-<pre><code class="language-julia">range=-10:.5:10
-x=collect(range);
-y=collect(range);
-z=collect(range);
-N=length(x);
-xa=repeat(x,outer=[1,N,N]);
-ya=repeat(transpose(y),outer=[N,1,N]);
-za=repeat(reshape(z,1,1,N),outer=[N,N,1]);
-println("created x,y,z")
-
-r,θ, ϕ=CarttoSph(xa,ya,za);
-println("created r,θ,ϕ")
-</code></pre>
-
-<pre><code class="language-julia">Ψ=Orbital(3,2,-1)
-Ψp=Orbital(3,1,0)
-</code></pre>
-
-<pre><code class="language-julia">Ψv = zeros(Float32,N,N,N);
-ϕv = zeros(Float32,N,N,N);
-</code></pre>
-
-<pre><code class="language-julia">for nn in 1:N
-    for jj in 1:N
-        for kk in 1:N
-            val=Ψ(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
-            #val+=Ψp(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
-            Ψv[nn,jj,kk]=convert(Float32,abs(val));
-            ϕv[nn,jj,kk]=convert(Float32,angle(val));
-        end
-    end
-end
-
-mid=round(Int,(N-1)/2+1);
-Ψv[mid,mid,:]=Ψv[mid+1,mid+1,:]; # the one at the center diverges
-Ψv=(Ψv-minimum(Ψv))/(maximum(Ψv)-minimum(Ψv) );
-</code></pre>
-
-<pre><code class="language-julia">w,r = glscreen()
-
-robj=visualize(Ψv)
-
-#choose this one for surfaces of constant of intensity
-view(visualize(robj[:intensities],:iso))
-
-#choose this for a block of 3D density
-#view(visualize(Ψv))
-r()
-</code></pre>
-
-<h2 id="p-orbital">2p Orbital</h2>
-
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -503,6 +376,15 @@ r()
 </div>
 
     <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 
   <div class="wrapper">
 
@@ -519,8 +401,38 @@ r()
       <div class="footer-col  footer-col-2">
         <ul class="social-media-list">
           
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
 
           
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/prerequisites/Atomic-Orbitals2.html" data-layout="button_count"></div>
+
+          </li>
         </ul>
       </div>
 

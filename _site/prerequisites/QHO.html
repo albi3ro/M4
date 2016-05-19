@@ -10,7 +10,7 @@
     <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
     <link rel="stylesheet" href="/M4/css/main.css">
     <link rel="canonical" href="/M4/prerequisites/QHO.html">
-
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     TeX: {
@@ -72,19 +72,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -136,91 +140,55 @@
 
 <p>A person’s perception of these objects starts to change as they enter their first physics class. Even in that beginning class of classical mechanics, the problems are filled with harmonic oscillators, like slinkies, rubber bands, or swings, which exert a force proportional to their displacement</p>
 
-<script type="math/tex; mode=display">F=-kx</script>
-
-<<<<<<< HEAD
-<p>A person’s perception of these objects start to change as they enter their first physics class.  Even in that beginning classical mechanics, the problems are filled with harmonic osscilators, like slinkies, rubber bands, or swings, which exert a force proportional to their displacement
-\begin{equation}
+<script type="math/tex; mode=display">
 F=-kx
-\end{equation}
-and therefore a quadratic potential
-\begin{equation}
-V(x)=k x^2
-\end{equation}</p>
-=======
+</script>
+
 <p>and therefore a quadratic potential</p>
 
-<script type="math/tex; mode=display">V(x)=k x^2</script>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+<script type="math/tex; mode=display">
+V(x)=k x^2
+</script>
 
 <p>This is all extremely fun and useful in the classical regime, but we add Quantum Mechanics to the mix, and LOW AND BEHOLD! we have one of the few exactly solvable models in Quantum Mechanics. Moreso, this solution demonstrates some extremely important properties of quantum mechanical systems.</p>
 
 <p><b>The Hamiltonian</b></p>
 
-<script type="math/tex; mode=display">{\cal H}= \frac{p^2}{2 m} + \frac{1}{2} m \omega ^2 x^2</script>
+<script type="math/tex; mode=display">
+    {\cal H}= \frac{p^2}{2 m} + \frac{1}{2} m \omega ^2 x^2
+</script>
 
-<<<<<<< HEAD
-<h3 id="physicists-hermite-polynomials">Physicists’ Hermite Polynomials</h3>
-<p>Note: These are not the same as the “probabilists’ Hermite Polynomial”.  The two functions differ by scaling factors.</p>
-
-<p>Physicists’ Hermite polynomials are defined as eigenfunctions for the differential equation
-\begin{equation}
-u^{\prime \prime}-2xu^{\prime} = -2 \lambda u
-\end{equation}</p>
-=======
 <p><b> The Solution</b></p>
 
-<script type="math/tex; mode=display">\Psi (x) = \frac{1}{\sqrt{2^n n!}} \left(\frac{m \omega}{\hbar \pi}\right)^{1/4} \mathrm{e}^{-m \omega x^2/2 \hbar}  H_n \left( \sqrt{\frac{m \omega}{\hbar}} x \right)</script>
+<script type="math/tex; mode=display">
+    \Psi (x) = \frac{1}{\sqrt{2^n n!}} \left(\frac{m \omega}{\hbar \pi}\right)^{1/4} \mathrm{e}^{-m \omega x^2/2 \hbar}  H_n \left( \sqrt{\frac{m \omega}{\hbar}} x \right)
+</script>
 
 <p>Today, I just intend to present the form of the solution, calculate this equation numerically, and visualize the results.  If you wish to know how the equation is derived, you can find a standard quantum mechanics textbook, or stay tuned till I manage to write it up.</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <h3 id="physicists-hermite-polynomials">Physicists’ Hermite Polynomials</h3>
 <p>Note: These are not the same as the “probabilists’ Hermite Polynomial”. The two functions differ by scaling factors.</p>
 
 <p>Physicists’ Hermite polynomials are defined as eigenfunctions for the differential equation</p>
 
-<script type="math/tex; mode=display">u^{\prime \prime}-2xu^{\prime} = -2 \lambda u</script>
+<script type="math/tex; mode=display">
+u^{\prime \prime}-2xu^{\prime} = -2 \lambda u
+</script>
 
-<script type="math/tex; mode=display">H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n}
-\left( e^{-x^2} \right)</script>
+<script type="math/tex; mode=display">
+H_n(x) = (-1)^n \mathrm{e}^{x^2} \frac{\mathrm{d}^n}{\mathrm{d}x^n}
+\left( e^{-x^2} \right)
+</script>
 
 <p>I leave it as an exercise to the reader to:</p>
 
-<<<<<<< HEAD
-<p>\begin{equation}
- \int\limits_b\^a H_{n}
-\end{equation}</p>
-
-<p>\begin{equation} \int_{-\infty}\^{\infty} H_m(x) H_n(x) e\^{-x\^2} \mathrm{d}x = \sqrt{\pi} 2\^n n! \delta_{mn} \end{equation}</p>
-
-<ul>
-<li> demonstrate completeness.  This means we can describe every function by a linear combination of Hermite polynomials, provided it is suitably well behaved.
-
-
-Though a formula exists or calculating a function at n directly, the most efficient method at low n for calculating polynomials relies on recurrence relationships.  These recurrence relationships will also be quite handy if you ever need to show orthogonality, or expectation values.
-
-### Recurrence Relations
-
-\begin{equation}
-H\_{n+1}(x) = 2xH\_n(x) - H\^{\prime}\_n(x)
-\end{equation}
-\begin{equation}
-H\^{\prime}\_n(x) = 2n H\_{n-1}(x)
-\end{equation}
-\begin{equation}
-H\_{n+1}(x) = 2x H\_n(x) - 2n H\_{n-1}(x)
-\end{equation}
-
-
-```julia
-#Pkg.update();
-=======
 <ul>
   <li>demonstrate orthogonality with respect to the measure $e^{-x^2}$, i.e.</li>
 </ul>
 
-<script type="math/tex; mode=display">\int_{-\infty}^{\infty} H_m(x) H_n(x) e^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^n n! \delta_{mn}</script>
+<script type="math/tex; mode=display">
+\int_{-\infty}^{\infty} H_m(x) H_n(x) e^{-x^2} \mathrm{d}x = \sqrt{\pi} 2^n n! \delta_{mn}
+</script>
 
 <ul>
   <li>demonstrate completeness.  This means we can describe every function by a linear combination of Hermite polynomials, provided it is suitably well behaved.</li>
@@ -230,89 +198,63 @@ H\_{n+1}(x) = 2x H\_n(x) - 2n H\_{n-1}(x)
 
 <h3 id="recurrence-relations">Recurrence Relations</h3>
 
-<script type="math/tex; mode=display">H_{n+1}(x) = 2xH_n(x) - H^{\prime}_n(x)</script>
+<script type="math/tex; mode=display">
+H_{n+1}(x) = 2xH_n(x) - H^{\prime}_n(x)
+</script>
 
-<script type="math/tex; mode=display">H^{\prime}_n (x) = 2n H_{n-1}(x)</script>
+<script type="math/tex; mode=display">
+H^{\prime}_n (x) = 2n H_{n-1}(x)
+</script>
 
-<script type="math/tex; mode=display">H_{n+1}(x) = 2x H_n(x) - 2n H_{n-1}(x)</script>
+<script type="math/tex; mode=display">
+H_{n+1}(x) = 2x H_n(x) - 2n H_{n-1}(x)
+</script>
 
 <pre><code class="language-julia">#Pkg.update();
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 #Pkg.add("PyPlot");
 #Pkg.update()
 #Pkg.add("Roots")
 using Roots;
 using PyPlot;
-<<<<<<< HEAD
-```
-=======
 </code></pre>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <div class="progtip">
 <h3 color="black"> Programming Tip!</h3>
 Since Hermite polynomials are generated recursively, I wanted to generate and save all the functions up to a designated value at once.  In order to do so, I created an array, whose values are anonymous functions.
 </div>
 
-<<<<<<< HEAD
-```julia
+<p>```julia
 function GenerateHermite(n)
-=======
-<pre><code class="language-julia">function GenerateHermite(n)
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
-    Hermite=Function[]
+    Hermite=Function[]</p>
 
-    push!(Hermite,x-&gt;1);
-    push!(Hermite,x-&gt;2*x);
+<pre><code>push!(Hermite,x-&gt;1);
+push!(Hermite,x-&gt;2*x);
 
-    for ni in 3:n
-        push!(Hermite,x-&gt;2.*x.*Hermite[ni-1](x).-2.*n.*Hermite[ni-2](x))
-    end
-    return Hermite
+for ni in 3:n
+    push!(Hermite,x-&gt;2.*x.*Hermite[ni-1](x).-2.*n.*Hermite[ni-2](x))
 end
-<<<<<<< HEAD
-```
-
-
-
-So lets generate some Hermite polynomials and look at them.
-<b> Make sure you don't call a Hermite you haven't generated yet!
-
-
-```julia
-Hermite=GenerateHermite(5)
-```
-=======
+return Hermite end ```
 </code></pre>
 
 <p>Let’s generate some Hermite polynomials and look at them.
 <b> Make sure you don’t call a Hermite you haven’t generated yet!</b></p>
 
-<pre><code class="language-julia">Hermite=GenerateHermite(5)
-</code></pre>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
-<div class="progtip">
-<h3 color="black">Programming Tip!</h3>
+<p><code>julia
+Hermite=GenerateHermite(5)
+</code>
+&lt;div class="progtip"&gt;
+&lt;h3 color="black"&gt;Programming Tip!&lt;/h3&gt;
 Since the Hermite polynomials, and the wavefunctions after them, are composed of anonymous functions, we need to use <code>map(f,x)</code> in order to map the function <code>f</code> onto the array <code>x</code>.  Otherwise our polynomials only work on single values.
-</div>
+&lt;/div&gt;</p>
 
-<<<<<<< HEAD
-```julia
+<p><code>julia
 x=collect(-2:.01:2);
-=======
-<pre><code class="language-julia">x=collect(-2:.01:2);
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 for j in 1:5
     plot(x,map(Hermite[j],x),label="H_$j (x)")
 end
 legend()
 ylim(-50,50)
-<<<<<<< HEAD
-```
-
-=======
-</code></pre>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+</code></p>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -324,101 +266,50 @@ ylim(-50,50)
     
 </div>
 
-<<<<<<< HEAD
-
-
-```julia
+<p>```julia
 # Lets make our life easy and set all units to 1
 m=1
 ω=1
-ħ=1
+ħ=1</p>
 
-#Finally, we define Ψ
-Ψ(n,x)=1/sqrt(factorial(n)*2^n)*(m*ω/(ħ*π))^(1/4)*exp(-m*ω*x^2/(2*ħ))*Hermite[n](sqrt(m*ω/ħ)*x)
-```
+<h1 id="finally-we-define-">Finally, we define Ψ</h1>
+<p>Ψ(n,x)=1/sqrt(factorial(n)<em>2^n)</em>(m<em>ω/(ħ</em>π))^(1/4)<em>exp(-m</em>ω<em>x^2/(2</em>ħ))*Hermite<a href="sqrt(m*ω/ħ)*x">n</a>
+```</p>
 
+<h3 id="finding-zeros">Finding Zeros</h3>
+<p>The eigenvalue maps to the number of zeros in the wavefunction.  Below, I use Julia’s roots package to indentify roots on the interval from -3 to 3.</p>
 
-
-### Finding Zeros
-The eigenvalue maps to the number of zeros in the wavefunction.  Below, I use Julia's roots package to indentify roots on the interval from -3 to 3.
-
-
-```julia
+<p><code>julia
 zeds=Array{Array{Float64}}(1)
 zeds[1]=[] #ground state has no zeros
 for j in 2:4
     push!(zeds,fzeros(y-&gt;Ψ(j,y),-3,3))
 end
-```
+</code></p>
 
-
-```julia
+<p>```julia
 # AHHHHH! So Much code!
-# Don't worry; it's all just plotting
-x=collect(-3:.01:3)  #Set some good axes
+# Don’t worry; it’s all just plotting
+x=collect(-3:.01:3)  #Set some good axes</p>
 
-for j in 1:4    #how many do you want to view?
-    plot(x,map(y-&gt;Ψ(j,y),x)+j-1,label="| $j &gt;")
-    plot(x,(j-1)*ones(x),color="black")
-    scatter(zeds[j],(j-1)*ones(zeds[j]),marker="o",s=40)
+<p>for j in 1:4    #how many do you want to view?
+    plot(x,map(y-&gt;Ψ(j,y),x)+j-1,label=”| $j &gt;”)
+    plot(x,(j-1)<em>ones(x),color=”black”)
+    scatter(zeds[j],(j-1)</em>ones(zeds[j]),marker=”o”,s=40)
 end
-plot(x,.5*m*ω^2*x.^2,linestyle="--",label="Potential")
+plot(x,.5<em>m</em>ω^2*x.^2,linestyle=”–“,label=”Potential”)</p>
 
-scatter([],[],marker="o",s=40,label="Zeros")
-xlabel("x")
-ylabel("Ψ+n")
-title("Eigenstates of a Harmonic Osscilator")
+<p>scatter([],[],marker=”o”,s=40,label=”Zeros”)
+xlabel(“x”)
+ylabel(“Ψ+n”)
+title(“Eigenstates of a Harmonic Osscilator”)
 legend()
 xlim(-3,3);
 ylim(-.5,4.5);
-```
-
-
-## Example Result
-
-=======
-<pre><code class="language-julia"># Lets make our life easy and set all units to 1
-m=1
-ω=1
-ħ=1
-
-#Finally, we define Ψ
-Ψ(n,x)=1/sqrt(factorial(n)*2^n)*(m*ω/(ħ*π))^(1/4)*exp(-m*ω*x^2/(2*ħ))*Hermite[n](sqrt(m*ω/ħ)*x)
-</code></pre>
-
-<h3 id="finding-zeros">Finding Zeros</h3>
-<p>The eigenvalue maps to the number of zeros in the wavefunction.  Below, I use Julia’s roots package to indentify roots on the interval from -3 to 3.</p>
-
-<pre><code class="language-julia">zeds=Array{Array{Float64}}(1)
-zeds[1]=[] #ground state has no zeros
-for j in 2:4
-    push!(zeds,fzeros(y-&gt;Ψ(j,y),-3,3))
-end
-</code></pre>
-
-<pre><code class="language-julia"># AHHHHH! So Much code!
-# Don't worry; it's all just plotting
-x=collect(-3:.01:3)  #Set some good axes
-
-for j in 1:4    #how many do you want to view?
-    plot(x,map(y-&gt;Ψ(j,y),x)+j-1,label="| $j &gt;")
-    plot(x,(j-1)*ones(x),color="black")
-    scatter(zeds[j],(j-1)*ones(zeds[j]),marker="o",s=40)
-end
-plot(x,.5*m*ω^2*x.^2,linestyle="--",label="Potential")
-
-scatter([],[],marker="o",s=40,label="Zeros")
-xlabel("x")
-ylabel("Ψ+n")
-title("Eigenstates of a Harmonic Osscilator")
-legend()
-xlim(-3,3);
-ylim(-.5,4.5);
-</code></pre>
+```</p>
 
 <h2 id="example-result">Example Result</h2>
 
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -429,15 +320,8 @@ ylim(-.5,4.5);
     
 </div>
 
-<<<<<<< HEAD
-
-## More to come
-This barely scratched the surface into the richness that can be seen in the quantum harmonic osscilator.  Here, just we developed a way for calculating the functions, and visualized the results.  Stay tuned to hear here about ground state energy, ladder operators, and atomic trapping.
-</b></li></ul>
-=======
 <h2 id="more-to-come">More to come</h2>
 <p>This barely scratched the surface into the richness that can be seen in the quantum harmonic oscillator.  Here, we have developed a way for calculating the functions, and visualized the results.  Stay tuned to hear about ground state energy, ladder operators, and atomic trapping.</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
   </article>
 
@@ -467,6 +351,15 @@ This barely scratched the surface into the richness that can be seen in the quan
 </div>
 
     <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 
   <div class="wrapper">
 
@@ -483,8 +376,38 @@ This barely scratched the surface into the richness that can be seen in the quan
       <div class="footer-col  footer-col-2">
         <ul class="social-media-list">
           
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
 
           
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/prerequisites/QHO.html" data-layout="button_count"></div>
+
+          </li>
         </ul>
       </div>
 

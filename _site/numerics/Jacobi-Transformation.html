@@ -10,7 +10,7 @@
     <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
     <link rel="stylesheet" href="/M4/css/main.css">
     <link rel="canonical" href="/M4/numerics/Jacobi-Transformation.html">
-
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     TeX: {
@@ -72,19 +72,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -131,40 +135,13 @@
 <p>So you want to diagonalize a matrix, do you?
 Well, if you have a tiny symmetric matrix, you REALLY want to write up the algorithm by hand, and don’t want to spend much time trying to understand the algorithm, then you have come to the right place.</p>
 
-<<<<<<< HEAD
-<p>Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices.  Julia has those libraries built in already.  Even if you do call those matrices, you can make them work better by understanding what’s going on underneath the hood, which is why we are going through this now.</p>
-=======
 <p>Otherwise, use LAPACK/BLAS to call a highly optimized routine that can work extremely quickly on large matrices. Julia has those libraries built in already. Even if you do call those matrices, you can make them work better by understanding what’s going on underneath the hood, which is why we are going through this now.</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <p>Start with a base <i>rotation matrix</i> of the Form
 <script type="math/tex">% <![CDATA[
-P_{pq} =
-    \begin{pmatrix}
-<<<<<<< HEAD
-           1&amp; &amp;  &amp;  &amp; &amp; &amp; &amp; 0 \<br />
-           &amp; \ddots &amp; &amp; &amp; &amp;  &amp;  \<br />
-            &amp; &amp; c &amp; \cdots &amp; s &amp; &amp; \<br />
-                &amp; &amp;\vdots&amp; 1 &amp; \vdots &amp; &amp; \<br />
-               &amp; &amp; -s &amp; \cdots &amp; c &amp; &amp;  \<br />
-               &amp; &amp; &amp; &amp; &amp; \ddots &amp;  \<br />
-               0 &amp; &amp; &amp; &amp;  &amp; &amp; 1\<br />
-    \end{pmatrix}
-\end{equation}</p>
 
-<p>From our starting arbitrary symmetric A,
-\begin{equation}
-A^{T} = A
-\end{equation}
-we will run a series of transformations,
-\begin{equation}
-A^{\prime}= P^{T}_{pq} \cdot A \cdot P_{pq}
-\end{equation}
-where each iteration brings A closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things</p>
-<ul>
-<li> The values of c and s
-<li> The pattern of sweeping p and q
-=======
+    P_{pq} =
+    \begin{pmatrix}
            1& &  &  & & & & 0 \\
            & \ddots & & & &  &  \\
             & & c & \cdots & s & & \\
@@ -172,15 +149,20 @@ where each iteration brings A closer to diagonal form.  Thus in our implementing
                & & -s & \cdots & c & &  \\
                & & & & & \ddots &  \\
                0 & & & &  & & 1\\
-    \end{pmatrix} %]]></script></p>
+    \end{pmatrix}
+ %]]></script></p>
 
 <p>From our starting arbitrary symmetric <script type="math/tex">A</script>,</p>
 
-<script type="math/tex; mode=display">A^T = A</script>
+<script type="math/tex; mode=display">
+A^T = A
+</script>
 
 <p>we will run a series of transformations,</p>
 
-<script type="math/tex; mode=display">A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}</script>
+<script type="math/tex; mode=display">
+A^{\prime}= P^{T}\_{pq} \cdot A \cdot P\_{pq}
+</script>
 
 <p>where each iteration brings <script type="math/tex">A</script> closer to diagonal form.  Thus in our implementing our algorithm, we need to determine two things</p>
 
@@ -190,150 +172,120 @@ where each iteration brings A closer to diagonal form.  Thus in our implementing
 </ul>
 
 <p>And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
-And in the end we will need to finally determine if this actually converges, and if has any sort of efficiency.
+<p>So lets expand one transformation, and we if we can solve for $c$ and $s$.</p>
 
-<<<<<<< HEAD
-So lets expand one transformation, and we if we can solve for $c$ and $s$.
+<script type="math/tex; mode=display">
+a^{\prime}_{rp}  = c a_{rp} - s a_{rq}
+</script>
 
-\begin{align}
-a^{\prime}\_{rp} &amp; = c a\_{rp} - s a\_{rq} \\\\
-a^{\prime}\_{rq} &amp; = c a\_{rq} + s a\_{rp} \\\\
-a^{\prime}\_{pp} &amp; = c\^2 a\_{pp} + s\^2 a\_{qq} -2 sc a\_{pq} \\\\
-a^{\prime}\_{qq} &amp; = s\^2 a\_{qq} + c\^2 a\_{qq} + 2sc a\_{pq} \\\\
-a^{\prime}\_{pq} &amp; = \left( c\^2-s\^2 \right) a\_{pq} + sc \left(a\_{pq} - a\_{qq} \right)\\\\
-\end{align}
+<script type="math/tex; mode=display">
+a^{\prime}_{rq}  = c a_{rq} + s a_{rp}
+</script>
 
-## Determining $s$ and $c$
-Given we specifically want $a\^{\prime}\_{pq}$ to be zero, we re-arrange the last equation,
-\begin{equation}
-        \frac{c\^2-s\^2}{2 sc} = \frac{a\_{pq}-a\_{qq}}{2 a\_{pq}} =\theta
-\end{equation}
-At first glance, this equation might not look easier to solve for $s$ or $c$.  Second either. We define a new parameter $t = s/c$, which now makes the equation,
-\begin{equation}
-\frac{1-t^2}{2 t} = \theta \;\;\;\; \implies \;\;\; t^2 -2 \theta t -1=0,
-\end{equation}
-now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using form that pulls out smaller root through
-\begin{equation}
-t=\frac{\text{sgn}(\theta)}{|\theta| + \sqrt{\theta^2 + 1} }.
-\end{equation}
-Then reverse solve back to
-\begin{align}
-c&amp;=\frac{1}{\sqrt{t^2+1}}\\
-s&amp;=tc
-\end{align}
+<script type="math/tex; mode=display">
+a^{\prime}_{pp}  = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq}
+</script>
 
-Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are
-\begin{align}
-a\^{\prime}\_{pq} &amp; = 0\\\\
-a\^{\prime}\_{qq} &amp; = a\_{qq} + t a\_{qp} \\\\
-a\^{\prime}\_{pp} &amp;= a\_{pp} - t a\_{pq} \\\\
-a\^{\prime}\_{rp} &amp;= a\_{rp} - s \left( a\_{rq} +\tau a\_{rp} \right) \\\\
-a\^{\prime}\_{rq} &amp;= a\_{rq} + s \left( a\_{rp} -\tau a\_{rq} \right)\\\\
-\end{align}
-with the new variable
-\begin{equation}
-\tau = \frac{s}{1+c}
-\end{equation}
+<script type="math/tex; mode=display">
+a^{\prime}_{qq}  = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq}
+</script>
 
-## Convergence
-
-The sum of the squares of the off diagonal elements ,choosen in either upper or lower triagnles arbitrarily,
-\begin{equation}
-S=\sum\limits_{r &lt; s} |a\_{rs}|^2
-\end{equation}
-
-## Eigenvectors
-
-By forming a product of every rotation matrix, we also come to approximate the matrix $V$ where
-\begin{equation}
-D = V^{T} \cdot A \cdot V
-\end{equation}
-and $D$ is the diagonal form of $A$.  $V$ is computed through itereative computation
-\begin{align}
-V^{\prime} &amp; = V \cdot P_i \\\\
-v^{\prime}\_{rs} &amp;= v\_{rs} \\\\
-v^{\prime}\_{rp} &amp;= c v\_{rp} - s v\_{rq} \\\\
-v^{\prime}\_{rq} &amp;= s v\_{rp} + c v\_{rq}\\\\
-\end{align}
-
-### Enough with the talking! LETS COMPUTE STUFF
-
-
-```julia
-# First, Lets make our nice, helpful functions
-=======
-<script type="math/tex; mode=display">a^{\prime}_{rp}  = c a_{rp} - s a_{rq}</script>
-
-<script type="math/tex; mode=display">a^{\prime}_{rq}  = c a_{rq} + s a_{rp}</script>
-
-<script type="math/tex; mode=display">a^{\prime}_{pp}  = c^2 a_{pp} + s^2 a_{qq} -2 sc a_{pq}</script>
-
-<script type="math/tex; mode=display">a^{\prime}_{qq}  = s^2 a_{qq} + c^2 a_{qq} + 2sc a_{pq}</script>
-
-<script type="math/tex; mode=display">a^{\prime}_{pq}  = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)</script>
+<script type="math/tex; mode=display">
+a^{\prime}_{pq}  = \left( c^2-s^2 \right) a_{pq} + sc \left(a_{pq} - a_{qq} \right)
+</script>
 
 <h2 id="determining-s-and-c">Determining $s$ and $c$</h2>
 <p>Given we specifically want $a^{\prime}_{pq}$ to be zero, we re-arrange the last equation,</p>
 
-<script type="math/tex; mode=display">\frac{c^2-s^2}{2 sc} = \frac{a_{pq}-a_{qq}}{2 a_{pq}} = \theta</script>
+<script type="math/tex; mode=display">
+        \frac{c^2-s^2}{2 sc} = \frac{a_{pq}-a_{qq}}{2 a_{pq}} = \theta
+</script>
 
 <p>At first glance, this equation might not look easier to solve for $s$ or $c$.  At second glance either. We define a new parameter $t = s/c$, which now makes the equation,</p>
 
-<script type="math/tex; mode=display">\frac{1-t^2}{2 t} = \theta \;\;\;\; \implies \;\;\; t^2 -2 \theta t -1=0,</script>
+<script type="math/tex; mode=display">
+\frac{1-t^2}{2 t} = \theta \;\;\;\; \implies \;\;\; t^2 -2 \theta t -1=0,
+</script>
 
 <p>now quite easily solvable by our friendly quadratic formula.  Though the book does recommend using a form that pulls out smaller roots through</p>
 
-<script type="math/tex; mode=display">t=\frac{\text{sgn}( \theta )}{| \theta | + \sqrt{ \theta ^2 + 1} }.</script>
+<script type="math/tex; mode=display">
+t=\frac{\text{sgn}( \theta )}{| \theta | + \sqrt{ \theta ^2 + 1} }.
+</script>
 
 <p>Then reverse solve back to</p>
 
-<script type="math/tex; mode=display">c=\frac{1}{\sqrt{t^2+1}} \;\;\; s=tc</script>
+<script type="math/tex; mode=display">
+c=\frac{1}{\sqrt{t^2+1}} \;\;\; s=tc
+</script>
 
 <p>Though we could use the expressions above, if we simplify them with our new expressions for $c$ and $s$ analytically, we reduce computational load and round off error. These new expressions are</p>
 
-<script type="math/tex; mode=display">a^{\prime}_{pq}  = 0</script>
+<script type="math/tex; mode=display">
+a^{\prime}_{pq}  = 0
+</script>
 
-<script type="math/tex; mode=display">a^{\prime}_{qq}  = a_{qq} + t a_{qp}</script>
+<script type="math/tex; mode=display">
+a^{\prime}_{qq}  = a_{qq} + t a_{qp}
+</script>
 
-<script type="math/tex; mode=display">a^{\prime}_{pp} = a_{pp} - t a_{pq}</script>
+<script type="math/tex; mode=display">
+a^{\prime}_{pp} = a_{pp} - t a_{pq}
+</script>
 
-<script type="math/tex; mode=display">a^{\prime}_{rp} = a_{rp} - s \left( a_{rq} +\tau a_{rp} \right)</script>
+<script type="math/tex; mode=display">
+a^{\prime}_{rp} = a_{rp} - s \left( a_{rq} +\tau a_{rp} \right)
+</script>
 
-<script type="math/tex; mode=display">a^{\prime}_{rq} = a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)</script>
+<script type="math/tex; mode=display">
+a^{\prime}_{rq} = a_{rq} + s \left( a_{rp} -\tau a_{rq} \right)
+</script>
 
 <p>with the new variable</p>
 
-<script type="math/tex; mode=display">\tau = \frac{s}{1+c}</script>
+<script type="math/tex; mode=display">
+\tau = \frac{s}{1+c}
+</script>
 
 <h2 id="convergence">Convergence</h2>
 
 <p>The sum of the squares of the off diagonal elements, choosen in either upper or lower triangles arbitrarily,</p>
 
 <script type="math/tex; mode=display">% <![CDATA[
-S=\sum\limits_{r < s} |a_{rs}|^2 %]]></script>
+
+S=\sum\limits_{r < s} |a_{rs}|^2
+ %]]></script>
 
 <h2 id="eigenvectors">Eigenvectors</h2>
 
 <p>By forming a product of every rotation matrix, we also come to approximate the matrix $V$ where</p>
 
-<script type="math/tex; mode=display">D = V^{T} \cdot A \cdot V</script>
+<script type="math/tex; mode=display">
+D = V^{T} \cdot A \cdot V
+</script>
 
 <p>and $D$ is the diagonal form of $A$.  $V$ is computed through iterative computation</p>
 
-<script type="math/tex; mode=display">V^{\prime} = V \cdot P_i</script>
+<script type="math/tex; mode=display">
+V^{\prime} = V \cdot P_i
+</script>
 
-<script type="math/tex; mode=display">v^{\prime}_{rs} = v_{rs}</script>
+<script type="math/tex; mode=display">
+v^{\prime}_{rs} = v_{rs}
+</script>
 
-<script type="math/tex; mode=display">v^{\prime}_{rp} = c v_{rp} - s v_{rq}</script>
+<script type="math/tex; mode=display">
+v^{\prime}_{rp} = c v_{rp} - s v_{rq}
+</script>
 
-<script type="math/tex; mode=display">v^{\prime}_{rq} = s v_{rp} + c v_{rq}</script>
+<script type="math/tex; mode=display">
+v^{\prime}_{rq} = s v_{rp} + c v_{rq}
+</script>
 
 <h3 id="enough-with-the-talking-lets-compute-stuff">Enough with the talking! LETS COMPUTE STUFF</h3>
 
 <pre><code class="language-julia"># First, Lets make our nice, helpful functions
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 ## A function to look at the convergence
 function convergence(A::Array)
@@ -347,23 +299,13 @@ function convergence(A::Array)
     end
     return num
 end
-<<<<<<< HEAD
-```
-
-
-This makes a matrix easier to look at than when its filled
-with 1.043848974e-12 everywhere
-
-```julia
-function roundmatrix(A::Array,rtol::Real)
-=======
 </code></pre>
 
 <p>This makes a matrix easier to look at than when its filled
 with 1.043848974e-12 everywhere</p>
 
-<pre><code class="language-julia">function roundmatrix(A::Array,rtol::Real)
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+<p><code>julia
+function roundmatrix(A::Array,rtol::Real)
     Ap=copy(A)
     for ii in 1:length(A)
         if abs(Ap[ii])&lt;rtol
@@ -372,19 +314,10 @@ with 1.043848974e-12 everywhere</p>
     end
     return Ap;
 end
-<<<<<<< HEAD
-```
+</code></p>
 
-
-
-
-```julia
+<p><code>julia
 ## Here we create a random symmetric matrix
-=======
-</code></pre>
-
-<pre><code class="language-julia">## Here we create a random symmetric matrix
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 function makeA(n::Int)
     A=randn(n,n);
     for ii in 1:n
@@ -394,78 +327,56 @@ function makeA(n::Int)
     return A,copy(A),V
 end
 ## One A returned will be stored to compare initial and final
-<<<<<<< HEAD
-```
-
-Now on to the Rotations!
-
- We don't always want to compute the eigenvectors, so those are in the optional entries slot.
-Both tell the function to compute the vectors with `computeV=true`
-and input the `V=V` after the semicolon.
-
-
-```julia
-function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
-=======
-</code></pre>
+</code></p>
 
 <p>Now on to the rotations!</p>
 
 <p>We don’t always want to compute the eigenvectors, so those are in the optional entries slot.
-Both tell the function to compute the vectors with <code class="highlighter-rouge">computeV=true</code>
-and input the <code class="highlighter-rouge">V=V</code> after the semicolon.</p>
+Both tell the function to compute the vectors with <code>computeV=true</code>
+and input the <code>V=V</code> after the semicolon.</p>
 
-<pre><code class="language-julia">function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+<p>```julia
+function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
     θ=(A[q,q]-A[p,p])/(2*A[p,q]);
-    t=sign(θ)/(abs(θ)+sqrt(θ^2+1));
+    t=sign(θ)/(abs(θ)+sqrt(θ^2+1));</p>
 
-    c=1/sqrt(t^2+1)
-    s=t*c
-    τ=s/(1+c)
+<pre><code>c=1/sqrt(t^2+1)
+s=t*c
+τ=s/(1+c)
 
-    l=size(A)[1]
-    Ap=copy(A[:,p])
-    Aq=copy(A[:,q])
-    for r in 1:l
-        A[r,p]=Ap[r]-s*(Aq[r]+τ*Ap[r])
-        A[r,q]=Aq[r]+s*(Ap[r]-τ*Aq[r])
+l=size(A)[1]
+Ap=copy(A[:,p])
+Aq=copy(A[:,q])
+for r in 1:l
+    A[r,p]=Ap[r]-s*(Aq[r]+τ*Ap[r])
+    A[r,q]=Aq[r]+s*(Ap[r]-τ*Aq[r])
 
-        A[p,r]=A[r,p]
-        A[q,r]=A[r,q]
-    end
-    A[p,q]=0
-    A[q,p]=0
-    A[p,p]=Ap[p]-t*Aq[p]
-    A[q,q]=Aq[q]+t*Aq[p]
-
-    if computeV==true
-        Vp=copy(V[:,p])
-        Vq=copy(V[:,q])
-        for r in 1:l
-            V[r,p]=c*Vp[r]-s*Vq[r]
-            V[r,q]=s*Vp[r]+c*Vq[r]
-        end
-        return A,V
-    else
-        return A;
-    end
+    A[p,r]=A[r,p]
+    A[q,r]=A[r,q]
 end
-<<<<<<< HEAD
-```
+A[p,q]=0
+A[q,p]=0
+A[p,p]=Ap[p]-t*Aq[p]
+A[q,q]=Aq[q]+t*Aq[p]
 
-This function performs one sweep
-
-```julia
-
-=======
+if computeV==true
+    Vp=copy(V[:,p])
+    Vq=copy(V[:,q])
+    for r in 1:l
+        V[r,p]=c*Vp[r]-s*Vq[r]
+        V[r,q]=s*Vp[r]+c*Vq[r]
+    end
+    return A,V
+else
+    return A;
+end end ```
 </code></pre>
 
 <p>This function performs one sweep</p>
 
-<pre><code class="language-julia">
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
-function Sweep(A;compV=false,V=eye(1))
+<p>```julia</p>
+
+<p>function Sweep(A;compV=false,V=eye(1))
     n=size(A)[1]
     for ii in 2:n
         for jj in 1:(ii-1) ## Just over one triangle
@@ -475,117 +386,31 @@ function Sweep(A;compV=false,V=eye(1))
                 A,V=Rotate(A,ii,jj;computeV=true,V=V);
             end
         end
-    end
+    end</p>
 
-    if compV==false
-        return A
-    else
-        return A,V
-    end
-end
-<<<<<<< HEAD
-```
-
-
-
-Just creating some size of matrix
-
-```julia
-A,A0,V=makeA(5);
-```
-
-
-```julia
-## keep evaluating for a couple iterations
-## watch how it changes
-A,V=Sweep(A;compV=true,V=V);
-roundmatrix(A,1e-10),A,V,convergence(A)
-```
-
-
-This output is after several sweeps
-
-        (
-        5x5 Array{Float64,2}:
-         -1.59942  0.0       0.0       0.0      0.0
-          0.0      1.03678   0.0       0.0      0.0
-          0.0      0.0      -0.823094  0.0      0.0
-          0.0      0.0       0.0       3.09433  0.0
-          0.0      0.0       0.0       0.0      1.3409,
-
-        5x5 Array{Float64,2}:
-         -1.59942      5.1314e-30    2.32594e-36  -9.54088e-49  -1.22782e-53
-          5.1314e-30   1.03678       2.65014e-38   9.13791e-56   6.64996e-67
-          2.32594e-36  2.65014e-38  -0.823094     -9.56652e-61   2.08002e-92
-         -9.54088e-49  9.13791e-56  -9.56652e-61   3.09433       0.0
-         -1.22782e-53  6.64996e-67   2.08002e-92   0.0           1.3409     ,
-
-        5x5 Array{Float64,2}:
-          0.0537334   0.0599494  -0.735228  0.139      0.658511
-          0.310018    0.612957   -0.14049   0.611348  -0.367001
-          0.759653   -0.475834    0.264118  0.282571   0.216575
-         -0.480405   -0.546544   -0.132383  0.644217  -0.194831
-         -0.305189    0.30913     0.593648  0.33477    0.588905,
-
-        2.6331310238375346e-59)
-
-
-
-Compare the Optimized LAPLACK routine to your results
-
-```julia
-eig(A0)
-```
-
-          ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
-          1.3408963512476402,3.0943321944116593],
-          5x5 Array{Float64,2}:
-           -0.0537334   0.735228   0.0599494  -0.658511  -0.139
-           -0.310018    0.14049    0.612957    0.367001  -0.611348
-           -0.759653   -0.264118  -0.475834   -0.216575  -0.282571
-            0.480405    0.132383  -0.546544    0.194831  -0.644217
-            0.305189   -0.593648   0.30913    -0.588905  -0.33477 )
-
-
-
-
-```julia
-## A good check to make sure V is an orthonomal transformation
-roundmatrix(V*A*transpose(V)-A0,1e-12)
-```
-
-          5x5 Array{Float64,2}:
-           0.0  0.0  0.0  0.0  0.0
-           0.0  0.0  0.0  0.0  0.0
-           0.0  0.0  0.0  0.0  0.0
-           0.0  0.0  0.0  0.0  0.0
-           0.0  0.0  0.0  0.0  0.0
-
-
-How long does it take to make a Sweep?
-How much memory will the computation take?
-This is dependent on how large the matrix is, and determines whether or not we
-want to use this algorithm.
-
-```julia
-
-=======
+<pre><code>if compV==false
+    return A
+else
+    return A,V
+end end ```
 </code></pre>
 
 <p>Just creating some size of matrix</p>
 
-<pre><code class="language-julia">A,A0,V=makeA(5);
-</code></pre>
+<p><code>julia
+A,A0,V=makeA(5);
+</code></p>
 
-<pre><code class="language-julia">## keep evaluating for a couple iterations
+<p><code>julia
+## keep evaluating for a couple iterations
 ## watch how it changes
 A,V=Sweep(A;compV=true,V=V);
 roundmatrix(A,1e-10),A,V,convergence(A)
-</code></pre>
+</code></p>
 
 <p>This output is after several sweeps</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    (
+<pre><code>    (
     5x5 Array{Float64,2}:
      -1.59942  0.0       0.0       0.0      0.0
       0.0      1.03678   0.0       0.0      0.0
@@ -609,14 +434,14 @@ roundmatrix(A,1e-10),A,V,convergence(A)
 
     2.6331310238375346e-59)
 </code></pre>
-</div>
 
 <p>Compare the Optimized LAPLACK routine to your results</p>
 
-<pre><code class="language-julia">eig(A0)
-</code></pre>
+<p><code>julia
+eig(A0)
+</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>      ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
+<pre><code>      ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
       1.3408963512476402,3.0943321944116593],
       5x5 Array{Float64,2}:
        -0.0537334   0.735228   0.0599494  -0.658511  -0.139
@@ -625,60 +450,44 @@ roundmatrix(A,1e-10),A,V,convergence(A)
         0.480405    0.132383  -0.546544    0.194831  -0.644217
         0.305189   -0.593648   0.30913    -0.588905  -0.33477 )
 </code></pre>
-</div>
 
-<pre><code class="language-julia">## A good check to make sure V is an orthonomal transformation
+<p><code>julia
+## A good check to make sure V is an orthonomal transformation
 roundmatrix(V*A*transpose(V)-A0,1e-12)
-</code></pre>
+</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>      5x5 Array{Float64,2}:
+<pre><code>      5x5 Array{Float64,2}:
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
 </code></pre>
-</div>
 
 <p>How long does it take to make a Sweep?
 How much memory will the computation take?
 This is dependent on how large the matrix is, and determines whether or not we
 want to use this algorithm.</p>
 
-<pre><code class="language-julia">
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
-A,A0,V=makeA(10);
+<p>```julia</p>
+
+<p>A,A0,V=makeA(10);
 @time Sweep(A);
 A,A0,V=makeA(20);
 @time Sweep(A);
 A,A0,V=makeA(100);
 @time Sweep(A);
-<<<<<<< HEAD
-```
+```</p>
 
-      0.000028 seconds (320 allocations: 30.469 KB)
-      0.000099 seconds (1.33 k allocations: 187.266 KB)
-      0.007413 seconds (34.66 k allocations: 17.448 MB, 14.20% gc time)
-
-
-In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.
-
-
-```julia
-A10,Ap10,V=makeA(10);
-=======
-</code></pre>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>  0.000028 seconds (320 allocations: 30.469 KB)
+<pre><code>  0.000028 seconds (320 allocations: 30.469 KB)
   0.000099 seconds (1.33 k allocations: 187.266 KB)
   0.007413 seconds (34.66 k allocations: 17.448 MB, 14.20% gc time)
 </code></pre>
-</div>
 
 <p>In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.</p>
 
-<pre><code class="language-julia">A10,Ap10,V=makeA(10);
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+<p>```julia
+A10,Ap10,V=makeA(10);
 A20,Ap20,V=makeA(20);
 A100,Ap100,V=makeA(100);
 nsweep=collect(1:7);
@@ -692,34 +501,12 @@ for i in nsweep
     conv10[i]=convergence(A10)
     conv20[i]=convergence(A20)
     conv100[i]=convergence(A100)
-end
+end</p>
 
-[nsweep conv10/10 conv20/20 conv100/100]
-<<<<<<< HEAD
-```
+<p>[nsweep conv10/10 conv20/20 conv100/100]
+```</p>
 
-
-
-
-    7x4 Array{Float64,2}:
-     1.0  1.10944       2.43759      14.6644
-     2.0  0.105628      0.312076      2.87182
-     3.0  0.000265288   0.017073      0.498082
-     4.0  6.64324e-9    0.000119472   0.0390564
-     5.0  4.05463e-18   3.56679e-11   0.00133833
-     6.0  3.17274e-42   1.96318e-23   6.07661e-7
-     7.0  6.76289e-110  4.07871e-49   3.98102e-13
-
-
-
-Well, so we've seen how to do one form of exact diagonalization that works, but doesn't scale very well up to 100x100 matrices.  So stay tuned for the Householder method, hopefully coming up soon.
-
-Until then, happy computing :)
-</li></li></ul>
-=======
-</code></pre>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>7x4 Array{Float64,2}:
+<pre><code>7x4 Array{Float64,2}:
  1.0  1.10944       2.43759      14.6644
  2.0  0.105628      0.312076      2.87182
  3.0  0.000265288   0.017073      0.498082
@@ -728,12 +515,10 @@ Until then, happy computing :)
  6.0  3.17274e-42   1.96318e-23   6.07661e-7
  7.0  6.76289e-110  4.07871e-49   3.98102e-13
 </code></pre>
-</div>
 
 <p>Well, so we’ve seen how to do one form of exact diagonalization that works, but doesn’t scale very well up to 100x100 matrices.  So stay tuned for the Householder method, hopefully coming up soon.</p>
 
 <p>Until then, happy computing :)</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
   </article>
 
@@ -763,6 +548,15 @@ Until then, happy computing :)
 </div>
 
     <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 
   <div class="wrapper">
 
@@ -779,8 +573,38 @@ Until then, happy computing :)
       <div class="footer-col  footer-col-2">
         <ul class="social-media-list">
           
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
 
           
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/numerics/Jacobi-Transformation.html" data-layout="button_count"></div>
+
+          </li>
         </ul>
       </div>
 

@@ -4,7 +4,7 @@ layout: post
 comments: True
 category: Prerequisites
 author: Christina C. Lee
-tags: [Magnet],[Monte Carlo],[Phase Transitions]
+tags: [Magnet]
 ---
 
 Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
@@ -298,7 +298,7 @@ ylabel("Normed Counts")
 So here are some example results I got.
 
 
-{% include image.html img="M4/Images/Ferromagnet/ParamagnetL30_b2.gif" title="Paramagnet" caption="States of a Paramagnet at $\beta=0.2$" %}
+{ß include image.html img="M4/Images/Ferromagnet/ParamagnetL30_b2.gif" title="Paramagnet" caption="States of a Paramagnet at $\beta=0.2$" %}
 
 {% include image.html img="M4/Images/Ferromagnet/mt.png" title="Samples over Time" caption="Paramagnet Magnetization Samples.  A properly tuned simulations should be showing white noise without correlations or getting stuck in particular areas." %}
 
@@ -325,4 +325,4 @@ This is an extremely rich problem.  Since this post seems long enough for me alr
 * Put it on a different lattice.  BE CAREFUL of lattices like triangular, checkerboard, pyrochlore, ...
 * Ferromagnetic versus Antiferromagnetic coupling
 * Autocorrelation function
-* Structure Factor (Fourier transform)
+* Structure Factorm, Fourier Transform

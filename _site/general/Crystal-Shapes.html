@@ -10,7 +10,7 @@
     <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
     <link rel="stylesheet" href="/M4/css/main.css">
     <link rel="canonical" href="/M4/general/Crystal-Shapes.html">
-
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     TeX: {
@@ -72,19 +72,23 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Lattices/index.html">Posts Tagged &ldquo;Lattices&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Quantum/index.html">Posts Tagged &ldquo;Quantum&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/index.html">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
           
         
           
-          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/index.html">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/index.html">Posts Tagged &ldquo;Magnet&rdquo;</a>
           
         
       </div>
@@ -132,11 +136,7 @@
 
 <p>In condensed matter, we find ourselves in the interesting middle ground of dealing with large numbers, e.g. <script type="math/tex">10^{23}</script>, of extremely small particles such as atoms, or electrons.</p>
 
-<<<<<<< HEAD
-<p>Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  So as our first step into the field, we will look at the most basic type, a <i>Bravais Lattice</i>.</p>
-=======
 <p>Luckily, the particles don’t each do their own thing, but often come in nice, structured, repeated units.  <i>Lattices</i>.  As our first step into the field, we will look at the most basic type, a <i>Bravais lattice</i>.</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
 <p>In a Bravais lattice, every site looks like every other site. Mathematically, we use three vectors, $\vec{a},\vec{b},\vec{c}$ to express how we move from one site to a neighbor.</p>
 
@@ -144,8 +144,7 @@
 \mathbf{R}_{lmn}=l \vec{a} + m \vec{b} + n \vec{c}  \;\;\;\; \text{for } l,m,n \in \mathbb{N}
 \end{equation}</p>
 
-<<<<<<< HEAD
-<p>To keep things working out right, we have to put a constraint on these vectors; that we can’t get one from scaling and adding the other two.  If we could, then we couldn’t put sites in an entire 3 dimensional space.</p>
+<p>For consistency, we have to put a constraint on these vectors; we cannot combine two of the vectors and obtain the third.  If we could, then we couldn’t have sites in an entire three dimensional space.</p>
 
 <p>Stay tuned for a later post where we explore more elaborate lattices.</p>
 
@@ -155,36 +154,6 @@ Pkg.add("PyPlot");
 Pkg.update();
 using PyPlot;
 </code></p>
-
-<h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
-
-<p>Choose the lattice you want to look at, and put that string into the lattice variable.
-Current options:</p>
-<ul>
-    <li> Simple Cubic = "sc"
-    <li> Plane triangular lattice = "pt"
-    <li> Body-Centered Cubic = "bcc"
-    <li> Face-Centered Cubic = "fcc"
-Note: Square is Simple Cubic for Nz=1
-
-
-14 distinct lattice types are possible, but these common four give the important ideas.
-
-Also, input the size of lattice you want to look at.
-
-
-```julia
-lattice="sc";
-=======
-<p>For consistency, we have to put a constraint on these vectors; we cannot combine two of the vectors and obtain the third.  If we could, then we couldn’t have sites in an entire three dimensional space.</p>
-
-<p>Stay tuned for a later post where we explore more elaborate lattices.</p>
-
-<pre><code class="language-julia"># importing our packages
-Pkg.add("PyPlot");
-Pkg.update();
-using PyPlot;
-</code></pre>
 
 <h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
 
@@ -204,23 +173,16 @@ Current options:</p>
 
 <p>Also, input the size of lattice you want to look at.</p>
 
-<pre><code class="language-julia">lattice="sc";
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+<p>```julia
+lattice=”sc”;</p>
 
-Nx=3;
+<p>Nx=3;
 Ny=3;
 Nz=3;
-<<<<<<< HEAD
-```
+```</p>
 
-
-```julia
+<p><code>julia
 # A cell to just evaluate
-=======
-</code></pre>
-
-<pre><code class="language-julia"># A cell to just evaluate
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
 if(lattice=="sc")
@@ -246,76 +208,48 @@ elseif(lattice=="fcc")
 else
     println("Please have a correct lattice")
 end
-<<<<<<< HEAD
-```
+</code></p>
 
-
-
-
-```julia
+<p>```julia
 # Another cell to just evaluate
-=======
-</code></pre>
-
-<pre><code class="language-julia"># Another cell to just evaluate
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we set up some numbers and matrices for our computation
-N=Nx*Ny*Nz;    #The total number of sites
+N=Nx<em>Ny</em>Nz;    #The total number of sites
 aM=transpose(a);
 bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or layer at once
-cM=transpose(repeat(c,outer=[1,Nx*Ny]));
+cM=transpose(repeat(c,outer=[1,Nx*Ny]));</p>
 
-X=Array{Float64}(N,3);  #where we store the positions
-<<<<<<< HEAD
-```
+<p>X=Array{Float64}(N,3);  #where we store the positions
+```</p>
 
-
-
-
-
-```julia
+<p>```julia
 # Another cell to just evaluate
-=======
-</code></pre>
-
-<pre><code class="language-julia"># Another cell to just evaluate
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
     X[i,:]=(i-1)*a;
-end
+end</p>
 
-for j in 2:Ny    #copying the first row into the first layer
-    X[Nx*(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)*bM;
-end
+<p>for j in 2:Ny    #copying the first row into the first layer
+    X[Nx<em>(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)</em>bM;
+end</p>
 
-for j in 2:Nz    #copying the first layer into the entire cube
-    X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
+<p>for j in 2:Nz    #copying the first layer into the entire cube
+    X[Ny<em>Nx</em>(j-1)+(1:Nx<em>Ny),:]=X[1:Nx</em>Ny,:]+(j-1)*cM;
 end
-<<<<<<< HEAD
 ```
-=======
-</code></pre>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
-<div class="progtip">
-<h3 color="black"> Programming Tip:</h3>
- <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
+&lt;div class="progtip"&gt;
+&lt;h3 color="black"&gt; Programming Tip:&lt;/h3&gt;</p>
+<p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
  <code>3+(1:3)=4:6</code>,
  or add a minus sign to force it to iterate in the opposite direction, though with different start/stop:
  <code>-(1:3)=-1:-1:-3</code></p>
 <p>
  <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
-</div>
+<p>&lt;/div&gt;</p>
 
-<<<<<<< HEAD
+<p>```julia
+pygui(false);  #if true, launches new window with interactive capabilities</p>
 
-```julia
-pygui(false);  #if true, launches new window with interactive capabilities
-=======
-<pre><code class="language-julia">pygui(false);  #if true, launches new window with interactive capabilities
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
-
-drawcube=true;  #gives lines for a cube, helps interpret the dots
+<p>drawcube=true;  #gives lines for a cube, helps interpret the dots
 ls=2;  # how many cubes to draw
 if(drawcube==true)
     v=collect(0:ls);
@@ -323,23 +257,19 @@ if(drawcube==true)
     for i in 0:ls
         for j in 0:ls
             plot3D(zed+i,v,zed+j)
-            plot3D(zed+i,zed+j,v)
+            plot3D(zed+i,zed+j,v)</p>
 
-            plot3D(v,zed+i,zed+j)
-            plot3D(zed+j,zed+i,v)
+<pre><code>        plot3D(v,zed+i,zed+j)
+        plot3D(zed+j,zed+i,v)
 
-            plot3D(v,zed+j,zed+i)
-            plot3D(zed+j,v,zed+i)
-        end
+        plot3D(v,zed+j,zed+i)
+        plot3D(zed+j,v,zed+i)
     end
-end
-
-scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
-<<<<<<< HEAD
-```
-=======
+end end
 </code></pre>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+
+<p>scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
+```</p>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -351,10 +281,6 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -365,10 +291,6 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -379,10 +301,6 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -393,28 +311,16 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
     
 </div>
 
-<<<<<<< HEAD
-
-## Go Back and Fiddle!
-
-As you might have noticed, this isn't just a blog where you just read through it.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?
-
-Chose `pygui(true)` to pop open a window and manipulate the plot in 3D.
-=======
 <h2 id="go-back-and-fiddle">Go Back and Fiddle!</h2>
 
 <p>As you might have noticed, this isn’t just a blog where you read through the posts.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?</p>
 
-<p>Chose <code class="highlighter-rouge">pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
+<p>Chose <code>pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
 
-Look at different lattice sizes.
+<p>Look at different lattice sizes.</p>
 
-Can you hand draw them on paper?
+<p>Can you hand draw them on paper?</p>
 
-<<<<<<< HEAD
-<center>![Mydrawing](/M4/Images/CrystalShapes/handdraw2.jpg)</center>
-=======
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
@@ -424,16 +330,10 @@ Can you hand draw them on paper?
         <p class="image-caption">A face centered cubic I decided to draw myself. </p>
     
 </div>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
+<p>Let me know what you think, and enjoy the sequel as well!</p>
 
-<<<<<<< HEAD
-Let me know what you think, and enjoy the sequel as well!
-## [<center><i> Multi-site unit cells</i></center>](/M4/undergrad/MultiSite-Unit-Cells.html)
-</li></li></li></li></ul>
-=======
 <p><a href="/M4/general/MultiSite-Unit-Cells.html"><center><i> Multi-site unit cells</i></center></a></p>
->>>>>>> 4e82362054baeefb71c997cd2f0371e8df1684a9
 
   </article>
 
@@ -463,6 +363,15 @@ Let me know what you think, and enjoy the sequel as well!
 </div>
 
     <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 
   <div class="wrapper">
 
@@ -479,8 +388,38 @@ Let me know what you think, and enjoy the sequel as well!
       <div class="footer-col  footer-col-2">
         <ul class="social-media-list">
           
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
 
           
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/general/Crystal-Shapes.html" data-layout="button_count"></div>
+
+          </li>
         </ul>
       </div>
 
