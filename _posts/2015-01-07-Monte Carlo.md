@@ -47,18 +47,18 @@ $$
 ## Onto the Code!
 
 
-```julia
+{% highlight MATLAB %}
 #Pkg.update()
 #Pkg.add("PyPlot")
 using PyPlot
-```
+{% endhighlight %}
 
 We will generate our random numbers on the unit interval.  Thus the radius in our circumstance is $.5$.
 
  Write a function `incircle(r2)` such that if `r2` is in the circle, it returns true, else, it returns false.  We will use this with the julia function `filter`.  Assume `r2` is the radius squared, and already centered around the middle of the unit circle
 
 
-```julia
+{% highlight MATLAB %}
 function incircle(r2)
     if r2<.25
         return true
@@ -66,19 +66,19 @@ function incircle(r2)
         return false
     end
 end
-```
+{% endhighlight %}
 
 
 
-```julia
+{% highlight MATLAB %}
 #The number of darts we will throw at the board.  We will see how accurate different numbers are
 N=[10,25,50,75,100,250,500,750,1000,2500,5000,7500,10000];
 # We will perform each number multiple times in order to calculate error bars
 M=15;
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 πapprox=zeros(Float64,length(N),M);
 
 for ii in 1:length(N)
@@ -97,21 +97,21 @@ for ii in 1:length(N)
 
     end
 end
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 # Get our averages and standard deviations
 πave=sum(πapprox,2)/M;
 πstd=std(πapprox,2);
-```
+{% endhighlight %}
 
 ## Analysis
 
 So that was a nice, short little piece of code.  Lets plot it now to see means.
 
 
-```julia
+{% highlight MATLAB %}
 title("Monte Carlo Estimation of π")
 ylabel("π estimate")
 xlabel("N points")
@@ -124,7 +124,7 @@ ax=gca()
 errorbar(N,π*ones(N),yerr=πstd,color="red",fmt="o")
 ax[:set_xscale]("log");
 ax[:set_xlim]([5,5*10^4]);
-```
+{% endhighlight %}
 
 {% include image.html img="M4/Images/MonteCarlo/piestimation2.png" title="Result" caption="Image result.  I inverted the color scale though." %}
 
@@ -135,25 +135,25 @@ But, at least, the guesses from our different runs all seem equally distributed 
 As we get up to $10^4$, our estimate starts getting much more accurate and consistent.
 
 
-```julia
+{% highlight MATLAB %}
 title("Dependence of Monte Carlo Error on Number of Points")
 ylabel("standard deviation")
 xlabel("N points")
 semilogx(N,πstd,marker="o");
-```
+{% endhighlight %}
 {% include image.html img="M4/Images/MonteCarlo/error.png" title="Result" caption="Image result. Colors tweaked." %}
 
 
 So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002
 
 
-```julia
+{% highlight MATLAB %}
 title("Overall Averages")
 xlabel("N steps")
 ylabel("Average of 15 runs")
 semilogx(N,π*ones(N));
 semilogx(N,πave,marker="o");
-```
+{% endhighlight %}
 
 {% include image.html img="M4/Images/MonteCarlo/ave.png" title="Result" caption="Image result. Colors tweaked."%}
 
@@ -161,7 +161,7 @@ semilogx(N,πave,marker="o");
 Now lets just make a graphical representation of what we've been doing this whole time.  Plot our points on unit square, and color the ones inside a circle a different color.
 
 
-```julia
+{% highlight MATLAB %}
 X=zeros(Float64,1000);
 Y=zeros(Float64,1000);
 rand!(X);
@@ -181,7 +181,7 @@ xlim(0,1)
 ylim(0,1)
 scatter(X,Y);
 scatter(Xc,Yc,color="red");
-```
+{% endhighlight %}
 
 {% include image.html img="M4/Images/MonteCarlo/dartboardpyplot.png" title="Result" caption="Result. Colors tweaked" %}
 

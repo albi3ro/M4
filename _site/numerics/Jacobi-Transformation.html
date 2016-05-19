@@ -288,128 +288,120 @@ v^{\prime}_{rq} = s v_{rp} + c v_{rq}
 
 <h3 id="enough-with-the-talking-lets-compute-stuff">Enough with the talking! LETS COMPUTE STUFF</h3>
 
-<pre><code class="language-julia"># First, Lets make our nice, helpful functions
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">First</span><span class="p">,</span> <span class="n">Lets</span> <span class="n">make</span> <span class="n">our</span> <span class="n">nice</span><span class="p">,</span> <span class="n">helpful</span> <span class="nb">functions</span>
 
-## A function to look at the convergence
-function convergence(A::Array)
-    num=0.0
-    l=size(A)[1]
-    for ii in 1:(l-1)
-        for jj in (ii+1):l ## just looking at the lower triangle
-            num+=A[ii,jj]^2
-            #println(ii,' ',jj,' ',num,' ',A[ii,jj])
-        end
-    end
-    return num
-end
-</code></pre>
+<span class="err">##</span> <span class="n">A</span> <span class="k">function</span> <span class="n">to</span> <span class="n">look</span> <span class="n">at</span> <span class="n">the</span> <span class="n">convergence</span>
+<span class="k">function</span> <span class="n">convergence</span><span class="p">(</span><span class="n">A</span><span class="p">::</span><span class="n">Array</span><span class="p">)</span>
+    <span class="n">num</span><span class="o">=</span><span class="mf">0.0</span>
+    <span class="n">l</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:(</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">jj</span> <span class="n">in</span> <span class="p">(</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span><span class="n">l</span> <span class="err">##</span> <span class="n">just</span> <span class="n">looking</span> <span class="n">at</span> <span class="n">the</span> <span class="nb">lower</span> <span class="n">triangle</span>
+            <span class="n">num</span><span class="o">+=</span><span class="n">A</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span><span class="o">^</span><span class="mi">2</span>
+            <span class="err">#</span><span class="n">println</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="s1">' '</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="s1">' '</span><span class="p">,</span><span class="n">num</span><span class="p">,</span><span class="s1">' '</span><span class="p">,</span><span class="n">A</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">])</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">num</span>
+<span class="k">end</span></code></pre></figure>
 
 <p>This makes a matrix easier to look at than when its filled
 with 1.043848974e-12 everywhere</p>
 
-<pre><code class="language-julia">function roundmatrix(A::Array,rtol::Real)
-    Ap=copy(A)
-    for ii in 1:length(A)
-        if abs(Ap[ii])&lt;rtol
-            Ap[ii]=0
-        end
-    end
-    return Ap;
-end
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">roundmatrix</span><span class="p">(</span><span class="n">A</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="n">rtol</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
+    <span class="n">Ap</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Ap</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span><span class="o">&lt;</span><span class="n">rtol</span>
+            <span class="n">Ap</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">Ap</span><span class="p">;</span>
+<span class="k">end</span></code></pre></figure>
 
-<pre><code class="language-julia">## Here we create a random symmetric matrix
-function makeA(n::Int)
-    A=randn(n,n);
-    for ii in 1:n
-        A[ii,1:ii]=transpose(A[1:ii,ii])
-    end
-    V=eye(n) #initializing the orthogonal transformation
-    return A,copy(A),V
-end
-## One A returned will be stored to compare initial and final
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">##</span> <span class="n">Here</span> <span class="n">we</span> <span class="n">create</span> <span class="n">a</span> <span class="n">random</span> <span class="n">symmetric</span> <span class="n">matrix</span>
+<span class="k">function</span> <span class="n">makeA</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="n">Int</span><span class="p">)</span>
+    <span class="n">A</span><span class="o">=</span><span class="nb">randn</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">ii</span><span class="p">,</span><span class="n">ii</span><span class="p">])</span>
+    <span class="k">end</span>
+    <span class="n">V</span><span class="o">=</span><span class="nb">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="err">#</span><span class="n">initializing</span> <span class="n">the</span> <span class="n">orthogonal</span> <span class="n">transformation</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">),</span><span class="n">V</span>
+<span class="k">end</span>
+<span class="err">##</span> <span class="n">One</span> <span class="n">A</span> <span class="n">returned</span> <span class="n">will</span> <span class="n">be</span> <span class="n">stored</span> <span class="n">to</span> <span class="n">compare</span> <span class="n">initial</span> <span class="nb">and</span> <span class="n">final</span></code></pre></figure>
 
 <p>Now on to the rotations!</p>
 
 <p>We don’t always want to compute the eigenvectors, so those are in the optional entries slot.
-Both tell the function to compute the vectors with <code>computeV=true</code>
-and input the <code>V=V</code> after the semicolon.</p>
+Both tell the function to compute the vectors with <code class="highlighter-rouge">computeV=true</code>
+and input the <code class="highlighter-rouge">V=V</code> after the semicolon.</p>
 
-<pre><code class="language-julia">function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
-    θ=(A[q,q]-A[p,p])/(2*A[p,q]);
-    t=sign(θ)/(abs(θ)+sqrt(θ^2+1));
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">Rotate</span><span class="p">(</span><span class="n">A</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="n">p</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">q</span><span class="p">::</span><span class="n">Int</span><span class="p">;</span> <span class="n">computeV</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span> <span class="n">V</span><span class="p">::</span><span class="n">Array</span><span class="o">=</span><span class="nb">eye</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="err">θ</span><span class="o">=</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">]</span><span class="o">-</span><span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">])/(</span><span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">]);</span>
+    <span class="n">t</span><span class="o">=</span><span class="nb">sign</span><span class="p">(</span><span class="err">θ</span><span class="p">)/(</span><span class="nb">abs</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="o">+</span><span class="nb">sqrt</span><span class="p">(</span><span class="err">θ</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
 
-    c=1/sqrt(t^2+1)
-    s=t*c
-    τ=s/(1+c)
+    <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">/</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">t</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">t</span><span class="o">*</span><span class="n">c</span>
+    <span class="err">τ</span><span class="o">=</span><span class="n">s</span><span class="p">/(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)</span>
 
-    l=size(A)[1]
-    Ap=copy(A[:,p])
-    Aq=copy(A[:,q])
-    for r in 1:l
-        A[r,p]=Ap[r]-s*(Aq[r]+τ*Ap[r])
-        A[r,q]=Aq[r]+s*(Ap[r]-τ*Aq[r])
+    <span class="n">l</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Ap</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span><span class="n">p</span><span class="p">])</span>
+    <span class="n">Aq</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">[:,</span><span class="n">q</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">l</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">=</span><span class="n">Ap</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">-</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="n">Aq</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">+</span><span class="err">τ</span><span class="o">*</span><span class="n">Ap</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">q</span><span class="p">]</span><span class="o">=</span><span class="n">Aq</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">+</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="n">Ap</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">-</span><span class="err">τ</span><span class="o">*</span><span class="n">Aq</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
 
-        A[p,r]=A[r,p]
-        A[q,r]=A[r,q]
-    end
-    A[p,q]=0
-    A[q,p]=0
-    A[p,p]=Ap[p]-t*Aq[p]
-    A[q,q]=Aq[q]+t*Aq[p]
+        <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">q</span><span class="p">,</span><span class="n">r</span><span class="p">]</span><span class="o">=</span><span class="n">A</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">q</span><span class="p">]</span>
+    <span class="k">end</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">q</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">=</span><span class="n">Ap</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="o">*</span><span class="n">Aq</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">q</span><span class="p">,</span><span class="n">q</span><span class="p">]</span><span class="o">=</span><span class="n">Aq</span><span class="p">[</span><span class="n">q</span><span class="p">]</span><span class="o">+</span><span class="n">t</span><span class="o">*</span><span class="n">Aq</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
 
-    if computeV==true
-        Vp=copy(V[:,p])
-        Vq=copy(V[:,q])
-        for r in 1:l
-            V[r,p]=c*Vp[r]-s*Vq[r]
-            V[r,q]=s*Vp[r]+c*Vq[r]
-        end
-        return A,V
-    else
-        return A;
-    end
-end
-</code></pre>
+    <span class="k">if</span> <span class="n">computeV</span><span class="o">==</span><span class="nb">true</span>
+        <span class="n">Vp</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">V</span><span class="p">[:,</span><span class="n">p</span><span class="p">])</span>
+        <span class="n">Vq</span><span class="o">=</span><span class="n">copy</span><span class="p">(</span><span class="n">V</span><span class="p">[:,</span><span class="n">q</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">l</span>
+            <span class="n">V</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">]</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="n">Vp</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">-</span><span class="n">s</span><span class="o">*</span><span class="n">Vq</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+            <span class="n">V</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">q</span><span class="p">]</span><span class="o">=</span><span class="n">s</span><span class="o">*</span><span class="n">Vp</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">Vq</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+        <span class="k">end</span>
+        <span class="k">return</span> <span class="n">A</span><span class="p">,</span><span class="n">V</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">A</span><span class="p">;</span>
+    <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
 
 <p>This function performs one sweep</p>
 
-<pre><code class="language-julia">
-function Sweep(A;compV=false,V=eye(1))
-    n=size(A)[1]
-    for ii in 2:n
-        for jj in 1:(ii-1) ## Just over one triangle
-            if compV==false
-                A=Rotate(A,ii,jj)
-            else
-                A,V=Rotate(A,ii,jj;computeV=true,V=V);
-            end
-        end
-    end
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">A</span><span class="p">;</span><span class="n">compV</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="nb">eye</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">n</span><span class="o">=</span><span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">n</span>
+        <span class="k">for</span> <span class="n">jj</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:(</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="err">##</span> <span class="n">Just</span> <span class="n">over</span> <span class="n">one</span> <span class="n">triangle</span>
+            <span class="k">if</span> <span class="n">compV</span><span class="o">==</span><span class="nb">false</span>
+                <span class="n">A</span><span class="o">=</span><span class="n">Rotate</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">)</span>
+            <span class="k">else</span>
+                <span class="n">A</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">Rotate</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">;</span><span class="n">computeV</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">V</span><span class="p">);</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
 
-    if compV==false
-        return A
-    else
-        return A,V
-    end
-end
-</code></pre>
+    <span class="k">if</span> <span class="n">compV</span><span class="o">==</span><span class="nb">false</span>
+        <span class="k">return</span> <span class="n">A</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">A</span><span class="p">,</span><span class="n">V</span>
+    <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
 
 <p>Just creating some size of matrix</p>
 
-<pre><code class="language-julia">A,A0,V=makeA(5);
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">A</span><span class="p">,</span><span class="n">A0</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></code></pre></figure>
 
-<pre><code class="language-julia">## keep evaluating for a couple iterations
-## watch how it changes
-A,V=Sweep(A;compV=true,V=V);
-roundmatrix(A,1e-10),A,V,convergence(A)
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">##</span> <span class="n">keep</span> <span class="n">evaluating</span> <span class="k">for</span> <span class="n">a</span> <span class="n">couple</span> <span class="n">iterations</span>
+<span class="err">##</span> <span class="n">watch</span> <span class="n">how</span> <span class="n">it</span> <span class="n">changes</span>
+<span class="n">A</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">Sweep</span><span class="p">(</span><span class="n">A</span><span class="p">;</span><span class="n">compV</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">V</span><span class="p">);</span>
+<span class="n">roundmatrix</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mf">1e-10</span><span class="p">),</span><span class="n">A</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="n">convergence</span><span class="p">(</span><span class="n">A</span><span class="p">)</span></code></pre></figure>
 
 <p>This output is after several sweeps</p>
 
-<pre><code>    (
+<div class="highlighter-rouge"><pre class="highlight"><code>    (
     5x5 Array{Float64,2}:
      -1.59942  0.0       0.0       0.0      0.0
       0.0      1.03678   0.0       0.0      0.0
@@ -433,13 +425,13 @@ roundmatrix(A,1e-10),A,V,convergence(A)
 
     2.6331310238375346e-59)
 </code></pre>
+</div>
 
 <p>Compare the Optimized LAPLACK routine to your results</p>
 
-<pre><code class="language-julia">eig(A0)
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">eig</span><span class="p">(</span><span class="n">A0</span><span class="p">)</span></code></pre></figure>
 
-<pre><code>      ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
+<div class="highlighter-rouge"><pre class="highlight"><code>      ([-1.599424470672961,-0.8230937166650976,1.0367806031602211,
       1.3408963512476402,3.0943321944116593],
       5x5 Array{Float64,2}:
        -0.0537334   0.735228   0.0599494  -0.658511  -0.139
@@ -448,60 +440,59 @@ roundmatrix(A,1e-10),A,V,convergence(A)
         0.480405    0.132383  -0.546544    0.194831  -0.644217
         0.305189   -0.593648   0.30913    -0.588905  -0.33477 )
 </code></pre>
+</div>
 
-<pre><code class="language-julia">## A good check to make sure V is an orthonomal transformation
-roundmatrix(V*A*transpose(V)-A0,1e-12)
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">##</span> <span class="n">A</span> <span class="n">good</span> <span class="n">check</span> <span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">V</span> <span class="nb">is</span> <span class="n">an</span> <span class="n">orthonomal</span> <span class="n">transformation</span>
+<span class="n">roundmatrix</span><span class="p">(</span><span class="n">V</span><span class="o">*</span><span class="n">A</span><span class="o">*</span><span class="nb">transpose</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">-</span><span class="n">A0</span><span class="p">,</span><span class="mf">1e-12</span><span class="p">)</span></code></pre></figure>
 
-<pre><code>      5x5 Array{Float64,2}:
+<div class="highlighter-rouge"><pre class="highlight"><code>      5x5 Array{Float64,2}:
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
        0.0  0.0  0.0  0.0  0.0
 </code></pre>
+</div>
 
 <p>How long does it take to make a Sweep?
 How much memory will the computation take?
 This is dependent on how large the matrix is, and determines whether or not we
 want to use this algorithm.</p>
 
-<pre><code class="language-julia">
-A,A0,V=makeA(10);
-@time Sweep(A);
-A,A0,V=makeA(20);
-@time Sweep(A);
-A,A0,V=makeA(100);
-@time Sweep(A);
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">A</span><span class="p">,</span><span class="n">A0</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="o">@</span><span class="n">time</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+<span class="n">A</span><span class="p">,</span><span class="n">A0</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="o">@</span><span class="n">time</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+<span class="n">A</span><span class="p">,</span><span class="n">A0</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="o">@</span><span class="n">time</span> <span class="n">Sweep</span><span class="p">(</span><span class="n">A</span><span class="p">);</span></code></pre></figure>
 
-<pre><code>  0.000028 seconds (320 allocations: 30.469 KB)
+<div class="highlighter-rouge"><pre class="highlight"><code>  0.000028 seconds (320 allocations: 30.469 KB)
   0.000099 seconds (1.33 k allocations: 187.266 KB)
   0.007413 seconds (34.66 k allocations: 17.448 MB, 14.20% gc time)
 </code></pre>
+</div>
 
 <p>In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.</p>
 
-<pre><code class="language-julia">A10,Ap10,V=makeA(10);
-A20,Ap20,V=makeA(20);
-A100,Ap100,V=makeA(100);
-nsweep=collect(1:7);
-conv10=zeros(7)
-conv20=zeros(7)
-conv100=zeros(7)
-for i in nsweep
-    A10=Sweep(A10)
-    A20=Sweep(A20)
-    A100=Sweep(A100)
-    conv10[i]=convergence(A10)
-    conv20[i]=convergence(A20)
-    conv100[i]=convergence(A100)
-end
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">A10</span><span class="p">,</span><span class="n">Ap10</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="n">A20</span><span class="p">,</span><span class="n">Ap20</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+<span class="n">A100</span><span class="p">,</span><span class="n">Ap100</span><span class="p">,</span><span class="n">V</span><span class="o">=</span><span class="n">makeA</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="n">nsweep</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">7</span><span class="p">);</span>
+<span class="n">conv10</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">conv20</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">conv100</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="n">nsweep</span>
+    <span class="n">A10</span><span class="o">=</span><span class="n">Sweep</span><span class="p">(</span><span class="n">A10</span><span class="p">)</span>
+    <span class="n">A20</span><span class="o">=</span><span class="n">Sweep</span><span class="p">(</span><span class="n">A20</span><span class="p">)</span>
+    <span class="n">A100</span><span class="o">=</span><span class="n">Sweep</span><span class="p">(</span><span class="n">A100</span><span class="p">)</span>
+    <span class="n">conv10</span><span class="p">[</span><span class="nb">i</span><span class="p">]</span><span class="o">=</span><span class="n">convergence</span><span class="p">(</span><span class="n">A10</span><span class="p">)</span>
+    <span class="n">conv20</span><span class="p">[</span><span class="nb">i</span><span class="p">]</span><span class="o">=</span><span class="n">convergence</span><span class="p">(</span><span class="n">A20</span><span class="p">)</span>
+    <span class="n">conv100</span><span class="p">[</span><span class="nb">i</span><span class="p">]</span><span class="o">=</span><span class="n">convergence</span><span class="p">(</span><span class="n">A100</span><span class="p">)</span>
+<span class="k">end</span>
 
-[nsweep conv10/10 conv20/20 conv100/100]
-</code></pre>
+<span class="p">[</span><span class="n">nsweep</span> <span class="n">conv10</span><span class="p">/</span><span class="mi">10</span> <span class="n">conv20</span><span class="p">/</span><span class="mi">20</span> <span class="n">conv100</span><span class="p">/</span><span class="mi">100</span><span class="p">]</span></code></pre></figure>
 
-<pre><code>7x4 Array{Float64,2}:
+<div class="highlighter-rouge"><pre class="highlight"><code>7x4 Array{Float64,2}:
  1.0  1.10944       2.43759      14.6644
  2.0  0.105628      0.312076      2.87182
  3.0  0.000265288   0.017073      0.498082
@@ -510,6 +501,7 @@ end
  6.0  3.17274e-42   1.96318e-23   6.07661e-7
  7.0  6.76289e-110  4.07871e-49   3.98102e-13
 </code></pre>
+</div>
 
 <p>Well, so we’ve seen how to do one form of exact diagonalization that works, but doesn’t scale very well up to 100x100 matrices.  So stay tuned for the Householder method, hopefully coming up soon.</p>
 

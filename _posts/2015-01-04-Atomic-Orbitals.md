@@ -71,13 +71,13 @@ where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.
 
 
 
-```julia
+{% highlight MATLAB %}
 #Pkg.update();
 #Pkg.add("GSL");
 #Pkg.add("PyPlot");
 using GSL;    #GSL holds the special functions
 using PyPlot;
-```
+{% endhighlight %}
 
 #### Cell to Evaluate
 What's below is a bunch of definitions that makes our calculations easier later on.  Here I utilize the GNU scientific library, GSL imported above, to calculate the special functions.
@@ -91,7 +91,7 @@ Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab</p
 The function <code>Orbital</code> throws <code>DomainError()</code> when <code>l</code> or <code>m</code> do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
 </p>
 </div>
-```julia
+{% highlight MATLAB %}
 a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
 # The unitless radial coordinate
@@ -148,7 +148,7 @@ function CarttoSph(x::Array,y::Array,z::Array)
 end
 
 "Defined Helper Functions"
-```
+{% endhighlight %}
 
 
 
@@ -163,7 +163,7 @@ Remember that
 \end{equation}
 
 
-```julia
+{% highlight MATLAB %}
 # Grid Parameters
 rmin=.05
 rmax=10
@@ -176,12 +176,12 @@ n=3;
 l=1;
 m=0;
 "Defined parameters"
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight MATLAB %}
 #Linear Array of spherical coordinates
 r=collect(linspace(rmin,rmax,Nr));
 ϕ=collect(linspace(0,2π,Nθ));
@@ -192,12 +192,12 @@ ra=repeat(r,outer=[1,Nθ,Nϕ]);
 ϕa=repeat(reshape(ϕ,1,1,Nϕ),outer=[Nr,Nθ,1]);
 
 x,y,z=SphtoCart(ra,θa,ϕa);
-```
+{% endhighlight %}
 
 Though I could create a wrapped up function with `Orbital(n,l,m)` and evaluate that at each point, the below evaluation takes advantage of the separability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.
 
 
-```julia
+{% highlight MATLAB %}
 Ψ=zeros(Float64,Nr,Nϕ,Nθ)
 θd=Int64(round(Nθ/2))  ## gives approximately the equator.  Will be useful later
 
@@ -214,10 +214,10 @@ end
 for k in 1:Nϕ
     Ψ[:,:,k]=Ψ[:,:,1]*exp(im*m*ϕ[k])/p2;
 end
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 pygui(false)
 xlabel("θ")
 ylabel("Ψ")
@@ -231,13 +231,13 @@ arrowprops=Dict("facecolor"=>"black"))
 
 plot(θ,zeros(θ))
 plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
-```
+{% endhighlight %}
 
 
 {% include image.html img="M4/Images/Orbitals/angular1di.png" title="2p Angle Slice" caption="A slice along the θ plane showing an angular node for the 2p orbital."%}
 
 
-```julia
+{% highlight MATLAB %}
 pygui(false)
 xlabel("r")
 ylabel("Ψ")
@@ -245,11 +245,11 @@ title("Wavefunction for n= $n ,l= $l ,m= $m ")
 
 plot(r,zeros(r))
 plot(r,reshape(Ψ[:,50,1],100)) #reshape makes Ψ 1D
-```
+{% endhighlight %}
 {% include image.html img="M4/Images/Orbitals/radial1di.png" title="3p Radial Slice" caption="A slice along the radial plane showing a radial node in the 3p orbital." %}
 
 
-```julia
+{% highlight MATLAB %}
 #rap=squeeze(ra[:,:,50],3)
 #θap=squeeze(θa[:,:,50],3)
 #ϕap=squeeze(ϕa[:,:,50],3)
@@ -265,7 +265,7 @@ ylabel("z")
 title("ϕ-slice of Ψ for n=$n, l=$l, m=$m")
 pcolor(xp[:,:],zp[:,:],Ψp[:,:],cmap="coolwarm")
 colorbar()
-```
+{% endhighlight %}
 
 {% include image.html img="M4/Images/Orbitals/angular2di.png" title="3p in 2d" caption="Slice of a 3p orbital in the x and z plane."%}
 {% include image.html img="M4/Images/Orbitals/angular2d2i.png" title="3dz2 in 2d" caption="Slice of a 3dz2 orbital in the x and z plane."%}

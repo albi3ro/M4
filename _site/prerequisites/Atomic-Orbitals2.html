@@ -139,131 +139,122 @@
 
 <p>To add this package:</p>
 
-<pre><code class="language-julia">Pkg.add("GLVisualize")
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">GLVisualize</span><span class="err">"</span><span class="p">)</span></code></pre></figure>
 
 <p>and test with:</p>
 
-<pre><code class="language-julia">Pkg.test("GLVisualize")
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">Pkg</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="err">"</span><span class="n">GLVisualize</span><span class="err">"</span><span class="p">)</span></code></pre></figure>
 
 <p>But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.</p>
 
-<pre><code class="language-julia">#Pkg.update();
-#Pkg.add("GSL");
-using GSL;
-using GLVisualize;
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span><span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">();</span>
+<span class="err">#</span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">GSL</span><span class="err">"</span><span class="p">);</span>
+<span class="n">using</span> <span class="n">GSL</span><span class="p">;</span>
+<span class="n">using</span> <span class="n">GLVisualize</span><span class="p">;</span></code></pre></figure>
 
-<pre><code class="language-julia">a0=1; #for convenience, or 5.2917721092(17)×10−11 m
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">a0</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="err">#</span><span class="k">for</span> <span class="n">convenience</span><span class="p">,</span> <span class="nb">or</span> <span class="mf">5.2917721092</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span><span class="err">×</span><span class="mi">10</span><span class="err">−</span><span class="mi">11</span> <span class="n">m</span>
 
-# The unitless radial coordinate
-ρ(r,n)=2r/(n*a0);
+<span class="err">#</span> <span class="n">The</span> <span class="n">unitless</span> <span class="n">radial</span> <span class="n">coordinate</span>
+<span class="err">ρ</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">=</span><span class="mi">2</span><span class="n">r</span><span class="p">/(</span><span class="n">n</span><span class="o">*</span><span class="n">a0</span><span class="p">);</span>
 
-#The θ dependence
-function Pmlh(m::Int,l::Int,θ::Real)
-    return (-1.0)^m *sf_legendre_Plm(l,m,cos(θ));
-end
+<span class="err">#</span><span class="n">The</span> <span class="err">θ</span> <span class="n">dependence</span>
+<span class="k">function</span> <span class="n">Pmlh</span><span class="p">(</span><span class="n">m</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="err">θ</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">^</span><span class="n">m</span> <span class="o">*</span><span class="n">sf_legendre_Plm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="nb">cos</span><span class="p">(</span><span class="err">θ</span><span class="p">));</span>
+<span class="k">end</span>
 
-#The θ and ϕ dependence
-function Yml(m::Int,l::Int,θ::Real,ϕ::Real)
-    return  (-1.0)^m*sf_legendre_Plm(l,abs(m),cos(θ))*e^(im*m*ϕ)
-end
+<span class="err">#</span><span class="n">The</span> <span class="err">θ</span> <span class="nb">and</span> <span class="err">ϕ</span> <span class="n">dependence</span>
+<span class="k">function</span> <span class="n">Yml</span><span class="p">(</span><span class="n">m</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="err">θ</span><span class="p">::</span><span class="n">Real</span><span class="p">,</span><span class="err">ϕ</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
+    <span class="k">return</span>  <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span><span class="o">^</span><span class="n">m</span><span class="o">*</span><span class="n">sf_legendre_Plm</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="nb">cos</span><span class="p">(</span><span class="err">θ</span><span class="p">))</span><span class="o">*</span><span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="n">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="err">ϕ</span><span class="p">)</span>
+<span class="k">end</span>
 
-#The Radial dependence
-function R(n::Int,l::Int,ρ::Real)
-    if isapprox(ρ,0)
-        ρ=.001
-    end
-     return sf_laguerre_n(n-l-1,2*l+1,ρ)*e^(-ρ/2)*ρ^l
-end
+<span class="err">#</span><span class="n">The</span> <span class="n">Radial</span> <span class="n">dependence</span>
+<span class="k">function</span> <span class="n">R</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="err">ρ</span><span class="p">::</span><span class="n">Real</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">isapprox</span><span class="p">(</span><span class="err">ρ</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="err">ρ</span><span class="o">=.</span><span class="mi">001</span>
+    <span class="k">end</span>
+     <span class="k">return</span> <span class="n">sf_laguerre_n</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="err">ρ</span><span class="p">)</span><span class="o">*</span><span class="n">e</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="err">ρ</span><span class="p">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="err">ρ</span><span class="o">^</span><span class="n">l</span>
+<span class="k">end</span>
 
-#A normalization: This is dependent on the choice of polynomial representation
-function norm(n::Int,l::Int)
-    return sqrt((2/n)^3 * factorial(n-l-1)/(2n*factorial(n+l)))
-end
+<span class="err">#</span><span class="n">A</span> <span class="n">normalization</span><span class="p">:</span> <span class="n">This</span> <span class="nb">is</span> <span class="n">dependent</span> <span class="n">on</span> <span class="n">the</span> <span class="n">choice</span> <span class="n">of</span> <span class="n">polynomial</span> <span class="n">representation</span>
+<span class="k">function</span> <span class="nb">norm</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="n">Int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sqrt</span><span class="p">((</span><span class="mi">2</span><span class="p">/</span><span class="n">n</span><span class="p">)</span><span class="o">^</span><span class="mi">3</span> <span class="o">*</span> <span class="nb">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)/(</span><span class="mi">2</span><span class="n">n</span><span class="o">*</span><span class="nb">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">l</span><span class="p">)))</span>
+<span class="k">end</span>
 
-#Generates an Orbital Funtion of (r,θ,ϕ) for a specificied n,l,m.
-function Orbital(n::Int,l::Int,m::Int)
-    if (l&gt;n)    # we make sure l and m are within proper bounds
-        throw(DomainError())
-    end
-    if abs(m)&gt;l
-       throw(DomainError())
-    end
-    psi(ρ,θ,ϕ)=norm(n, l)*R(n,l,ρ)*Yml(m,l,θ,ϕ);
-    return psi
-end
+<span class="err">#</span><span class="n">Generates</span> <span class="n">an</span> <span class="n">Orbital</span> <span class="n">Funtion</span> <span class="n">of</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="n">specificied</span> <span class="n">n</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="o">.</span>
+<span class="k">function</span> <span class="n">Orbital</span><span class="p">(</span><span class="n">n</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">l</span><span class="p">::</span><span class="n">Int</span><span class="p">,</span><span class="n">m</span><span class="p">::</span><span class="n">Int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="o">&gt;</span><span class="n">n</span><span class="p">)</span>    <span class="err">#</span> <span class="n">we</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">l</span> <span class="nb">and</span> <span class="n">m</span> <span class="n">are</span> <span class="n">within</span> <span class="n">proper</span> <span class="n">bounds</span>
+        <span class="n">throw</span><span class="p">(</span><span class="n">DomainError</span><span class="p">())</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">&gt;</span><span class="n">l</span>
+       <span class="n">throw</span><span class="p">(</span><span class="n">DomainError</span><span class="p">())</span>
+    <span class="k">end</span>
+    <span class="nb">psi</span><span class="p">(</span><span class="err">ρ</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">)</span><span class="o">=</span><span class="nb">norm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">ρ</span><span class="p">)</span><span class="o">*</span><span class="n">Yml</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">psi</span>
+<span class="k">end</span>
 
-#We will calculate is spherical coordinates, but plot in cartesian, so we need this array conversion
-function SphtoCart(r::Array,θ::Array,ϕ::Array)
-    x=r.*sin(θ).*cos(ϕ);
-    y=r.*sin(θ).*sin(ϕ);
-    z=r.*cos(θ);
-    return x,y,z;
-end
+<span class="err">#</span><span class="n">We</span> <span class="n">will</span> <span class="n">calculate</span> <span class="nb">is</span> <span class="n">spherical</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">but</span> <span class="nb">plot</span> <span class="n">in</span> <span class="n">cartesian</span><span class="p">,</span> <span class="n">so</span> <span class="n">we</span> <span class="n">need</span> <span class="n">this</span> <span class="n">array</span> <span class="n">conversion</span>
+<span class="k">function</span> <span class="n">SphtoCart</span><span class="p">(</span><span class="n">r</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="err">θ</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="err">ϕ</span><span class="p">::</span><span class="n">Array</span><span class="p">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="nb">sin</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="err">ϕ</span><span class="p">);</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="nb">sin</span><span class="p">(</span><span class="err">θ</span><span class="p">)</span><span class="o">.*</span><span class="nb">sin</span><span class="p">(</span><span class="err">ϕ</span><span class="p">);</span>
+    <span class="n">z</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="err">θ</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">;</span>
+<span class="k">end</span>
 
-function CarttoSph(x::Array,y::Array,z::Array)
-    r=sqrt(x.^2+y.^2+z.^2);
-    θ=acos(z./r);
-    ϕ=atan(y./x);
-    return r,θ,ϕ;
-end
+<span class="k">function</span> <span class="n">CarttoSph</span><span class="p">(</span><span class="n">x</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="n">y</span><span class="p">::</span><span class="n">Array</span><span class="p">,</span><span class="n">z</span><span class="p">::</span><span class="n">Array</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">=</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">z</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span>
+    <span class="err">θ</span><span class="o">=</span><span class="nb">acos</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="p">/</span><span class="n">r</span><span class="p">);</span>
+    <span class="err">ϕ</span><span class="o">=</span><span class="nb">atan</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="p">/</span><span class="n">x</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ</span><span class="p">;</span>
+<span class="k">end</span>
 
-"Defined Helper Functions"
-</code></pre>
+<span class="err">"</span><span class="n">Defined</span> <span class="n">Helper</span> <span class="n">Functions</span><span class="err">"</span></code></pre></figure>
 
 <p>Here, create a square cube, and convert those positions over to spherical coordinates.</p>
 
-<pre><code class="language-julia">range=-10:.5:10
-x=collect(range);
-y=collect(range);
-z=collect(range);
-N=length(x);
-xa=repeat(x,outer=[1,N,N]);
-ya=repeat(transpose(y),outer=[N,1,N]);
-za=repeat(reshape(z,1,1,N),outer=[N,N,1]);
-println("created x,y,z")
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">range</span><span class="o">=-</span><span class="mi">10</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span>
+<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+<span class="n">y</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+<span class="n">z</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">range</span><span class="p">);</span>
+<span class="n">N</span><span class="o">=</span><span class="nb">length</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="n">xa</span><span class="o">=</span><span class="n">repeat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">]);</span>
+<span class="n">ya</span><span class="o">=</span><span class="n">repeat</span><span class="p">(</span><span class="nb">transpose</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">]);</span>
+<span class="n">za</span><span class="o">=</span><span class="n">repeat</span><span class="p">(</span><span class="nb">reshape</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">),</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span>
+<span class="n">println</span><span class="p">(</span><span class="err">"</span><span class="n">created</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="err">"</span><span class="p">)</span>
 
-r,θ, ϕ=CarttoSph(xa,ya,za);
-println("created r,θ,ϕ")
-</code></pre>
+<span class="n">r</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span> <span class="err">ϕ</span><span class="o">=</span><span class="n">CarttoSph</span><span class="p">(</span><span class="n">xa</span><span class="p">,</span><span class="n">ya</span><span class="p">,</span><span class="n">za</span><span class="p">);</span>
+<span class="n">println</span><span class="p">(</span><span class="err">"</span><span class="n">created</span> <span class="n">r</span><span class="p">,</span><span class="err">θ</span><span class="p">,</span><span class="err">ϕ"</span><span class="p">)</span></code></pre></figure>
 
-<pre><code class="language-julia">Ψ=Orbital(3,2,-1)
-Ψp=Orbital(3,1,0)
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">Ψ</span><span class="o">=</span><span class="n">Orbital</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="err">Ψ</span><span class="n">p</span><span class="o">=</span><span class="n">Orbital</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
 
-<pre><code class="language-julia">Ψv = zeros(Float32,N,N,N);
-ϕv = zeros(Float32,N,N,N);
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">Ψ</span><span class="n">v</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">Float32</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="err">ϕ</span><span class="n">v</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">Float32</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span></code></pre></figure>
 
-<pre><code class="language-julia">for nn in 1:N
-    for jj in 1:N
-        for kk in 1:N
-            val=Ψ(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
-            #val+=Ψp(ρ(r[nn,jj,kk],2),θ[nn,jj,kk],ϕ[nn,jj,kk]);
-            Ψv[nn,jj,kk]=convert(Float32,abs(val));
-            ϕv[nn,jj,kk]=convert(Float32,angle(val));
-        end
-    end
-end
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">for</span> <span class="n">nn</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
+        <span class="k">for</span> <span class="n">kk</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">N</span>
+            <span class="n">val</span><span class="o">=</span><span class="err">Ψ</span><span class="p">(</span><span class="err">ρ</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">],</span><span class="mi">2</span><span class="p">),</span><span class="err">θ</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">],</span><span class="err">ϕ</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">]);</span>
+            <span class="err">#</span><span class="n">val</span><span class="o">+=</span><span class="err">Ψ</span><span class="n">p</span><span class="p">(</span><span class="err">ρ</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">],</span><span class="mi">2</span><span class="p">),</span><span class="err">θ</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">],</span><span class="err">ϕ</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">]);</span>
+            <span class="err">Ψ</span><span class="n">v</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">]</span><span class="o">=</span><span class="n">convert</span><span class="p">(</span><span class="n">Float32</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">val</span><span class="p">));</span>
+            <span class="err">ϕ</span><span class="n">v</span><span class="p">[</span><span class="n">nn</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">kk</span><span class="p">]</span><span class="o">=</span><span class="n">convert</span><span class="p">(</span><span class="n">Float32</span><span class="p">,</span><span class="nb">angle</span><span class="p">(</span><span class="n">val</span><span class="p">));</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
 
-mid=round(Int,(N-1)/2+1);
-Ψv[mid,mid,:]=Ψv[mid+1,mid+1,:]; # the one at the center diverges
-Ψv=(Ψv-minimum(Ψv))/(maximum(Ψv)-minimum(Ψv) );
-</code></pre>
+<span class="n">mid</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">Int</span><span class="p">,(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="err">Ψ</span><span class="n">v</span><span class="p">[</span><span class="n">mid</span><span class="p">,</span><span class="n">mid</span><span class="p">,:]</span><span class="o">=</span><span class="err">Ψ</span><span class="n">v</span><span class="p">[</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,:];</span> <span class="err">#</span> <span class="n">the</span> <span class="n">one</span> <span class="n">at</span> <span class="n">the</span> <span class="n">center</span> <span class="n">diverges</span>
+<span class="err">Ψ</span><span class="n">v</span><span class="o">=</span><span class="p">(</span><span class="err">Ψ</span><span class="n">v</span><span class="o">-</span><span class="n">minimum</span><span class="p">(</span><span class="err">Ψ</span><span class="n">v</span><span class="p">))/(</span><span class="n">maximum</span><span class="p">(</span><span class="err">Ψ</span><span class="n">v</span><span class="p">)</span><span class="o">-</span><span class="n">minimum</span><span class="p">(</span><span class="err">Ψ</span><span class="n">v</span><span class="p">)</span> <span class="p">);</span></code></pre></figure>
 
-<pre><code class="language-julia">w,r = glscreen()
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">w</span><span class="p">,</span><span class="n">r</span> <span class="o">=</span> <span class="n">glscreen</span><span class="p">()</span>
 
-robj=visualize(Ψv)
+<span class="n">robj</span><span class="o">=</span><span class="n">visualize</span><span class="p">(</span><span class="err">Ψ</span><span class="n">v</span><span class="p">)</span>
 
-#choose this one for surfaces of constant of intensity
-view(visualize(robj[:intensities],:iso))
+<span class="err">#</span><span class="n">choose</span> <span class="n">this</span> <span class="n">one</span> <span class="k">for</span> <span class="n">surfaces</span> <span class="n">of</span> <span class="n">constant</span> <span class="n">of</span> <span class="n">intensity</span>
+<span class="nb">view</span><span class="p">(</span><span class="n">visualize</span><span class="p">(</span><span class="n">robj</span><span class="p">[:</span><span class="n">intensities</span><span class="p">],:</span><span class="n">iso</span><span class="p">))</span>
 
-#choose this for a block of 3D density
-#view(visualize(Ψv))
-r()
-</code></pre>
+<span class="err">#</span><span class="n">choose</span> <span class="n">this</span> <span class="k">for</span> <span class="n">a</span> <span class="n">block</span> <span class="n">of</span> <span class="mi">3</span><span class="n">D</span> <span class="n">density</span>
+<span class="err">#</span><span class="nb">view</span><span class="p">(</span><span class="n">visualize</span><span class="p">(</span><span class="err">Ψ</span><span class="n">v</span><span class="p">))</span>
+<span class="n">r</span><span class="p">()</span></code></pre></figure>
 
 <h2 id="p-orbital">2p Orbital</h2>
 

@@ -226,36 +226,34 @@ using PyPlot;
 Since Hermite polynomials are generated recursively, I wanted to generate and save all the functions up to a designated value at once.  In order to do so, I created an array, whose values are anonymous functions.
 </div>
 
-<pre><code class="language-julia">function GenerateHermite(n)
-    Hermite=Function[]
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">GenerateHermite</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">Hermite</span><span class="o">=</span><span class="n">Function</span><span class="p">[]</span>
 
-    push!(Hermite,x-&gt;1);
-    push!(Hermite,x-&gt;2*x);
+    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">Hermite</span><span class="p">,</span><span class="n">x</span><span class="o">-&gt;</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">Hermite</span><span class="p">,</span><span class="n">x</span><span class="o">-&gt;</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">);</span>
 
-    for ni in 3:n
-        push!(Hermite,x-&gt;2.*x.*Hermite[ni-1](x).-2.*n.*Hermite[ni-2](x))
-    end
-    return Hermite
-end
-</code></pre>
+    <span class="k">for</span> <span class="n">ni</span> <span class="n">in</span> <span class="mi">3</span><span class="p">:</span><span class="n">n</span>
+        <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">Hermite</span><span class="p">,</span><span class="n">x</span><span class="o">-&gt;</span><span class="mf">2.</span><span class="o">*</span><span class="n">x</span><span class="o">.*</span><span class="n">Hermite</span><span class="p">[</span><span class="n">ni</span><span class="o">-</span><span class="mi">1</span><span class="p">](</span><span class="n">x</span><span class="p">)</span><span class="o">.-</span><span class="mf">2.</span><span class="o">*</span><span class="n">n</span><span class="o">.*</span><span class="n">Hermite</span><span class="p">[</span><span class="n">ni</span><span class="o">-</span><span class="mi">2</span><span class="p">](</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">end</span>
+    <span class="k">return</span> <span class="n">Hermite</span>
+<span class="k">end</span></code></pre></figure>
 
 <p>Let’s generate some Hermite polynomials and look at them.
 <b> Make sure you don’t call a Hermite you haven’t generated yet!</b></p>
 
-<pre><code class="language-julia">Hermite=GenerateHermite(5)
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">Hermite</span><span class="o">=</span><span class="n">GenerateHermite</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span></code></pre></figure>
+
 <div class="progtip">
 <h3 color="black">Programming Tip!</h3>
 Since the Hermite polynomials, and the wavefunctions after them, are composed of anonymous functions, we need to use <code>map(f,x)</code> in order to map the function <code>f</code> onto the array <code>x</code>.  Otherwise our polynomials only work on single values.
 </div>
 
-<pre><code class="language-julia">x=collect(-2:.01:2);
-for j in 1:5
-    plot(x,map(Hermite[j],x),label="H_$j (x)")
-end
-legend()
-ylim(-50,50)
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="o">.</span><span class="mi">01</span><span class="p">:</span><span class="mi">2</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span>
+    <span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">map</span><span class="p">(</span><span class="n">Hermite</span><span class="p">[</span><span class="nb">j</span><span class="p">],</span><span class="n">x</span><span class="p">),</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">H_</span><span class="err">$</span><span class="nb">j</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="err">"</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="nb">legend</span><span class="p">()</span>
+<span class="nb">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -267,44 +265,41 @@ ylim(-50,50)
     
 </div>
 
-<pre><code class="language-julia"># Lets make our life easy and set all units to 1
-m=1
-ω=1
-ħ=1
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">Lets</span> <span class="n">make</span> <span class="n">our</span> <span class="n">life</span> <span class="n">easy</span> <span class="nb">and</span> <span class="nb">set</span> <span class="nb">all</span> <span class="n">units</span> <span class="n">to</span> <span class="mi">1</span>
+<span class="n">m</span><span class="o">=</span><span class="mi">1</span>
+<span class="err">ω</span><span class="o">=</span><span class="mi">1</span>
+<span class="err">ħ</span><span class="o">=</span><span class="mi">1</span>
 
-#Finally, we define Ψ
-Ψ(n,x)=1/sqrt(factorial(n)*2^n)*(m*ω/(ħ*π))^(1/4)*exp(-m*ω*x^2/(2*ħ))*Hermite[n](sqrt(m*ω/ħ)*x)
-</code></pre>
+<span class="err">#</span><span class="n">Finally</span><span class="p">,</span> <span class="n">we</span> <span class="n">define</span> <span class="err">Ψ</span>
+<span class="err">Ψ</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">/</span><span class="nb">sqrt</span><span class="p">(</span><span class="nb">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">^</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="err">ω</span><span class="p">/(</span><span class="err">ħ</span><span class="o">*</span><span class="err">π</span><span class="p">))</span><span class="o">^</span><span class="p">(</span><span class="mi">1</span><span class="p">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">m</span><span class="o">*</span><span class="err">ω</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">/(</span><span class="mi">2</span><span class="o">*</span><span class="err">ħ</span><span class="p">))</span><span class="o">*</span><span class="n">Hermite</span><span class="p">[</span><span class="n">n</span><span class="p">](</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="err">ω</span><span class="p">/</span><span class="err">ħ</span><span class="p">)</span><span class="o">*</span><span class="n">x</span><span class="p">)</span></code></pre></figure>
 
 <h3 id="finding-zeros">Finding Zeros</h3>
 <p>The eigenvalue maps to the number of zeros in the wavefunction.  Below, I use Julia’s roots package to indentify roots on the interval from -3 to 3.</p>
 
-<pre><code class="language-julia">zeds=Array{Array{Float64}}(1)
-zeds[1]=[] #ground state has no zeros
-for j in 2:4
-    push!(zeds,fzeros(y-&gt;Ψ(j,y),-3,3))
-end
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">zeds</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Array</span><span class="p">{</span><span class="n">Float64</span><span class="p">}}(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">zeds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="p">[]</span> <span class="err">#</span><span class="n">ground</span> <span class="n">state</span> <span class="n">has</span> <span class="n">no</span> <span class="nb">zeros</span>
+<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">2</span><span class="p">:</span><span class="mi">4</span>
+    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">zeds</span><span class="p">,</span><span class="n">fzeros</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="err">Ψ</span><span class="p">(</span><span class="nb">j</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">end</span></code></pre></figure>
 
-<pre><code class="language-julia"># AHHHHH! So Much code!
-# Don't worry; it's all just plotting
-x=collect(-3:.01:3)  #Set some good axes
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">AHHHHH</span><span class="err">!</span> <span class="n">So</span> <span class="n">Much</span> <span class="n">code</span><span class="err">!</span>
+<span class="err">#</span> <span class="n">Don</span><span class="s1">'t worry; it'</span><span class="n">s</span> <span class="nb">all</span> <span class="n">just</span> <span class="n">plotting</span>
+<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">.</span><span class="mi">01</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="err">#</span><span class="n">Set</span> <span class="n">some</span> <span class="n">good</span> <span class="nb">axes</span>
 
-for j in 1:4    #how many do you want to view?
-    plot(x,map(y-&gt;Ψ(j,y),x)+j-1,label="| $j &gt;")
-    plot(x,(j-1)*ones(x),color="black")
-    scatter(zeds[j],(j-1)*ones(zeds[j]),marker="o",s=40)
-end
-plot(x,.5*m*ω^2*x.^2,linestyle="--",label="Potential")
+<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span>    <span class="err">#</span><span class="n">how</span> <span class="n">many</span> <span class="n">do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="nb">view</span><span class="err">?</span>
+    <span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">map</span><span class="p">(</span><span class="n">y</span><span class="o">-&gt;</span><span class="err">Ψ</span><span class="p">(</span><span class="nb">j</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="o">|</span> <span class="err">$</span><span class="nb">j</span> <span class="o">&gt;</span><span class="err">"</span><span class="p">)</span>
+    <span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="err">"</span><span class="n">black</span><span class="err">"</span><span class="p">)</span>
+    <span class="nb">scatter</span><span class="p">(</span><span class="n">zeds</span><span class="p">[</span><span class="nb">j</span><span class="p">],(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">zeds</span><span class="p">[</span><span class="nb">j</span><span class="p">]),</span><span class="n">marker</span><span class="o">=</span><span class="err">"</span><span class="n">o</span><span class="err">"</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="err">ω</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="err">"</span><span class="o">--</span><span class="err">"</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">Potential</span><span class="err">"</span><span class="p">)</span>
 
-scatter([],[],marker="o",s=40,label="Zeros")
-xlabel("x")
-ylabel("Ψ+n")
-title("Eigenstates of a Harmonic Osscilator")
-legend()
-xlim(-3,3);
-ylim(-.5,4.5);
-</code></pre>
+<span class="nb">scatter</span><span class="p">([],[],</span><span class="n">marker</span><span class="o">=</span><span class="err">"</span><span class="n">o</span><span class="err">"</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">Zeros</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">x</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="err">"Ψ</span><span class="o">+</span><span class="n">n</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Eigenstates</span> <span class="n">of</span> <span class="n">a</span> <span class="n">Harmonic</span> <span class="n">Osscilator</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">legend</span><span class="p">()</span>
+<span class="nb">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="nb">ylim</span><span class="p">(</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="mf">4.5</span><span class="p">);</span></code></pre></figure>
 
 <h2 id="example-result">Example Result</h2>
 

@@ -13,29 +13,29 @@ If you haven't read it already, check out [Atomic Orbitals Pt. 1]({{base.url}}/M
 To add this package:
 
 
-```julia
+{% highlight MATLAB %}
 Pkg.add("GLVisualize")
-```
+{% endhighlight %}
 
 and test with:
 
 
-```julia
+{% highlight MATLAB %}
 Pkg.test("GLVisualize")
-```
+{% endhighlight %}
 
 But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.
 
 
-```julia
+{% highlight MATLAB %}
 #Pkg.update();
 #Pkg.add("GSL");
 using GSL;
 using GLVisualize;
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
 # The unitless radial coordinate
@@ -92,14 +92,14 @@ function CarttoSph(x::Array,y::Array,z::Array)
 end
 
 "Defined Helper Functions"
-```
+{% endhighlight %}
 
 
 
 Here, create a square cube, and convert those positions over to spherical coordinates.
 
 
-```julia
+{% highlight MATLAB %}
 range=-10:.5:10
 x=collect(range);
 y=collect(range);
@@ -112,25 +112,25 @@ println("created x,y,z")
 
 r,θ, ϕ=CarttoSph(xa,ya,za);
 println("created r,θ,ϕ")
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 Ψ=Orbital(3,2,-1)
 Ψp=Orbital(3,1,0)
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight MATLAB %}
 Ψv = zeros(Float32,N,N,N);
 ϕv = zeros(Float32,N,N,N);
-```
+{% endhighlight %}
 
 
 
-```julia
+{% highlight MATLAB %}
 for nn in 1:N
     for jj in 1:N
         for kk in 1:N
@@ -145,10 +145,10 @@ end
 mid=round(Int,(N-1)/2+1);
 Ψv[mid,mid,:]=Ψv[mid+1,mid+1,:]; # the one at the center diverges
 Ψv=(Ψv-minimum(Ψv))/(maximum(Ψv)-minimum(Ψv) );
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 w,r = glscreen()
 
 robj=visualize(Ψv)
@@ -159,7 +159,7 @@ view(visualize(robj[:intensities],:iso))
 #choose this for a block of 3D density
 #view(visualize(Ψv))
 r()
-```
+{% endhighlight %}
 
 
 

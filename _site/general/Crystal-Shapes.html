@@ -151,11 +151,10 @@
 
 <p>Stay tuned for a later post where we explore more elaborate lattices.</p>
 
-<pre><code class="language-julia"># importing our packages
-Pkg.add("PyPlot");
-Pkg.update();
-using PyPlot;
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">importing</span> <span class="n">our</span> <span class="n">packages</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">PyPlot</span><span class="err">"</span><span class="p">);</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">();</span>
+<span class="n">using</span> <span class="n">PyPlot</span><span class="p">;</span></code></pre></figure>
 
 <h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
 
@@ -175,65 +174,62 @@ Current options:</p>
 
 <p>Also, input the size of lattice you want to look at.</p>
 
-<pre><code class="language-julia">lattice="sc";
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">lattice</span><span class="o">=</span><span class="err">"</span><span class="n">sc</span><span class="err">"</span><span class="p">;</span>
 
-Nx=3;
-Ny=3;
-Nz=3;
-</code></pre>
+<span class="n">Nx</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+<span class="n">Ny</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+<span class="n">Nz</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span></code></pre></figure>
 
-<pre><code class="language-julia"># A cell to just evaluate
-# This one sets the unit vectors (a,b,c) for the different unit cells
-# Can you guess what a lattice will look like by looking at the vectors?
-if(lattice=="sc")
-    d=3;
-    a=[1,0,0];
-    b=[0,1,0];
-    c=[0,0,1];
-elseif(lattice=="pt")
-    d=2;
-    a=[1,0,0];
-    b=[.5,sqrt(3)/2,0];
-    c=[0,0,1];
-elseif(lattice=="bcc")
-    d=3;
-    a=[.5,.5,.5];
-    b=[.5,.5,-.5];
-    c=[.5,-.5,.5];
-elseif(lattice=="fcc")
-    d=3;
-    a=[.5,.5,0];
-    b=[.5,0,.5];
-    c=[0,.5,.5];
-else
-    println("Please have a correct lattice")
-end
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">A</span> <span class="nb">cell</span> <span class="n">to</span> <span class="n">just</span> <span class="n">evaluate</span>
+<span class="err">#</span> <span class="n">This</span> <span class="n">one</span> <span class="n">sets</span> <span class="n">the</span> <span class="n">unit</span> <span class="n">vectors</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">different</span> <span class="n">unit</span> <span class="n">cells</span>
+<span class="err">#</span> <span class="n">Can</span> <span class="n">you</span> <span class="n">guess</span> <span class="nb">what</span> <span class="n">a</span> <span class="n">lattice</span> <span class="n">will</span> <span class="n">look</span> <span class="n">like</span> <span class="n">by</span> <span class="n">looking</span> <span class="n">at</span> <span class="n">the</span> <span class="n">vectors</span><span class="err">?</span>
+<span class="k">if</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">sc</span><span class="err">"</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
+<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">pt</span><span class="err">"</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
+<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">bcc</span><span class="err">"</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
+<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">fcc</span><span class="err">"</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
+<span class="k">else</span>
+    <span class="n">println</span><span class="p">(</span><span class="err">"</span><span class="n">Please</span> <span class="n">have</span> <span class="n">a</span> <span class="n">correct</span> <span class="n">lattice</span><span class="err">"</span><span class="p">)</span>
+<span class="k">end</span></code></pre></figure>
 
-<pre><code class="language-julia"># Another cell to just evaluate
-# Here we set up some numbers and matrices for our computation
-N=Nx*Ny*Nz;    #The total number of sites
-aM=transpose(a);
-bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or layer at once
-cM=transpose(repeat(c,outer=[1,Nx*Ny]));
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">Another</span> <span class="nb">cell</span> <span class="n">to</span> <span class="n">just</span> <span class="n">evaluate</span>
+<span class="err">#</span> <span class="n">Here</span> <span class="n">we</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">some</span> <span class="n">numbers</span> <span class="nb">and</span> <span class="n">matrices</span> <span class="k">for</span> <span class="n">our</span> <span class="n">computation</span>
+<span class="n">N</span><span class="o">=</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="p">;</span>    <span class="err">#</span><span class="n">The</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">sites</span>
+<span class="n">aM</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="n">bM</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Nx</span><span class="p">]));</span> <span class="err">#</span><span class="n">these</span> <span class="n">allow</span> <span class="n">us</span> <span class="n">to</span> <span class="n">copy</span> <span class="n">an</span> <span class="n">entire</span> <span class="n">row</span> <span class="nb">or</span> <span class="n">layer</span> <span class="n">at</span> <span class="n">once</span>
+<span class="n">cM</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">]));</span>
 
-X=Array{Float64}(N,3);  #where we store the positions
-</code></pre>
+<span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Float64</span><span class="p">}(</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>  <span class="err">#</span><span class="n">where</span> <span class="n">we</span> <span class="n">store</span> <span class="n">the</span> <span class="n">positions</span></code></pre></figure>
 
-<pre><code class="language-julia"># Another cell to just evaluate
-# Here we are actually calculating the positions for every site
-for i in 1:Nx    #for the first row
-    X[i,:]=(i-1)*a;
-end
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">Another</span> <span class="nb">cell</span> <span class="n">to</span> <span class="n">just</span> <span class="n">evaluate</span>
+<span class="err">#</span> <span class="n">Here</span> <span class="n">we</span> <span class="n">are</span> <span class="n">actually</span> <span class="n">calculating</span> <span class="n">the</span> <span class="n">positions</span> <span class="k">for</span> <span class="n">every</span> <span class="n">site</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">Nx</span>    <span class="err">#</span><span class="k">for</span> <span class="n">the</span> <span class="n">first</span> <span class="n">row</span>
+    <span class="n">X</span><span class="p">[</span><span class="nb">i</span><span class="p">,:]</span><span class="o">=</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="p">;</span>
+<span class="k">end</span>
 
-for j in 2:Ny    #copying the first row into the first layer
-    X[Nx*(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)*bM;
-end
+<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Ny</span>    <span class="err">#</span><span class="n">copying</span> <span class="n">the</span> <span class="n">first</span> <span class="n">row</span> <span class="n">into</span> <span class="n">the</span> <span class="n">first</span> <span class="n">layer</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">bM</span><span class="p">;</span>
+<span class="k">end</span>
 
-for j in 2:Nz    #copying the first layer into the entire cube
-    X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
-end
-</code></pre>
+<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Nz</span>    <span class="err">#</span><span class="n">copying</span> <span class="n">the</span> <span class="n">first</span> <span class="n">layer</span> <span class="n">into</span> <span class="n">the</span> <span class="n">entire</span> <span class="n">cube</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cM</span><span class="p">;</span>
+<span class="k">end</span></code></pre></figure>
+
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
  <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
@@ -244,29 +240,28 @@ end
  <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
 </div>
 
-<pre><code class="language-julia">pygui(false);  #if true, launches new window with interactive capabilities
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>  <span class="err">#</span><span class="k">if</span> <span class="nb">true</span><span class="p">,</span> <span class="n">launches</span> <span class="n">new</span> <span class="n">window</span> <span class="n">with</span> <span class="n">interactive</span> <span class="n">capabilities</span>
 
-drawcube=true;  #gives lines for a cube, helps interpret the dots
-ls=2;  # how many cubes to draw
-if(drawcube==true)
-    v=collect(0:ls);
-    zed=zeros(v);
-    for i in 0:ls
-        for j in 0:ls
-            plot3D(zed+i,v,zed+j)
-            plot3D(zed+i,zed+j,v)
+<span class="n">drawcube</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>  <span class="err">#</span><span class="n">gives</span> <span class="n">lines</span> <span class="k">for</span> <span class="n">a</span> <span class="n">cube</span><span class="p">,</span> <span class="n">helps</span> <span class="n">interpret</span> <span class="n">the</span> <span class="n">dots</span>
+<span class="nb">ls</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>  <span class="err">#</span> <span class="n">how</span> <span class="n">many</span> <span class="n">cubes</span> <span class="n">to</span> <span class="n">draw</span>
+<span class="k">if</span><span class="p">(</span><span class="n">drawcube</span><span class="o">==</span><span class="nb">true</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="nb">ls</span><span class="p">);</span>
+    <span class="n">zed</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+    <span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">0</span><span class="p">:</span><span class="nb">ls</span>
+        <span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">0</span><span class="p">:</span><span class="nb">ls</span>
+            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="nb">i</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">j</span><span class="p">)</span>
+            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="nb">i</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">j</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
 
-            plot3D(v,zed+i,zed+j)
-            plot3D(zed+j,zed+i,v)
+            <span class="n">plot3D</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">i</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">j</span><span class="p">)</span>
+            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="nb">j</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">i</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
 
-            plot3D(v,zed+j,zed+i)
-            plot3D(zed+j,v,zed+i)
-        end
-    end
-end
+            <span class="n">plot3D</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">j</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">i</span><span class="p">)</span>
+            <span class="n">plot3D</span><span class="p">(</span><span class="n">zed</span><span class="o">+</span><span class="nb">j</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">zed</span><span class="o">+</span><span class="nb">i</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
 
-scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
-</code></pre>
+<span class="n">scatter3D</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span><span class="nb">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
@@ -312,7 +307,7 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 
 <p>As you might have noticed, this isn’t just a blog where you read through the posts.  Interact with it.  Change some lines, and see what happens.  I choose body centered cubic to display first, but what do the other lattices look like?</p>
 
-<p>Chose <code>pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
+<p>Chose <code class="highlighter-rouge">pygui(true)</code> to pop open a window and manipulate the plot in 3D.</p>
 
 <p>Look at different lattice sizes.</p>
 

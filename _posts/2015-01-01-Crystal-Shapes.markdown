@@ -27,12 +27,12 @@ For consistency, we have to put a constraint on these vectors; we cannot combine
 Stay tuned for a later post where we explore more elaborate lattices.
 
 
-```julia
+{% highlight MATLAB %}
 # importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
 using PyPlot;
-```
+{% endhighlight %}
 
 
 ## Define The Relevant Variables
@@ -52,16 +52,16 @@ Note: Square is Simple Cubic for Nz=1
 Also, input the size of lattice you want to look at.
 
 
-```julia
+{% highlight MATLAB %}
 lattice="sc";
 
 Nx=3;
 Ny=3;
 Nz=3;
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 # A cell to just evaluate
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
@@ -88,12 +88,12 @@ elseif(lattice=="fcc")
 else
     println("Please have a correct lattice")
 end
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight MATLAB %}
 # Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz;    #The total number of sites
@@ -102,13 +102,13 @@ bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or l
 cM=transpose(repeat(c,outer=[1,Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
-```
+{% endhighlight %}
 
 
 
 
 
-```julia
+{% highlight MATLAB %}
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
@@ -122,7 +122,8 @@ end
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
 end
-```
+{% endhighlight %}
+
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
  <p>In Julia, ranges, like <code>1:Nx</code>, are a special variable type that can be manipulated.  We can add numbers to them:
@@ -134,7 +135,7 @@ end
 </div>
 
 
-```julia
+{% highlight MATLAB %}
 pygui(false);  #if true, launches new window with interactive capabilities
 
 drawcube=true;  #gives lines for a cube, helps interpret the dots
@@ -157,7 +158,7 @@ if(drawcube==true)
 end
 
 scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
-```
+{% endhighlight %}
 
 {% include image.html img="M4/Images/CrystalShapes/sc.png" title="sc" caption="Simple Cubic: The easiest lattice out there short of the 1D chain." %}
 

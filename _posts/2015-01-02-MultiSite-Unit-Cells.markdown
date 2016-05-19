@@ -47,25 +47,25 @@ The ones implemented here, except for diamond, are frustrated lattices that I wo
 
 {% include image.html img="M4/Images/MultiUnit/Shurikens.jpg" title="Shurikens" caption="Japanese Shurikens- a type of ninja fighting star. <sub>By kaex0r (http://www.flickr.com/photos/kaex0r414/191765028/) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons</sub>" %}
 
-```julia
+{% highlight MATLAB %}
 # importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
 using PyPlot;
-```
+{% endhighlight %}
 
 
 
-```julia
+{% highlight MATLAB %}
 lattice="shuriken";
 
 Nx=3;
 Ny=3;
 Nz=1;
-```
+{% endhighlight %}
 
 
-```julia
+{% highlight MATLAB %}
 # A cell to just evaluate
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
@@ -121,7 +121,7 @@ else
     println("Please have a correct lattice")
 end
 "Cell finished"
-```
+{% endhighlight %}
 
 
 
@@ -134,7 +134,7 @@ If you look at some of the comments above, and checkout the basis vectors from [
 you'll notice they're the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.
 
 
-```julia
+{% highlight MATLAB %}
 # Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz*Ncell;    #The total number of sites
@@ -144,12 +144,12 @@ cM=transpose(repeat(c,outer=[1,Ncell*Nx*Ny]));
 
 X=Array{Float64}(N,3);  #where we store the positions
 "Cell finished"
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight MATLAB %}
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
@@ -164,29 +164,29 @@ for j in 2:Nz    #copying the first layer into the entire cube
     X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
 end
 "Cell finished"
-```
+{% endhighlight %}
 
 
 
 
-```julia
+{% highlight MATLAB %}
 # 2D plotter
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 scatter(X[:,1],X[:,2])
-```
+{% endhighlight %}
 
 
 {% include image.html img="M4/Images/MultiUnit/shurikenplot.png" title="Shuriken" caption="3x3 Shuriken or Square-Kagome Lattice." %}
-```julia
+{% highlight MATLAB %}
 # 3D plotter
 pygui(false)
 w, h = plt[:figaspect](1)
 figure(figsize=(w,h))
 areas=100*ones(length(X[:,1]))
 scatter3D(X[:,1],X[:,2],X[:,3])
-```
+{% endhighlight %}
 
 
 
