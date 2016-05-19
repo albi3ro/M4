@@ -63,7 +63,7 @@ I will say a little bit about the tunable parameters here, but Monte Carlo simul
 
 ### Temperature
 
-<img src="M4/Images/Ferromagnet/couch1.JPG" width="200px" style="float: left; margin: 20px"/> <img src="M4/Images/Ferromagnet/mountain.jpg" width="200px" style="float: right; margin: 20px"/>
+<img src="/M4/Images/Ferromagnet/couch1.JPG" width="200px" style="float: left; margin: 20px"/> <img src="/M4/Images/Ferromagnet/mountain.jpg" width="200px" style="float: right; margin: 20px"/>
 
 On the left I am performing a low temperature search of a couch store.  I found a minimum, and even though I got stuck there, I thoroughly got to know what that minimum had to offer. On the right though, I'm performing a high temperature search of the Alexander Hills, Death Valley, California in pursuit of Neoproterzoic carbonates and dimictites.  I needed to be able to explore a lot more of the environment.
 
@@ -302,7 +302,7 @@ So here are some example results I got.
 
 {% include image.html img="M4/Images/Ferromagnet/mt.png" title="Samples over Time" caption="Paramagnet Magnetization Samples.  A properly tuned simulations should be showing white noise without correlations or getting stuck in particular areas." %}
 
-{% include image.html img="/maghist_bp3.png" title="Magnetization Histogram" caption="Magnetization Histogram" %}
+{% include image.html img="M4/Images/Ferromagnet/maghist_bp3.png" title="Magnetization Histogram" caption="Magnetization Histogram" %}
 
 {% include image.html img="M4/Images/Ferromagnet/Ehist_bp3.png" title="Energy Histogram" caption="Energy Histogram" %}
 
