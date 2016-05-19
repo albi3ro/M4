@@ -304,7 +304,6 @@ ylabel("Normed Counts")
 # Example Results
 So here are some example results I got.
 
-
 {% include image.html img="M4/Images/Ferromagnet/ParamagnetL30_b2.gif" title="Paramagnet" caption="States of a Paramagnet at $\beta=0.2$" %}
 
 {% include image.html img="M4/Images/Ferromagnet/mt.png" title="Samples over Time" caption="Paramagnet Magnetization Samples.  A properly tuned simulations should be showing white noise without correlations or getting stuck in particular areas." %}
@@ -318,6 +317,7 @@ So here are some example results I got.
 {% include image.html img="M4/Images/Ferromagnet/maghist_bp7.png" title="Magnet Histogram" caption="Histogram of a magnetization at $\beta=0.7$" %}
 
 {% include image.html img="M4/Images/Ferromagnet/Ehist_bp7.png" title="Energy Histogram" caption="Histogram of energy at $\beta=0.7$" %}
+
 
 # To be covered later:
 
