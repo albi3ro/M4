@@ -47,7 +47,7 @@ The ones implemented here, except for diamond, are frustrated lattices that I wo
 
 {% include image.html img="M4/Images/MultiUnit/Shurikens.jpg" title="Shurikens" caption="Japanese Shurikens- a type of ninja fighting star. <sub>By kaex0r (http://www.flickr.com/photos/kaex0r414/191765028/) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons</sub>" %}
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
@@ -56,7 +56,7 @@ using PyPlot;
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 lattice="shuriken";
 
 Nx=3;
@@ -65,7 +65,7 @@ Nz=1;
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # A cell to just evaluate
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
@@ -134,7 +134,7 @@ If you look at some of the comments above, and checkout the basis vectors from [
 you'll notice they're the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz*Ncell;    #The total number of sites
@@ -149,7 +149,7 @@ X=Array{Float64}(N,3);  #where we store the positions
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
@@ -169,7 +169,7 @@ end
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # 2D plotter
 pygui(false)
 w, h = plt[:figaspect](1)
@@ -179,7 +179,7 @@ scatter(X[:,1],X[:,2])
 
 
 {% include image.html img="M4/Images/MultiUnit/shurikenplot.png" title="Shuriken" caption="3x3 Shuriken or Square-Kagome Lattice." %}
-{% highlight MATLAB %}
+{% highlight julia %}
 # 3D plotter
 pygui(false)
 w, h = plt[:figaspect](1)

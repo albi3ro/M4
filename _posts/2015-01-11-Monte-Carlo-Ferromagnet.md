@@ -101,7 +101,7 @@ Though a time step does include $N$ spin flips, that doesn't mean we have actual
 Some less important things: periodic versus open boundary conditions, shape and symmetries of simulation cell.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 using PyPlot;
 push!(LOAD_PATH,".")
 using Lattices;
@@ -131,7 +131,7 @@ Once a lattice is created, it contains <b>Members of Type</b>:
 Today, I will just look at the square lattice, since that indicates much of the standard phase transition properties.  Some of the lattices I have shown (kagome, triangular, ...) are special frustrated lattices, and thus will behave very wierdly in this situation.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 ## Define l here
 l=50;
 
@@ -141,7 +141,7 @@ dt=1/(lt.N);
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # The energy contribution of just one site
 function dE(i::Int)
     Eii=0;
@@ -179,7 +179,7 @@ I have set up the simulation so that you can perform two different things.  For 
 Or you can set `video=false` and `t` to a large variable, and actually measure the statistics for the system over a bunch of configurations.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 beta=.7;
 J=1;
 t=100000;
@@ -192,7 +192,7 @@ nskip=10;   # don't measure every sweep= better decorrelation
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 nmeas=Int64(t/nskip); # how many times we will measure
 Ma=Array{Int32}(nmeas); # our magnetization measurements
 Ea=Array{Int32}(nmeas); # our energy measurements
@@ -201,7 +201,7 @@ Ea=Array{Int32}(nmeas); # our energy measurements
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 tm=1; #Our measurement time step
 pygui(true)
 for ti in 1:t
@@ -239,7 +239,7 @@ Mave, Mstd
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 pygui(false)
 title("Magnetization versus Time, Beta=$beta")
 xlabel("Monte Carlo Steps")
@@ -256,7 +256,7 @@ xytext=[1000, Mave-.0125],
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 pygui(false)
 plt[:hist](Ma/lt.N,bins=30,normed=true,label="Samples Normed");
 x=collect(Mave-Mstd*3:.001:Mave+Mstd*3)
@@ -272,7 +272,7 @@ legend(loc="upper right")
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 pygui(false)
 title("Energy versus Time, Beta=$beta")
 xlabel("Monte Carlo Steps")
@@ -288,7 +288,7 @@ xytext=[1000, Eave-.03],
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 pygui(false)
 plt[:hist](Ea/lt.N,bins=30,normed=true,label="Samples Normed");
 x=collect(Eave-3*Estd:.001:Eave+3*Estd)

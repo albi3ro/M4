@@ -13,21 +13,21 @@ If you haven't read it already, check out [Atomic Orbitals Pt. 1]({{base.url}}/M
 To add this package:
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 Pkg.add("GLVisualize")
 {% endhighlight %}
 
 and test with:
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 Pkg.test("GLVisualize")
 {% endhighlight %}
 
 But, other steps may be necessary to get the package working.  On a Mac, I was required to install the Homebrew.jl package.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 #Pkg.update();
 #Pkg.add("GSL");
 using GSL;
@@ -35,7 +35,7 @@ using GLVisualize;
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
 # The unitless radial coordinate
@@ -99,7 +99,7 @@ end
 Here, create a square cube, and convert those positions over to spherical coordinates.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 range=-10:.5:10
 x=collect(range);
 y=collect(range);
@@ -115,7 +115,7 @@ println("created r,θ,ϕ")
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 Ψ=Orbital(3,2,-1)
 Ψp=Orbital(3,1,0)
 {% endhighlight %}
@@ -123,14 +123,14 @@ println("created r,θ,ϕ")
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 Ψv = zeros(Float32,N,N,N);
 ϕv = zeros(Float32,N,N,N);
 {% endhighlight %}
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 for nn in 1:N
     for jj in 1:N
         for kk in 1:N
@@ -148,7 +148,7 @@ mid=round(Int,(N-1)/2+1);
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 w,r = glscreen()
 
 robj=visualize(Ψv)

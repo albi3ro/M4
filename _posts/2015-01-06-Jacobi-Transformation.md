@@ -162,7 +162,7 @@ $$
 ### Enough with the talking! LETS COMPUTE STUFF
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # First, Lets make our nice, helpful functions
 
 ## A function to look at the convergence
@@ -183,7 +183,7 @@ end
 This makes a matrix easier to look at than when its filled
 with 1.043848974e-12 everywhere
 
-{% highlight MATLAB %}
+{% highlight julia %}
 function roundmatrix(A::Array,rtol::Real)
     Ap=copy(A)
     for ii in 1:length(A)
@@ -198,7 +198,7 @@ end
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 ## Here we create a random symmetric matrix
 function makeA(n::Int)
     A=randn(n,n);
@@ -218,7 +218,7 @@ Both tell the function to compute the vectors with `computeV=true`
 and input the `V=V` after the semicolon.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 function Rotate(A::Array,p::Int,q::Int; computeV=false, V::Array=eye(1))
     θ=(A[q,q]-A[p,p])/(2*A[p,q]);
     t=sign(θ)/(abs(θ)+sqrt(θ^2+1));
@@ -258,7 +258,7 @@ end
 
 This function performs one sweep
 
-{% highlight MATLAB %}
+{% highlight julia %}
 
 function Sweep(A;compV=false,V=eye(1))
     n=size(A)[1]
@@ -284,12 +284,12 @@ end
 
 Just creating some size of matrix
 
-{% highlight MATLAB %}
+{% highlight julia %}
 A,A0,V=makeA(5);
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 ## keep evaluating for a couple iterations
 ## watch how it changes
 A,V=Sweep(A;compV=true,V=V);
@@ -327,7 +327,7 @@ This output is after several sweeps
 
 Compare the Optimized LAPLACK routine to your results
 
-{% highlight MATLAB %}
+{% highlight julia %}
 eig(A0)
 {% endhighlight %}
 
@@ -343,7 +343,7 @@ eig(A0)
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 ## A good check to make sure V is an orthonomal transformation
 roundmatrix(V*A*transpose(V)-A0,1e-12)
 {% endhighlight %}
@@ -361,7 +361,7 @@ How much memory will the computation take?
 This is dependent on how large the matrix is, and determines whether or not we
 want to use this algorithm.
 
-{% highlight MATLAB %}
+{% highlight julia %}
 
 A,A0,V=makeA(10);
 @time Sweep(A);
@@ -379,7 +379,7 @@ A,A0,V=makeA(100);
 In addition to time per sweep, we need to know how many sweeps we need to run. So again we run it on a 10x10, 20x20, and 100x100. The efficiency of the algorithm would get a lot worse if we have to sweep the 100x100 a bunch of times.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 A10,Ap10,V=makeA(10);
 A20,Ap20,V=makeA(20);
 A100,Ap100,V=makeA(100);

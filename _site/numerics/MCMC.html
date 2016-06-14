@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Monte Carlo Markov Chain</title>
+    <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="/M4/numerics/MCMC.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Monte Carlo Markov Chain" />
+    <meta property="og:image" content="" />
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <!--<nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+      </svg>
+    </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/M4/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/M4/jupyterjulia/">Interacting with Julia</a>
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+      </div>
+    </nav>-->
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title">Monte Carlo Markov Chain</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
+      
+      <a href="/M4/tags">Monte Carlo</a></p>
+        
+  </header>
+
+  <article class="post-content">
+
+    <p><b>Prerequisites:<b></b>  <a href="/M4/numerics/Monte-Carlo.html">Monte Carlo Calculation of pi</a></b></p>
+
+<p><b>Author:</b> Christina Lee</p>
+
+<h3 id="intro">Intro</h3>
+
+<p>If you didn’t check it out already, take a look at the post that introduces using random numbers in calculations.  Any such simulation is a <i>Monte Carlo</i> simulation.  The most used kind of Monte Carlo simulation is a <i>Markov Chain</i>, also known as a random walk, or drunkard’s walk.  A Markov Chain is a series of steps where</p>
+
+<ul>
+  <li>
+    <p>each new state is chosen probabilitically</p>
+  </li>
+  <li>
+    <p>the probabilities only depend on the current state, no memory.</p>
+  </li>
+</ul>
+
+<p>Imagine a drunkard trying to walk.  At any one point, they could progress either left or right rather randomly.  Also, just because they had been traveling in a straight line so far does not guaruntee they will continue to do.  They’ve just had extremely good luck.</p>
+
+<p>We use Markov Chains to <b>approximate probability distributions</b>.</p>
+
+<p>To create a good Markov Chain, we need</p>
+
+<ul>
+  <li>
+    <p><b> Ergodicity</b>: All states can be reached</p>
+  </li>
+  <li>
+    <p><b> Global Balance</b>: A condition that ensures the proper equilibrium distribution</p>
+  </li>
+</ul>
+
+<h3 id="the-balances">The Balances</h3>
+
+<p>Let $\pi_i$ be the probability that a particle is at site $i$, and $p_{ij}$ be the probability that a particle moves from $i$ to $j$.  Then Global Balance can be written as,</p>
+
+<script type="math/tex; mode=display">
+\sum\limits_j \pi_i p_{i j} = \sum\limits_j \pi_j p_{j i} \;\;\;\;\; \forall i.
+</script>
+
+<p>In non-equation terms, this says the amount of “chain” leaving site $i$ is the same as the amount of “chain” entering site $i$ for every site in equilibrium.  There is no flow.</p>
+
+<p>Usually though, we actually want to work with a stricter rule than Global Balance, <b> Detailed Balance </b>, written as</p>
+
+<script type="math/tex; mode=display">
+\pi_i p_{i j} = \pi_j p_{j i}.
+</script>
+
+<p>Detailed Balance further constricts the transition probabilities we can assign and makes it easier to design an algorithm. Almost all MCMC algorithms out there use detailed balance, and only lately have certain applied mathematicians begun looking and breaking detailed balance to increase efficiency in certain classes of problems.</p>
+
+<h3 id="todays-test-problem">Today’s Test Problem</h3>
+
+<iframe width="400" height="300" src="https://www.youtube.com/embed/gxX3Fu1uuCs" frameborder="0" allowfullscreen=""></iframe>
+
+<p>I will let you know now; this might be one of the most powerful numerical methods you could ever learn.  I was going to put down a list of applications, but the only limit to such a list is your imagination.</p>
+
+<p>Today though, we will not be trying to predict stock market crashes, calculate the PageRank of a webpage, or calculate the entropy a quantum spin liquid at zero temperature.  We just want to calculate an uniform probability distribution, and look at how Monte Carlo Markov Chains behave.</p>
+
+<ul>
+  <li>
+    <p>We will start with an $l\times l$ grid</p>
+  </li>
+  <li>
+    <p>Our chain starts somewhere in that grid</p>
+  </li>
+  <li>
+    <p>We can then move up, down, left or right equally</p>
+  </li>
+  <li>
+    <p>If we hit an edge, we come out the opposite side</p>
+  </li>
+</ul>
+
+<hr />
+
+<p><b>First question!</b> Is this ergodic?</p>
+
+<p>Yes! Nothing stops us from reaching any location.</p>
+
+<p><b>Second question!</b> Does this obey detailed balance?</p>
+
+<p>Yes!  In equilibrium, each block has a probability of $\pi_i = \frac{1}{l^2}$, and can travel to any of its 4 neighbors with probability of $p_{ij} = \frac{1}{4}$.  For any two neighbors</p>
+
+<script type="math/tex; mode=display">
+\frac{1}{l^2}\frac{1}{4} = \frac{1}{l^2}\frac{1}{4},
+</script>
+
+<p>and if they are not neighbors,</p>
+
+<script type="math/tex; mode=display">
+0 = 0.
+</script>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">PyCall</span><span class="err">"</span><span class="p">)</span>
+<span class="n">using</span> <span class="n">PyPlot</span></code></pre></figure>
+
+<p>This is just the equivalent of <code class="highlighter-rouge">mod</code>
+for using in an array that indexes from 1.</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nb">j</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>Input the size of the grid</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">l</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
+<span class="n">n</span><span class="o">=</span><span class="n">l</span><span class="o">^</span><span class="mi">2</span><span class="p">;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">Transition</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span>
+    <span class="err">#</span><span class="n">randomly</span> <span class="n">chose</span> <span class="n">up</span><span class="p">,</span> <span class="n">down</span><span class="p">,</span> <span class="n">left</span> <span class="nb">or</span> <span class="n">right</span>
+    <span class="n">d</span><span class="o">=</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">);</span>
+    <span class="k">if</span> <span class="n">d</span><span class="o">==</span><span class="mi">1</span> <span class="err">#</span><span class="k">if</span> <span class="n">down</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="n">l</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+
+    <span class="k">elseif</span> <span class="n">d</span><span class="o">==</span><span class="mi">2</span> <span class="err">#</span><span class="k">if</span> <span class="n">left</span>
+        <span class="n">row</span><span class="o">=</span><span class="n">convert</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span><span class="nb">floor</span><span class="p">((</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="n">l</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span><span class="o">+</span><span class="n">l</span><span class="o">*</span><span class="n">row</span><span class="p">;</span>
+
+    <span class="k">elseif</span> <span class="n">d</span><span class="o">==</span><span class="mi">3</span> <span class="err">#</span><span class="k">if</span> <span class="n">right</span>
+        <span class="n">row</span><span class="o">=</span><span class="n">convert</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span><span class="nb">floor</span><span class="p">((</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="n">l</span><span class="p">));</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span><span class="o">+</span><span class="n">l</span><span class="o">*</span><span class="n">row</span><span class="p">;</span>
+
+    <span class="k">else</span>  <span class="err">#</span> <span class="k">otherwise</span> <span class="n">up</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="n">l</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">end</span>
+<span class="k">end</span></code></pre></figure>
+
+<p>The centers of blocks will be used for pictoral purposes</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pos</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+<span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="p">[</span><span class="nb">floor</span><span class="p">((</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">]</span><span class="o">+.</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">,:]</span><span class="o">=</span><span class="p">[</span><span class="nb">mod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">]</span><span class="o">+.</span><span class="mi">5</span><span class="p">;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">How</span> <span class="n">many</span> <span class="n">timesteps</span>
+<span class="n">tn</span><span class="o">=</span><span class="mi">1000</span><span class="p">;</span>
+
+<span class="err">#</span> <span class="n">Array</span> <span class="n">of</span> <span class="n">timesteps</span>
+<span class="n">ti</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Int64</span><span class="p">,</span><span class="mi">1</span><span class="p">}()</span>
+<span class="err">#</span> <span class="n">Array</span> <span class="n">of</span> <span class="n">errors</span>
+<span class="n">err</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Float64</span><span class="p">,</span><span class="mi">1</span><span class="p">}()</span>
+
+<span class="err">#</span> <span class="n">Stores</span> <span class="n">current</span> <span class="n">location</span><span class="p">,</span> <span class="n">initialized</span> <span class="n">randomly</span>
+<span class="n">current</span><span class="o">=</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">);</span>
+<span class="err">#</span> <span class="n">Stores</span> <span class="n">last</span> <span class="n">location</span><span class="p">,</span> <span class="n">used</span> <span class="k">for</span> <span class="n">pictoral</span> <span class="n">purposes</span>
+<span class="n">last</span><span class="o">=</span><span class="n">current</span><span class="p">;</span>
+
+<span class="err">#</span><span class="n">Keeps</span> <span class="n">track</span> <span class="n">of</span> <span class="n">where</span> <span class="n">chain</span> <span class="n">went</span>
+<span class="n">Naccumulated</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Int64</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
+
+<span class="err">#</span> <span class="n">put</span> <span class="n">in</span> <span class="n">our</span> <span class="n">first</span> <span class="n">point</span>
+<span class="err">#</span> <span class="n">can</span> <span class="n">index</span> <span class="mi">2</span><span class="n">d</span> <span class="n">array</span> <span class="n">as</span> <span class="mi">1</span><span class="n">d</span>
+<span class="n">Naccumulated</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="err">#</span> <span class="n">A</span> <span class="n">graph</span> <span class="n">will</span> <span class="nb">open</span> <span class="n">up</span> <span class="n">where</span> <span class="n">we</span> <span class="n">can</span> <span class="n">watch</span> <span class="n">the</span> <span class="n">chain</span>
+<span class="n">pygui</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="p">[:</span><span class="n">figaspect</span><span class="p">](</span><span class="o">.</span><span class="mi">35</span><span class="p">)</span>
+<span class="nb">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">tn</span>
+
+    <span class="n">last</span><span class="o">=</span><span class="n">current</span><span class="p">;</span>
+    <span class="err">#</span> <span class="n">Determine</span> <span class="n">the</span> <span class="n">new</span> <span class="n">point</span>
+    <span class="n">current</span><span class="o">=</span><span class="n">Transition</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>
+    <span class="n">Naccumulated</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+
+    <span class="err">#</span> <span class="n">add</span> <span class="n">new</span> <span class="n">time</span> <span class="n">steps</span> <span class="nb">and</span> <span class="nb">error</span> <span class="n">points</span>
+    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span>
+    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="nb">std</span><span class="p">(</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">ii</span><span class="p">),</span><span class="mi">5</span><span class="p">))</span>
+
+
+    <span class="nb">clf</span><span class="p">()</span> <span class="err">#</span><span class="n">clean</span> <span class="n">previous</span> <span class="nb">figure</span>
+
+    <span class="nb">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span> <span class="err">#</span><span class="nb">subplot</span> <span class="mi">1</span>
+
+    <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">t</span><span class="p">:</span> <span class="err">$</span><span class="n">ii</span> <span class="nb">std</span><span class="p">:</span> <span class="err">$</span><span class="p">(</span><span class="n">err</span><span class="p">[</span><span class="k">end</span><span class="p">])</span><span class="err">"</span><span class="p">)</span>
+    <span class="nb">pcolor</span><span class="p">(</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">/</span><span class="n">n</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="err">"</span><span class="n">RdBu</span><span class="err">"</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-.</span><span class="mi">1</span><span class="p">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">colorbar</span><span class="p">()</span>
+
+    <span class="err">#</span> <span class="n">An</span> <span class="n">arrow</span> <span class="n">from</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">point</span> <span class="n">to</span> <span class="n">the</span> <span class="n">current</span> <span class="n">point</span>
+    <span class="n">annotate</span><span class="p">(</span><span class="err">""</span><span class="p">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">pos</span><span class="p">[:,</span><span class="n">current</span><span class="p">],</span>
+    <span class="n">xytext</span><span class="o">=</span><span class="n">pos</span><span class="p">[:,</span><span class="n">last</span><span class="p">],</span>
+    <span class="n">xycoords</span><span class="o">=</span><span class="err">"</span><span class="n">data</span><span class="err">"</span><span class="p">,</span>
+    <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="p">(</span><span class="err">"</span><span class="n">facecolor</span><span class="err">"</span><span class="o">=&gt;</span><span class="err">"</span><span class="n">green</span><span class="err">"</span><span class="p">))</span>
+
+    <span class="nb">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span> <span class="err">#</span><span class="nb">subplot</span> <span class="mi">2</span>
+    <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Error</span><span class="err">"</span><span class="p">)</span>
+    <span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Step</span><span class="err">"</span><span class="p">)</span>
+    <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Log</span> <span class="nb">std</span><span class="err">"</span><span class="p">)</span>
+    <span class="nb">scatter</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="nb">log10</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+
+    <span class="err">#</span><span class="n">how</span> <span class="n">long</span> <span class="n">to</span> <span class="n">wait</span> <span class="n">between</span> <span class="n">showing</span> <span class="n">steps</span> <span class="p">(</span><span class="n">in</span> <span class="n">seconds</span><span class="p">)</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">Naccumulated</span><span class="o">=</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">tn</span><span class="p">;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+<span class="nb">pcolor</span><span class="p">(</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">tn</span><span class="o">-</span><span class="mi">1</span><span class="p">/</span><span class="n">n</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="err">"</span><span class="n">RdBu</span><span class="err">"</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-.</span><span class="mi">02</span><span class="p">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">02</span><span class="p">)</span>
+<span class="nb">colorbar</span><span class="p">()</span></code></pre></figure>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="/M4/Images/MCMC/grid5x5p.png" alt="Grid" />
+    
+    
+        <p class="image-caption">A 5x5 grid after 2,000 steps.  </p>
+    
+</div>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Error</span> <span class="k">for</span> <span class="n">a</span> <span class="mi">5</span><span class="n">x5</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Step</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Log</span> <span class="nb">std</span><span class="err">"</span><span class="p">)</span>
+<span class="nb">scatter</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="nb">log10</span><span class="p">(</span><span class="n">err</span><span class="p">))</span></code></pre></figure>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="/M4/Images/MCMC/err5x5p.png" alt="Error over time" />
+    
+    
+        <p class="image-caption">The decreasing standard deviation from 1/25 shown in log base 10.</p>
+    
+</div>
+
+<p>So, after running the above code and trying to figure out how it works, go back and study some properties of the system.</p>
+
+<ul>
+  <li>
+    <p>How long does it take to forget it’s initial position?</p>
+  </li>
+  <li>
+    <p>How does the behaviour change with system size?</p>
+  </li>
+  <li>
+    <p>How long would you have to go to get a certain accuracy? ….  especially if you didn’t know what distribution you where looking for</p>
+  </li>
+</ul>
+
+<p>So hopefully you enjoyed this tiny introduction to an incredibly rich subject.  Feel free to explore all the nooks and crannies to really understand the basics of this kind of simulation, so you can gain more control over the more complex simulations.</p>
+
+<p>Monte Carlo simulations are as much of an art as a science.  You need to live them, love them, and breathe them till you find out exactly why they are behaving like little kittens that can finally jump on top of your countertops, or open your bedroom door at 1am.</p>
+
+<p>For all their mishaving, you love the kittens anyway.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/numerics/MCMC.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/numerics/MCMC.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

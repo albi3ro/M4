@@ -71,7 +71,7 @@ where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 #Pkg.update();
 #Pkg.add("GSL");
 #Pkg.add("PyPlot");
@@ -91,7 +91,7 @@ Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab</p
 The function <code>Orbital</code> throws <code>DomainError()</code> when <code>l</code> or <code>m</code> do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
 </p>
 </div>
-{% highlight MATLAB %}
+{% highlight julia %}
 a0=1; #for convenience, or 5.2917721092(17)×10−11 m
 
 # The unitless radial coordinate
@@ -163,7 +163,7 @@ Remember that
 \end{equation}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 # Grid Parameters
 rmin=.05
 rmax=10
@@ -181,7 +181,7 @@ m=0;
 
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 #Linear Array of spherical coordinates
 r=collect(linspace(rmin,rmax,Nr));
 ϕ=collect(linspace(0,2π,Nθ));
@@ -197,7 +197,7 @@ x,y,z=SphtoCart(ra,θa,ϕa);
 Though I could create a wrapped up function with `Orbital(n,l,m)` and evaluate that at each point, the below evaluation takes advantage of the separability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 Ψ=zeros(Float64,Nr,Nϕ,Nθ)
 θd=Int64(round(Nθ/2))  ## gives approximately the equator.  Will be useful later
 
@@ -217,7 +217,7 @@ end
 {% endhighlight %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 pygui(false)
 xlabel("θ")
 ylabel("Ψ")
@@ -237,7 +237,7 @@ plot(θ,reshape(Ψ[50,:,1],100)) #reshape makes Ψ 1D
 {% include image.html img="M4/Images/Orbitals/angular1di.png" title="2p Angle Slice" caption="A slice along the θ plane showing an angular node for the 2p orbital."%}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 pygui(false)
 xlabel("r")
 ylabel("Ψ")
@@ -249,7 +249,7 @@ plot(r,reshape(Ψ[:,50,1],100)) #reshape makes Ψ 1D
 {% include image.html img="M4/Images/Orbitals/radial1di.png" title="3p Radial Slice" caption="A slice along the radial plane showing a radial node in the 3p orbital." %}
 
 
-{% highlight MATLAB %}
+{% highlight julia %}
 #rap=squeeze(ra[:,:,50],3)
 #θap=squeeze(θa[:,:,50],3)
 #ϕap=squeeze(ϕa[:,:,50],3)
