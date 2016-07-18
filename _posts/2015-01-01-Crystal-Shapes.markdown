@@ -27,7 +27,7 @@ For consistency, we have to put a constraint on these vectors; we cannot combine
 Stay tuned for a later post where we explore more elaborate lattices.
 
 
-{% highlight julia %}
+{% highlight Julia %}
 # importing our packages
 Pkg.add("PyPlot");
 Pkg.update();
@@ -52,7 +52,7 @@ Note: Square is Simple Cubic for Nz=1
 Also, input the size of lattice you want to look at.
 
 
-{% highlight julia %}
+{% highlight Julia %}
 lattice="sc";
 
 Nx=3;
@@ -61,7 +61,7 @@ Nz=3;
 {% endhighlight %}
 
 
-{% highlight julia %}
+{% highlight Julia %}
 # A cell to just evaluate
 # This one sets the unit vectors (a,b,c) for the different unit cells
 # Can you guess what a lattice will look like by looking at the vectors?
@@ -93,7 +93,7 @@ end
 
 
 
-{% highlight julia %}
+{% highlight Julia %}
 # Another cell to just evaluate
 # Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz;    #The total number of sites
@@ -108,7 +108,7 @@ X=Array{Float64}(N,3);  #where we store the positions
 
 
 
-{% highlight julia %}
+{% highlight Julia %}
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
@@ -135,7 +135,7 @@ end
 </div>
 
 
-{% highlight julia %}
+{% highlight Julia %}
 pygui(false);  #if true, launches new window with interactive capabilities
 
 drawcube=true;  #gives lines for a cube, helps interpret the dots

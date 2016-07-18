@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="141.42mm" height="100mm" viewBox="0 0 141.42 100"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="img-761a7933-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-761a7933-2">
+    <text x="76.01" y="88.39" text-anchor="middle" dy="0.6em">x</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-761a7933-3">
+    <text x="17.59" y="81.71" text-anchor="middle" dy="0.6em">0</text>
+    <text x="55.04" y="81.71" text-anchor="middle" dy="0.6em">π</text>
+    <text x="92.5" y="81.71" text-anchor="middle" dy="0.6em">2 π</text>
+    <text x="129.95" y="81.71" text-anchor="middle" dy="0.6em">3 π</text>
+  </g>
+<g clip-path="url(#img-761a7933-4)">
+  <g id="img-761a7933-5">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-761a7933-6">
+      <rect x="15.59" y="5" width="120.83" height="75.71"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-761a7933-7">
+      <path fill="none" d="M17.59,5 L 17.59 80.71"/>
+      <path fill="none" d="M55.04,5 L 55.04 80.71"/>
+      <path fill="none" d="M92.5,5 L 92.5 80.71"/>
+      <path fill="none" d="M129.95,5 L 129.95 80.71"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-761a7933-8">
+      <path fill="none" d="M15.59,78.71 L 136.42 78.71"/>
+      <path fill="none" d="M15.59,42.86 L 136.42 42.86"/>
+      <path fill="none" d="M15.59,7 L 136.42 7"/>
+    </g>
+    <g class="plotpanel" id="img-761a7933-9">
+      <g class="geometry" id="img-761a7933-10">
+        <g class="color_RGBA{Float32}(0.0f0,0.74736935f0,1.0f0,1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="img-761a7933-11">
+          <use xlink:href="#img-761a7933-12" x="29.51" y="23.48"/>
+          <use xlink:href="#img-761a7933-12" x="34.28" y="36.76"/>
+          <use xlink:href="#img-761a7933-12" x="39.05" y="51"/>
+          <use xlink:href="#img-761a7933-12" x="43.82" y="63.96"/>
+          <use xlink:href="#img-761a7933-12" x="48.59" y="73.58"/>
+          <use xlink:href="#img-761a7933-12" x="53.36" y="78.36"/>
+          <use xlink:href="#img-761a7933-12" x="58.12" y="77.52"/>
+          <use xlink:href="#img-761a7933-12" x="62.89" y="71.22"/>
+          <use xlink:href="#img-761a7933-12" x="67.66" y="60.44"/>
+          <use xlink:href="#img-761a7933-12" x="72.43" y="46.88"/>
+          <use xlink:href="#img-761a7933-12" x="77.2" y="32.69"/>
+          <use xlink:href="#img-761a7933-12" x="81.97" y="20.1"/>
+          <use xlink:href="#img-761a7933-12" x="86.74" y="11.1"/>
+          <use xlink:href="#img-761a7933-12" x="91.5" y="7.12"/>
+          <use xlink:href="#img-761a7933-12" x="96.27" y="8.78"/>
+          <use xlink:href="#img-761a7933-12" x="101.04" y="15.82"/>
+          <use xlink:href="#img-761a7933-12" x="105.81" y="27.13"/>
+          <use xlink:href="#img-761a7933-12" x="110.58" y="40.92"/>
+          <use xlink:href="#img-761a7933-12" x="115.35" y="55.02"/>
+          <use xlink:href="#img-761a7933-12" x="120.12" y="67.19"/>
+          <use xlink:href="#img-761a7933-12" x="124.88" y="75.53"/>
+          <use xlink:href="#img-761a7933-12" x="129.65" y="78.7"/>
+          <use xlink:href="#img-761a7933-12" x="134.42" y="76.22"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-761a7933-13">
+    <text x="14.59" y="78.71" text-anchor="end" dy="0.35em">-1</text>
+    <text x="14.59" y="42.86" text-anchor="end" dy="0.35em">0</text>
+    <text x="14.59" y="7" text-anchor="end" dy="0.35em">1</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-761a7933-14">
+    <text x="8.81" y="42.86" text-anchor="end" dy="0.35em">y</text>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-761a7933-4">
+  <path d="M15.59,5 L 136.42 5 136.42 80.71 15.59 80.71" />
+</clipPath>
+  <g id="img-761a7933-12">
+    <circle cx="0" cy="0" r="0.9"/>
+  </g>
+</defs>
+</svg>

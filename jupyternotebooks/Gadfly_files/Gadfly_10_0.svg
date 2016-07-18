@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="141.42mm" height="100mm" viewBox="0 0 141.42 100"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="img-dfe970e3-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-dfe970e3-2">
+    <text x="76.01" y="88.39" text-anchor="middle" dy="0.6em">x</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-dfe970e3-3">
+    <text x="17.59" y="81.72" text-anchor="middle" dy="0.6em">0.0</text>
+    <text x="46.8" y="81.72" text-anchor="middle" dy="0.6em">2.5</text>
+    <text x="76.01" y="81.72" text-anchor="middle" dy="0.6em">5.0</text>
+    <text x="105.21" y="81.72" text-anchor="middle" dy="0.6em">7.5</text>
+    <text x="134.42" y="81.72" text-anchor="middle" dy="0.6em">10.0</text>
+  </g>
+<g clip-path="url(#img-dfe970e3-4)">
+  <g id="img-dfe970e3-5">
+    <g pointer-events="visible" opacity="1" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-dfe970e3-6">
+      <rect x="15.59" y="5" width="120.83" height="75.72"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-dfe970e3-7">
+      <path fill="none" d="M15.59,78.71 L 136.42 78.71"/>
+      <path fill="none" d="M15.59,60.79 L 136.42 60.79"/>
+      <path fill="none" d="M15.59,42.86 L 136.42 42.86"/>
+      <path fill="none" d="M15.59,24.93 L 136.42 24.93"/>
+      <path fill="none" d="M15.59,7 L 136.42 7"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-dfe970e3-8">
+      <path fill="none" d="M17.59,5 L 17.59 80.72"/>
+      <path fill="none" d="M46.8,5 L 46.8 80.72"/>
+      <path fill="none" d="M76.01,5 L 76.01 80.72"/>
+      <path fill="none" d="M105.21,5 L 105.21 80.72"/>
+      <path fill="none" d="M134.42,5 L 134.42 80.72"/>
+    </g>
+    <g class="plotpanel" id="img-dfe970e3-9">
+      <g class="geometry color_RGB{Float32}(0.0f0,0.74736935f0,1.0f0)" stroke-width="0.3" stroke="#0096D4" id="img-dfe970e3-10">
+        <path fill="none" d="M27.78,29.56 L 30.78 29.56"/>
+        <path fill="none" d="M32.45,26.98 L 35.45 26.98"/>
+        <path fill="none" d="M37.12,27.19 L 40.12 27.19"/>
+        <path fill="none" d="M41.79,30.16 L 44.79 30.16"/>
+        <path fill="none" d="M46.47,35.41 L 49.47 35.41"/>
+        <path fill="none" d="M51.14,42.12 L 54.14 42.12"/>
+        <path fill="none" d="M55.81,49.23 L 58.81 49.23"/>
+        <path fill="none" d="M60.49,55.62 L 63.49 55.62"/>
+        <path fill="none" d="M65.16,60.28 L 68.16 60.28"/>
+        <path fill="none" d="M69.83,62.47 L 72.83 62.47"/>
+        <path fill="none" d="M74.51,61.84 L 77.51 61.84"/>
+        <path fill="none" d="M79.18,58.51 L 82.18 58.51"/>
+        <path fill="none" d="M83.85,52.98 L 86.85 52.98"/>
+        <path fill="none" d="M88.53,46.14 L 91.53 46.14"/>
+        <path fill="none" d="M93.2,39.06 L 96.2 39.06"/>
+        <path fill="none" d="M97.87,32.87 L 100.87 32.87"/>
+        <path fill="none" d="M102.55,28.54 L 105.55 28.54"/>
+        <path fill="none" d="M107.22,26.75 L 110.22 26.75"/>
+        <path fill="none" d="M111.89,27.78 L 114.89 27.78"/>
+        <path fill="none" d="M116.57,31.48 L 119.57 31.48"/>
+        <path fill="none" d="M121.24,37.26 L 124.24 37.26"/>
+        <path fill="none" d="M125.91,44.21 L 128.91 44.21"/>
+        <path fill="none" d="M130.58,51.22 L 133.58 51.22"/>
+        <path fill="none" d="M29.28,25.98 L 29.28 29.56"/>
+        <path fill="none" d="M33.95,23.4 L 33.95 26.98"/>
+        <path fill="none" d="M38.62,23.6 L 38.62 27.19"/>
+        <path fill="none" d="M43.29,26.57 L 43.29 30.16"/>
+        <path fill="none" d="M47.97,31.82 L 47.97 35.41"/>
+        <path fill="none" d="M52.64,38.53 L 52.64 42.12"/>
+        <path fill="none" d="M57.31,45.65 L 57.31 49.23"/>
+        <path fill="none" d="M61.99,52.03 L 61.99 55.62"/>
+        <path fill="none" d="M66.66,56.69 L 66.66 60.28"/>
+        <path fill="none" d="M71.33,58.88 L 71.33 62.47"/>
+        <path fill="none" d="M76.01,58.26 L 76.01 61.84"/>
+        <path fill="none" d="M80.68,54.92 L 80.68 58.51"/>
+        <path fill="none" d="M85.35,49.39 L 85.35 52.98"/>
+        <path fill="none" d="M90.03,42.55 L 90.03 46.14"/>
+        <path fill="none" d="M94.7,35.48 L 94.7 39.06"/>
+        <path fill="none" d="M99.37,29.29 L 99.37 32.87"/>
+        <path fill="none" d="M104.05,24.95 L 104.05 28.54"/>
+        <path fill="none" d="M108.72,23.16 L 108.72 26.75"/>
+        <path fill="none" d="M113.39,24.2 L 113.39 27.78"/>
+        <path fill="none" d="M118.07,27.9 L 118.07 31.48"/>
+        <path fill="none" d="M122.74,33.68 L 122.74 37.26"/>
+        <path fill="none" d="M127.41,40.62 L 127.41 44.21"/>
+        <path fill="none" d="M132.08,47.64 L 132.08 51.22"/>
+        <path fill="none" d="M27.78,25.98 L 30.78 25.98"/>
+        <path fill="none" d="M32.45,23.4 L 35.45 23.4"/>
+        <path fill="none" d="M37.12,23.6 L 40.12 23.6"/>
+        <path fill="none" d="M41.79,26.57 L 44.79 26.57"/>
+        <path fill="none" d="M46.47,31.82 L 49.47 31.82"/>
+        <path fill="none" d="M51.14,38.53 L 54.14 38.53"/>
+        <path fill="none" d="M55.81,45.65 L 58.81 45.65"/>
+        <path fill="none" d="M60.49,52.03 L 63.49 52.03"/>
+        <path fill="none" d="M65.16,56.69 L 68.16 56.69"/>
+        <path fill="none" d="M69.83,58.88 L 72.83 58.88"/>
+        <path fill="none" d="M74.51,58.26 L 77.51 58.26"/>
+        <path fill="none" d="M79.18,54.92 L 82.18 54.92"/>
+        <path fill="none" d="M83.85,49.39 L 86.85 49.39"/>
+        <path fill="none" d="M88.53,42.55 L 91.53 42.55"/>
+        <path fill="none" d="M93.2,35.48 L 96.2 35.48"/>
+        <path fill="none" d="M97.87,29.29 L 100.87 29.29"/>
+        <path fill="none" d="M102.55,24.95 L 105.55 24.95"/>
+        <path fill="none" d="M107.22,23.16 L 110.22 23.16"/>
+        <path fill="none" d="M111.89,24.2 L 114.89 24.2"/>
+        <path fill="none" d="M116.57,27.9 L 119.57 27.9"/>
+        <path fill="none" d="M121.24,33.68 L 124.24 33.68"/>
+        <path fill="none" d="M125.91,40.62 L 128.91 40.62"/>
+        <path fill="none" d="M130.58,47.64 L 133.58 47.64"/>
+      </g>
+      <g class="geometry" id="img-dfe970e3-11">
+        <g class="color_RGBA{Float32}(0.0f0,0.74736935f0,1.0f0,1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="img-dfe970e3-12">
+          <use xlink:href="#img-dfe970e3-13" x="29.28" y="27.77"/>
+          <use xlink:href="#img-dfe970e3-13" x="33.95" y="25.19"/>
+          <use xlink:href="#img-dfe970e3-13" x="38.62" y="25.4"/>
+          <use xlink:href="#img-dfe970e3-13" x="43.29" y="28.36"/>
+          <use xlink:href="#img-dfe970e3-13" x="47.97" y="33.62"/>
+          <use xlink:href="#img-dfe970e3-13" x="52.64" y="40.33"/>
+          <use xlink:href="#img-dfe970e3-13" x="57.31" y="47.44"/>
+          <use xlink:href="#img-dfe970e3-13" x="61.99" y="53.83"/>
+          <use xlink:href="#img-dfe970e3-13" x="66.66" y="58.48"/>
+          <use xlink:href="#img-dfe970e3-13" x="71.33" y="60.67"/>
+          <use xlink:href="#img-dfe970e3-13" x="76.01" y="60.05"/>
+          <use xlink:href="#img-dfe970e3-13" x="80.68" y="56.71"/>
+          <use xlink:href="#img-dfe970e3-13" x="85.35" y="51.19"/>
+          <use xlink:href="#img-dfe970e3-13" x="90.03" y="44.35"/>
+          <use xlink:href="#img-dfe970e3-13" x="94.7" y="37.27"/>
+          <use xlink:href="#img-dfe970e3-13" x="99.37" y="31.08"/>
+          <use xlink:href="#img-dfe970e3-13" x="104.05" y="26.74"/>
+          <use xlink:href="#img-dfe970e3-13" x="108.72" y="24.95"/>
+          <use xlink:href="#img-dfe970e3-13" x="113.39" y="25.99"/>
+          <use xlink:href="#img-dfe970e3-13" x="118.07" y="29.69"/>
+          <use xlink:href="#img-dfe970e3-13" x="122.74" y="35.47"/>
+          <use xlink:href="#img-dfe970e3-13" x="127.41" y="42.41"/>
+          <use xlink:href="#img-dfe970e3-13" x="132.08" y="49.43"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-dfe970e3-14">
+    <text x="14.59" y="78.71" text-anchor="end" dy="0.35em">-2</text>
+    <text x="14.59" y="60.79" text-anchor="end" dy="0.35em">-1</text>
+    <text x="14.59" y="42.86" text-anchor="end" dy="0.35em">0</text>
+    <text x="14.59" y="24.93" text-anchor="end" dy="0.35em">1</text>
+    <text x="14.59" y="7" text-anchor="end" dy="0.35em">2</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-dfe970e3-15">
+    <text x="8.81" y="42.86" text-anchor="end" dy="0.35em">y</text>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-dfe970e3-4">
+  <path d="M15.59,5 L 136.42 5 136.42 80.72 15.59 80.72" />
+</clipPath>
+  <g id="img-dfe970e3-13">
+    <circle cx="0" cy="0" r="0.9"/>
+  </g>
+</defs>
+</svg>
