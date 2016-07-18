@@ -1,6 +1,7 @@
 name: M4
 markdown: kramdown
 highlighter: rouge
+allurl: albi3ro.github.io/M4
 baseurl: /M4
 permalink: none
 gems:
