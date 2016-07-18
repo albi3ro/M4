@@ -19,3 +19,4 @@
 
 # Programming
 * HDF5 in Julia
+* Gadfly
