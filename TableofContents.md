@@ -8,7 +8,8 @@
     * Atomic Orbitals
     * Atomic Orbitals 2
     * QHO - Quantum Harmonic Osscillator
-
+* Statistical Mechanics
+    * Monte Carlo Ferromagnet
 
 # Numerics
 * Exact Diagonalization
@@ -20,3 +21,4 @@
 # Programming
 * HDF5 in Julia
 * Gadfly
+* Julia with MKL on OSX
