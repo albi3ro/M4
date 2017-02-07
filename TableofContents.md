@@ -16,7 +16,9 @@
     * Jacobi Transformation
 * Monte Carlo
     * Monte Carlo: Calculation of Pi
-    * Monte Carlo Markov Cahin  
+    * Monte Carlo Markov Chain
+* ODE's
+    * Runge-Kutta Methods
 
 # Programming
 * HDF5 in Julia
