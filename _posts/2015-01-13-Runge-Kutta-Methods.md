@@ -15,7 +15,7 @@ description:  An introduction to the Runge-Kutta class of Ordinary Differential 
 
 So what's an <i>Ordinary Differential Equation</i>?
 
-Differential Equation means we have some equation (or equations) that have derivatives in them.  
+Differential Equation means we have some equation, or equations, that have derivatives in them.  
 
 The <i>ordinary</i> part differentiates them from <i>partial</i> differential equations, the ones with curly $\partial$ derivatives.  Here, we only have one <b>independent</b> variable, let's call it $t$, and one or more <b>dependent</b>  variables, let's call them $x_1, x_2, ...$.  In partial differential equations, we can have more than one independent variable.
 
