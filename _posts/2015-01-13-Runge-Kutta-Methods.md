@@ -20,21 +20,29 @@ Differential Equation means we have some equation (or equations) that have deriv
 The <i>ordinary</i> part differentiates them from <i>partial</i> differential equations, the ones with curly $\partial$ derivatives.  Here, we only have one <b>independent</b> variable, let's call it $t$, and one or more <b>dependent</b>  variables, let's call them $x_1, x_2, ...$.  In partial differential equations, we can have more than one independent variable.
 
 This ODE can either be written as a system of the form
+
 $$
 \frac{d x_1}{dt}=f_1(t,x_1,x_2,...,x_n)
 $$
+
 $$
 \frac{d x_2}{dt}=f_2(t,x_1,x_2,...,x_n)
 $$
+
 ...
+
 $$
 \frac{d x_n}{dt}=f_n(t,x_1,x_n,...,x_n)
 $$
+
 or a single n'th order ODE of the form
+
 $$
 f_n(t,x) \frac{d^n x}{dt^n}+...+f_1(t,x) \frac{dx}{dt}+f_0(t,x)=0
 $$
+
 that can be rewritten in terms of a system of first order equations by performing variable substitutions such as
+
 $$
 \frac{d^i x}{dt^i}=x_i
 $$
