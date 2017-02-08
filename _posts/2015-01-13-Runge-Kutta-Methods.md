@@ -110,12 +110,16 @@ First published in Euler's <i>Instutionum calculi integralis</i> in 1768, this m
 We march along with step size $h$, and at each new point, calculate the slope.  The slope gives us our new direction to travel for the next $h$.
 
 We can determine the error from the Taylor expansion of the function
+
 $$
 x_{n+1}=x_n+h f(x_n,t) + \mathcal{O}(h^2).
 $$
+
 In case you haven't seen it before, the notation $\mathcal{O}(x)$ stands for "errors of the order x".
 Summing over the entire interval, we accumuluate error according to
+
 $$N\mathcal{O}(h^2)= \frac{x_f-x_0}{h}\mathcal{O}(h^2)=h $$,
+
 making this a <b>first order</b> method.  Generally, if a technique is $n$th order in the Taylor expansion for one step, its $(n-1)$th order over the interval.
 
 ```julia
@@ -134,12 +138,15 @@ end
 
 
 If $f(t,x)$ has a form that is invertible, we can form a specific expression for the next step.  For example, if we use our exponential,
+
 $$
 x_{n+1}=x_n+ h f(t_{n+1},x_{n+1})
 $$
+
 $$
 x_{n+1}-h x_{n+1}=x_n
 $$
+
 $$
 x_{n+1}=\frac{x_n}{1-h}
 $$
@@ -157,19 +164,25 @@ end
 So in the Euler Method, we could just make more, tinier steps to achieve more precise results. Here, we make <i>bettter</i> steps.  Each step itself takes more work than a step in the first order methods, but we win by having to perform fewer steps.
 
 This time, we are going to work with the Taylor expansion up to second order,
+
 $$
 x_{n+1}=x_n+h f(t_n,x_n) + \frac{h^2}{2} f^{\prime}(t_n,x_n)+ \mathcal{O} (h^3).
 $$
 
 Define
+
 $$
 k_1=f(t_n,x_n),
 $$
+
 so that we can write down the derivative of our $f$ function, and the second derivative (curvature), of our solution,
+
 $$
 f^{\prime}(t_n,x_n)=\frac{f(t_n+h/2,x_n+h k_1/2)-k_1}{h/2}+\mathcal{O}(h^2).
 $$
+
 Plugging this expression back into our Taylor expansion, we get a new expression for $x_{n+1}$
+
 $$
 x_{n+1}=x_n+hf(t_n+h/2,x_n+h k_1/2)+\mathcal{O}(h^3)
 $$
@@ -200,18 +213,23 @@ Wait! Where's 3rd order? There exists a 3rd order method, but I only just heard 
 $$
 k_1= f(t_n,x_n)
 $$
+
 $$
 k_2= f(t_n+h/2,x_n+h k_1/2)
 $$
+
 $$
 k_3 = f(t_n+h/2, x_n+h k_2/2)
 $$
+
 $$
 k_4 = f(t_n+h,x_n+h k_3)
 $$
+
 $$
 x_{n+1}=x_n+\frac{h}{6}\left(k_1+2 k_2+ 2k_3 +k_4 \right)
 $$
+
 I'm not going to prove here that the method is fourth order, but we will see numerically that it is.
 
 <i>Note:</i> I premultiply the $h$ in my code to reduce the number of times I have to multiply $h$.
@@ -425,13 +443,17 @@ width="600px" height="600px"></iframe>
 
 ## Arbitrary Order
 While I have presented 4 concrete examples, many more exist. For any choice of variables $a_i, \beta_{i,j},a_i$ that fulfill
+
 $$
 x_{n+1}=x_n+h\left(\sum_{i=1}^s a_i k_i \right)+ \mathcal{O}(h^p)
 $$
+
 with
+
 $$
 k_i=f\left(t_n+\alpha_i h,x_n+h\left(\sum_{j=1}^s \beta_{ij} k_j \right) \right)
 $$
+
 we have a Runge-Kutta method of order $p$, where $p\geq s$.  The Butcher tableau provides a set of consistent coefficients.
 
 
