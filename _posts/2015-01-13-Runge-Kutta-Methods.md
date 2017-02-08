@@ -307,7 +307,7 @@ Theme(highlight_width=0pt,default_color=green,
 default_point_size=3pt))
 ```
 <iframe src="/M4/Images/ODE/exp.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="600px"></iframe>
+width="600px" height="400px"></iframe>
 
 ```julia
 lEU=layer(x=tEU,y=xEU[1,:],Geom.point,
@@ -335,7 +335,7 @@ Guide.manual_color_key("Legend",["Euler","Implicit","RK2","RK4","Exact"],
 Coord.cartesian(xmin=9.5,xmax=10.1))
 ```
 <iframe src="/M4/Images/ODE/comp_exp.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="600px"></iframe>
+width="600px" height="400px"></iframe>
 
 ```julia
 lEU=layer(x=xi,y=errEU,Geom.point,
@@ -359,7 +359,7 @@ Guide.manual_color_key("Legend",["Euler","Implicit","RK2","RK4"],
 [green,yellow,cyan,violet]))
 ```
 <iframe src="/M4/Images/ODE/comp_err.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="600px"></iframe>
+width="600px" height="400px"></iframe>
 
 ## Scaling of the Error
 
@@ -439,7 +439,7 @@ vstack(hstack(p2,p4),pEU)
 ```
 
 <iframe src="/M4/Images/ODE/err_scale.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="600px"></iframe>
+width="600px" height="400px"></iframe>
 
 ## Arbitrary Order
 While I have presented 4 concrete examples, many more exist. For any choice of variables $a_i, \beta_{i,j},a_i$ that fulfill
