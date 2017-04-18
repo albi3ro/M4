@@ -8,7 +8,7 @@
     * Atomic Orbitals
     * Atomic Orbitals 2
     * QHO - Quantum Harmonic Osscillator
-* Magnet
+* Statistical Mechanics
     * Monte Carlo Ferromagnet
 
 #Graduate
@@ -21,8 +21,8 @@
 * Monte Carlo
     * Monte Carlo: Calculation of Pi
     * Monte Carlo Markov Chain
-* ODE
-    * Runge-Kutta Methods  
+* ODE's
+    * Runge-Kutta Methods
 
 # Programming
 * HDF5 in Julia
