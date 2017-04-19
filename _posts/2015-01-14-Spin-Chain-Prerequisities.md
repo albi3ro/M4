@@ -5,7 +5,7 @@ comments: True
 category: Graduate
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/SpinChainED/mag.png"
-tags: [Magnet][Quantum][Exact Diagonalization]
+tags: [Magnet],[Quantum],[Exact Diagonalization]
 description: The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenburg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers.
 ---
 
