@@ -69,9 +69,12 @@ ul, ol, dl, figure,
     }
 }
 
-table{
-  border: 1em solid black;
-  padding: 3em;
+table, th, td{
+  border: .01em solid black;
+  padding: .01em;
+}
+table {
+    border-collapse: collapse;
 }
 
 /**
