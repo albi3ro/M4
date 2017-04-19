@@ -40,14 +40,19 @@ Spin only interacts with two neighbors.
 ## The Hamiltonians
 
 Our Hamiltonian has the general form,
+
 \begin{equation}
 {\cal H} = \sum_i J_x S_i^x S_{i+1}^x + J_y S_i^y S_{i+1}^y + J_z S_i^z S_{i+1}^z
 \end{equation}
+
 or we can restrict it to the case of $J_x=J_y$ to get the more convenient form,
+
 \begin{equation}
 {\cal H} = \sum_i J_{XY} \left(S^+_i S^-_{i+1}+S^-_i S^+_{i+1} \right) +J_z S_i^z S_{i+1}^z.
 \end{equation}
+
 Here $S^{x,y,z}$ are our Pauli operators
+
 \begin{equation}
 S^x=\begin{bmatrix}
 0 & 1 \\
@@ -64,7 +69,9 @@ S^z=\begin{bmatrix}
 0    &    -1    \\
 \end{bmatrix},
 \end{equation}
+
 and $S^{\pm}$ are the ladder operators
+
 \begin{equation}
 S^+=\frac{S^x+i S^y}{2} = \begin{bmatrix}
 0 & 1 \\
