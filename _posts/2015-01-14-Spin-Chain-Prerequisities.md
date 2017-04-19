@@ -9,14 +9,10 @@ tags:
   Magnet
   Quantum
   ED
-description: The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenburg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers.
+description: The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenberg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers.
 ---
 
-# Exact Diagonalization Theory Prerequisites
-
-## Christina Lee
-
-## Category: Grad
+clone jupyter notebook: [https://github.com/albi3ro/M4.git](https://github.com/albi3ro/M4.git)
 
 Today's just background :(  I found my post getting a bit bloated, so I decided to pull most of the talking into an introduction post for the series.   Keep reading to learn how to compute, diagonalize, and analyze the matrix corresponding to a many-body, strongly interacting quantum mechanical system.  
 
@@ -26,14 +22,14 @@ For further information, take a look at this set of lecture notes on the arXiv, 
 
 
 _______________________
-## So what is a 1D Heisenburg Spin $\frac{1}{2}$ Chain?
+## So what is a 1D Heisenberg Spin $\frac{1}{2}$ Chain?
 Let's break down each part of that phrase.  
 
 #### Spin $\frac{1}{2} $
 At each site, we can have a particle pointing up $| \uparrow \rangle$, down $|\downarrow \rangle$, or some super-position of the two.  
 
-### Heisenburg
-Our spin has three degrees of freedom and full $SU(2)$ symmetry.  $SU(2)$ is the mathematical group that describes a spin's degrees of freedom. Once we have solved the physics of the Heisenburg case, we also have solved the <i>XY model</i> ($J_z=0$) and the <i>Ising model</i> $J_x=J_y=0$. As we change the model, we also change the symmetry group first to $SO(2)$ for the XY model and then $\mathbb{Z}_2$ for the Ising model.
+### Heisenberg
+Our spin has three degrees of freedom and full $SU(2)$ symmetry.  $SU(2)$ is the mathematical group that describes a spin's degrees of freedom. Once we have solved the physics of the Heisenberg case, we also have solved the <i>XY model</i> ($J_z=0$) and the <i>Ising model</i> $J_x=J_y=0$. As we change the model, we also change the symmetry group first to $SO(2)$ for the XY model and then $\mathbb{Z}_2$ for the Ising model.
 
 ### 1D Chain
 Spin only interacts with two neighbors.
@@ -109,7 +105,7 @@ $$
              --- someone
 
 
-The Ising, XY, and Heisenburg cases all fall into the special class of problems which have exact solutions in the infinite size limit.  Very few exact solutions of quantum mechanics problems exist, so we try and get as much mileage as we can out of the couple of ones we have.  
+The Ising, XY, and Heisenberg cases all fall into the special class of problems which have exact solutions in the infinite size limit.  Very few exact solutions of quantum mechanics problems exist, so we try and get as much mileage as we can out of the couple of ones we have.  
 
 Interestingly enough, once one solution to a problem comes along, someone figures out a different way to approach the same problem.
 
@@ -123,7 +119,7 @@ $$
 
 I might write a full article on this later.  
 
-Performing a Jordan-Wigner transformation on the full Heisenburg model gives a four-operator scattering term.  The Bethe Ansatz, which I honestly don't know anything about, solves the full 1D Heisenburg Model, as well as some 1D Bose gas and Hubbard model problems.  Come back to me in many years, or ask a Russian mathematician.  
+Performing a Jordan-Wigner transformation on the full Heisenberg model gives a four-operator scattering term.  The Bethe Ansatz, which I honestly don't know anything about, solves the full 1D Heisenberg Model, as well as some 1D Bose gas and Hubbard model problems.  Come back to me in many years, or ask a Russian mathematician.  
 
 ## Noether's Theorem: Symmetries and Conserved Quantities
 
