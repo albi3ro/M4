@@ -216,12 +216,12 @@ Once we have magnetization for a state, a conserved quantity, we also have magne
 
 We could continue to look at the binary format of a number by calling `bin`, but that converts the number to an array of strings.  So instead we want to perform bitwise operations to determine what the binary format looks like in terms of numbers.
 
-Julia supports bitwise <b>not, and, xor </b> (exclusive or), logical shift right, arithmetic shift right, and logical/ arithmetic shift left.  For our purposes, we will only be interested in <b>and</b> and <b>xor</b> .
+Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right, arithmetic shift right, and logical/ arithmetic shift left.  For our purposes, we will only be interested in <b>and</b> and <b>xor</b> .
 
 <b>and</b> takes in two inputs and produces one output, given by the following logic table:
 
 a|b|a&b
-:---:|:--:|:-----:
+---|--|-----
  0 | 0 |  0  
  1 | 0 |  0  
  0 | 1 |  0  
