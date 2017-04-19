@@ -53,22 +53,22 @@ or we can restrict it to the case of $J_x=J_y$ to get the more convenient form,
 
 Here $S^{x,y,z}$ are our Pauli operators
 
-\begin{equation}
-S^x=\begin{bmatrix}
+$$
+S^x=\begin{pmatrix}
 0 & 1 \\
 1 & 0 \\
-\end{bmatrix}
+\end{pmatrix}
 \;\;\;\;\;\;\;
-S^y=\begin{bmatrix}
+S^y=\begin{pmatrix}
 0    &    -i    \\
 i    &    0    \\
-\end{bmatrix}
+\end{pmatrix}
 \;\;\;\;\;\;\;
-S^z=\begin{bmatrix}
+S^z=\begin{pmatrix}
 1    &    0    \\
 0    &    -1    \\
-\end{bmatrix},
-\end{equation}
+\end{pmatrix},
+$$
 
 and $S^{\pm}$ are the ladder operators
 
