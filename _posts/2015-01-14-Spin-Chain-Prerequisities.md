@@ -225,6 +225,7 @@ Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right,
 
 <center>
 <table>
+  <tr>
     <th> a</th>
     <th> b</th>
     <th> a&b</th>
