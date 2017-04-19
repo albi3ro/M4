@@ -3,7 +3,7 @@ title: Jacobi Transformation of a Symmetric Matrix
 layout: post
 comments: True
 category: Numerics
-tags: [Exact Diagonalization]
+tags: ED
 author: Christina C. Lee
 ---
 
