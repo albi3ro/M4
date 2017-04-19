@@ -224,6 +224,7 @@ Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right,
 <b>and</b> takes in two inputs and produces one output, given by the following logic table:
 
 <center>
+<table>
     <th> a</th>
     <th> b</th>
     <th> a&b</th>
