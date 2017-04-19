@@ -220,6 +220,7 @@ Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right,
 
 <b>and</b> takes in two inputs and produces one output, given by the following logic table:
 
+<center>
 <table>
   <tr>
     <th> a</th>
@@ -247,7 +248,7 @@ Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right,
     <td> 1</td>
   </tr>
 </table>
-
+</center>
 Julia's `&` is the bitwise operation and.  That means if I combine two numbers, it states the overlap between the two. 1 overlaps with 1; 2 overlaps with 2; 3 overlaps with 2 and 1.
 
 We will use this to compute magnetization.
