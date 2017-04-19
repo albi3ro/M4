@@ -72,17 +72,17 @@ $$
 
 and $S^{\pm}$ are the ladder operators
 
-\begin{equation}
-S^+=\frac{S^x+i S^y}{2} = \begin{bmatrix}
+$$
+S^+=\frac{S^x+i S^y}{2} = \begin{pmatrix}
 0 & 1 \\
 0 & 0\\
-\end{bmatrix}
+\end{pmatrix}
 \;\;\;\;\;\;\;
-S^- =\frac{S^x-i S^y}{2}= \begin{bmatrix}
+S^- =\frac{S^x-i S^y}{2}= \begin{pmatrix}
 0 & 0 \\
 1 & 0\\
-\end{bmatrix}.
-\end{equation}
+\end{pmatrix}.
+$$
 
 
 Assuming we write our basis states in the $S^z_i$ basis, we can divide the terms from the restricted Hamiltonian into on-diagonal and off-diagonal terms.  The $S^z_i S^z_{i+1}$ terms compute the magnetization squared, $\vec{S} \cdot \vec{S} $, for a given state and a conserved quantity.  These also lie on the diagonal of the matrix corresponding to the Hamiltonian.
