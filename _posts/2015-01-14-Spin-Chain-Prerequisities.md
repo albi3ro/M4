@@ -86,15 +86,18 @@ $$
 
 
 Assuming we write our basis states in the $S^z_i$ basis, we can divide the terms from the restricted Hamiltonian into on-diagonal and off-diagonal terms.  The $S^z_i S^z_{i+1}$ terms compute the magnetization squared, $\vec{S} \cdot \vec{S} $, for a given state and a conserved quantity.  These also lie on the diagonal of the matrix corresponding to the Hamiltonian.
-\begin{equation}
+
+$$
 | \Psi_{i} \rangle = H_{ii} |\Psi_i \rangle
 = J_{z} \sum_m S_m^z S^z_{m+1}  |\Psi_i \rangle
-\end{equation}
+$$
+
 The ladder terms, when applied as an operator to the state, create a new state.  Thus they act as off-diagonal terms.
-\begin{equation}
+
+$$
 | \Psi_{j} \rangle = H_{ij} |\Psi_i \rangle
 = J_{XY} \sum_m \left( S^+_m S^-_{m+1} + S^-_m S^+_{m+1}\right) |\Psi_i \rangle
-\end{equation}
+$$
 
 
 ## Analytical Solutions
@@ -110,9 +113,11 @@ Interestingly enough, once one solution to a problem comes along, someone figure
 The 1D Quantum Ising Model is equivalent to the [2D Ising model of classical statistical mechanics](http://albi3ro.github.io/M4/prerequisites/Monte-Carlo-Ferromagnet.html), exactly solved in 1944 by Lars Onsager.  The solution is also equivalent to a description of free Majorana fermions. [1]
 
 The Jordan-Wigner Transformation solves the 1D XY model by mapping spins to fermions.  This transformation only works in special 1D circumstances and the Kitaev Honeycomb model.  Since spins possess different anti-commutation relationships than fermions, we attach a string of operators stretching from infinity to each spin.  This series of operators changes the relationship between a spin and its neighbors to fermionic. After the transformation, we get a Hamiltonian that is quadratic in the fermionic momentum operators $d_k $ , $d^{\dagger}_k$, and we can see the $\cos (ka)$ dispersion relationship for the excitations,
-\begin{equation}
+
+$$
 {\cal \tilde{H}}_{XY}=-J \sum_k \cos (ka) d^{\dagger}_k d_k.
-\end{equation}
+$$
+
 I might write a full article on this later.  
 
 Performing a Jordan-Wigner transformation on the full Heisenburg model gives a four-operator scattering term.  The Bethe Ansatz, which I honestly don't know anything about, solves the full 1D Heisenburg Model, as well as some 1D Bose gas and Hubbard model problems.  Come back to me in many years, or ask a Russian mathematician.  
