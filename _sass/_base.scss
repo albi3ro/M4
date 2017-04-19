@@ -76,6 +76,9 @@ table, th, td{
 table {
     border-collapse: collapse;
 }
+th, td{
+  width: 15em;
+}
 
 /**
  * Images
