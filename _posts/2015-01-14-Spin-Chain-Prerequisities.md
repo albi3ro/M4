@@ -5,7 +5,9 @@ comments: True
 category: Graduate
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/SpinChainED/mag.png"
-tags: [Magnet]
+tags:
+  -Magnet
+  -Quantum
 description: The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenburg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers.
 ---
 
@@ -221,8 +223,6 @@ Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right,
 <b>and</b> takes in two inputs and produces one output, given by the following logic table:
 
 <center>
-<table>
-  <tr>
     <th> a</th>
     <th> b</th>
     <th> a&b</th>
