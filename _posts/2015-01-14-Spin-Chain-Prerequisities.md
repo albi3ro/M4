@@ -30,27 +30,25 @@ Let's break down each part of that phrase.
 At each site, we can have a particle pointing up $| \uparrow \rangle$, down $|\downarrow \rangle$, or some super-position of the two.  
 
 ### Heisenburg
-Our spin has three degrees of freedom and full $SU(2)$ symmetry.  $SU(2)$ is the mathematical group that describes a spin's degrees of freedom. Once we have solved the physics of the Heisenburg case, we also have solved the <i>XY model</i> ($J_z=0$) and the <i>Ising model</i> ($J_x=J_y=0$). As we change the model, we also change the symmetry group first to $SO(2)$ for the XY model and then $\mathbb{Z}_2$ for the Ising model.
+Our spin has three degrees of freedom and full $SU(2)$ symmetry.  $SU(2)$ is the mathematical group that describes a spin's degrees of freedom. Once we have solved the physics of the Heisenburg case, we also have solved the <i>XY model</i> ($J_z=0$) and the <i>Ising model</i> $J_x=J_y=0$. As we change the model, we also change the symmetry group first to $SO(2)$ for the XY model and then $\mathbb{Z}_2$ for the Ising model.
 
 ### 1D Chain
 Spin only interacts with two neighbors.
 
-
-<iframe src="/M4/Images/SpinChainED/spinchain.svg"  style="border:none; background: #ffffff"
-width="600px" height="600px"></iframe>
+{% include image.html img="M4/Images/SpinChainED/spinchain.svg" title="Spin Chain" caption="A spin chain." %}
 
 ## The Hamiltonians
 
 Our Hamiltonian has the general form,
-$$
+\begin{equation}
 {\cal H} = \sum_i J_x S_i^x S_{i+1}^x + J_y S_i^y S_{i+1}^y + J_z S_i^z S_{i+1}^z
-$$
+\end{equation}
 or we can restrict it to the case of $J_x=J_y$ to get the more convenient form,
-$$
+\begin{equation}
 {\cal H} = \sum_i J_{XY} \left(S^+_i S^-_{i+1}+S^-_i S^+_{i+1} \right) +J_z S_i^z S_{i+1}^z.
-$$
+\end{equation}
 Here $S^{x,y,z}$ are our Pauli operators
-$$
+\begin{equation}
 S^x=\begin{bmatrix}
 0 & 1 \\
 1 & 0 \\
@@ -65,9 +63,9 @@ S^z=\begin{bmatrix}
 1    &    0    \\
 0    &    -1    \\
 \end{bmatrix},
-$$
+\end{equation}
 and $S^{\pm}$ are the ladder operators
-$$
+\begin{equation}
 S^+=\frac{S^x+i S^y}{2} = \begin{bmatrix}
 0 & 1 \\
 0 & 0\\
@@ -77,19 +75,19 @@ S^- =\frac{S^x-i S^y}{2}= \begin{bmatrix}
 0 & 0 \\
 1 & 0\\
 \end{bmatrix}.
-$$
+\end{equation}
 
 
 Assuming we write our basis states in the $S^z_i$ basis, we can divide the terms from the restricted Hamiltonian into on-diagonal and off-diagonal terms.  The $S^z_i S^z_{i+1}$ terms compute the magnetization squared, $\vec{S} \cdot \vec{S} $, for a given state and a conserved quantity.  These also lie on the diagonal of the matrix corresponding to the Hamiltonian.
-$$
+\begin{equation}
 | \Psi_{i} \rangle = H_{ii} |\Psi_i \rangle
 = J_{z} \sum_m S_m^z S^z_{m+1}  |\Psi_i \rangle
-$$
+\end{equation}
 The ladder terms, when applied as an operator to the state, create a new state.  Thus they act as off-diagonal terms.
-$$
+\begin{equation}
 | \Psi_{j} \rangle = H_{ij} |\Psi_i \rangle
 = J_{XY} \sum_m \left( S^+_m S^-_{m+1} + S^-_m S^+_{m+1}\right) |\Psi_i \rangle
-$$
+\end{equation}
 
 
 ## Analytical Solutions
@@ -105,9 +103,9 @@ Interestingly enough, once one solution to a problem comes along, someone figure
 The 1D Quantum Ising Model is equivalent to the [2D Ising model of classical statistical mechanics](http://albi3ro.github.io/M4/prerequisites/Monte-Carlo-Ferromagnet.html), exactly solved in 1944 by Lars Onsager.  The solution is also equivalent to a description of free Majorana fermions. [1]
 
 The Jordan-Wigner Transformation solves the 1D XY model by mapping spins to fermions.  This transformation only works in special 1D circumstances and the Kitaev Honeycomb model.  Since spins possess different anti-commutation relationships than fermions, we attach a string of operators stretching from infinity to each spin.  This series of operators changes the relationship between a spin and its neighbors to fermionic. After the transformation, we get a Hamiltonian that is quadratic in the fermionic momentum operators $d_k$, $d^{\dagger}_k$, and we can see the $\cos (ka)$ dispersion relationship for the excitations,
-$$
+\begin{equation}
 {\cal \tilde{H}}_{XY}=-J \sum_k \cos (ka) d^{\dagger}_k d_k.
-$$
+\end{equation}
 I might write a full article on this later.  
 
 Performing a Jordan-Wigner transformation on the full Heisenburg model gives a four-operator scattering term.  The Bethe Ansatz, which I honestly don't know anything about, solves the full 1D Heisenburg Model, as well as some 1D Bose gas and Hubbard model problems.  Come back to me in many years, or ask a Russian mathematician.  
@@ -146,7 +144,7 @@ nstates=2^n
 
 
 
-Exact Diagonalization is often memory limited.  Thus we want to represent our states in the most compact format possible.  Luckily, if we are dealing with spin $\frac{1}{2}$, we can just use the `0`'s ($|\downarrow \rangle$) and `1`'s ($|\uparrow \rangle$) of the machine.  If you are dealing with higher spin, you can use base 3, 4, etc...  Part of the reason I needed to create this separate post was to examine working with binary data.
+Exact Diagonalization is often memory limited.  Thus we want to represent our states in the most compact format possible.  Luckily, if we are dealing with spin $\frac{1}{2}$, we can just use the `0`'s ($|\downarrow \rangle$) and `1`'s $|\uparrow \rangle$ of the machine.  If you are dealing with higher spin, you can use base 3, 4, etc...  Part of the reason I needed to create this separate post was to examine working with binary data.
 
 We will keep our states stored as Int, but Julia has operations we can perform to look at the binary format and change the bits.
 
@@ -202,7 +200,7 @@ end
 
 ### & And Operation and Computing Magnetization
 
-Once we have magnetization for a state (a conserved quantity), we also have magnetization squared for the diagonals.
+Once we have magnetization for a state, a conserved quantity, we also have magnetization squared for the diagonals.
 
 We could continue to look at the binary format of a number by calling `bin`, but that converts the number to an array of strings.  So instead we want to perform bitwise operations to determine what the binary format looks like in terms of numbers.
 
@@ -265,7 +263,7 @@ end
 
 ## Masks and Permuting Indices
 
-The off diagonal (ladder) elements of the Hamiltonian are the permutation of two neighboring elements in the array.  We can permute two indices by combining a mask number with a bitwise XOR `$` .
+The off diagonal, ladder, elements of the Hamiltonian are the permutation of two neighboring elements in the array.  We can permute two indices by combining a mask number with a bitwise XOR `$` .
 
 
 ```julia
@@ -299,7 +297,7 @@ end
 
 
 So now lets test how the first of our three masks behaves:
-We know that if the mask changes a 01 for a 10 (or vice versa) that the overall magnetization will not be changed.  So, we test is our mask is successful by comparing the remaining magnetization.  The rows offset by two spaces have matching magnetizations.
+We know that if the mask changes a 01 for a 10, or vice versa, that the overall magnetization will not be changed.  So, we test is our mask is successful by comparing the remaining magnetization.  The rows offset by two spaces have matching magnetizations.
 
 
 ```julia
@@ -375,8 +373,3 @@ Happy physicsing :)
 
 
 [1]  [Field Theories of Condensed Matter Physics](https://www.amazon.com/Field-Theories-Condensed-Matter-Physics/dp/0521764440) by Fradkin.  
-
-
-```julia
-
-```
