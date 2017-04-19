@@ -156,7 +156,7 @@ nstates=2^n
 
 
 
-Exact Diagonalization is often memory limited.  Thus we want to represent our states in the most compact format possible.  Luckily, if we are dealing with spin $\frac{1}{2}$, we can just use the `0`'s ($|\downarrow \rangle$) and `1`'s $|\uparrow \rangle$ of the machine.  If you are dealing with higher spin, you can use base 3, 4, etc...  Part of the reason I needed to create this separate post was to examine working with binary data.
+Exact Diagonalization is often memory limited.  Thus we want to represent our states in the most compact format possible.  Luckily, if we are dealing with spin $\frac{1}{2}$, we can just use the `0`'s ,$|\downarrow \rangle$, and `1`'s $|\uparrow \rangle$ of the machine.  If you are dealing with higher spin, you can use base 3, 4, etc...  Part of the reason I needed to create this separate post was to examine working with binary data.
 
 We will keep our states stored as Int, but Julia has operations we can perform to look at the binary format and change the bits.
 
