@@ -102,7 +102,7 @@ Interestingly enough, once one solution to a problem comes along, someone figure
 
 The 1D Quantum Ising Model is equivalent to the [2D Ising model of classical statistical mechanics](http://albi3ro.github.io/M4/prerequisites/Monte-Carlo-Ferromagnet.html), exactly solved in 1944 by Lars Onsager.  The solution is also equivalent to a description of free Majorana fermions. [1]
 
-The Jordan-Wigner Transformation solves the 1D XY model by mapping spins to fermions.  This transformation only works in special 1D circumstances and the Kitaev Honeycomb model.  Since spins possess different anti-commutation relationships than fermions, we attach a string of operators stretching from infinity to each spin.  This series of operators changes the relationship between a spin and its neighbors to fermionic. After the transformation, we get a Hamiltonian that is quadratic in the fermionic momentum operators $d_k$, $d^{\dagger}_k$, and we can see the $\cos (ka)$ dispersion relationship for the excitations,
+The Jordan-Wigner Transformation solves the 1D XY model by mapping spins to fermions.  This transformation only works in special 1D circumstances and the Kitaev Honeycomb model.  Since spins possess different anti-commutation relationships than fermions, we attach a string of operators stretching from infinity to each spin.  This series of operators changes the relationship between a spin and its neighbors to fermionic. After the transformation, we get a Hamiltonian that is quadratic in the fermionic momentum operators $d_k $ , $d^{\dagger}_k$, and we can see the $\cos (ka)$ dispersion relationship for the excitations,
 \begin{equation}
 {\cal \tilde{H}}_{XY}=-J \sum_k \cos (ka) d^{\dagger}_k d_k.
 \end{equation}
