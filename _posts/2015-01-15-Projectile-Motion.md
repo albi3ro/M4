@@ -5,7 +5,7 @@ comments: True
 category: General
 tags: Intro
 author: Christina C. Lee
-image: "https://albi3ro.github.io/M4/Images/Projectile/spaceship.svg"
+image: "https://albi3ro.github.io/M4/Images/Projectile/spaceship.png"
 description: A STEM high school introduction to Jupyter notebooks, numerics, and Julia through projectile motion.  
 ---
 
