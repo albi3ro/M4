@@ -191,7 +191,7 @@ end
 
 We use [PyPlot](https://matplotlib.org/users/pyplot_tutorial.html) to display our results here.  It's imported into Julia from Python and has great documentation and versitility.
 
-<div class="Progtip">
+<div class="progtip">
 <h3 color="black">Tips from Expierence</h3>: <p>Always include x and y labels, title, legends, and relevant units <b>on the graph</b>.  </p>
 
 <p>The graph might seem obvious to you now, but the labeling might not seem obvious to you next week, next month, or next year.  And it probably won't seem obvious to someone else looking at your work. So I'll be taking a few extra lines to make sure I include all that.</p></div>
