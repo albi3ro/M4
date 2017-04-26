@@ -5,6 +5,7 @@ comments: True
 category: Numerics
 tags: [Monte Carlo]
 author: Christina C. Lee
+description: An Introduction to Monte Carlo methods by calculating Pi
 ---
 
 ## Monte Carlo- Random Numbers to Improve Calculations

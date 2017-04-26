@@ -5,9 +5,9 @@ comments: True
 category: General
 tags: [Lattices]
 author: Christina C. Lee
+description:  Here we compute and view the positions for a few simple Bravais lattices.
+image: "https://albi3ro.github.io/M4/Images/CrystalShapes/fcc.jpg"
 ---
-
-#### Christina C. Lee, github: albi3ro
 
 <b>Prerequisites:</b> none
 

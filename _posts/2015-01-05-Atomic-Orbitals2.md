@@ -5,6 +5,8 @@ comments: True
 category: Prerequisites
 tags: [Quantum]
 author: Christina C. Lee
+description: We try out the GLVisualize.jl package to view the hydrogen orbitals computed in the last post.
+image: "https://albi3ro.github.io/M4/Images/Orbitals2/3p_surface.png"
 ---
 <b>Prerequiresites:</b> Quantum Mechanics course
 
