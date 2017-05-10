@@ -12,7 +12,7 @@
 * Statistical Mechanics
     * Monte Carlo Ferromagnet
 
-#Graduate
+# Graduate
 * Quantum Mechanics
     * 1D Spin Chain Prerequisites
 
