@@ -1,4 +1,3 @@
-
 ---
 title: Phase Transitions
 layout: post
