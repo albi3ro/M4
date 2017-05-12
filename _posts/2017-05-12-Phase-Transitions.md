@@ -119,7 +119,10 @@ $$
 $$
 U=-J \coth (2 \beta J) \left(
 1 + \frac{2}{\pi} \left( 2 \tanh^2 (2 \beta J) - 1 \right)
-\int_0^{\pi/2} \frac{1}{\sqrt{1-4k (1+k)^{-2} \sin^2 (\theta)}}
+$$
+
+$$
+\;\;\;\;\;\; \int_0^{\pi/2} \frac{1}{\sqrt{1-4k (1+k)^{-2} \sin^2 (\theta)}}
 d \theta
 \right)
 $$
@@ -384,9 +387,6 @@ ylabel("Magnetization")
 legend()
 title("2D Square Ferromagnet Phase Transition")
 ```
-
-
-![png](output_23_0.png)
 
 
 {% include image.html img="M4/Images/PhaseTransitions/output_23_0.png" title="Magnetization" caption="The order parameter magnetization jumps at the critical temperature $\beta_c\approx.44$." %}
