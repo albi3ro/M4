@@ -5,6 +5,8 @@ comments: True
 category: General
 tags: [Lattices]
 author: Christina C. Lee
+description: Here we tile unit cells via Bravais lattice to create some common lattices like honeycomb and diamond.
+image: "https://albi3ro.github.io/M4/Images/Projectile/pyrochloresvg2.png"
 ---
 
 #### Christina C. Lee, github: albi3ro
@@ -195,7 +197,7 @@ scatter3D(X[:,1],X[:,2],X[:,3])
 ### Perdy Pictures
 From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here's a nice graphic I made that might help a little bit more.
 
-{% include image.html img="M4/Images/MultiUnit/pyrochloresvg4.png" title="Pyrochlore" caption="Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape." %}
+{% include image.html img="M4/Images/MultiUnit/pyrochloresvg2.png" title="Pyrochlore" caption="Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape." %}
 
 {% include image.html img="M4/Images/MultiUnit/honeycomb.png" title="honeycomb" caption="Tikz produced Honeycomb.  Coloring indicative of the lattice description of the Kitaev model.  " %}
 

@@ -9,9 +9,11 @@
     position: relative;
 }
 
-.tagtable{
-  border: 0em;
+.tagtable, .tagtitle, .trtag, .tagprop{
+  border: none;
+  padding: 0em;
 }
+
 
 .cattype{
   text-align: center;

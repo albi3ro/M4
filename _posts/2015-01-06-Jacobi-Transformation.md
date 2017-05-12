@@ -3,8 +3,9 @@ title: Jacobi Transformation of a Symmetric Matrix
 layout: post
 comments: True
 category: Numerics
-tags: [Exact Diagonalization]
+tags: ED
 author: Christina C. Lee
+description:
 ---
 
 <i>Based on Numerical Recipes in C++, Sec 11.1</i>

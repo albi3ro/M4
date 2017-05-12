@@ -69,6 +69,18 @@ ul, ol, dl, figure,
     }
 }
 
+table, th, td{
+  border: .2em solid black;
+  padding: .2em;
+}
+table {
+    border-collapse: collapse;
+}
+th, td{
+  width: 5em;
+  text-align: center;
+}
+
 /**
  * Images
  */
@@ -79,7 +91,7 @@ img {
 
 .progtip{
   background-color: $progtip-color;
-  color: #ccffcc;
+  color: black;
   border-radius: 1em;
   padding: 1em;
   /*float: right;

@@ -5,6 +5,8 @@ comments: True
 category: Prerequisites
 tags: [Quantum]
 author: Christina C. Lee
+description: We look at the Hydrogen orbitals created using GSL's, the GNU Scientific Library, associated Legendre polynomial and generalized Laguerre polynomial.
+image: "https://albi3ro.github.io/M4/Images/Orbitals/angular2d.png"
 ---
 <b>Prerequiresites:</b> Quantum Mechanics course
 
