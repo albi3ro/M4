@@ -326,6 +326,16 @@ That was the temperature loop for the MCMC method.
 
 This is the temperature loop to calculate the exact numbers.
 
+```julia
+Mex=zeros(betas)
+Eex=zeros(betas)
+for ii in 1:length(betas)
+    Mex[ii]=Mexact(betas[ii])
+    Eex[ii]=Eexact(betas[ii])
+end
+```
+
+
 ### Storing and Restoring Data
 
 Since running these simulations take slightly longer than some of my previous posts, I've outputed data files of the results of three different sizes lattices (l=10, l=20, l=50), for runs of length 50,000.  All have the same `betas` variable. Feel free to take a look at them, or make your own data :)
@@ -364,14 +374,7 @@ Ch20=temp[:,6];
 ```
 
 
-```julia
-Mex=zeros(betas)
-Eex=zeros(betas)
-for ii in 1:length(betas)
-    Mex[ii]=Mexact(betas[ii])
-    Eex[ii]=Eexact(betas[ii])
-end
-```
+
 
 # Plotting Section
 
