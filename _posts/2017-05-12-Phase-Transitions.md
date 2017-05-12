@@ -4,7 +4,7 @@ layout: post
 comments: True
 category: Prerequisites
 author: Christina C. Lee
-image: "https://albi3ro.github.io/M4/Images/PaseTransitions/output_23_0.png"
+image: "https://albi3ro.github.io/M4/Images/PhaseTransitions/output_23_0.png"
 tags: [Magnet]
 description:  A look at phase transitions in magnets using a Metropolis-Hastings Algorithm, specifically at the square lattice Ising model.
 ---
