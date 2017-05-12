@@ -118,13 +118,13 @@ $$
 
 $$
 U=-J \coth (2 \beta J) \left(
-1 + \frac{2}{\pi} \left( 2 \tanh^2 (2 \beta J) - 1 \right)
+1 + \frac{2}{\pi} \big( 2 \tanh^2 (2 \beta J) - 1 \right)
 $$
 
 $$
 \;\;\;\;\;\; \int_0^{\pi/2} \frac{1}{\sqrt{1-4k (1+k)^{-2} \sin^2 (\theta)}}
 d \theta
-\right)
+\big)
 $$
 
 If we can achieve these results to perfect accuracy on pen and paper, why do we even bother simulating them in a computer?  If you try some other lattices and coupling constants, you might soon find out why.  We want to make <i>sure</i> our code is running well on something where we know the results before venturing into unknown territory.    
