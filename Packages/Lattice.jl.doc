@@ -1,0 +1,25 @@
+Lattice Types
+* Chain
+* Square
+* Honeycomb
+* Checkerboard
+
+
+Once a lattice is created, it contains <b>Members of Type</b>:
+* `name`, a string
+* `l`, length in number of unit cells
+* `dim`, dimension of lattice
+* `a`, array containing the basis vectors by which positions are generated
+* `unit`, array of positions inside a single unit
+* `N`, number of total sites
+* `X`, array of positions
+* `nnei`, number of nearest neighbors
+* `neigh`, Array of nearest neighbors [i][j], where i is site and j is 1:nnei
+
+Use by 
+    # Your parameters
+    type="Square"
+    l=20
+    
+    # Calling the package to create a lattice complex type
+    lt=MakeLattice(type,l)

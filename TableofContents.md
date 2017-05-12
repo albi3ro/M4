@@ -11,8 +11,9 @@
     * QHO - Quantum Harmonic Osscillator
 * Statistical Mechanics
     * Monte Carlo Ferromagnet
+    * Phase Transitions
 
-#Graduate
+# Graduate
 * Quantum Mechanics
     * 1D Spin Chain Prerequisites
 
