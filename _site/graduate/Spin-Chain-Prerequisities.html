@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>1D Spin Chain Prerequisites</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/graduate/Spin-Chain-Prerequisities.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="1D Spin Chain Prerequisites" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/SpinChainED/mag.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="1D Spin Chain Prerequisites" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/SpinChainED/mag.png" />
+    <meta property="twitter:description" content="The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenberg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers." />
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <link rel="icon"
+      type="image/png"
+      href="/M4/Images/favicon.ico">
+
+    <!--<nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+      </svg>
+    </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/M4/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/M4/jupyterjulia/">Interacting with Julia</a>
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ED/">Posts Tagged &ldquo;ED&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Plot/">Posts Tagged &ldquo;Plot&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ODE/">Posts Tagged &ldquo;ODE&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Intro/">Posts Tagged &ldquo;Intro&rdquo;</a>
+          
+        
+      </div>
+    </nav>-->
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenberg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers." />
+<meta name="keywords" content="Magnet,Quantum,ED" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">1D Spin Chain Prerequisites</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Graduate</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags">Magnet</a></p>
+        
+      <a href="/M4/tags">Quantum</a></p>
+        
+      <a href="/M4/tags">ED</a></p>
+        
+  </header>
+
+  <article class="post-content">
+
+    <p>clone jupyter notebook: <a href="https://github.com/albi3ro/M4.git">https://github.com/albi3ro/M4.git</a></p>
+
+<p>Today’s just background :(  I found my post getting a bit bloated, so I decided to pull most of the talking into an introduction post for the series.   Keep reading to learn how to compute, diagonalize, and analyze the matrix corresponding to a many-body, strongly interacting quantum mechanical system.</p>
+
+<p>If you are not a physics graduate student, still give this series a read and try not to get too intimidated. If you are a physics graduate student, still give this series a read and try not to get too intimidated.  I’ve been working on this series for quite a while, so I hope it’s worth my effort.</p>
+
+<p>For further information, take a look at this set of lecture notes on the arXiv, <a href="https://arxiv.org/abs/1101.3281">Computational Studies of Quantum Spin Systems</a> by Anders W. Sandvik.</p>
+
+<hr />
+<h2 id="so-what-is-a-1d-heisenberg-spin-frac12-chain">So what is a 1D Heisenberg Spin $\frac{1}{2}$ Chain?</h2>
+<p>Let’s break down each part of that phrase.</p>
+
+<h4 id="spin-frac12-">Spin $\frac{1}{2} $</h4>
+<p>At each site, we can have a particle pointing up $| \uparrow \rangle$, down $|\downarrow \rangle$, or some super-position of the two.</p>
+
+<h3 id="heisenberg">Heisenberg</h3>
+<p>Our spin has three degrees of freedom and full $SU(2)$ symmetry.  $SU(2)$ is the mathematical group that describes a spin’s degrees of freedom. Once we have solved the physics of the Heisenberg case, we also have solved the <i>XY model</i> ($J_z=0$) and the <i>Ising model</i> $J_x=J_y=0$. As we change the model, we also change the symmetry group first to $SO(2)$ for the XY model and then $\mathbb{Z}_2$ for the Ising model.</p>
+
+<h3 id="1d-chain">1D Chain</h3>
+<p>Spin only interacts with two neighbors.</p>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SpinChainED/spinchain.svg" alt="Spin Chain" />
+    
+    
+        <p class="image-caption">A spin chain.</p>
+    
+</div>
+
+<h2 id="the-hamiltonians">The Hamiltonians</h2>
+
+<p>Our Hamiltonian has the general form,</p>
+
+<script type="math/tex; mode=display">{\cal H} = \sum_i J_x S_i^x S_{i+1}^x + J_y S_i^y S_{i+1}^y + J_z S_i^z S_{i+1}^z</script>
+
+<p>or we can restrict it to the case of $J_x=J_y$ to get the more convenient form,</p>
+
+<script type="math/tex; mode=display">{\cal H} = \sum_i J_{XY} \left(S^+_i S^-_{i+1}+S^-_i S^+_{i+1} \right) +J_z S_i^z S_{i+1}^z.</script>
+
+<p>Here $S^{x,y,z}$ are our Pauli operators</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+S^x=\begin{pmatrix}
+0 & 1 \\
+1 & 0 \\
+\end{pmatrix}
+\;\;\;\;\;\;\;
+S^y=\begin{pmatrix}
+0    &    -i    \\
+i    &    0    \\
+\end{pmatrix}
+\;\;\;\;\;\;\;
+S^z=\begin{pmatrix}
+1    &    0    \\
+0    &    -1    \\
+\end{pmatrix}, %]]></script>
+
+<p>and $S^{\pm}$ are the ladder operators</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+S^+=\frac{S^x+i S^y}{2} = \begin{pmatrix}
+0 & 1 \\
+0 & 0\\
+\end{pmatrix}
+\;\;\;\;\;\;\;
+S^- =\frac{S^x-i S^y}{2}= \begin{pmatrix}
+0 & 0 \\
+1 & 0\\
+\end{pmatrix}. %]]></script>
+
+<p>Assuming we write our basis states in the $S^z_i$ basis, we can divide the terms from the restricted Hamiltonian into on-diagonal and off-diagonal terms.  The $S^z_i S^z_{i+1}$ terms compute the magnetization squared, $\vec{S} \cdot \vec{S} $, for a given state and a conserved quantity.  These also lie on the diagonal of the matrix corresponding to the Hamiltonian.</p>
+
+<script type="math/tex; mode=display">| \Psi_{i} \rangle = H_{ii} |\Psi_i \rangle
+= J_{z} \sum_m S_m^z S^z_{m+1}  |\Psi_i \rangle</script>
+
+<p>The ladder terms, when applied as an operator to the state, create a new state.  Thus they act as off-diagonal terms.</p>
+
+<script type="math/tex; mode=display">| \Psi_{j} \rangle = H_{ij} |\Psi_i \rangle
+= J_{XY} \sum_m \left( S^+_m S^-_{m+1} + S^-_m S^+_{m+1}\right) |\Psi_i \rangle</script>
+
+<h2 id="analytical-solutions">Analytical Solutions</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>"The model is solvable, not the solution."
+         --- someone
+</code></pre>
+</div>
+
+<p>The Ising, XY, and Heisenberg cases all fall into the special class of problems which have exact solutions in the infinite size limit.  Very few exact solutions of quantum mechanics problems exist, so we try and get as much mileage as we can out of the couple of ones we have.</p>
+
+<p>Interestingly enough, once one solution to a problem comes along, someone figures out a different way to approach the same problem.</p>
+
+<p>The 1D Quantum Ising Model is equivalent to the <a href="http://albi3ro.github.io/M4/prerequisites/Monte-Carlo-Ferromagnet.html">2D Ising model of classical statistical mechanics</a>, exactly solved in 1944 by Lars Onsager.  The solution is also equivalent to a description of free Majorana fermions. [1]</p>
+
+<p>The Jordan-Wigner Transformation solves the 1D XY model by mapping spins to fermions.  This transformation only works in special 1D circumstances and the Kitaev Honeycomb model.  Since spins possess different anti-commutation relationships than fermions, we attach a string of operators stretching from infinity to each spin.  This series of operators changes the relationship between a spin and its neighbors to fermionic. After the transformation, we get a Hamiltonian that is quadratic in the fermionic momentum operators $d_k $ , $d^{\dagger}_k$, and we can see the $\cos (ka)$ dispersion relationship for the excitations,</p>
+
+<script type="math/tex; mode=display">{\cal \tilde{H}}_{XY}=-J \sum_k \cos (ka) d^{\dagger}_k d_k.</script>
+
+<p>I might write a full article on this later.</p>
+
+<p>Performing a Jordan-Wigner transformation on the full Heisenberg model gives a four-operator scattering term.  The Bethe Ansatz, which I honestly don’t know anything about, solves the full 1D Heisenberg Model, as well as some 1D Bose gas and Hubbard model problems.  Come back to me in many years, or ask a Russian mathematician.</p>
+
+<h2 id="noethers-theorem-symmetries-and-conserved-quantities">Noether’s Theorem: Symmetries and Conserved Quantities</h2>
+
+<p>While many people look to Marie Curie, I think Emily Noether is the best female scientist/ mathematician yet.  Her theorem is the single most beautiful piece of physics I have ever seen.  For each symmetry, there exists a conserved quantity.  Space translational symmetry gives us momentum conservation.  Time translational symmetry gives us energy conservation.</p>
+
+<p>Conserved quantities save us so much in classical mechanics but save us even more in condensed matter physics.  By working out the symmetries of the problem, we can break the huge Hilbert space into smaller chunks of conserved quantities and only have a smaller problem with which to work.</p>
+
+<p>So what are our conserved quantities?</p>
+<ul>
+  <li>Magnetization from 3*N Rotational symmetries</li>
+  <li>Momentum from N Translational symmetries</li>
+  <li>Parity from Time inversion symmetry</li>
+</ul>
+
+<p>I will only demonstrate magnetization conservation since we won’t have to alter our basis to accommodate it.</p>
+
+<h3 id="one-easy-initialization-cell">One easy initialization cell.</h3>
+
+<p><code class="highlighter-rouge">n</code>: The number of spins we will deal with.<br />
+$2^n$: Dimension of our Hilbert Space.  Or more simply, the number of different eigenstates our system will have.</p>
+
+<p>Try to keep <code class="highlighter-rouge">n</code> around <code class="highlighter-rouge">5</code> until you know what your computer can handle.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">n</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">nstates</span><span class="o">=</span><span class="mi">2</span><span class="o">^</span><span class="n">n</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>16
+</code></pre>
+</div>
+
+<p>Exact Diagonalization is often memory limited.  Thus we want to represent our states in the most compact format possible.  Luckily, if we are dealing with spin $\frac{1}{2}$, we can just use the <code class="highlighter-rouge">0</code>’s ,$\mid \downarrow \rangle $ , and <code class="highlighter-rouge">1</code>’s, $\mid \uparrow \rangle $,  of the machine.  If you are dealing with higher spin, you can use base 3, 4, etc…  Part of the reason I needed to create this separate post was to examine working with binary data.</p>
+
+<p>We will keep our states stored as Int, but Julia has operations we can perform to look at the binary format and change the bits.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># psi is an array of all our wavefunctions</span>
+<span class="n">psi</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:(</span><span class="n">nstates</span><span class="o">-</span><span class="mi">1</span><span class="x">))</span>
+
+<span class="c"># Lets look at each state both in binary and base 10</span>
+<span class="n">println</span><span class="x">(</span><span class="s">"binary form </span><span class="se">\t</span><span class="s"> integer"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">p</span> <span class="k">in</span> <span class="n">psi</span>
+    <span class="n">println</span><span class="x">(</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s"> "</span><span class="x">,</span><span class="n">p</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>binary form 	 integer
+0000		 0
+0001		 1
+0010		 2
+0011		 3
+0100		 4
+0101		 5
+0110		 6
+0111		 7
+1000		 8
+1001		 9
+1010		 10
+1011		 11
+1100		 12
+1101		 13
+1110		 14
+1111		 15
+</code></pre>
+</div>
+
+<p>Because we will be using the powers of $2$ frequently in our calculations, we will store all them in an array. They are our placeholders, like $1,10,100,…$</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">powers2</span><span class="o">=</span><span class="mf">2.</span><span class="o">^</span><span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="x">))</span>
+
+<span class="n">println</span><span class="x">(</span><span class="s">"binary form </span><span class="se">\t</span><span class="s"> integer"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">p</span> <span class="k">in</span> <span class="n">powers2</span>
+    <span class="n">println</span><span class="x">(</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s"> "</span><span class="x">,</span><span class="n">p</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>binary form 	 integer
+0001		 1
+0010		 2
+0100		 4
+1000		 8
+</code></pre>
+</div>
+
+<h3 id="-and-operation-and-computing-magnetization">&amp; And Operation and Computing Magnetization</h3>
+
+<p>Once we have magnetization for a state, a conserved quantity, we also have magnetization squared for the diagonals.</p>
+
+<p>We could continue to look at the binary format of a number by calling <code class="highlighter-rouge">bin</code>, but that converts the number to an array of strings.  So instead we want to perform bitwise operations to determine what the binary format looks like in terms of numbers.</p>
+
+<p>Julia supports bitwise <b>not, and, xor </b>/ exclusive or, logical shift right, arithmetic shift right, and logical/ arithmetic shift left.  For our purposes, we will only be interested in <b>and</b> and <b>xor</b> .</p>
+
+<p><b>and</b> takes in two inputs and produces one output, given by the following logic table:</p>
+
+<center>
+<table>
+  <tr>
+    <th> a</th>
+    <th> b</th>
+    <th> a&amp;b</th>
+  </tr>
+  <tr>
+    <td> 0 </td>
+    <td> 0 </td>
+    <td> 0</td>
+  </tr>
+  <tr>
+    <td> 1 </td>
+    <td> 0 </td>
+    <td> 0</td>
+  </tr>
+  <tr>
+    <td> 0 </td>
+    <td> 1 </td>
+    <td> 0</td>
+  </tr>
+  <tr>
+    <td> 1 </td>
+    <td> 1 </td>
+    <td> 1</td>
+  </tr>
+</table>
+</center>
+<p>Julia’s <code class="highlighter-rouge">&amp;</code> is the bitwise operation and.  That means if I combine two numbers, it states the overlap between the two. 1 overlaps with 1; 2 overlaps with 2; 3 overlaps with 2 and 1.</p>
+
+<p>We will use this to compute magnetization.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">println</span><span class="x">(</span><span class="n">bin</span><span class="x">(</span><span class="mi">1</span><span class="x">,</span><span class="mi">4</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span> <span class="n">bin</span><span class="x">(</span><span class="mi">3</span><span class="x">,</span><span class="mi">4</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span> <span class="n">bin</span><span class="x">(</span><span class="mi">1</span><span class="o">&amp;</span><span class="mi">3</span><span class="x">,</span><span class="mi">4</span><span class="x">))</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0001	0011	0001
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c">#initializing the magnetization array</span>
+<span class="n">m</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">psi</span><span class="x">)</span>
+
+<span class="n">println</span><span class="x">(</span><span class="s">"String </span><span class="se">\t</span><span class="s">p&amp;powers2 </span><span class="se">\t</span><span class="s">Normed </span><span class="se">\t\t</span><span class="s">Magentization"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">psi</span><span class="x">)</span>
+
+    <span class="c">#Writing the magnetization</span>
+    <span class="n">m</span><span class="x">[</span><span class="n">i</span><span class="x">]</span><span class="o">=</span><span class="n">sum</span><span class="x">(</span><span class="n">round</span><span class="x">(</span><span class="kt">Int</span><span class="x">,(</span><span class="n">psi</span><span class="x">[</span><span class="n">i</span><span class="x">]</span><span class="o">&amp;</span><span class="n">powers2</span><span class="x">)</span><span class="o">./</span><span class="n">powers2</span><span class="x">))</span>
+
+    <span class="n">println</span><span class="x">(</span><span class="n">bin</span><span class="x">(</span><span class="n">psi</span><span class="x">[</span><span class="n">i</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">psi</span><span class="x">[</span><span class="n">i</span><span class="x">]</span><span class="o">&amp;</span><span class="n">powers2</span><span class="x">,</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span>
+    <span class="x">,</span><span class="n">round</span><span class="x">(</span><span class="kt">Int</span><span class="x">,(</span><span class="n">psi</span><span class="x">[</span><span class="n">i</span><span class="x">]</span><span class="o">&amp;</span><span class="n">powers2</span><span class="x">)</span><span class="o">./</span><span class="n">powers2</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">i</span><span class="x">])</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>String 	p&amp;powers2 	Normed 		Magentization
+0000	[0,0,0,0]	[0,0,0,0]	0
+0001	[1,0,0,0]	[1,0,0,0]	1
+0010	[0,2,0,0]	[0,1,0,0]	1
+0011	[1,2,0,0]	[1,1,0,0]	2
+0100	[0,0,4,0]	[0,0,1,0]	1
+0101	[1,0,4,0]	[1,0,1,0]	2
+0110	[0,2,4,0]	[0,1,1,0]	2
+0111	[1,2,4,0]	[1,1,1,0]	3
+1000	[0,0,0,8]	[0,0,0,1]	1
+1001	[1,0,0,8]	[1,0,0,1]	2
+1010	[0,2,0,8]	[0,1,0,1]	2
+1011	[1,2,0,8]	[1,1,0,1]	3
+1100	[0,0,4,8]	[0,0,1,1]	2
+1101	[1,0,4,8]	[1,0,1,1]	3
+1110	[0,2,4,8]	[0,1,1,1]	3
+1111	[1,2,4,8]	[1,1,1,1]	4
+</code></pre>
+</div>
+
+<h2 id="masks-and-permuting-indices">Masks and Permuting Indices</h2>
+
+<p>The off diagonal, ladder, elements of the Hamiltonian are the permutation of two neighboring elements in the array.  We can permute two indices by combining a mask number with a bitwise XOR <code class="highlighter-rouge">$</code> .</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">mask</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">testp</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">println</span><span class="x">(</span><span class="s">"Mask </span><span class="se">\t</span><span class="s">test </span><span class="se">\t</span><span class="s">masked test"</span><span class="x">)</span>
+<span class="n">println</span><span class="x">(</span><span class="n">bin</span><span class="x">(</span><span class="n">mask</span><span class="x">,</span><span class="mi">2</span><span class="x">),</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">testp</span><span class="x">,</span><span class="mi">2</span><span class="x">),</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">testp</span><span class="o">$</span><span class="n">mask</span><span class="x">,</span><span class="mi">2</span><span class="x">))</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Mask 	test 	masked test
+11	01	10
+</code></pre>
+</div>
+
+<p>But the mask 3 aka 11 only switches the spins in the first two positions.  I need to switch spins in any two adjacent locations.  I create this by summing together padded powers of two in order to get the 11 in the correct location.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">mask</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">;</span><span class="n">powers2</span><span class="x">]</span><span class="o">+</span><span class="x">[</span><span class="n">powers2</span><span class="x">;</span><span class="mi">0</span><span class="x">]</span>
+<span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="x">]</span>
+
+<span class="n">println</span><span class="x">(</span><span class="s">"Mask base10 </span><span class="se">\t</span><span class="s">Mask Binary </span><span class="se">\t</span><span class="s">Summed from"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">mask</span><span class="x">)</span>
+    <span class="n">println</span><span class="x">(</span><span class="n">mask</span><span class="x">[</span><span class="n">i</span><span class="x">],</span><span class="s">"</span><span class="se">\t\t</span><span class="s">"</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">mask</span><span class="x">[</span><span class="n">i</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s">"</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">powers2</span><span class="x">[</span><span class="n">i</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">powers2</span><span class="x">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="x">],</span><span class="n">n</span><span class="x">))</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Mask base10 	Mask Binary 	Summed from
+3		0011		0001	0010
+6		0110		0010	0100
+12		1100		0100	1000
+</code></pre>
+</div>
+
+<p>So now lets test how the first of our three masks behaves:
+We know that if the mask changes a 01 for a 10, or vice versa, that the overall magnetization will not be changed.  So, we test is our mask is successful by comparing the remaining magnetization.  The rows offset by two spaces have matching magnetizations.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">println</span><span class="x">(</span><span class="s">"Psi </span><span class="se">\t</span><span class="s">Psi </span><span class="se">\t</span><span class="s">Masked </span><span class="se">\t</span><span class="s"> Masked</span><span class="se">\t</span><span class="s"> </span><span class="se">\t</span><span class="s">mPsi  </span><span class="se">\t</span><span class="s">mMasked"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">p</span> <span class="k">in</span> <span class="n">psi</span>
+    <span class="k">if</span> <span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="x">]</span><span class="o">==</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span><span class="o">+</span><span class="mi">1</span><span class="x">]</span>
+        <span class="n">println</span><span class="x">(</span><span class="s">"  "</span><span class="x">,</span><span class="n">p</span><span class="x">,</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">p</span> <span class="o">$</span> <span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s">  "</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span><span class="o">+</span><span class="mi">1</span><span class="x">])</span>
+    <span class="k">else</span>
+        <span class="n">println</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="n">n</span><span class="x">),</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">p</span> <span class="o">$</span> <span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s">"</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span><span class="o">+</span><span class="mi">1</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Psi 	Psi 	Masked 	 Masked	 	mPsi  	mMasked
+0	0000	3	0011		0	2
+  1	  0001	  2	  0010		  1	  1
+  2	  0010	  1	  0001		  1	  1
+3	0011	0	0000		2	0
+4	0100	7	0111		1	3
+  5	  0101	  6	  0110		  2	  2
+  6	  0110	  5	  0101		  2	  2
+7	0111	4	0100		3	1
+8	1000	11	1011		1	3
+  9	  1001	  10	  1010		  2	  2
+  10	  1010	  9	  1001		  2	  2
+11	1011	8	1000		3	1
+12	1100	15	1111		2	4
+  13	  1101	  14	  1110		  3	  3
+  14	  1110	  13	  1101		  3	  3
+15	1111	12	1100		4	2
+</code></pre>
+</div>
+
+<p>Now let’s try the same thing, but for the second mask.  This changes the second and third spin.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">println</span><span class="x">(</span><span class="s">"Psi </span><span class="se">\t</span><span class="s">Psi </span><span class="se">\t</span><span class="s">Masked </span><span class="se">\t</span><span class="s"> Masked</span><span class="se">\t</span><span class="s"> </span><span class="se">\t</span><span class="s">mPsi  </span><span class="se">\t</span><span class="s">mMasked"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">p</span> <span class="k">in</span> <span class="n">psi</span>
+    <span class="k">if</span> <span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="x">]</span><span class="o">==</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">]</span><span class="o">+</span><span class="mi">1</span><span class="x">]</span>
+        <span class="n">println</span><span class="x">(</span><span class="s">"  "</span><span class="x">,</span><span class="n">p</span><span class="x">,</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">p</span> <span class="o">$</span> <span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s">  "</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">  "</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">]</span><span class="o">+</span><span class="mi">1</span><span class="x">])</span>
+    <span class="k">else</span>
+        <span class="n">println</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="x">,</span><span class="n">n</span><span class="x">),</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">p</span> <span class="o">$</span> <span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">],</span><span class="sc">'\t'</span><span class="x">,</span><span class="n">bin</span><span class="x">(</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">],</span><span class="n">n</span><span class="x">),</span><span class="s">"</span><span class="se">\t\t</span><span class="s">"</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">m</span><span class="x">[</span><span class="n">p</span><span class="o">$</span><span class="n">mask</span><span class="x">[</span><span class="mi">2</span><span class="x">]</span><span class="o">+</span><span class="mi">1</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Psi 	Psi 	Masked 	 Masked	 	mPsi  	mMasked
+0	0000	6	0110		0	2
+1	0001	7	0111		1	3
+  2	  0010	  4	  0100		  1	  1
+  3	  0011	  5	  0101		  2	  2
+  4	  0100	  2	  0010		  1	  1
+  5	  0101	  3	  0011		  2	  2
+6	0110	0	0000		2	0
+7	0111	1	0001		3	1
+8	1000	14	1110		1	3
+9	1001	15	1111		2	4
+  10	  1010	  12	  1100		  2	  2
+  11	  1011	  13	  1101		  3	  3
+  12	  1100	  10	  1010		  2	  2
+  13	  1101	  11	  1011		  3	  3
+14	1110	8	1000		3	1
+15	1111	9	1001		4	2
+</code></pre>
+</div>
+
+<p>That’s it for background.</p>
+
+<p>In the next few posts, I’ll first cover breaking the matrix up according to the magnetization symmetry, and then the sorting and the searching that accompanies that change.  Then we will actually diagonalize the matrix and looks at the results.</p>
+
+<p>In the meantime, go back and check out my posts on <b>“Jacobi Transformation of a Symmetric Matrix”</b> and <b>“Julia with MKL on OSX”</b> for some information on this topic.</p>
+
+<p>Happy physicsing :)</p>
+
+<p>[1]  <a href="https://www.amazon.com/Field-Theories-Condensed-Matter-Physics/dp/0521764440">Field Theories of Condensed Matter Physics</a> by Fradkin.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/graduate/Spin-Chain-Prerequisities.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/graduate/Spin-Chain-Prerequisities.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

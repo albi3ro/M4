@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Monte Carlo Markov Chain</title>
-    <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
     <link rel="stylesheet" href="/M4/css/main.css">
-    <link rel="canonical" href="/M4/numerics/MCMC.html">
+    <link rel="canonical" href="http://localhost:4000/M4/numerics/MCMC.html">
     <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -32,6 +33,11 @@
 
     <meta property="og:title" content="Monte Carlo Markov Chain" />
     <meta property="og:image" content="" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Monte Carlo Markov Chain" />
+    <meta property="twitter:image" content="" />
+    <meta property="twitter:description" content="" />
 
 </head>
 
@@ -44,6 +50,10 @@
   <div class="wrapper">
 
     <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <link rel="icon"
+      type="image/png"
+      href="/M4/Images/favicon.ico">
 
     <!--<nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -83,7 +93,7 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/ED/">Posts Tagged &ldquo;ED&rdquo;</a>
           
         
           
@@ -92,6 +102,18 @@
         
           
           <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Plot/">Posts Tagged &ldquo;Plot&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ODE/">Posts Tagged &ldquo;ODE&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Intro/">Posts Tagged &ldquo;Intro&rdquo;</a>
           
         
       </div>
@@ -117,15 +139,20 @@
 
       <div class="wrapper">
         <div class="post">
+<meta name="description" content="" />
+<meta name="keywords" content="Monte Carlo" />
+<meta name="author" content="Christina C. Lee" />
 
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
 
   <header class="post-header">
-    <h1 class="post-title">Monte Carlo Markov Chain</h1>
+    <h1 class="post-title" itemprop="name">Monte Carlo Markov Chain</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
-      Category: <a href="/M4/categories">Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
+      Category: <a href="/M4/categories">
+        Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
       
       <a href="/M4/tags">Monte Carlo</a></p>
         
@@ -169,17 +196,13 @@
 
 <p>Let $\pi_i$ be the probability that a particle is at site $i$, and $p_{ij}$ be the probability that a particle moves from $i$ to $j$.  Then Global Balance can be written as,</p>
 
-<script type="math/tex; mode=display">
-\sum\limits_j \pi_i p_{i j} = \sum\limits_j \pi_j p_{j i} \;\;\;\;\; \forall i.
-</script>
+<script type="math/tex; mode=display">\sum\limits_j \pi_i p_{i j} = \sum\limits_j \pi_j p_{j i} \;\;\;\;\; \forall i.</script>
 
 <p>In non-equation terms, this says the amount of “chain” leaving site $i$ is the same as the amount of “chain” entering site $i$ for every site in equilibrium.  There is no flow.</p>
 
 <p>Usually though, we actually want to work with a stricter rule than Global Balance, <b> Detailed Balance </b>, written as</p>
 
-<script type="math/tex; mode=display">
-\pi_i p_{i j} = \pi_j p_{j i}.
-</script>
+<script type="math/tex; mode=display">\pi_i p_{i j} = \pi_j p_{j i}.</script>
 
 <p>Detailed Balance further constricts the transition probabilities we can assign and makes it easier to design an algorithm. Almost all MCMC algorithms out there use detailed balance, and only lately have certain applied mathematicians begun looking and breaking detailed balance to increase efficiency in certain classes of problems.</p>
 
@@ -216,142 +239,138 @@
 
 <p>Yes!  In equilibrium, each block has a probability of $\pi_i = \frac{1}{l^2}$, and can travel to any of its 4 neighbors with probability of $p_{ij} = \frac{1}{4}$.  For any two neighbors</p>
 
-<script type="math/tex; mode=display">
-\frac{1}{l^2}\frac{1}{4} = \frac{1}{l^2}\frac{1}{4},
-</script>
+<script type="math/tex; mode=display">\frac{1}{l^2}\frac{1}{4} = \frac{1}{l^2}\frac{1}{4},</script>
 
 <p>and if they are not neighbors,</p>
 
-<script type="math/tex; mode=display">
-0 = 0.
-</script>
+<script type="math/tex; mode=display">0 = 0.</script>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">PyCall</span><span class="err">"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#Pkg.add("PyCall")</span>
 <span class="n">using</span> <span class="n">PyPlot</span></code></pre></figure>
 
 <p>This is just the equivalent of <code class="highlighter-rouge">mod</code>
 for using in an array that indexes from 1.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nb">j</span><span class="p">,</span><span class="nb">j</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="k">function</span><span class="nf"> armod</span><span class="x">(</span><span class="n">i</span><span class="x">,</span><span class="n">j</span><span class="x">)</span>
+    <span class="k">return</span> <span class="x">(</span><span class="n">mod</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">j</span><span class="x">)</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span>
 <span class="k">end</span></code></pre></figure>
 
 <p>Input the size of the grid</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">l</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">n</span><span class="o">=</span><span class="n">l</span><span class="o">^</span><span class="mi">2</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">l</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+<span class="n">n</span><span class="o">=</span><span class="n">l</span><span class="o">^</span><span class="mi">2</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">Transition</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span>
-    <span class="err">#</span><span class="n">randomly</span> <span class="n">chose</span> <span class="n">up</span><span class="p">,</span> <span class="n">down</span><span class="p">,</span> <span class="n">left</span> <span class="nb">or</span> <span class="n">right</span>
-    <span class="n">d</span><span class="o">=</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">);</span>
-    <span class="k">if</span> <span class="n">d</span><span class="o">==</span><span class="mi">1</span> <span class="err">#</span><span class="k">if</span> <span class="n">down</span>
-        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="n">l</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="k">function</span><span class="nf"> Transition</span><span class="x">(</span><span class="n">i</span><span class="x">)</span>
+    <span class="c">#randomly chose up, down, left or right</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">rand</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="mi">4</span><span class="x">);</span>
+    <span class="k">if</span> <span class="n">d</span><span class="o">==</span><span class="mi">1</span> <span class="c">#if down</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="n">l</span><span class="x">,</span><span class="n">n</span><span class="x">);</span>
 
-    <span class="k">elseif</span> <span class="n">d</span><span class="o">==</span><span class="mi">2</span> <span class="err">#</span><span class="k">if</span> <span class="n">left</span>
-        <span class="n">row</span><span class="o">=</span><span class="n">convert</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span><span class="nb">floor</span><span class="p">((</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="n">l</span><span class="p">));</span>
-        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span><span class="o">+</span><span class="n">l</span><span class="o">*</span><span class="n">row</span><span class="p">;</span>
+    <span class="k">elseif</span> <span class="n">d</span><span class="o">==</span><span class="mi">2</span> <span class="c">#if left</span>
+        <span class="n">row</span><span class="o">=</span><span class="nb">convert</span><span class="x">(</span><span class="kt">Int</span><span class="x">,</span><span class="n">floor</span><span class="x">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="n">l</span><span class="x">));</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">,</span><span class="n">l</span><span class="x">)</span><span class="o">+</span><span class="n">l</span><span class="o">*</span><span class="n">row</span><span class="x">;</span>
 
-    <span class="k">elseif</span> <span class="n">d</span><span class="o">==</span><span class="mi">3</span> <span class="err">#</span><span class="k">if</span> <span class="n">right</span>
-        <span class="n">row</span><span class="o">=</span><span class="n">convert</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span><span class="nb">floor</span><span class="p">((</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="n">l</span><span class="p">));</span>
-        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span><span class="o">+</span><span class="n">l</span><span class="o">*</span><span class="n">row</span><span class="p">;</span>
+    <span class="k">elseif</span> <span class="n">d</span><span class="o">==</span><span class="mi">3</span> <span class="c">#if right</span>
+        <span class="n">row</span><span class="o">=</span><span class="nb">convert</span><span class="x">(</span><span class="kt">Int</span><span class="x">,</span><span class="n">floor</span><span class="x">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="n">l</span><span class="x">));</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="x">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="x">,</span><span class="n">l</span><span class="x">)</span><span class="o">+</span><span class="n">l</span><span class="o">*</span><span class="n">row</span><span class="x">;</span>
 
-    <span class="k">else</span>  <span class="err">#</span> <span class="k">otherwise</span> <span class="n">up</span>
-        <span class="k">return</span> <span class="n">armod</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="n">l</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+    <span class="k">else</span>  <span class="c"># otherwise up</span>
+        <span class="k">return</span> <span class="n">armod</span><span class="x">(</span><span class="n">i</span><span class="o">+</span><span class="n">l</span><span class="x">,</span><span class="n">n</span><span class="x">);</span>
     <span class="k">end</span>
 <span class="k">end</span></code></pre></figure>
 
 <p>The centers of blocks will be used for pictoral purposes</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pos</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Float64</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
-<span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="p">[</span><span class="nb">floor</span><span class="p">((</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)/</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">]</span><span class="o">+.</span><span class="mi">5</span><span class="p">;</span>
-<span class="n">pos</span><span class="p">[</span><span class="mi">2</span><span class="p">,:]</span><span class="o">=</span><span class="p">[</span><span class="nb">mod</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">]</span><span class="o">+.</span><span class="mi">5</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pos</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">2</span><span class="x">,</span><span class="n">n</span><span class="x">);</span>
+<span class="n">pos</span><span class="x">[</span><span class="mi">1</span><span class="x">,:]</span><span class="o">=</span><span class="x">[</span><span class="n">floor</span><span class="x">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="n">l</span><span class="x">)</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">n</span><span class="x">]</span><span class="o">+.</span><span class="mi">5</span><span class="x">;</span>
+<span class="n">pos</span><span class="x">[</span><span class="mi">2</span><span class="x">,:]</span><span class="o">=</span><span class="x">[</span><span class="n">mod</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">,</span><span class="n">l</span><span class="x">)</span> <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">n</span><span class="x">]</span><span class="o">+.</span><span class="mi">5</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">How</span> <span class="n">many</span> <span class="n">timesteps</span>
-<span class="n">tn</span><span class="o">=</span><span class="mi">1000</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># How many timesteps</span>
+<span class="n">tn</span><span class="o">=</span><span class="mi">1000</span><span class="x">;</span>
 
-<span class="err">#</span> <span class="n">Array</span> <span class="n">of</span> <span class="n">timesteps</span>
-<span class="n">ti</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Int64</span><span class="p">,</span><span class="mi">1</span><span class="p">}()</span>
-<span class="err">#</span> <span class="n">Array</span> <span class="n">of</span> <span class="n">errors</span>
-<span class="n">err</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Float64</span><span class="p">,</span><span class="mi">1</span><span class="p">}()</span>
+<span class="c"># Array of timesteps</span>
+<span class="n">ti</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Int64</span><span class="x">,</span><span class="mi">1</span><span class="x">}()</span>
+<span class="c"># Array of errors</span>
+<span class="n">err</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">}()</span>
 
-<span class="err">#</span> <span class="n">Stores</span> <span class="n">current</span> <span class="n">location</span><span class="p">,</span> <span class="n">initialized</span> <span class="n">randomly</span>
-<span class="n">current</span><span class="o">=</span><span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">);</span>
-<span class="err">#</span> <span class="n">Stores</span> <span class="n">last</span> <span class="n">location</span><span class="p">,</span> <span class="n">used</span> <span class="k">for</span> <span class="n">pictoral</span> <span class="n">purposes</span>
-<span class="n">last</span><span class="o">=</span><span class="n">current</span><span class="p">;</span>
+<span class="c"># Stores current location, initialized randomly</span>
+<span class="n">current</span><span class="o">=</span><span class="n">rand</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="n">n</span><span class="x">);</span>
+<span class="c"># Stores last location, used for pictoral purposes</span>
+<span class="n">last</span><span class="o">=</span><span class="n">current</span><span class="x">;</span>
 
-<span class="err">#</span><span class="n">Keeps</span> <span class="n">track</span> <span class="n">of</span> <span class="n">where</span> <span class="n">chain</span> <span class="n">went</span>
-<span class="n">Naccumulated</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Int64</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
+<span class="c">#Keeps track of where chain went</span>
+<span class="n">Naccumulated</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Int64</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">);</span>
 
-<span class="err">#</span> <span class="n">put</span> <span class="n">in</span> <span class="n">our</span> <span class="n">first</span> <span class="n">point</span>
-<span class="err">#</span> <span class="n">can</span> <span class="n">index</span> <span class="mi">2</span><span class="n">d</span> <span class="n">array</span> <span class="n">as</span> <span class="mi">1</span><span class="n">d</span>
-<span class="n">Naccumulated</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+<span class="c"># put in our first point</span>
+<span class="c"># can index 2d array as 1d</span>
+<span class="n">Naccumulated</span><span class="x">[</span><span class="n">current</span><span class="x">]</span><span class="o">+=</span><span class="mi">1</span><span class="x">;</span>
 
-<span class="err">#</span> <span class="n">A</span> <span class="n">graph</span> <span class="n">will</span> <span class="nb">open</span> <span class="n">up</span> <span class="n">where</span> <span class="n">we</span> <span class="n">can</span> <span class="n">watch</span> <span class="n">the</span> <span class="n">chain</span>
-<span class="n">pygui</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="p">[:</span><span class="n">figaspect</span><span class="p">](</span><span class="o">.</span><span class="mi">35</span><span class="p">)</span>
-<span class="nb">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
+<span class="c"># A graph will open up where we can watch the chain</span>
+<span class="n">pygui</span><span class="x">(</span><span class="n">true</span><span class="x">)</span>
+<span class="n">w</span><span class="x">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="x">[:</span><span class="n">figaspect</span><span class="x">](</span><span class="o">.</span><span class="mi">35</span><span class="x">)</span>
+<span class="n">figure</span><span class="x">(</span><span class="n">figsize</span><span class="o">=</span><span class="x">(</span><span class="n">w</span><span class="x">,</span><span class="n">h</span><span class="x">))</span>
 
-<span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">tn</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">tn</span>
 
-    <span class="n">last</span><span class="o">=</span><span class="n">current</span><span class="p">;</span>
-    <span class="err">#</span> <span class="n">Determine</span> <span class="n">the</span> <span class="n">new</span> <span class="n">point</span>
-    <span class="n">current</span><span class="o">=</span><span class="n">Transition</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>
-    <span class="n">Naccumulated</span><span class="p">[</span><span class="n">current</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">last</span><span class="o">=</span><span class="n">current</span><span class="x">;</span>
+    <span class="c"># Determine the new point</span>
+    <span class="n">current</span><span class="o">=</span><span class="n">Transition</span><span class="x">(</span><span class="n">current</span><span class="x">);</span>
+    <span class="n">Naccumulated</span><span class="x">[</span><span class="n">current</span><span class="x">]</span><span class="o">+=</span><span class="mi">1</span><span class="x">;</span>
 
-    <span class="err">#</span> <span class="n">add</span> <span class="n">new</span> <span class="n">time</span> <span class="n">steps</span> <span class="nb">and</span> <span class="nb">error</span> <span class="n">points</span>
-    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span>
-    <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">err</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="nb">std</span><span class="p">(</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">ii</span><span class="p">),</span><span class="mi">5</span><span class="p">))</span>
+    <span class="c"># add new time steps and error points</span>
+    <span class="n">push!</span><span class="x">(</span><span class="n">ti</span><span class="x">,</span><span class="n">ii</span><span class="x">)</span>
+    <span class="n">push!</span><span class="x">(</span><span class="n">err</span><span class="x">,</span><span class="n">round</span><span class="x">(</span><span class="n">std</span><span class="x">(</span><span class="n">Naccumulated</span><span class="o">/</span><span class="n">ii</span><span class="x">),</span><span class="mi">5</span><span class="x">))</span>
 
 
-    <span class="nb">clf</span><span class="p">()</span> <span class="err">#</span><span class="n">clean</span> <span class="n">previous</span> <span class="nb">figure</span>
+    <span class="n">clf</span><span class="x">()</span> <span class="c">#clean previous figure</span>
 
-    <span class="nb">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span> <span class="err">#</span><span class="nb">subplot</span> <span class="mi">1</span>
+    <span class="n">subplot</span><span class="x">(</span><span class="mi">121</span><span class="x">)</span> <span class="c">#subplot 1</span>
 
-    <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">t</span><span class="p">:</span> <span class="err">$</span><span class="n">ii</span> <span class="nb">std</span><span class="p">:</span> <span class="err">$</span><span class="p">(</span><span class="n">err</span><span class="p">[</span><span class="k">end</span><span class="p">])</span><span class="err">"</span><span class="p">)</span>
-    <span class="nb">pcolor</span><span class="p">(</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">/</span><span class="n">n</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="err">"</span><span class="n">RdBu</span><span class="err">"</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-.</span><span class="mi">1</span><span class="p">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nb">colorbar</span><span class="p">()</span>
+    <span class="n">title</span><span class="x">(</span><span class="s">"t: </span><span class="si">$</span><span class="s">ii std: </span><span class="si">$</span><span class="s">(err[end])"</span><span class="x">)</span>
+    <span class="n">pcolor</span><span class="x">(</span><span class="n">Naccumulated</span><span class="o">/</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="x">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">"RdBu"</span><span class="x">,</span><span class="n">vmin</span><span class="o">=-.</span><span class="mi">1</span><span class="x">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">1</span><span class="x">)</span>
+    <span class="n">colorbar</span><span class="x">()</span>
 
-    <span class="err">#</span> <span class="n">An</span> <span class="n">arrow</span> <span class="n">from</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">point</span> <span class="n">to</span> <span class="n">the</span> <span class="n">current</span> <span class="n">point</span>
-    <span class="n">annotate</span><span class="p">(</span><span class="err">""</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="n">pos</span><span class="p">[:,</span><span class="n">current</span><span class="p">],</span>
-    <span class="n">xytext</span><span class="o">=</span><span class="n">pos</span><span class="p">[:,</span><span class="n">last</span><span class="p">],</span>
-    <span class="n">xycoords</span><span class="o">=</span><span class="err">"</span><span class="n">data</span><span class="err">"</span><span class="p">,</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="p">(</span><span class="err">"</span><span class="n">facecolor</span><span class="err">"</span><span class="o">=&gt;</span><span class="err">"</span><span class="n">green</span><span class="err">"</span><span class="p">))</span>
+    <span class="c"># An arrow from the previous point to the current point</span>
+    <span class="n">annotate</span><span class="x">(</span><span class="s">""</span><span class="x">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">pos</span><span class="x">[:,</span><span class="n">current</span><span class="x">],</span>
+    <span class="n">xytext</span><span class="o">=</span><span class="n">pos</span><span class="x">[:,</span><span class="n">last</span><span class="x">],</span>
+    <span class="n">xycoords</span><span class="o">=</span><span class="s">"data"</span><span class="x">,</span>
+    <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="x">(</span><span class="s">"facecolor"</span><span class="o">=&gt;</span><span class="s">"green"</span><span class="x">))</span>
 
-    <span class="nb">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span> <span class="err">#</span><span class="nb">subplot</span> <span class="mi">2</span>
-    <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Error</span><span class="err">"</span><span class="p">)</span>
-    <span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Step</span><span class="err">"</span><span class="p">)</span>
-    <span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Log</span> <span class="nb">std</span><span class="err">"</span><span class="p">)</span>
-    <span class="nb">scatter</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="nb">log10</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+    <span class="n">subplot</span><span class="x">(</span><span class="mi">122</span><span class="x">)</span> <span class="c">#subplot 2</span>
+    <span class="n">title</span><span class="x">(</span><span class="s">"Error"</span><span class="x">)</span>
+    <span class="n">xlabel</span><span class="x">(</span><span class="s">"Step"</span><span class="x">)</span>
+    <span class="n">ylabel</span><span class="x">(</span><span class="s">"Log std"</span><span class="x">)</span>
+    <span class="n">scatter</span><span class="x">(</span><span class="n">ti</span><span class="x">,</span><span class="n">log10</span><span class="x">(</span><span class="n">err</span><span class="x">))</span>
 
-    <span class="err">#</span><span class="n">how</span> <span class="n">long</span> <span class="n">to</span> <span class="n">wait</span> <span class="n">between</span> <span class="n">showing</span> <span class="n">steps</span> <span class="p">(</span><span class="n">in</span> <span class="n">seconds</span><span class="p">)</span>
-    <span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+    <span class="c">#how long to wait between showing steps (in seconds)</span>
+    <span class="n">sleep</span><span class="x">(</span><span class="o">.</span><span class="mi">5</span><span class="x">)</span>
 <span class="k">end</span>
-<span class="n">Naccumulated</span><span class="o">=</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">tn</span><span class="p">;</span></code></pre></figure>
+<span class="n">Naccumulated</span><span class="o">=</span><span class="n">Naccumulated</span><span class="o">/</span><span class="n">tn</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="nb">pcolor</span><span class="p">(</span><span class="n">Naccumulated</span><span class="p">/</span><span class="n">tn</span><span class="o">-</span><span class="mi">1</span><span class="p">/</span><span class="n">n</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="err">"</span><span class="n">RdBu</span><span class="err">"</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-.</span><span class="mi">02</span><span class="p">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">02</span><span class="p">)</span>
-<span class="nb">colorbar</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">pcolor</span><span class="x">(</span><span class="n">Naccumulated</span><span class="o">/</span><span class="n">tn</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="x">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">"RdBu"</span><span class="x">,</span><span class="n">vmin</span><span class="o">=-.</span><span class="mi">02</span><span class="x">,</span><span class="n">vmax</span><span class="o">=.</span><span class="mi">02</span><span class="x">)</span>
+<span class="n">colorbar</span><span class="x">()</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MCMC/grid5x5p.png" alt="Grid" />
+        <img src="http://localhost:4000/M4/Images/MCMC/grid5x5p.png" alt="Grid" />
     
     
         <p class="image-caption">A 5x5 grid after 2,000 steps.  </p>
     
 </div>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Error</span> <span class="k">for</span> <span class="n">a</span> <span class="mi">5</span><span class="n">x5</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Step</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Log</span> <span class="nb">std</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">scatter</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="nb">log10</span><span class="p">(</span><span class="n">err</span><span class="p">))</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">title</span><span class="x">(</span><span class="s">"Error for a 5x5"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"Step"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Log std"</span><span class="x">)</span>
+<span class="n">scatter</span><span class="x">(</span><span class="n">ti</span><span class="x">,</span><span class="n">log10</span><span class="x">(</span><span class="n">err</span><span class="x">))</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MCMC/err5x5p.png" alt="Error over time" />
+        <img src="http://localhost:4000/M4/Images/MCMC/err5x5p.png" alt="Error over time" />
     
     
         <p class="image-caption">The decreasing standard deviation from 1/25 shown in log base 10.</p>

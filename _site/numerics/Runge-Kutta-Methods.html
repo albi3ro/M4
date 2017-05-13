@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Runge-Kutta Methods</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/numerics/Runge-Kutta-Methods.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Runge-Kutta Methods" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/ODE/graphic.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Runge-Kutta Methods" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/ODE/graphic.png" />
+    <meta property="twitter:description" content="An introduction to the Runge-Kutta class of Ordinary Differential Equation solvers, specifically covering Euler, Implicit Euler, RK2, and RK4." />
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <link rel="icon"
+      type="image/png"
+      href="/M4/Images/favicon.ico">
+
+    <!--<nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+      </svg>
+    </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/M4/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/M4/jupyterjulia/">Interacting with Julia</a>
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Lattices/">Posts Tagged &ldquo;Lattices&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Quantum/">Posts Tagged &ldquo;Quantum&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ED/">Posts Tagged &ldquo;ED&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Monte%20Carlo/">Posts Tagged &ldquo;Monte Carlo&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Plot/">Posts Tagged &ldquo;Plot&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ODE/">Posts Tagged &ldquo;ODE&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Intro/">Posts Tagged &ldquo;Intro&rdquo;</a>
+          
+        
+      </div>
+    </nav>-->
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="An introduction to the Runge-Kutta class of Ordinary Differential Equation solvers, specifically covering Euler, Implicit Euler, RK2, and RK4." />
+<meta name="keywords" content="ODE" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">Runge-Kutta Methods</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags">ODE</a></p>
+        
+  </header>
+
+  <article class="post-content">
+
+    <h1 id="ordinary-differential-equation-solvers-runge-kutta-methods">Ordinary Differential Equation Solvers: Runge-Kutta Methods</h1>
+
+<h3 id="christina-lee">Christina Lee</h3>
+
+<p>So what’s an <i>Ordinary Differential Equation</i>?</p>
+
+<p>Differential Equation means we have some equation, or equations, that have derivatives in them.</p>
+
+<p>The <i>ordinary</i> part differentiates them from <i>partial</i> differential equations, the ones with curly $\partial$ derivatives.  Here, we only have one <b>independent</b> variable, let’s call it $t$, and one or more <b>dependent</b>  variables, let’s call them $x_1, x_2, …$.  In partial differential equations, we can have more than one independent variable.</p>
+
+<p>This ODE can either be written as a system of the form</p>
+
+<script type="math/tex; mode=display">\frac{d x_1}{dt}=f_1(t,x_1,x_2,...,x_n)</script>
+
+<script type="math/tex; mode=display">\frac{d x_2}{dt}=f_2(t,x_1,x_2,...,x_n)</script>
+
+<p>…</p>
+
+<script type="math/tex; mode=display">\frac{d x_n}{dt}=f_n(t,x_1,x_n,...,x_n)</script>
+
+<p>or a single n’th order ODE of the form</p>
+
+<script type="math/tex; mode=display">f_n(t,x) \frac{d^n x}{dt^n}+...+f_1(t,x) \frac{dx}{dt}+f_0(t,x)=0</script>
+
+<p>that can be rewritten in terms of a system of first order equations by performing variable substitutions such as</p>
+
+<script type="math/tex; mode=display">\frac{d^i x}{dt^i}=x_i</script>
+
+<p>Though STEM students such as I have probably spent thousands of hours pouring of ways to analytically solve both ordinary and partial differential equations, unfortunately, the real world is rarely so kind as to provide us with an exactly solvable differential equation.  At least for interesting problems.</p>
+
+<p>We can sometimes approximate the real world as an exactly solvable situation, but for the situation we are interested in, we have to turn to numerics.  I’m not saying those thousand different analytic methods are for nothing.  We need an idea ahead of time of what the differential equation should be doing, to tell if it’s misbehaving or not.  We can’t just blindly plug and chug.</p>
+
+<p>Today will be about introducing four different methods based on Taylor expansion to a specific order, also known as Runge-Kutta Methods.  We can improve these methods with adaptive stepsize control, but that is a topic for another time, just like the other modern types of solvers such as Richardson extrapolation and predictor-corrector.</p>
+
+<p>Nonetheless, to work with ANY computational differential equation solver, you need to understand the fundamentals of routines like Euler and Runge-Kutta, their error propagation, and where they can go wrong. Otherwise, you might misinterpret the results of more advanced methods.</p>
+
+<p><b>WARNING:</b> If you need to solve a troublesome differential equation for a research problem, use a package, like <a href="https://github.com/JuliaDiffEq/DifferentialEquations.jl">DifferentialEquations</a>.  These packages have much better error handling and optimization.</p>
+
+<p>Let’s first add our plotting package and colors.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="x">()</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"Gadfly"</span><span class="x">)</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"Colors"</span><span class="x">)</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"Lazy"</span><span class="x">)</span>
+<span class="n">using</span> <span class="n">Gadfly</span>
+<span class="c"># Solarized Colors that I like working with</span>
+<span class="c"># http://ethanschoonover.com/solarized</span>
+<span class="n">using</span> <span class="n">Colors</span>
+<span class="n">base03</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#002b36"</span><span class="x">);</span>
+<span class="n">base02</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#073642"</span><span class="x">);</span>
+<span class="n">base01</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#586e75"</span><span class="x">);</span>
+<span class="n">base00</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#657b83"</span><span class="x">);</span>
+<span class="n">base0</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#839496"</span><span class="x">);</span>
+<span class="n">base1</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#839496"</span><span class="x">);</span>
+<span class="n">base2</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#eee8d5"</span><span class="x">);</span>
+<span class="n">base3</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#fdf6e3"</span><span class="x">);</span>
+
+<span class="n">yellow</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#b58900"</span><span class="x">);</span>
+<span class="n">orange</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#cb4b16"</span><span class="x">);</span>
+<span class="n">red</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#dc322f"</span><span class="x">);</span>
+<span class="n">magenta</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#d33682"</span><span class="x">);</span>
+<span class="n">violet</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#6c71c4"</span><span class="x">);</span>
+<span class="n">blue</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#268bd2"</span><span class="x">);</span>
+<span class="n">cyan</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#3aa198"</span><span class="x">);</span>
+<span class="n">green</span><span class="o">=</span><span class="n">parse</span><span class="x">(</span><span class="n">Colorant</span><span class="x">,</span><span class="s">"#859900"</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<p>We will be benchmarking our solvers on one of the simplest and most common ODE’s,</p>
+
+<script type="math/tex; mode=display">\frac{d}{d t}x=x \;\;\;\;\;\;\; x(t)=C e^t</script>
+
+<p>Though this only has one dependent variable, we want to structure our code so that we can accommodate a series of dependent variables, $y_1,y_2,…,y_n$, and their associated derivative functions.  Therefore, we create a function for each dependent variable, and then <code class="highlighter-rouge">push</code> it into an array declared as type <code class="highlighter-rouge">Function</code>.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> f1</span><span class="x">(</span><span class="n">t</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">x</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">})</span>
+    <span class="k">return</span> <span class="n">x</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span>
+<span class="k">end</span>
+<span class="n">f</span><span class="o">=</span><span class="n">Function</span><span class="x">[]</span>
+<span class="n">push!</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">f1</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<h3 id="eulers-method">Euler’s Method</h3>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ODE/graphic.png" alt="Stepping" />
+    
+    
+        <p class="image-caption">Approximating the slope each step.</p>
+    
+</div>
+
+<p>First published in Euler’s <i>Instutionum calculi integralis</i> in 1768, this method gets a lot of milage, and if you are to understand anything, this method is it.</p>
+
+<p>We march along with step size $h$, and at each new point, calculate the slope.  The slope gives us our new direction to travel for the next $h$.</p>
+
+<p>We can determine the error from the Taylor expansion of the function</p>
+
+<script type="math/tex; mode=display">x_{n+1}=x_n+h f(x_n,t) + \mathcal{O}(h^2).</script>
+
+<p>In case you haven’t seen it before, the notation $\mathcal{O}(x)$ stands for “errors of the order x”.
+Summing over the entire interval, we accumuluate error according to</p>
+
+<p><script type="math/tex">N\mathcal{O}(h^2)= \frac{x_f-x_0}{h}\mathcal{O}(h^2)=h</script>,</p>
+
+<p>making this a <b>first order</b> method.  Generally, if a technique is $n$th order in the Taylor expansion for one step, its $(n-1)$th order over the interval.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> Euler</span><span class="x">(</span><span class="n">f</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="n">Function</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">t0</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">x</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">h</span><span class="o">::</span><span class="kt">Float64</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">f</span><span class="x">)</span>
+    <span class="n">xp</span><span class="o">=</span><span class="n">copy</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">xp</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">+=</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="x">,</span><span class="n">x</span><span class="x">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="x">,</span><span class="n">xp</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="implicit-method-or-backward-euler">Implicit Method or Backward Euler</h2>
+
+<p>If $f(t,x)$ has a form that is invertible, we can form a specific expression for the next step.  For example, if we use our exponential,</p>
+
+<script type="math/tex; mode=display">x_{n+1}=x_n+ h f(t_{n+1},x_{n+1})</script>
+
+<script type="math/tex; mode=display">x_{n+1}-h x_{n+1}=x_n</script>
+
+<script type="math/tex; mode=display">x_{n+1}=\frac{x_n}{1-h}</script>
+
+<p>This expression varies for each differential equation and only exists if the function is invertible.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> Implicit</span><span class="x">(</span><span class="n">f</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="n">Function</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">t0</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">x</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">h</span><span class="o">::</span><span class="kt">Float64</span><span class="x">)</span>
+    <span class="k">return</span> <span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="x">,</span><span class="n">x</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span><span class="o">/</span><span class="x">(</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="2nd-order-runge-kutta">2nd Order Runge-Kutta</h2>
+
+<p>So in the Euler Method, we could just make more, tinier steps to achieve more precise results. Here, we make <i>bettter</i> steps.  Each step itself takes more work than a step in the first order methods, but we win by having to perform fewer steps.</p>
+
+<p>This time, we are going to work with the Taylor expansion up to second order,</p>
+
+<script type="math/tex; mode=display">x_{n+1}=x_n+h f(t_n,x_n) + \frac{h^2}{2} f^{\prime}(t_n,x_n)+ \mathcal{O} (h^3).</script>
+
+<p>Define</p>
+
+<script type="math/tex; mode=display">k_1=f(t_n,x_n),</script>
+
+<p>so that we can write down the derivative of our $f$ function, and the second derivative (curvature), of our solution,</p>
+
+<script type="math/tex; mode=display">f^{\prime}(t_n,x_n)=\frac{f(t_n+h/2,x_n+h k_1/2)-k_1}{h/2}+\mathcal{O}(h^2).</script>
+
+<p>Plugging this expression back into our Taylor expansion, we get a new expression for $x_{n+1}$</p>
+
+<script type="math/tex; mode=display">x_{n+1}=x_n+hf(t_n+h/2,x_n+h k_1/2)+\mathcal{O}(h^3)</script>
+
+<p>We can also interpret this technique as using the slope at the center of the interval, instead of the start.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> RK2</span><span class="x">(</span><span class="n">f</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="n">Function</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">t0</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">x</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">h</span><span class="o">::</span><span class="kt">Float64</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">f</span><span class="x">)</span>
+
+    <span class="n">xp</span><span class="o">=</span><span class="n">copy</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+    <span class="n">xk1</span><span class="o">=</span><span class="n">copy</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">xk1</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">+=</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="x">,</span><span class="n">x</span><span class="x">)</span><span class="o">*</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">end</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">xp</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">+=</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="n">xk1</span><span class="x">)</span><span class="o">*</span><span class="n">h</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="x">,</span><span class="n">xp</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="4th-order-runge-kutta">4th Order Runge-Kutta</h2>
+<p>Wait! Where’s 3rd order? There exists a 3rd order method, but I only just heard about it while fact-checking for this post.  RK4 is your dependable, multi-purpose workhorse, so we are going to skip right to it.</p>
+
+<script type="math/tex; mode=display">k_1= f(t_n,x_n)</script>
+
+<script type="math/tex; mode=display">k_2= f(t_n+h/2,x_n+h k_1/2)</script>
+
+<script type="math/tex; mode=display">k_3 = f(t_n+h/2, x_n+h k_2/2)</script>
+
+<script type="math/tex; mode=display">k_4 = f(t_n+h,x_n+h k_3)</script>
+
+<script type="math/tex; mode=display">x_{n+1}=x_n+\frac{h}{6}\left(k_1+2 k_2+ 2k_3 +k_4 \right)</script>
+
+<p>I’m not going to prove here that the method is fourth order, but we will see numerically that it is.</p>
+
+<p><i>Note:</i> I premultiply the $h$ in my code to reduce the number of times I have to multiply $h$.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> RK4</span><span class="x">(</span><span class="n">f</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="n">Function</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">t0</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">x</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">h</span><span class="o">::</span><span class="kt">Float64</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">f</span><span class="x">)</span>
+
+    <span class="n">hk1</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+    <span class="n">hk2</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+    <span class="n">hk3</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+    <span class="n">hk4</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">hk1</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="x">,</span><span class="n">x</span><span class="x">)</span>
+    <span class="k">end</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">hk2</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="n">x</span><span class="o">+</span><span class="n">hk1</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span>
+    <span class="k">end</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">hk3</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="n">x</span><span class="o">+</span><span class="n">hk2</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span>
+    <span class="k">end</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">d</span>
+        <span class="n">hk4</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="x">[</span><span class="n">ii</span><span class="x">](</span><span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="x">,</span><span class="n">x</span><span class="o">+</span><span class="n">hk3</span><span class="x">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">t0</span><span class="o">+</span><span class="n">h</span><span class="x">,</span><span class="n">x</span><span class="o">+</span><span class="x">(</span><span class="n">hk1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">hk2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">hk3</span><span class="o">+</span><span class="n">hk4</span><span class="x">)</span><span class="o">/</span><span class="mi">6</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>This next function merely iterates over a certain number of steps for a given method.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> Solver</span><span class="x">(</span><span class="n">f</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="n">Function</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">Method</span><span class="o">::</span><span class="n">Function</span><span class="x">,</span><span class="n">t0</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span>
+        <span class="n">x0</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1</span><span class="x">},</span><span class="n">h</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">N</span><span class="o">::</span><span class="kt">Int64</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">f</span><span class="x">)</span>
+    <span class="n">ts</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span>
+    <span class="n">xs</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">d</span><span class="x">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span>
+
+    <span class="n">ts</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span><span class="o">=</span><span class="n">t0</span>
+    <span class="n">xs</span><span class="x">[:,</span><span class="mi">1</span><span class="x">]</span><span class="o">=</span><span class="n">x0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">2</span><span class="x">:(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span>
+        <span class="n">ts</span><span class="x">[</span><span class="n">i</span><span class="x">],</span><span class="n">xs</span><span class="x">[:,</span><span class="n">i</span><span class="x">]</span><span class="o">=</span><span class="n">Method</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">ts</span><span class="x">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">],</span><span class="n">xs</span><span class="x">[:,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">],</span><span class="n">h</span><span class="x">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">ts</span><span class="x">,</span><span class="n">xs</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">N</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">xf</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">t0</span><span class="o">=</span><span class="mf">0.</span>
+<span class="n">x0</span><span class="o">=</span><span class="x">[</span><span class="mf">1.</span><span class="x">]</span>
+<span class="n">dt</span><span class="o">=</span><span class="x">(</span><span class="n">xf</span><span class="o">-</span><span class="n">t0</span><span class="x">)</span><span class="o">/</span><span class="n">N</span>
+
+<span class="n">tEU</span><span class="x">,</span><span class="n">xEU</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">Euler</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">,</span><span class="n">N</span><span class="x">);</span>
+<span class="n">tIm</span><span class="x">,</span><span class="n">xIm</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">Implicit</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">,</span><span class="n">N</span><span class="x">);</span>
+<span class="n">tRK2</span><span class="x">,</span><span class="n">xRK2</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">RK2</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">,</span><span class="n">N</span><span class="x">);</span>
+<span class="n">tRK4</span><span class="x">,</span><span class="n">xRK4</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">RK4</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">,</span><span class="n">N</span><span class="x">);</span>
+
+<span class="n">xi</span><span class="o">=</span><span class="n">tEU</span>
+<span class="n">yi</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="n">xi</span><span class="x">);</span>
+
+<span class="n">errEU</span><span class="o">=</span><span class="n">reshape</span><span class="x">(</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span><span class="o">-</span><span class="n">yi</span>
+<span class="n">errIm</span><span class="o">=</span><span class="n">reshape</span><span class="x">(</span><span class="n">xIm</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span><span class="o">-</span><span class="n">yi</span>
+<span class="n">errRK2</span><span class="o">=</span><span class="n">reshape</span><span class="x">(</span><span class="n">xRK2</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span><span class="o">-</span><span class="n">yi</span><span class="x">;</span>
+<span class="n">errRK4</span><span class="o">=</span><span class="n">reshape</span><span class="x">(</span><span class="n">xRK4</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span><span class="o">-</span><span class="n">yi</span><span class="x">;</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tEU</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">3</span><span class="n">pt</span><span class="x">))</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/ODE/exp.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">lEU</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tEU</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">3</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lIm</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tIm</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xIm</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">yellow</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">3</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lRK2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tRK2</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xRK2</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">cyan</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">2</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lRK4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tRK4</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xRK4</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">violet</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">4</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lp</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">e</span><span class="o">^</span><span class="n">x</span><span class="x">,</span><span class="o">-.</span><span class="mi">1</span><span class="x">,</span><span class="mi">10</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">red</span><span class="x">))</span>
+
+
+<span class="n">plot</span><span class="x">(</span><span class="n">lp</span><span class="x">,</span><span class="n">lEU</span><span class="x">,</span><span class="n">lIm</span><span class="x">,</span><span class="n">lRK2</span><span class="x">,</span><span class="n">lRK4</span><span class="x">,</span>
+<span class="n">Guide</span><span class="o">.</span><span class="n">manual_color_key</span><span class="x">(</span><span class="s">"Legend"</span><span class="x">,[</span><span class="s">"Euler"</span><span class="x">,</span><span class="s">"Implicit"</span><span class="x">,</span><span class="s">"RK2"</span><span class="x">,</span><span class="s">"RK4"</span><span class="x">,</span><span class="s">"Exact"</span><span class="x">],</span>
+<span class="x">[</span><span class="n">green</span><span class="x">,</span><span class="n">yellow</span><span class="x">,</span><span class="n">cyan</span><span class="x">,</span><span class="n">violet</span><span class="x">,</span><span class="n">red</span><span class="x">]),</span>
+<span class="n">Coord</span><span class="o">.</span><span class="n">cartesian</span><span class="x">(</span><span class="n">xmin</span><span class="o">=</span><span class="mf">9.5</span><span class="x">,</span><span class="n">xmax</span><span class="o">=</span><span class="mf">10.1</span><span class="x">))</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/ODE/comp_exp.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">lEU</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errEU</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lIm</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errIm</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">yellow</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lRK2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errRK2</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">cyan</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lRK4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errRK4</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">violet</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">plot</span><span class="x">(</span><span class="n">lEU</span><span class="x">,</span><span class="n">lIm</span><span class="x">,</span><span class="n">lRK2</span><span class="x">,</span><span class="n">lRK4</span><span class="x">,</span><span class="n">Scale</span><span class="o">.</span><span class="n">y_asinh</span><span class="x">,</span>
+<span class="n">Guide</span><span class="o">.</span><span class="n">manual_color_key</span><span class="x">(</span><span class="s">"Legend"</span><span class="x">,[</span><span class="s">"Euler"</span><span class="x">,</span><span class="s">"Implicit"</span><span class="x">,</span><span class="s">"RK2"</span><span class="x">,</span><span class="s">"RK4"</span><span class="x">],</span>
+<span class="x">[</span><span class="n">green</span><span class="x">,</span><span class="n">yellow</span><span class="x">,</span><span class="n">cyan</span><span class="x">,</span><span class="n">violet</span><span class="x">]))</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/ODE/comp_err.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+
+<h2 id="scaling-of-the-error">Scaling of the Error</h2>
+
+<p>I talked above about the error scaling either as $h,h^2$, or $h^4$.  I won’t just talk but here will numerically demonstrate the relationship as well.  For a variety of different step sizes, the below code calculates the final error for each method.  Then we will plot the error and see how it scales.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">t0</span><span class="o">=</span><span class="mf">0.</span>
+<span class="n">tf</span><span class="o">=</span><span class="mf">1.</span>
+<span class="n">dx</span><span class="o">=</span><span class="n">tf</span><span class="o">-</span><span class="n">t0</span>
+<span class="n">x0</span><span class="o">=</span><span class="x">[</span><span class="mf">1.</span><span class="x">]</span>
+
+<span class="n">dt</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="o">.</span><span class="mi">001</span><span class="x">:</span><span class="o">.</span><span class="mi">0001</span><span class="x">:</span><span class="o">.</span><span class="mi">01</span><span class="x">)</span>
+
+<span class="n">correctans</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="n">tf</span><span class="x">)</span>
+<span class="n">errfEU</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">dt</span><span class="x">)</span>
+<span class="n">errfIm</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">dt</span><span class="x">)</span>
+<span class="n">errfRK2</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">dt</span><span class="x">)</span>
+<span class="n">errfRK4</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">dt</span><span class="x">)</span>
+
+
+
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">dt</span><span class="x">)</span>
+    <span class="n">N</span><span class="o">=</span><span class="n">round</span><span class="x">(</span><span class="kt">Int</span><span class="x">,</span><span class="n">dx</span><span class="o">/</span><span class="n">dt</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+    <span class="n">dt</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">dx</span><span class="o">/</span><span class="n">N</span>
+
+    <span class="n">tEU</span><span class="x">,</span><span class="n">xEU</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">Euler</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">N</span><span class="x">);</span>
+    <span class="n">tIm</span><span class="x">,</span><span class="n">xIm</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">Implicit</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">N</span><span class="x">);</span>
+    <span class="n">tRK2</span><span class="x">,</span><span class="n">xRK2</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">RK2</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">N</span><span class="x">);</span>
+    <span class="n">tRK4</span><span class="x">,</span><span class="n">xRK4</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">RK4</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">N</span><span class="x">);</span>
+
+    <span class="n">errfEU</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="k">end</span><span class="x">]</span><span class="o">-</span><span class="n">correctans</span>
+    <span class="n">errfIm</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">xIm</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="k">end</span><span class="x">]</span><span class="o">-</span><span class="n">correctans</span>
+    <span class="n">errfRK2</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">xRK2</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="k">end</span><span class="x">]</span><span class="o">-</span><span class="n">correctans</span>
+    <span class="n">errfRK4</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">=</span><span class="n">xRK4</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="k">end</span><span class="x">]</span><span class="o">-</span><span class="n">correctans</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">lEU</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfEU</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lIm</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfIm</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">yellow</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lRK2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfRK2</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">5</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">cyan</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">lRK4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfRK4</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">10</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
+<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">violet</span><span class="x">,</span>
+<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+
+<span class="n">tempEU</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfEU</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span>
+<span class="n">tempIm</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfIm</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span>
+<span class="c">#le=layer([tempEU,tempIm],0,.01,Geom.line,Theme(default_color=base01))</span>
+<span class="n">le</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">tempEU</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base01</span><span class="x">))</span>
+<span class="n">lei</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">tempIm</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base01</span><span class="x">))</span>
+
+
+<span class="n">temp2</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfRK2</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="x">(</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">5</span><span class="x">)</span>
+<span class="n">l2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">temp2</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base00</span><span class="x">))</span>
+
+<span class="n">temp4</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfRK4</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="x">(</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span><span class="o">^</span><span class="mi">4</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">10</span><span class="x">)</span>
+<span class="n">l4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">temp4</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base00</span><span class="x">))</span>
+
+<span class="n">xl</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">xlabel</span><span class="x">(</span><span class="s">"h"</span><span class="x">)</span>
+<span class="n">ylrk2</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">ylabel</span><span class="x">(</span><span class="s">"Error e-5"</span><span class="x">)</span>
+<span class="n">ylrk4</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">ylabel</span><span class="x">(</span><span class="s">"Error e-10"</span><span class="x">)</span>
+<span class="n">yl</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">ylabel</span><span class="x">(</span><span class="s">"Error"</span><span class="x">)</span>
+
+<span class="n">pEU</span><span class="o">=</span><span class="n">plot</span><span class="x">(</span><span class="n">lEU</span><span class="x">,</span><span class="n">lIm</span><span class="x">,</span><span class="n">le</span><span class="x">,</span><span class="n">lei</span><span class="x">,</span><span class="n">xl</span><span class="x">,</span><span class="n">yl</span><span class="x">,</span><span class="n">Guide</span><span class="o">.</span><span class="n">title</span><span class="x">(</span><span class="s">"Euler and Implicit, linear error"</span><span class="x">))</span>
+<span class="n">p2</span><span class="o">=</span><span class="n">plot</span><span class="x">(</span><span class="n">lRK2</span><span class="x">,</span><span class="n">l2</span><span class="x">,</span><span class="n">xl</span><span class="x">,</span><span class="n">ylrk2</span><span class="x">,</span><span class="n">Guide</span><span class="o">.</span><span class="n">title</span><span class="x">(</span><span class="s">"RK2, error h^2"</span><span class="x">))</span>
+<span class="n">p4</span><span class="o">=</span><span class="n">plot</span><span class="x">(</span><span class="n">lRK4</span><span class="x">,</span><span class="n">l4</span><span class="x">,</span><span class="n">xl</span><span class="x">,</span><span class="n">ylrk4</span><span class="x">,</span><span class="n">Guide</span><span class="o">.</span><span class="n">title</span><span class="x">(</span><span class="s">"RK4, error h^4"</span><span class="x">))</span>
+<span class="n">vstack</span><span class="x">(</span><span class="n">hstack</span><span class="x">(</span><span class="n">p2</span><span class="x">,</span><span class="n">p4</span><span class="x">),</span><span class="n">pEU</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/ODE/err_scale.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+
+<h2 id="arbitrary-order">Arbitrary Order</h2>
+<p>While I have presented 4 concrete examples, many more exist. For any choice of variables $a_i, \beta_{i,j},a_i$ that fulfill</p>
+
+<script type="math/tex; mode=display">x_{n+1}=x_n+h\left(\sum_{i=1}^s a_i k_i \right)+ \mathcal{O}(h^p)</script>
+
+<p>with</p>
+
+<script type="math/tex; mode=display">k_i=f\left(t_n+\alpha_i h,x_n+h\left(\sum_{j=1}^s \beta_{ij} k_j \right) \right)</script>
+
+<p>we have a Runge-Kutta method of order $p$, where $p\geq s$.  The Butcher tableau provides a set of consistent coefficients.</p>
+
+<p>These routines are also present in the M4 folder in a module named <code class="highlighter-rouge">diffeq.jl</code>. For later work, you may simply import the module.</p>
+
+<p>Stay tuned for when we tuned these routines to the stiff van der Pol equations!</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/numerics/Runge-Kutta-Methods.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/numerics/Runge-Kutta-Methods.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

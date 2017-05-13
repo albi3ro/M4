@@ -57,6 +57,17 @@ ul, ol, dl, figure {
     color: #828282;
     margin-top: 6.66667px; }
 
+table, th, td {
+  border: .2em solid black;
+  padding: .2em; }
+
+table {
+  border-collapse: collapse; }
+
+th, td {
+  width: 5em;
+  text-align: center; }
+
 /**
  * Images
  */
@@ -65,8 +76,8 @@ img {
   vertical-align: middle; }
 
 .progtip {
-  background-color: #3d2d1d;
-  color: #ccffcc;
+  background-color: #b9abe4;
+  color: black;
   border-radius: 1em;
   padding: 1em;
   /*float: right;
@@ -265,8 +276,9 @@ a.sidebar:active {
   height: 6em;
   position: relative; }
 
-.tagtable {
-  border: 0em; }
+.tagtable, .tagtitle, .trtag, .tagprop {
+  border: none;
+  padding: 0em; }
 
 .cattype {
   text-align: center;

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Computationally Visualizing Crystals Pt. 2</title>
-    <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
     <link rel="stylesheet" href="/M4/css/main.css">
-    <link rel="canonical" href="/M4/general/MultiSite-Unit-Cells.html">
+    <link rel="canonical" href="http://localhost:4000/M4/general/MultiSite-Unit-Cells.html">
     <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -31,7 +32,12 @@
 
 
     <meta property="og:title" content="Computationally Visualizing Crystals Pt. 2" />
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/Projectile/pyrochloresvg2.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Computationally Visualizing Crystals Pt. 2" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/Projectile/pyrochloresvg2.png" />
+    <meta property="twitter:description" content="Here we tile unit cells via Bravais lattice to create some common lattices like honeycomb and diamond." />
 
 </head>
 
@@ -44,6 +50,10 @@
   <div class="wrapper">
 
     <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <link rel="icon"
+      type="image/png"
+      href="/M4/Images/favicon.ico">
 
     <!--<nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -83,7 +93,7 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/ED/">Posts Tagged &ldquo;ED&rdquo;</a>
           
         
           
@@ -92,6 +102,18 @@
         
           
           <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Plot/">Posts Tagged &ldquo;Plot&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ODE/">Posts Tagged &ldquo;ODE&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Intro/">Posts Tagged &ldquo;Intro&rdquo;</a>
           
         
       </div>
@@ -117,15 +139,20 @@
 
       <div class="wrapper">
         <div class="post">
+<meta name="description" content="Here we tile unit cells via Bravais lattice to create some common lattices like honeycomb and diamond." />
+<meta name="keywords" content="Lattices" />
+<meta name="author" content="Christina C. Lee" />
 
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
 
   <header class="post-header">
-    <h1 class="post-title">Computationally Visualizing Crystals Pt. 2</h1>
+    <h1 class="post-title" itemprop="name">Computationally Visualizing Crystals Pt. 2</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
-      Category: <a href="/M4/categories">General</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
+      Category: <a href="/M4/categories">
+        General</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
       
       <a href="/M4/tags">Lattices</a></p>
         
@@ -144,7 +171,7 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/kagomesvg.png" alt="kagome" />
+        <img src="http://localhost:4000/M4/Images/MultiUnit/kagomesvg.png" alt="kagome" />
     
     
         <p class="image-caption">A Kagome Lattice.</p>
@@ -154,7 +181,7 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/kagomebasket.jpg" alt="basket" />
+        <img src="http://localhost:4000/M4/Images/MultiUnit/kagomebasket.jpg" alt="basket" />
     
     
         <p class="image-caption">A basket woven in the Japanese kagome style. <sub>Wikimedia commons</sub></p>
@@ -192,79 +219,79 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/Shurikens.jpg" alt="Shurikens" />
+        <img src="http://localhost:4000/M4/Images/MultiUnit/Shurikens.jpg" alt="Shurikens" />
     
     
         <p class="image-caption">Japanese Shurikens- a type of ninja fighting star. <sub>By kaex0r (http://www.flickr.com/photos/kaex0r414/191765028/) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons</sub></p>
     
 </div>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">importing</span> <span class="n">our</span> <span class="n">packages</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">PyPlot</span><span class="err">"</span><span class="p">);</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">();</span>
-<span class="n">using</span> <span class="n">PyPlot</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># importing our packages</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"PyPlot"</span><span class="x">);</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="x">();</span>
+<span class="n">using</span> <span class="n">PyPlot</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">lattice</span><span class="o">=</span><span class="err">"</span><span class="n">shuriken</span><span class="err">"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">lattice</span><span class="o">=</span><span class="s">"shuriken"</span><span class="x">;</span>
 
-<span class="n">Nx</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">Ny</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-<span class="n">Nz</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span></code></pre></figure>
+<span class="n">Nx</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+<span class="n">Ny</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+<span class="n">Nz</span><span class="o">=</span><span class="mi">1</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">A</span> <span class="nb">cell</span> <span class="n">to</span> <span class="n">just</span> <span class="n">evaluate</span>
-<span class="err">#</span> <span class="n">This</span> <span class="n">one</span> <span class="n">sets</span> <span class="n">the</span> <span class="n">unit</span> <span class="n">vectors</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">different</span> <span class="n">unit</span> <span class="n">cells</span>
-<span class="err">#</span> <span class="n">Can</span> <span class="n">you</span> <span class="n">guess</span> <span class="nb">what</span> <span class="n">a</span> <span class="n">lattice</span> <span class="n">will</span> <span class="n">look</span> <span class="n">like</span> <span class="n">by</span> <span class="n">looking</span> <span class="n">at</span> <span class="n">the</span> <span class="n">vectors</span><span class="err">?</span>
-<span class="k">if</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">honeycomb</span><span class="err">"</span><span class="p">)</span> <span class="err">#</span><span class="n">also</span> <span class="n">the</span> <span class="n">graphite</span> <span class="n">lattice</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)/</span><span class="mi">2</span> <span class="mi">1</span><span class="p">/</span><span class="mi">2</span> <span class="mi">0</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)/</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">kagome</span><span class="err">"</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">5</span> <span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)/</span><span class="mi">2</span> <span class="mi">0</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>       <span class="err">#</span><span class="n">Look</span> <span class="n">familiar</span><span class="err">?</span> <span class="n">Checkout</span> <span class="n">pt</span> <span class="n">from</span> <span class="n">Pt</span><span class="o">.</span> <span class="mi">1</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">shuriken</span><span class="err">"</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">6</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="o">.</span><span class="mi">5</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="mi">0</span> <span class="o">.</span><span class="mi">5</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="o">.</span><span class="mi">5</span> <span class="o">.</span><span class="mi">5</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">25</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">.</span><span class="mi">25</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">25</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="mi">0</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">diamond</span><span class="err">"</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-          <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>    <span class="err">#</span><span class="n">Look</span> <span class="n">familiar</span><span class="err">?</span> <span class="n">Checkout</span> <span class="n">fcc</span> <span class="n">from</span> <span class="n">Pt</span><span class="o">.</span><span class="mi">1</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-<span class="k">elseif</span><span class="p">(</span><span class="n">lattice</span><span class="o">==</span><span class="err">"</span><span class="n">pyrochlore</span><span class="err">"</span><span class="p">)</span>
-    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">;</span>
-    <span class="n">Ncell</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span>
-    <span class="n">unit</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="p">[</span><span class="o">.</span><span class="mi">25</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">25</span><span class="p">]</span>
-        <span class="p">[</span><span class="mi">0</span> <span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span><span class="p">]];</span>
-    <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
-    <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">];</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># A cell to just evaluate</span>
+<span class="c"># This one sets the unit vectors (a,b,c) for the different unit cells</span>
+<span class="c"># Can you guess what a lattice will look like by looking at the vectors?</span>
+<span class="k">if</span><span class="x">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">"honeycomb"</span><span class="x">)</span> <span class="c">#also the graphite lattice</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="x">;</span>
+    <span class="n">Ncell</span><span class="o">=</span><span class="mi">2</span><span class="x">;</span>
+    <span class="n">unit</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+        <span class="x">[</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="mi">0</span><span class="x">]];</span>
+    <span class="n">a</span><span class="o">=</span><span class="x">[</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">),</span><span class="mi">0</span><span class="x">,</span><span class="mi">0</span><span class="x">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="x">[</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="mi">0</span><span class="x">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="mi">1</span><span class="x">];</span>
+<span class="k">elseif</span><span class="x">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">"kagome"</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="x">;</span>
+    <span class="n">Ncell</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+    <span class="n">unit</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+          <span class="x">[</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+        <span class="x">[</span><span class="o">.</span><span class="mi">5</span> <span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span> <span class="mi">0</span><span class="x">]];</span>
+    <span class="n">a</span><span class="o">=</span><span class="x">[</span><span class="mi">2</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="mi">0</span><span class="x">];</span>       <span class="c">#Look familiar? Checkout pt from Pt. 1</span>
+    <span class="n">b</span><span class="o">=</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span> <span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">),</span> <span class="mi">0</span><span class="x">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="mi">1</span><span class="x">];</span>
+<span class="k">elseif</span><span class="x">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">"shuriken"</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="x">;</span>
+    <span class="n">Ncell</span><span class="o">=</span><span class="mi">6</span><span class="x">;</span>
+    <span class="n">unit</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+          <span class="x">[</span><span class="o">.</span><span class="mi">5</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+          <span class="x">[</span><span class="mi">0</span> <span class="o">.</span><span class="mi">5</span> <span class="mi">0</span><span class="x">]</span>
+          <span class="x">[</span><span class="o">.</span><span class="mi">5</span> <span class="o">.</span><span class="mi">5</span> <span class="mi">0</span><span class="x">]</span>
+        <span class="x">[</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">25</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">)</span> <span class="o">.</span><span class="mi">25</span> <span class="mi">0</span><span class="x">]</span>
+        <span class="x">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">25</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">)</span> <span class="mi">0</span><span class="x">]];</span>
+    <span class="n">a</span><span class="o">=</span><span class="x">[</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">),</span><span class="mi">0</span><span class="x">,</span><span class="mi">0</span><span class="x">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="o">+.</span><span class="mi">5</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">3</span><span class="x">),</span><span class="mi">0</span><span class="x">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="mi">1</span><span class="x">];</span>
+<span class="k">elseif</span><span class="x">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">"diamond"</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+    <span class="n">Ncell</span><span class="o">=</span><span class="mi">2</span><span class="x">;</span>
+    <span class="n">unit</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+          <span class="x">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span><span class="x">]];</span>
+    <span class="n">a</span><span class="o">=</span><span class="x">[</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="mi">0</span><span class="x">];</span>    <span class="c">#Look familiar? Checkout fcc from Pt.1</span>
+    <span class="n">b</span><span class="o">=</span><span class="x">[</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">];</span>
+<span class="k">elseif</span><span class="x">(</span><span class="n">lattice</span><span class="o">==</span><span class="s">"pyrochlore"</span><span class="x">)</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+    <span class="n">Ncell</span><span class="o">=</span><span class="mi">4</span><span class="x">;</span>
+    <span class="n">unit</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span><span class="x">]</span>
+        <span class="x">[</span><span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span> <span class="mi">0</span><span class="x">]</span>
+        <span class="x">[</span><span class="o">.</span><span class="mi">25</span> <span class="mi">0</span> <span class="o">.</span><span class="mi">25</span><span class="x">]</span>
+        <span class="x">[</span><span class="mi">0</span> <span class="o">.</span><span class="mi">25</span> <span class="o">.</span><span class="mi">25</span><span class="x">]];</span>
+    <span class="n">a</span><span class="o">=</span><span class="x">[</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="mi">0</span><span class="x">];</span>
+    <span class="n">b</span><span class="o">=</span><span class="x">[</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">];</span>
+    <span class="n">c</span><span class="o">=</span><span class="x">[</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">,</span><span class="o">.</span><span class="mi">5</span><span class="x">];</span>
 
 <span class="k">else</span>
-    <span class="n">println</span><span class="p">(</span><span class="err">"</span><span class="n">Please</span> <span class="n">have</span> <span class="n">a</span> <span class="n">correct</span> <span class="n">lattice</span><span class="err">"</span><span class="p">)</span>
+    <span class="n">println</span><span class="x">(</span><span class="s">"Please have a correct lattice"</span><span class="x">)</span>
 <span class="k">end</span>
-<span class="err">"</span><span class="n">Cell</span> <span class="n">finished</span><span class="err">"</span></code></pre></figure>
+<span class="s">"Cell finished"</span></code></pre></figure>
 
 <h3 id="connections-to-bravais-lattices">Connections to Bravais Lattices</h3>
 
@@ -274,53 +301,53 @@
         \end{equation}
 you’ll notice they’re the same except for a scaling factor.  This has to be true, since only 14 different patterns tile 3D space uniquely.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">Another</span> <span class="nb">cell</span> <span class="n">to</span> <span class="n">just</span> <span class="n">evaluate</span>
-<span class="err">#</span> <span class="n">Here</span> <span class="n">we</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">some</span> <span class="n">numbers</span> <span class="nb">and</span> <span class="n">matrices</span> <span class="k">for</span> <span class="n">our</span> <span class="n">computation</span>
-<span class="n">N</span><span class="o">=</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="o">*</span><span class="n">Ncell</span><span class="p">;</span>    <span class="err">#</span><span class="n">The</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">sites</span>
-<span class="n">aM</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Ncell</span><span class="p">]));</span>
-<span class="n">bM</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="p">]));</span> <span class="err">#</span><span class="n">these</span> <span class="n">allow</span> <span class="n">us</span> <span class="n">to</span> <span class="n">copy</span> <span class="n">an</span> <span class="n">entire</span> <span class="n">row</span> <span class="nb">or</span> <span class="n">layer</span> <span class="n">at</span> <span class="n">once</span>
-<span class="n">cM</span><span class="o">=</span><span class="nb">transpose</span><span class="p">(</span><span class="n">repeat</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">outer</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">]));</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
+<span class="c"># Here we set up some numbers and matrices for our computation</span>
+<span class="n">N</span><span class="o">=</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nz</span><span class="o">*</span><span class="n">Ncell</span><span class="x">;</span>    <span class="c">#The total number of sites</span>
+<span class="n">aM</span><span class="o">=</span><span class="n">transpose</span><span class="x">(</span><span class="n">repeat</span><span class="x">(</span><span class="n">a</span><span class="x">,</span><span class="n">outer</span><span class="o">=</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="n">Ncell</span><span class="x">]));</span>
+<span class="n">bM</span><span class="o">=</span><span class="n">transpose</span><span class="x">(</span><span class="n">repeat</span><span class="x">(</span><span class="n">b</span><span class="x">,</span><span class="n">outer</span><span class="o">=</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="x">]));</span> <span class="c">#these allow us to copy an entire row or layer at once</span>
+<span class="n">cM</span><span class="o">=</span><span class="n">transpose</span><span class="x">(</span><span class="n">repeat</span><span class="x">(</span><span class="n">c</span><span class="x">,</span><span class="n">outer</span><span class="o">=</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">]));</span>
 
-<span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Float64</span><span class="p">}(</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>  <span class="err">#</span><span class="n">where</span> <span class="n">we</span> <span class="n">store</span> <span class="n">the</span> <span class="n">positions</span>
-<span class="err">"</span><span class="n">Cell</span> <span class="n">finished</span><span class="err">"</span></code></pre></figure>
+<span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">}(</span><span class="n">N</span><span class="x">,</span><span class="mi">3</span><span class="x">);</span>  <span class="c">#where we store the positions</span>
+<span class="s">"Cell finished"</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">Another</span> <span class="nb">cell</span> <span class="n">to</span> <span class="n">just</span> <span class="n">evaluate</span>
-<span class="err">#</span> <span class="n">Here</span> <span class="n">we</span> <span class="n">are</span> <span class="n">actually</span> <span class="n">calculating</span> <span class="n">the</span> <span class="n">positions</span> <span class="k">for</span> <span class="n">every</span> <span class="n">site</span>
-<span class="k">for</span> <span class="nb">i</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">Nx</span>    <span class="err">#</span><span class="k">for</span> <span class="n">the</span> <span class="n">first</span> <span class="n">row</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ncell</span><span class="o">*</span><span class="nb">i</span><span class="o">-</span><span class="n">Ncell</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="nb">i</span><span class="p">,:]</span><span class="o">=</span><span class="n">unit</span><span class="o">+</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">aM</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
+<span class="c"># Here we are actually calculating the positions for every site</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">Nx</span>    <span class="c">#for the first row</span>
+    <span class="n">X</span><span class="x">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="n">Ncell</span><span class="o">+</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">i</span><span class="x">,:]</span><span class="o">=</span><span class="n">unit</span><span class="o">+</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">aM</span><span class="x">;</span>
 <span class="k">end</span>
 
-<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Ny</span>    <span class="err">#</span><span class="n">copying</span> <span class="n">the</span> <span class="n">first</span> <span class="n">row</span> <span class="n">into</span> <span class="n">the</span> <span class="n">first</span> <span class="n">layer</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">bM</span><span class="p">;</span>
+<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="x">:</span><span class="n">Ny</span>    <span class="c">#copying the first row into the first layer</span>
+    <span class="n">X</span><span class="x">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">+</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="x">),:]</span><span class="o">=</span><span class="n">X</span><span class="x">[</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="x">,:]</span><span class="o">+</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">bM</span><span class="x">;</span>
 <span class="k">end</span>
 
-<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">2</span><span class="p">:</span><span class="n">Nz</span>    <span class="err">#</span><span class="n">copying</span> <span class="n">the</span> <span class="n">first</span> <span class="n">layer</span> <span class="n">into</span> <span class="n">the</span> <span class="n">entire</span> <span class="n">cube</span>
-    <span class="n">X</span><span class="p">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">),:]</span><span class="o">=</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="p">,:]</span><span class="o">+</span><span class="p">(</span><span class="nb">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">cM</span><span class="p">;</span>
+<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="x">:</span><span class="n">Nz</span>    <span class="c">#copying the first layer into the entire cube</span>
+    <span class="n">X</span><span class="x">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">+</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">),:]</span><span class="o">=</span><span class="n">X</span><span class="x">[</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">,:]</span><span class="o">+</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">cM</span><span class="x">;</span>
 <span class="k">end</span>
-<span class="err">"</span><span class="n">Cell</span> <span class="n">finished</span><span class="err">"</span></code></pre></figure>
+<span class="s">"Cell finished"</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="mi">2</span><span class="n">D</span> <span class="n">plotter</span>
-<span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="p">[:</span><span class="n">figaspect</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
-<span class="nb">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">])</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># 2D plotter</span>
+<span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">w</span><span class="x">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="x">[:</span><span class="n">figaspect</span><span class="x">](</span><span class="mi">1</span><span class="x">)</span>
+<span class="n">figure</span><span class="x">(</span><span class="n">figsize</span><span class="o">=</span><span class="x">(</span><span class="n">w</span><span class="x">,</span><span class="n">h</span><span class="x">))</span>
+<span class="n">scatter</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">2</span><span class="x">])</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/shurikenplot.png" alt="Shuriken" />
+        <img src="http://localhost:4000/M4/Images/MultiUnit/shurikenplot.png" alt="Shuriken" />
     
     
         <p class="image-caption">3x3 Shuriken or Square-Kagome Lattice.</p>
     
 </div>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="mi">3</span><span class="n">D</span> <span class="n">plotter</span>
-<span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="p">[:</span><span class="n">figaspect</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
-<span class="n">areas</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="nb">length</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">scatter3D</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="n">X</span><span class="p">[:,</span><span class="mi">3</span><span class="p">])</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># 3D plotter</span>
+<span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">w</span><span class="x">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">plt</span><span class="x">[:</span><span class="n">figaspect</span><span class="x">](</span><span class="mi">1</span><span class="x">)</span>
+<span class="n">figure</span><span class="x">(</span><span class="n">figsize</span><span class="o">=</span><span class="x">(</span><span class="n">w</span><span class="x">,</span><span class="n">h</span><span class="x">))</span>
+<span class="n">areas</span><span class="o">=</span><span class="mi">100</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">length</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">]))</span>
+<span class="n">scatter3D</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">2</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">3</span><span class="x">])</span></code></pre></figure>
 
 <h3 id="perdy-pictures">Perdy Pictures</h3>
 <p>From these plots, some 3D structures like the pyrochlore are hard to visualize.  So here’s a nice graphic I made that might help a little bit more.</p>
@@ -328,7 +355,7 @@ you’ll notice they’re the same except for a scaling factor.  This has to be 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/pyrochloresvg4.png" alt="Pyrochlore" />
+        <img src="http://localhost:4000/M4/Images/MultiUnit/pyrochloresvg2.png" alt="Pyrochlore" />
     
     
         <p class="image-caption">Hopefully this pyrochlore is a little easier to visualize than the pyplot version.  Took me long enough to make in inkscape.</p>
@@ -338,7 +365,7 @@ you’ll notice they’re the same except for a scaling factor.  This has to be 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MultiUnit/honeycomb.png" alt="honeycomb" />
+        <img src="http://localhost:4000/M4/Images/MultiUnit/honeycomb.png" alt="honeycomb" />
     
     
         <p class="image-caption">Tikz produced Honeycomb.  Coloring indicative of the lattice description of the Kitaev model.  </p>

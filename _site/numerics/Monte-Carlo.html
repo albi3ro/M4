@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Monte Carlo Calculation of pi</title>
-    <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
     <link rel="stylesheet" href="/M4/css/main.css">
-    <link rel="canonical" href="/M4/numerics/Monte-Carlo.html">
+    <link rel="canonical" href="http://localhost:4000/M4/numerics/Monte-Carlo.html">
     <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -32,6 +33,11 @@
 
     <meta property="og:title" content="Monte Carlo Calculation of pi" />
     <meta property="og:image" content="" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Monte Carlo Calculation of pi" />
+    <meta property="twitter:image" content="" />
+    <meta property="twitter:description" content="An Introduction to Monte Carlo methods by calculating Pi" />
 
 </head>
 
@@ -44,6 +50,10 @@
   <div class="wrapper">
 
     <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <link rel="icon"
+      type="image/png"
+      href="/M4/Images/favicon.ico">
 
     <!--<nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -83,7 +93,7 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/ED/">Posts Tagged &ldquo;ED&rdquo;</a>
           
         
           
@@ -92,6 +102,18 @@
         
           
           <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Plot/">Posts Tagged &ldquo;Plot&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ODE/">Posts Tagged &ldquo;ODE&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Intro/">Posts Tagged &ldquo;Intro&rdquo;</a>
           
         
       </div>
@@ -117,15 +139,20 @@
 
       <div class="wrapper">
         <div class="post">
+<meta name="description" content="An Introduction to Monte Carlo methods by calculating Pi" />
+<meta name="keywords" content="Monte Carlo" />
+<meta name="author" content="Christina C. Lee" />
 
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
 
   <header class="post-header">
-    <h1 class="post-title">Monte Carlo Calculation of pi</h1>
+    <h1 class="post-title" itemprop="name">Monte Carlo Calculation of pi</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
-      Category: <a href="/M4/categories">Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
+      Category: <a href="/M4/categories">
+        Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
       
       <a href="/M4/tags">Monte Carlo</a></p>
         
@@ -140,7 +167,7 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MonteCarlo/871.jpg" alt="Monte Carlo" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/871.jpg" alt="Monte Carlo" />
     
     
         <p class="image-caption">My Mom and I touring Monte Carlo, Monaco.</p>
@@ -164,7 +191,7 @@
 
 <p>Both are legitimate ways to see the city.  But depending on what you want, you might choose a different option.  The same goes for exploring physics problems.  Sometimes you want to go in and study just everything you knew about beforehand, but sometimes you need to wander around, not hit everything, but get a better feeling for what everything might be like.</p>
 
-<h2 id="buffons-needle-calculation-of-">Buffon’s Needle: Calculation of π</h2>
+<h2 id="buffons-needle-calculation-of-π">Buffon’s Needle: Calculation of π</h2>
 <p>Even back in the 18th century, Georges-Louis Leclerc, Comte de Buffon posed a problem in geometric probability.  Nowdays, we use a slightly different version of that problem to calculate π and illustrate Monte Carlo simulations.</p>
 
 <p>Suppose we have a square dartboard, and someone with really bad, completely random aim, even though he/she always at least hits inside the dartboard.  We then inscribe a circle inside that dartboard. After an infinity number of hits, what is the ratio between hits in the circle, and hits in the square?</p>
@@ -172,88 +199,84 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MonteCarlo/dartboard.png" alt="dartboard" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/dartboard.png" alt="dartboard" />
     
     
         <p class="image-caption">Randomly thrown darts than can either be in the circle or not.</p>
     
 </div>
 
-<script type="math/tex; mode=display">
-f= \frac{N_{circle}}{N_{square}} =\frac{\text{Area of circle}}{\text{Area of square}} =\frac{\pi r^2}{4 r^2}= \frac{\pi}{4}
-</script>
+<script type="math/tex; mode=display">f= \frac{N_{circle}}{N_{square}} =\frac{\text{Area of circle}}{\text{Area of square}} =\frac{\pi r^2}{4 r^2}= \frac{\pi}{4}</script>
 
-<script type="math/tex; mode=display">
-    \pi = 4 f
-</script>
+<script type="math/tex; mode=display">\pi = 4 f</script>
 
 <h2 id="onto-the-code">Onto the Code!</h2>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span><span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-<span class="err">#</span><span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="err">"</span><span class="n">PyPlot</span><span class="err">"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#Pkg.update()</span>
+<span class="c">#Pkg.add("PyPlot")</span>
 <span class="n">using</span> <span class="n">PyPlot</span></code></pre></figure>
 
 <p>We will generate our random numbers on the unit interval.  Thus the radius in our circumstance is $.5$.</p>
 
 <p>Write a function <code class="highlighter-rouge">incircle(r2)</code> such that if <code class="highlighter-rouge">r2</code> is in the circle, it returns true, else, it returns false.  We will use this with the julia function <code class="highlighter-rouge">filter</code>.  Assume <code class="highlighter-rouge">r2</code> is the radius squared, and already centered around the middle of the unit circle</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="n">incircle</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="k">function</span><span class="nf"> incircle</span><span class="x">(</span><span class="n">r2</span><span class="x">)</span>
     <span class="k">if</span> <span class="n">r2</span><span class="o">&lt;.</span><span class="mi">25</span>
-        <span class="k">return</span> <span class="nb">true</span>
+        <span class="k">return</span> <span class="n">true</span>
     <span class="k">else</span>
-        <span class="k">return</span> <span class="nb">false</span>
+        <span class="k">return</span> <span class="n">false</span>
     <span class="k">end</span>
 <span class="k">end</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span><span class="n">The</span> <span class="n">number</span> <span class="n">of</span> <span class="n">darts</span> <span class="n">we</span> <span class="n">will</span> <span class="n">throw</span> <span class="n">at</span> <span class="n">the</span> <span class="n">board</span><span class="o">.</span>  <span class="n">We</span> <span class="n">will</span> <span class="n">see</span> <span class="n">how</span> <span class="n">accurate</span> <span class="n">different</span> <span class="n">numbers</span> <span class="n">are</span>
-<span class="n">N</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="mi">750</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2500</span><span class="p">,</span><span class="mi">5000</span><span class="p">,</span><span class="mi">7500</span><span class="p">,</span><span class="mi">10000</span><span class="p">];</span>
-<span class="err">#</span> <span class="n">We</span> <span class="n">will</span> <span class="n">perform</span> <span class="n">each</span> <span class="n">number</span> <span class="n">multiple</span> <span class="nb">times</span> <span class="n">in</span> <span class="n">order</span> <span class="n">to</span> <span class="n">calculate</span> <span class="nb">error</span> <span class="n">bars</span>
-<span class="n">M</span><span class="o">=</span><span class="mi">15</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#The number of darts we will throw at the board.  We will see how accurate different numbers are</span>
+<span class="n">N</span><span class="o">=</span><span class="x">[</span><span class="mi">10</span><span class="x">,</span><span class="mi">25</span><span class="x">,</span><span class="mi">50</span><span class="x">,</span><span class="mi">75</span><span class="x">,</span><span class="mi">100</span><span class="x">,</span><span class="mi">250</span><span class="x">,</span><span class="mi">500</span><span class="x">,</span><span class="mi">750</span><span class="x">,</span><span class="mi">1000</span><span class="x">,</span><span class="mi">2500</span><span class="x">,</span><span class="mi">5000</span><span class="x">,</span><span class="mi">7500</span><span class="x">,</span><span class="mi">10000</span><span class="x">];</span>
+<span class="c"># We will perform each number multiple times in order to calculate error bars</span>
+<span class="n">M</span><span class="o">=</span><span class="mi">15</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">π</span><span class="n">approx</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Float64</span><span class="p">,</span><span class="nb">length</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="n">M</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">πapprox</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">length</span><span class="x">(</span><span class="n">N</span><span class="x">),</span><span class="n">M</span><span class="x">);</span>
 
-<span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-    <span class="err">#</span><span class="n">initialize</span> <span class="n">an</span> <span class="n">array</span> <span class="n">of</span> <span class="n">proper</span> <span class="nb">size</span>
-    <span class="n">X</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Float64</span><span class="p">,</span><span class="n">N</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span><span class="mi">2</span><span class="p">);</span>
-    <span class="k">for</span> <span class="n">jj</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">M</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">N</span><span class="x">)</span>
+    <span class="c">#initialize an array of proper size</span>
+    <span class="n">X</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">N</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="mi">2</span><span class="x">);</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">M</span>
 
-        <span class="err">#</span><span class="n">popular</span> <span class="n">our</span> <span class="n">array</span> <span class="n">with</span> <span class="n">random</span> <span class="n">numbers</span> <span class="n">on</span> <span class="n">the</span> <span class="n">unit</span> <span class="n">interval</span>
-        <span class="nb">rand</span><span class="err">!</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
+        <span class="c">#popular our array with random numbers on the unit interval</span>
+        <span class="n">rand!</span><span class="x">(</span><span class="n">X</span><span class="x">);</span>
 
-        <span class="err">#</span><span class="n">calculate</span> <span class="n">their</span> <span class="n">radius</span> <span class="n">squared</span>
-        <span class="n">R2</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">-.</span><span class="mi">5</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">-.</span><span class="mi">5</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span>
+        <span class="c">#calculate their radius squared</span>
+        <span class="n">R2</span><span class="o">=</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">]</span><span class="o">-.</span><span class="mi">5</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">2</span><span class="x">]</span><span class="o">-.</span><span class="mi">5</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span>
 
-        <span class="err">#</span> <span class="mi">4</span><span class="o">*</span><span class="n">number</span> <span class="n">in</span> <span class="n">circle</span> <span class="p">/</span> <span class="n">total</span> <span class="n">number</span>
-        <span class="err">π</span><span class="n">approx</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span><span class="o">=</span><span class="mf">4.</span><span class="o">*</span><span class="nb">length</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">incircle</span><span class="p">,</span><span class="n">R2</span><span class="p">))/</span><span class="n">N</span><span class="p">[</span><span class="n">ii</span><span class="p">];</span>
+        <span class="c"># 4*number in circle / total number</span>
+        <span class="n">πapprox</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="mf">4.</span><span class="o">*</span><span class="n">length</span><span class="x">(</span><span class="n">filter</span><span class="x">(</span><span class="n">incircle</span><span class="x">,</span><span class="n">R2</span><span class="x">))</span><span class="o">/</span><span class="n">N</span><span class="x">[</span><span class="n">ii</span><span class="x">];</span>
 
     <span class="k">end</span>
 <span class="k">end</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">Get</span> <span class="n">our</span> <span class="n">averages</span> <span class="nb">and</span> <span class="n">standard</span> <span class="n">deviations</span>
-<span class="err">π</span><span class="n">ave</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="err">π</span><span class="n">approx</span><span class="p">,</span><span class="mi">2</span><span class="p">)/</span><span class="n">M</span><span class="p">;</span>
-<span class="err">π</span><span class="nb">std</span><span class="o">=</span><span class="nb">std</span><span class="p">(</span><span class="err">π</span><span class="n">approx</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Get our averages and standard deviations</span>
+<span class="n">πave</span><span class="o">=</span><span class="n">sum</span><span class="x">(</span><span class="n">πapprox</span><span class="x">,</span><span class="mi">2</span><span class="x">)</span><span class="o">/</span><span class="n">M</span><span class="x">;</span>
+<span class="n">πstd</span><span class="o">=</span><span class="n">std</span><span class="x">(</span><span class="n">πapprox</span><span class="x">,</span><span class="mi">2</span><span class="x">);</span></code></pre></figure>
 
 <h2 id="analysis">Analysis</h2>
 
 <p>So that was a nice, short little piece of code.  Lets plot it now to see means.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Monte</span> <span class="n">Carlo</span> <span class="n">Estimation</span> <span class="n">of</span> <span class="err">π"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"π</span> <span class="n">estimate</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">N</span> <span class="n">points</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="err">π</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">title</span><span class="x">(</span><span class="s">"Monte Carlo Estimation of π"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"π estimate"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"N points"</span><span class="x">)</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">N</span><span class="x">,</span><span class="n">π</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">N</span><span class="x">));</span>
 
-<span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">M</span>
-    <span class="nb">scatter</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="err">π</span><span class="n">approx</span><span class="p">[:,</span><span class="nb">j</span><span class="p">],</span><span class="n">marker</span><span class="o">=</span><span class="err">"</span><span class="n">o</span><span class="err">"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="err">"</span><span class="n">green</span><span class="err">"</span><span class="p">);</span>
+<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">M</span>
+    <span class="n">scatter</span><span class="x">(</span><span class="n">N</span><span class="x">,</span><span class="n">πapprox</span><span class="x">[:,</span><span class="n">j</span><span class="x">],</span><span class="n">marker</span><span class="o">=</span><span class="s">"o"</span><span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="s">"green"</span><span class="x">);</span>
 <span class="k">end</span>
-<span class="n">ax</span><span class="o">=</span><span class="nb">gca</span><span class="p">()</span>
-<span class="nb">errorbar</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="err">π</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="n">yerr</span><span class="o">=</span><span class="err">π</span><span class="nb">std</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="err">"</span><span class="n">red</span><span class="err">"</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="err">"</span><span class="n">o</span><span class="err">"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[:</span><span class="n">set_xscale</span><span class="p">](</span><span class="err">"</span><span class="nb">log</span><span class="err">"</span><span class="p">);</span>
-<span class="n">ax</span><span class="p">[:</span><span class="n">set_xlim</span><span class="p">]([</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">4</span><span class="p">]);</span></code></pre></figure>
+<span class="n">ax</span><span class="o">=</span><span class="n">gca</span><span class="x">()</span>
+<span class="n">errorbar</span><span class="x">(</span><span class="n">N</span><span class="x">,</span><span class="n">π</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">N</span><span class="x">),</span><span class="n">yerr</span><span class="o">=</span><span class="n">πstd</span><span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="s">"red"</span><span class="x">,</span><span class="n">fmt</span><span class="o">=</span><span class="s">"o"</span><span class="x">)</span>
+<span class="n">ax</span><span class="x">[:</span><span class="n">set_xscale</span><span class="x">](</span><span class="s">"log"</span><span class="x">);</span>
+<span class="n">ax</span><span class="x">[:</span><span class="n">set_xlim</span><span class="x">]([</span><span class="mi">5</span><span class="x">,</span><span class="mi">5</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">4</span><span class="x">]);</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MonteCarlo/piestimation2.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/piestimation2.png" alt="Result" />
     
     
         <p class="image-caption">Image result.  I inverted the color scale though.</p>
@@ -265,15 +288,15 @@ But, at least, the guesses from our different runs all seem equally distributed 
 
 <p>As we get up to $10^4$, our estimate starts getting much more accurate and consistent.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Dependence</span> <span class="n">of</span> <span class="n">Monte</span> <span class="n">Carlo</span> <span class="n">Error</span> <span class="n">on</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">Points</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">standard</span> <span class="n">deviation</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">N</span> <span class="n">points</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">semilogx</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="err">π</span><span class="nb">std</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="err">"</span><span class="n">o</span><span class="err">"</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">title</span><span class="x">(</span><span class="s">"Dependence of Monte Carlo Error on Number of Points"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"standard deviation"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"N points"</span><span class="x">)</span>
+<span class="n">semilogx</span><span class="x">(</span><span class="n">N</span><span class="x">,</span><span class="n">πstd</span><span class="x">,</span><span class="n">marker</span><span class="o">=</span><span class="s">"o"</span><span class="x">);</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MonteCarlo/error.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/error.png" alt="Result" />
     
     
         <p class="image-caption">Image result. Colors tweaked.</p>
@@ -282,16 +305,16 @@ But, at least, the guesses from our different runs all seem equally distributed 
 
 <p>So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Overall</span> <span class="n">Averages</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">N</span> <span class="n">steps</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Average</span> <span class="n">of</span> <span class="mi">15</span> <span class="n">runs</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">semilogx</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="err">π</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
-<span class="nb">semilogx</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="err">π</span><span class="n">ave</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="err">"</span><span class="n">o</span><span class="err">"</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">title</span><span class="x">(</span><span class="s">"Overall Averages"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"N steps"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Average of 15 runs"</span><span class="x">)</span>
+<span class="n">semilogx</span><span class="x">(</span><span class="n">N</span><span class="x">,</span><span class="n">π</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">N</span><span class="x">));</span>
+<span class="n">semilogx</span><span class="x">(</span><span class="n">N</span><span class="x">,</span><span class="n">πave</span><span class="x">,</span><span class="n">marker</span><span class="o">=</span><span class="s">"o"</span><span class="x">);</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MonteCarlo/ave.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/ave.png" alt="Result" />
     
     
         <p class="image-caption">Image result. Colors tweaked.</p>
@@ -300,30 +323,30 @@ But, at least, the guesses from our different runs all seem equally distributed 
 
 <p>Now lets just make a graphical representation of what we’ve been doing this whole time.  Plot our points on unit square, and color the ones inside a circle a different color.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">X</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Float64</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
-<span class="n">Y</span><span class="o">=</span><span class="nb">zeros</span><span class="p">(</span><span class="n">Float64</span><span class="p">,</span><span class="mi">1000</span><span class="p">);</span>
-<span class="nb">rand</span><span class="err">!</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
-<span class="nb">rand</span><span class="err">!</span><span class="p">(</span><span class="n">Y</span><span class="p">);</span>
-<span class="n">R2</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">-.</span><span class="mi">5</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">Y</span><span class="o">-.</span><span class="mi">5</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">;</span>
-<span class="n">Xc</span><span class="o">=</span><span class="p">[];</span>
-<span class="n">Yc</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">for</span> <span class="n">ii</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">R2</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">&lt;.</span><span class="mi">25</span>
-        <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">Xc</span><span class="p">,</span><span class="n">X</span><span class="p">[</span><span class="n">ii</span><span class="p">]);</span>
-        <span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">Yc</span><span class="p">,</span><span class="n">Y</span><span class="p">[</span><span class="n">ii</span><span class="p">]);</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">X</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1000</span><span class="x">);</span>
+<span class="n">Y</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="mi">1000</span><span class="x">);</span>
+<span class="n">rand!</span><span class="x">(</span><span class="n">X</span><span class="x">);</span>
+<span class="n">rand!</span><span class="x">(</span><span class="n">Y</span><span class="x">);</span>
+<span class="n">R2</span><span class="o">=</span><span class="x">(</span><span class="n">X</span><span class="o">-.</span><span class="mi">5</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="x">(</span><span class="n">Y</span><span class="o">-.</span><span class="mi">5</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span><span class="x">;</span>
+<span class="n">Xc</span><span class="o">=</span><span class="x">[];</span>
+<span class="n">Yc</span><span class="o">=</span><span class="x">[]</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">X</span><span class="x">)</span>
+    <span class="k">if</span> <span class="n">R2</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span><span class="o">&lt;.</span><span class="mi">25</span>
+        <span class="n">push!</span><span class="x">(</span><span class="n">Xc</span><span class="x">,</span><span class="n">X</span><span class="x">[</span><span class="n">ii</span><span class="x">]);</span>
+        <span class="n">push!</span><span class="x">(</span><span class="n">Yc</span><span class="x">,</span><span class="n">Y</span><span class="x">[</span><span class="n">ii</span><span class="x">]);</span>
     <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">The</span> <span class="n">dartboard</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="nb">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>
-<span class="nb">scatter</span><span class="p">(</span><span class="n">Xc</span><span class="p">,</span><span class="n">Yc</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="err">"</span><span class="n">red</span><span class="err">"</span><span class="p">);</span></code></pre></figure>
+<span class="n">title</span><span class="x">(</span><span class="s">"The dartboard"</span><span class="x">)</span>
+<span class="n">xlim</span><span class="x">(</span><span class="mi">0</span><span class="x">,</span><span class="mi">1</span><span class="x">)</span>
+<span class="n">ylim</span><span class="x">(</span><span class="mi">0</span><span class="x">,</span><span class="mi">1</span><span class="x">)</span>
+<span class="n">scatter</span><span class="x">(</span><span class="n">X</span><span class="x">,</span><span class="n">Y</span><span class="x">);</span>
+<span class="n">scatter</span><span class="x">(</span><span class="n">Xc</span><span class="x">,</span><span class="n">Yc</span><span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="s">"red"</span><span class="x">);</span></code></pre></figure>
 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/MonteCarlo/dartboardpyplot.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/dartboardpyplot.png" alt="Result" />
     
     
         <p class="image-caption">Result. Colors tweaked</p>
@@ -332,17 +355,15 @@ But, at least, the guesses from our different runs all seem equally distributed 
 
 <p>That’s all folks!
 Now here’s a picture of some pie to congratulate you on calculating π.
-<!-- _includes/image.html -->
-&lt;div class="image-wrapper" &gt;</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    &lt;img src="/M4/Images/MonteCarlo/pie.jpg" alt="pie" /&gt;
-
-
-    &lt;p class="image-caption"&gt;By Scott Bauer, USDA ARS - This image was released by the Agricultural Research Service, the research agency of the United States Department of Agriculture, with the ID K7252-47 (next).This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.English | français | македонски | +/−, Public Domain, https://commons.wikimedia.org/w/index.php?curid=264106&lt;/p&gt;
-</code></pre>
+<!-- _includes/image.html --></p>
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/pie.jpg" alt="pie" />
+    
+    
+        <p class="image-caption">By Scott Bauer, USDA ARS - This image was released by the Agricultural Research Service, the research agency of the United States Department of Agriculture, with the ID K7252-47 (next).This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.English | français | македонски | +/−, Public Domain, https://commons.wikimedia.org/w/index.php?curid=264106</p>
+    
 </div>
-
-<p>&lt;/div&gt;</p>
 
 
   </article>

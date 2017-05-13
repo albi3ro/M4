@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Monte Carlo Ferromagnet</title>
-    <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics">
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
     <link rel="stylesheet" href="/M4/css/main.css">
-    <link rel="canonical" href="/M4/prerequisites/Monte-Carlo-Ferromagnet.html">
+    <link rel="canonical" href="http://localhost:4000/M4/prerequisites/Monte-Carlo-Ferromagnet.html">
     <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
           <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -32,6 +33,11 @@
 
     <meta property="og:title" content="Monte Carlo Ferromagnet" />
     <meta property="og:image" content="{{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Monte Carlo Ferromagnet" />
+    <meta property="twitter:image" content="{{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif" />
+    <meta property="twitter:description" content="" />
 
 </head>
 
@@ -44,6 +50,10 @@
   <div class="wrapper">
 
     <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <link rel="icon"
+      type="image/png"
+      href="/M4/Images/favicon.ico">
 
     <!--<nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -83,7 +93,7 @@
           
         
           
-          <a class="page-link" href="/M4/tags/Exact%20Diagonalization/">Posts Tagged &ldquo;Exact Diagonalization&rdquo;</a>
+          <a class="page-link" href="/M4/tags/ED/">Posts Tagged &ldquo;ED&rdquo;</a>
           
         
           
@@ -92,6 +102,18 @@
         
           
           <a class="page-link" href="/M4/tags/Magnet/">Posts Tagged &ldquo;Magnet&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Plot/">Posts Tagged &ldquo;Plot&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/ODE/">Posts Tagged &ldquo;ODE&rdquo;</a>
+          
+        
+          
+          <a class="page-link" href="/M4/tags/Intro/">Posts Tagged &ldquo;Intro&rdquo;</a>
           
         
       </div>
@@ -117,15 +139,20 @@
 
       <div class="wrapper">
         <div class="post">
+<meta name="description" content="" />
+<meta name="keywords" content="Magnet" />
+<meta name="author" content="Christina C. Lee" />
 
   <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
 
   <header class="post-header">
-    <h1 class="post-title">Monte Carlo Ferromagnet</h1>
+    <h1 class="post-title" itemprop="name">Monte Carlo Ferromagnet</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
-      Category: <a href="/M4/categories">Prerequisites</a> &nbsp;  &nbsp; &nbsp; &nbsp; Tags:
+      Category: <a href="/M4/categories">
+        Prerequisites</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
       
       <a href="/M4/tags">Magnet</a></p>
         
@@ -175,7 +202,7 @@ We need to determine observables given this probability distribution.</p>
 <p>From the Monte Carlo Markov Chain post, we take our equation for detailed balance</p>
 
 <p>\begin{equation}
-\frac{p<em>{i \to j}}{ p</em>{j \to i}} = \frac{\pi_i}{\pi_j}
+\frac{p_{i \to j}}{ p_{j \to i}} = \frac{\pi_i}{\pi_j}
 \end{equation}</p>
 
 <p>How about ergodicity? We can reach any configuration by flipping spins.</p>
@@ -229,9 +256,9 @@ which is simply a function of difference in energy between two states.  Therefor
 
 <p>Some less important things: periodic versus open boundary conditions, shape and symmetries of simulation cell.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">using</span> <span class="n">PyPlot</span><span class="p">;</span>
-<span class="n">push</span><span class="err">!</span><span class="p">(</span><span class="n">LOAD_PATH</span><span class="p">,</span><span class="err">"</span><span class="o">.</span><span class="err">"</span><span class="p">)</span>
-<span class="n">using</span> <span class="n">Lattices</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">using</span> <span class="n">PyPlot</span><span class="x">;</span>
+<span class="n">push!</span><span class="x">(</span><span class="n">LOAD_PATH</span><span class="x">,</span><span class="s">"."</span><span class="x">)</span>
+<span class="n">using</span> <span class="n">Lattices</span><span class="x">;</span></code></pre></figure>
 
 <p>Instead of going into calculating all the lattice parameters again, we will use a class I define in the file Lattices.jl .  This class contains</p>
 
@@ -260,39 +287,39 @@ You can edit the file to make your own types.</li>
 
 <p>Today, I will just look at the square lattice, since that indicates much of the standard phase transition properties.  Some of the lattices I have shown (kagome, triangular, …) are special frustrated lattices, and thus will behave very wierdly in this situation.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">##</span> <span class="n">Define</span> <span class="n">l</span> <span class="n">here</span>
-<span class="n">l</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">## Define l here</span>
+<span class="n">l</span><span class="o">=</span><span class="mi">50</span><span class="x">;</span>
 
-<span class="nb">lt</span><span class="o">=</span><span class="n">MakeLattice</span><span class="p">(</span><span class="err">"</span><span class="n">Square</span><span class="err">"</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>
-<span class="n">S</span><span class="o">=</span><span class="nb">ones</span><span class="p">(</span><span class="n">Int8</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">l</span><span class="p">);</span>  <span class="err">#</span><span class="n">Our</span> <span class="n">spins</span>
-<span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="p">/(</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">);</span></code></pre></figure>
+<span class="n">lt</span><span class="o">=</span><span class="n">MakeLattice</span><span class="x">(</span><span class="s">"Square"</span><span class="x">,</span><span class="n">l</span><span class="x">);</span>
+<span class="n">S</span><span class="o">=</span><span class="n">ones</span><span class="x">(</span><span class="kt">Int8</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">);</span>  <span class="c">#Our spins</span>
+<span class="n">dt</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="x">(</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">);</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="err">#</span> <span class="n">The</span> <span class="n">energy</span> <span class="n">contribution</span> <span class="n">of</span> <span class="n">just</span> <span class="n">one</span> <span class="n">site</span>
-<span class="k">function</span> <span class="n">dE</span><span class="p">(</span><span class="nb">i</span><span class="p">::</span><span class="n">Int</span><span class="p">)</span>
-    <span class="n">Eii</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">lt</span><span class="o">.</span><span class="n">nnei</span>
-        <span class="n">Eii</span><span class="o">+=</span><span class="n">S</span><span class="p">[</span><span class="nb">lt</span><span class="o">.</span><span class="n">neigh</span><span class="p">[</span><span class="nb">i</span><span class="p">,</span><span class="nb">j</span><span class="p">]];</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># The energy contribution of just one site</span>
+<span class="k">function</span><span class="nf"> dE</span><span class="x">(</span><span class="n">i</span><span class="o">::</span><span class="kt">Int</span><span class="x">)</span>
+    <span class="n">Eii</span><span class="o">=</span><span class="mi">0</span><span class="x">;</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">lt</span><span class="o">.</span><span class="n">nnei</span>
+        <span class="n">Eii</span><span class="o">+=</span><span class="n">S</span><span class="x">[</span><span class="n">lt</span><span class="o">.</span><span class="n">neigh</span><span class="x">[</span><span class="n">i</span><span class="x">,</span><span class="n">j</span><span class="x">]];</span>
     <span class="k">end</span>
-    <span class="n">Eii</span><span class="o">*=-</span><span class="n">J</span><span class="o">*</span><span class="n">S</span><span class="p">[</span><span class="nb">i</span><span class="p">];</span>  <span class="err">#</span> <span class="n">we</span> <span class="n">are</span> <span class="n">computing</span> <span class="n">J</span> <span class="n">sz_i</span> <span class="n">sz_j</span> <span class="k">for</span> <span class="n">one</span> <span class="nb">i</span>
-    <span class="k">return</span> <span class="n">Eii</span><span class="p">;</span>
+    <span class="n">Eii</span><span class="o">*=-</span><span class="n">J</span><span class="o">*</span><span class="n">S</span><span class="x">[</span><span class="n">i</span><span class="x">];</span>  <span class="c"># we are computing J sz_i sz_j for one i</span>
+    <span class="k">return</span> <span class="n">Eii</span><span class="x">;</span>
 <span class="k">end</span>
-<span class="err">#</span> <span class="n">The</span> <span class="n">energy</span> <span class="n">of</span> <span class="n">the</span> <span class="n">entire</span> <span class="n">lattice</span>
-<span class="k">function</span> <span class="n">E</span><span class="p">()</span>
-    <span class="n">Evar</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span>
-        <span class="n">Evar</span><span class="o">+=.</span><span class="mi">5</span><span class="o">*</span><span class="n">dE</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+<span class="c"># The energy of the entire lattice</span>
+<span class="k">function</span><span class="nf"> E</span><span class="x">()</span>
+    <span class="n">Evar</span><span class="o">=</span><span class="mi">0</span><span class="x">;</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span>
+        <span class="n">Evar</span><span class="o">+=.</span><span class="mi">5</span><span class="o">*</span><span class="n">dE</span><span class="x">(</span><span class="n">k</span><span class="x">);</span>
     <span class="k">end</span>
-    <span class="k">return</span> <span class="n">Evar</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">Evar</span><span class="x">;</span>
 <span class="k">end</span>
-<span class="err">#</span> <span class="n">The</span> <span class="n">magnetization</span> <span class="n">of</span> <span class="n">the</span> <span class="n">entire</span> <span class="n">lattice</span>
-<span class="k">function</span> <span class="n">M</span><span class="p">()</span>
-    <span class="n">Mvar</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span>
-        <span class="n">Mvar</span><span class="o">+=</span><span class="n">S</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+<span class="c"># The magnetization of the entire lattice</span>
+<span class="k">function</span><span class="nf"> M</span><span class="x">()</span>
+    <span class="n">Mvar</span><span class="o">=</span><span class="mi">0</span><span class="x">;</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span>
+        <span class="n">Mvar</span><span class="o">+=</span><span class="n">S</span><span class="x">[</span><span class="n">k</span><span class="x">];</span>
     <span class="k">end</span>
-    <span class="k">return</span> <span class="n">Mvar</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">Mvar</span><span class="x">;</span>
 <span class="k">end</span>
-<span class="err">"</span><span class="n">defined</span> <span class="nb">functions</span><span class="err">"</span></code></pre></figure>
+<span class="s">"defined functions"</span></code></pre></figure>
 
 <h1 id="adjustable-parameters">Adjustable Parameters</h1>
 
@@ -300,93 +327,93 @@ You can edit the file to make your own types.</li>
 
 <p>Or you can set <code class="highlighter-rouge">video=false</code> and <code class="highlighter-rouge">t</code> to a large variable, and actually measure the statistics for the system over a bunch of configurations.</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">beta</span><span class="o">=.</span><span class="mi">7</span><span class="p">;</span>
-<span class="n">J</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-<span class="n">t</span><span class="o">=</span><span class="mi">100000</span><span class="p">;</span>
-<span class="n">video</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span>
-<span class="n">nskip</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>   <span class="err">#</span> <span class="n">don</span><span class="o">'</span><span class="n">t</span> <span class="n">measure</span> <span class="n">every</span> <span class="n">sweep</span><span class="o">=</span> <span class="n">better</span> <span class="n">decorrelation</span>
-<span class="err">"</span><span class="n">Parameters</span> <span class="nb">set</span><span class="err">"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">beta</span><span class="o">=.</span><span class="mi">7</span><span class="x">;</span>
+<span class="n">J</span><span class="o">=</span><span class="mi">1</span><span class="x">;</span>
+<span class="n">t</span><span class="o">=</span><span class="mi">100000</span><span class="x">;</span>
+<span class="n">video</span><span class="o">=</span><span class="n">false</span><span class="x">;</span>
+<span class="n">nskip</span><span class="o">=</span><span class="mi">10</span><span class="x">;</span>   <span class="c"># don't measure every sweep= better decorrelation</span>
+<span class="s">"Parameters set"</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">nmeas</span><span class="o">=</span><span class="n">Int64</span><span class="p">(</span><span class="n">t</span><span class="p">/</span><span class="n">nskip</span><span class="p">);</span> <span class="err">#</span> <span class="n">how</span> <span class="n">many</span> <span class="nb">times</span> <span class="n">we</span> <span class="n">will</span> <span class="n">measure</span>
-<span class="n">Ma</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Int32</span><span class="p">}(</span><span class="n">nmeas</span><span class="p">);</span> <span class="err">#</span> <span class="n">our</span> <span class="n">magnetization</span> <span class="n">measurements</span>
-<span class="n">Ea</span><span class="o">=</span><span class="n">Array</span><span class="p">{</span><span class="n">Int32</span><span class="p">}(</span><span class="n">nmeas</span><span class="p">);</span> <span class="err">#</span> <span class="n">our</span> <span class="n">energy</span> <span class="n">measurements</span>
-<span class="err">"</span><span class="n">done</span><span class="err">"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">nmeas</span><span class="o">=</span><span class="kt">Int64</span><span class="x">(</span><span class="n">t</span><span class="o">/</span><span class="n">nskip</span><span class="x">);</span> <span class="c"># how many times we will measure</span>
+<span class="n">Ma</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Int32</span><span class="x">}(</span><span class="n">nmeas</span><span class="x">);</span> <span class="c"># our magnetization measurements</span>
+<span class="n">Ea</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Int32</span><span class="x">}(</span><span class="n">nmeas</span><span class="x">);</span> <span class="c"># our energy measurements</span>
+<span class="s">"done"</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">tm</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="err">#</span><span class="n">Our</span> <span class="n">measurement</span> <span class="n">time</span> <span class="n">step</span>
-<span class="n">pygui</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">ti</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="n">t</span>
-    <span class="k">for</span> <span class="nb">j</span> <span class="n">in</span> <span class="mi">1</span><span class="p">:</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span>
-        <span class="nb">i</span> <span class="o">=</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">);</span> <span class="err">#</span><span class="n">Choosing</span> <span class="n">a</span> <span class="n">random</span> <span class="n">site</span>
-        <span class="n">de</span><span class="o">=</span><span class="n">dE</span><span class="p">(</span><span class="nb">i</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">de</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">||</span> <span class="nb">rand</span><span class="p">()</span><span class="o">&lt;</span><span class="nb">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">beta</span><span class="o">*</span><span class="n">de</span><span class="p">)</span> <span class="p">)</span>
-            <span class="n">S</span><span class="p">[</span><span class="nb">i</span><span class="p">]</span><span class="o">=-</span><span class="n">S</span><span class="p">[</span><span class="nb">i</span><span class="p">];</span> <span class="err">#</span><span class="n">Switch</span> <span class="n">the</span> <span class="nb">sign</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">tm</span><span class="o">=</span><span class="mi">1</span><span class="x">;</span> <span class="c">#Our measurement time step</span>
+<span class="n">pygui</span><span class="x">(</span><span class="n">true</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">ti</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">t</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">rand</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">);</span> <span class="c">#Choosing a random site</span>
+        <span class="n">de</span><span class="o">=</span><span class="n">dE</span><span class="x">(</span><span class="n">i</span><span class="x">);</span>
+        <span class="k">if</span><span class="x">(</span><span class="n">de</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">||</span> <span class="n">rand</span><span class="x">()</span><span class="o">&lt;</span><span class="n">exp</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">beta</span><span class="o">*</span><span class="n">de</span><span class="x">)</span> <span class="x">)</span>
+            <span class="n">S</span><span class="x">[</span><span class="n">i</span><span class="x">]</span><span class="o">=-</span><span class="n">S</span><span class="x">[</span><span class="n">i</span><span class="x">];</span> <span class="c">#Switch the sign</span>
         <span class="k">end</span>
     <span class="k">end</span>
-    <span class="k">if</span> <span class="n">isapprox</span><span class="p">(</span><span class="nb">mod</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="n">nskip</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">Ma</span><span class="p">[</span><span class="n">tm</span><span class="p">]</span><span class="o">=</span><span class="n">M</span><span class="p">();</span>
-        <span class="n">Ea</span><span class="p">[</span><span class="n">tm</span><span class="p">]</span><span class="o">=</span><span class="n">E</span><span class="p">();</span>
-        <span class="n">tm</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">isapprox</span><span class="x">(</span><span class="n">mod</span><span class="x">(</span><span class="n">ti</span><span class="x">,</span><span class="n">nskip</span><span class="x">),</span><span class="mi">0</span><span class="x">)</span>
+        <span class="n">Ma</span><span class="x">[</span><span class="n">tm</span><span class="x">]</span><span class="o">=</span><span class="n">M</span><span class="x">();</span>
+        <span class="n">Ea</span><span class="x">[</span><span class="n">tm</span><span class="x">]</span><span class="o">=</span><span class="n">E</span><span class="x">();</span>
+        <span class="n">tm</span><span class="o">+=</span><span class="mi">1</span><span class="x">;</span>
 
-        <span class="k">if</span> <span class="n">video</span><span class="o">==</span><span class="nb">true</span>
-            <span class="n">pygui</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
-            <span class="nb">pcolor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="err">"</span><span class="n">winter</span><span class="err">"</span><span class="p">)</span>
-            <span class="n">magnow</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">M</span><span class="p">()/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-            <span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">t</span><span class="p">:</span> <span class="err">$</span><span class="n">ti</span>  <span class="n">M</span><span class="p">:</span> <span class="err">$</span><span class="n">magnow</span> <span class="err">"</span><span class="p">)</span>
-            <span class="n">draw</span><span class="p">()</span>
-            <span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
-            <span class="err">#</span><span class="n">nm</span><span class="o">=</span><span class="n">dec</span><span class="p">(</span><span class="n">ti</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-            <span class="err">#</span><span class="nb">savefig</span><span class="p">(</span><span class="err">"</span><span class="n">Magnetimages2</span><span class="p">/</span><span class="n">pic_l50_bp7_</span><span class="err">$</span><span class="n">nm</span><span class="o">.</span><span class="n">png</span><span class="err">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">video</span><span class="o">==</span><span class="n">true</span>
+            <span class="n">pygui</span><span class="x">(</span><span class="n">true</span><span class="x">)</span>
+            <span class="n">pcolor</span><span class="x">(</span><span class="n">S</span><span class="x">,</span><span class="n">cmap</span><span class="o">=</span><span class="s">"winter"</span><span class="x">)</span>
+            <span class="n">magnow</span><span class="o">=</span><span class="n">round</span><span class="x">(</span><span class="n">M</span><span class="x">()</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">,</span><span class="mi">3</span><span class="x">)</span>
+            <span class="n">title</span><span class="x">(</span><span class="s">"t: </span><span class="si">$</span><span class="s">ti  M: </span><span class="si">$</span><span class="s">magnow "</span><span class="x">)</span>
+            <span class="n">draw</span><span class="x">()</span>
+            <span class="n">sleep</span><span class="x">(</span><span class="o">.</span><span class="mi">5</span><span class="x">)</span>
+            <span class="c">#nm=dec(ti,4)</span>
+            <span class="c">#savefig("Magnetimages2/pic_l50_bp7_$nm.png")</span>
         <span class="k">end</span>
     <span class="k">end</span>
 <span class="k">end</span>
-<span class="n">Mave</span><span class="o">=</span><span class="nb">mean</span><span class="p">(</span><span class="n">Ma</span><span class="p">/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">);</span>
-<span class="n">Mstd</span><span class="o">=</span><span class="nb">std</span><span class="p">(</span><span class="n">Ma</span><span class="p">/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">);</span>
-<span class="n">Eave</span><span class="o">=</span><span class="nb">mean</span><span class="p">(</span><span class="n">Ea</span><span class="p">/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">);</span>
-<span class="n">Estd</span><span class="o">=</span><span class="nb">std</span><span class="p">(</span><span class="n">Ea</span><span class="p">/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">);</span>
-<span class="n">Mave</span><span class="p">,</span> <span class="n">Mstd</span></code></pre></figure>
+<span class="n">Mave</span><span class="o">=</span><span class="n">mean</span><span class="x">(</span><span class="n">Ma</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">);</span>
+<span class="n">Mstd</span><span class="o">=</span><span class="n">std</span><span class="x">(</span><span class="n">Ma</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">);</span>
+<span class="n">Eave</span><span class="o">=</span><span class="n">mean</span><span class="x">(</span><span class="n">Ea</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">);</span>
+<span class="n">Estd</span><span class="o">=</span><span class="n">std</span><span class="x">(</span><span class="n">Ea</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">);</span>
+<span class="n">Mave</span><span class="x">,</span> <span class="n">Mstd</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Magnetization</span> <span class="n">versus</span> <span class="n">Time</span><span class="p">,</span> <span class="n">Beta</span><span class="o">=</span><span class="err">$</span><span class="nb">beta</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Monte</span> <span class="n">Carlo</span> <span class="n">Steps</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Average</span> <span class="n">Magnetization</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">collect</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">5000</span><span class="p">),</span><span class="n">Ma</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">500</span><span class="p">]/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
-<span class="n">annotate</span><span class="p">(</span><span class="err">"</span> <span class="n">White</span> <span class="n">Noise</span> <span class="o">=</span> <span class="n">Well</span> <span class="n">Mixing</span><span class="err">"</span><span class="p">,</span>
-<span class="n">xy</span><span class="o">=</span><span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="n">Mave</span> <span class="p">],</span>
-<span class="n">xytext</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="n">Mave</span><span class="o">-.</span><span class="mi">0125</span><span class="p">],</span>
-    <span class="n">xycoords</span><span class="o">=</span><span class="err">"</span><span class="n">data</span><span class="err">"</span><span class="p">,</span>
-    <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="p">(</span><span class="err">"</span><span class="n">facecolor</span><span class="err">"</span><span class="o">=&gt;</span><span class="err">"</span><span class="n">green</span><span class="err">"</span><span class="p">))</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"Magnetization versus Time, Beta=</span><span class="si">$</span><span class="s">beta"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"Monte Carlo Steps"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Average Magnetization"</span><span class="x">)</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">collect</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="mi">10</span><span class="x">:</span><span class="mi">5000</span><span class="x">),</span><span class="n">Ma</span><span class="x">[</span><span class="mi">1</span><span class="x">:</span><span class="mi">500</span><span class="x">]</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">)</span>
+<span class="n">annotate</span><span class="x">(</span><span class="s">" White Noise = Well Mixing"</span><span class="x">,</span>
+<span class="n">xy</span><span class="o">=</span><span class="x">[</span><span class="mi">500</span><span class="x">,</span> <span class="n">Mave</span> <span class="x">],</span>
+<span class="n">xytext</span><span class="o">=</span><span class="x">[</span><span class="mi">1000</span><span class="x">,</span> <span class="n">Mave</span><span class="o">-.</span><span class="mi">0125</span><span class="x">],</span>
+    <span class="n">xycoords</span><span class="o">=</span><span class="s">"data"</span><span class="x">,</span>
+    <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="x">(</span><span class="s">"facecolor"</span><span class="o">=&gt;</span><span class="s">"green"</span><span class="x">))</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">[:</span><span class="nb">hist</span><span class="p">](</span><span class="n">Ma</span><span class="p">/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">normed</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">Samples</span> <span class="n">Normed</span><span class="err">"</span><span class="p">);</span>
-<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">Mave</span><span class="o">-</span><span class="n">Mstd</span><span class="o">*</span><span class="mi">3</span><span class="p">:</span><span class="o">.</span><span class="mi">001</span><span class="p">:</span><span class="n">Mave</span><span class="o">+</span><span class="n">Mstd</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">gaussian</span><span class="o">=</span><span class="mi">1</span><span class="p">/(</span><span class="n">Mstd</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">))</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">Mave</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">/(</span><span class="mi">2</span><span class="o">*</span><span class="n">Mstd</span><span class="o">^</span><span class="mi">2</span><span class="p">));</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">gaussian</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">Gaussian</span> <span class="n">Fit</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Magnetization</span> <span class="n">Sample</span> <span class="n">Distribution</span> <span class="nb">beta</span><span class="o">=</span><span class="err">$</span><span class="nb">beta</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Mangetization</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Normed</span> <span class="n">Counts</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="err">"</span><span class="nb">upper</span> <span class="n">right</span><span class="err">"</span><span class="p">)</span>
-<span class="err">#</span><span class="nb">savefig</span><span class="p">(</span><span class="err">"</span><span class="n">Ferromagnet</span><span class="p">/</span><span class="n">maghist_bp3</span><span class="o">.</span><span class="n">png</span><span class="err">"</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">plt</span><span class="x">[:</span><span class="n">hist</span><span class="x">](</span><span class="n">Ma</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="x">,</span><span class="n">normed</span><span class="o">=</span><span class="n">true</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Samples Normed"</span><span class="x">);</span>
+<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">Mave</span><span class="o">-</span><span class="n">Mstd</span><span class="o">*</span><span class="mi">3</span><span class="x">:</span><span class="o">.</span><span class="mi">001</span><span class="x">:</span><span class="n">Mave</span><span class="o">+</span><span class="n">Mstd</span><span class="o">*</span><span class="mi">3</span><span class="x">)</span>
+<span class="n">gaussian</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="x">(</span><span class="n">Mstd</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="x">))</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="x">(</span><span class="n">x</span><span class="o">-</span><span class="n">Mave</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Mstd</span><span class="o">^</span><span class="mi">2</span><span class="x">));</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">gaussian</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Gaussian Fit"</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"Magnetization Sample Distribution beta=</span><span class="si">$</span><span class="s">beta"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"Mangetization"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Normed Counts"</span><span class="x">)</span>
+<span class="n">legend</span><span class="x">(</span><span class="n">loc</span><span class="o">=</span><span class="s">"upper right"</span><span class="x">)</span>
+<span class="c">#savefig("Ferromagnet/maghist_bp3.png")</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Energy</span> <span class="n">versus</span> <span class="n">Time</span><span class="p">,</span> <span class="n">Beta</span><span class="o">=</span><span class="err">$</span><span class="nb">beta</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Monte</span> <span class="n">Carlo</span> <span class="n">Steps</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Average</span> <span class="n">Energy</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">collect</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">5000</span><span class="p">),</span><span class="n">Ea</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">500</span><span class="p">]/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
-<span class="n">annotate</span><span class="p">(</span><span class="err">"</span> <span class="n">White</span> <span class="n">Noise</span> <span class="o">=</span> <span class="n">Well</span> <span class="n">Mixing</span><span class="err">"</span><span class="p">,</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="n">Eave</span> <span class="p">],</span>
-<span class="n">xytext</span><span class="o">=</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="n">Eave</span><span class="o">-.</span><span class="mi">03</span><span class="p">],</span>
-   <span class="n">xycoords</span><span class="o">=</span><span class="err">"</span><span class="n">data</span><span class="err">"</span><span class="p">,</span>
-   <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="p">(</span><span class="err">"</span><span class="n">facecolor</span><span class="err">"</span><span class="o">=&gt;</span><span class="err">"</span><span class="n">green</span><span class="err">"</span><span class="p">))</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"Energy versus Time, Beta=</span><span class="si">$</span><span class="s">beta"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"Monte Carlo Steps"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Average Energy"</span><span class="x">)</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">collect</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="mi">10</span><span class="x">:</span><span class="mi">5000</span><span class="x">),</span><span class="n">Ea</span><span class="x">[</span><span class="mi">1</span><span class="x">:</span><span class="mi">500</span><span class="x">]</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">)</span>
+<span class="n">annotate</span><span class="x">(</span><span class="s">" White Noise = Well Mixing"</span><span class="x">,</span>
+    <span class="n">xy</span><span class="o">=</span><span class="x">[</span><span class="mi">500</span><span class="x">,</span> <span class="n">Eave</span> <span class="x">],</span>
+<span class="n">xytext</span><span class="o">=</span><span class="x">[</span><span class="mi">1000</span><span class="x">,</span> <span class="n">Eave</span><span class="o">-.</span><span class="mi">03</span><span class="x">],</span>
+   <span class="n">xycoords</span><span class="o">=</span><span class="s">"data"</span><span class="x">,</span>
+   <span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="x">(</span><span class="s">"facecolor"</span><span class="o">=&gt;</span><span class="s">"green"</span><span class="x">))</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">pygui</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">[:</span><span class="nb">hist</span><span class="p">](</span><span class="n">Ea</span><span class="p">/</span><span class="nb">lt</span><span class="o">.</span><span class="n">N</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">normed</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">Samples</span> <span class="n">Normed</span><span class="err">"</span><span class="p">);</span>
-<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="p">(</span><span class="n">Eave</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">Estd</span><span class="p">:</span><span class="o">.</span><span class="mi">001</span><span class="p">:</span><span class="n">Eave</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">Estd</span><span class="p">)</span>
-<span class="n">gaussian</span><span class="o">=</span><span class="mi">1</span><span class="p">/(</span><span class="n">Estd</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">))</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">Eave</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">/(</span><span class="mi">2</span><span class="o">*</span><span class="n">Estd</span><span class="o">^</span><span class="mi">2</span><span class="p">));</span>
-<span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">gaussian</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="err">"</span><span class="n">Gaussian</span> <span class="n">Fit</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">title</span><span class="p">(</span><span class="err">"</span><span class="n">Energy</span> <span class="n">Histogram</span><span class="p">,</span> <span class="nb">beta</span><span class="o">=</span><span class="err">$</span><span class="nb">beta</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">xlabel</span><span class="p">(</span><span class="err">"</span><span class="n">Energy</span><span class="err">"</span><span class="p">)</span>
-<span class="nb">ylabel</span><span class="p">(</span><span class="err">"</span><span class="n">Normed</span> <span class="n">Counts</span><span class="err">"</span><span class="p">)</span>
-<span class="err">#</span><span class="nb">savefig</span><span class="p">(</span><span class="err">"</span><span class="n">Ferromagnet</span><span class="p">/</span><span class="n">Ehist_bp3</span><span class="o">.</span><span class="n">png</span><span class="err">"</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">plt</span><span class="x">[:</span><span class="n">hist</span><span class="x">](</span><span class="n">Ea</span><span class="o">/</span><span class="n">lt</span><span class="o">.</span><span class="n">N</span><span class="x">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="x">,</span><span class="n">normed</span><span class="o">=</span><span class="n">true</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Samples Normed"</span><span class="x">);</span>
+<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">Eave</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">Estd</span><span class="x">:</span><span class="o">.</span><span class="mi">001</span><span class="x">:</span><span class="n">Eave</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">Estd</span><span class="x">)</span>
+<span class="n">gaussian</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="x">(</span><span class="n">Estd</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="x">))</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="x">(</span><span class="n">x</span><span class="o">-</span><span class="n">Eave</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Estd</span><span class="o">^</span><span class="mi">2</span><span class="x">));</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">gaussian</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Gaussian Fit"</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"Energy Histogram, beta=</span><span class="si">$</span><span class="s">beta"</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"Energy"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Normed Counts"</span><span class="x">)</span>
+<span class="c">#savefig("Ferromagnet/Ehist_bp3.png")</span></code></pre></figure>
 
 <h1 id="example-results">Example Results</h1>
 <p>So here are some example results I got.</p>
@@ -394,7 +421,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/ParamagnetL30_b2.gif" alt="Paramagnet" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/ParamagnetL30_b2.gif" alt="Paramagnet" />
     
     
         <p class="image-caption">States of a Paramagnet at $\beta=0.2$</p>
@@ -404,7 +431,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/mt.png" alt="Samples over Time" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/mt.png" alt="Samples over Time" />
     
     
         <p class="image-caption">Paramagnet Magnetization Samples.  A properly tuned simulations should be showing white noise without correlations or getting stuck in particular areas.</p>
@@ -414,7 +441,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/maghist_bp3.png" alt="Magnetization Histogram" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/maghist_bp3.png" alt="Magnetization Histogram" />
     
     
         <p class="image-caption">Magnetization Histogram</p>
@@ -424,7 +451,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/Ehist_bp3.png" alt="Energy Histogram" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/Ehist_bp3.png" alt="Energy Histogram" />
     
     
         <p class="image-caption">Energy Histogram</p>
@@ -434,7 +461,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/Magnet_betap7.gif" alt="Magnet" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/Magnet_betap7.gif" alt="Magnet" />
     
     
         <p class="image-caption">States of a Paramagnet at $\beta=0.7$</p>
@@ -444,7 +471,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/maghist_bp7.png" alt="Magnet Histogram" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/maghist_bp7.png" alt="Magnet Histogram" />
     
     
         <p class="image-caption">Histogram of a magnetization at $\beta=0.7$</p>
@@ -454,7 +481,7 @@ You can edit the file to make your own types.</li>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="/M4/Images/Ferromagnet/Ehist_bp7.png" alt="Energy Histogram" />
+        <img src="http://localhost:4000/M4/Images/Ferromagnet/Ehist_bp7.png" alt="Energy Histogram" />
     
     
         <p class="image-caption">Histogram of energy at $\beta=0.7$</p>
