@@ -150,8 +150,7 @@ X=Array{Float64}(N,3);  #where we store the positions
 
 
 
-
-{% highlight julia %}
+```julia
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
@@ -166,7 +165,7 @@ for j in 2:Nz    #copying the first layer into the entire cube
     X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
 end
 "Cell finished"
-{% endhighlight %}
+```
 
 
 
