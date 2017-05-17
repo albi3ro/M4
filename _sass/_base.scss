@@ -18,36 +18,41 @@ body {
     line-height: $base-line-height;
     font-weight: 300;
     color: $text-color;
-    background-image: url("/M4/Images/thedistance.png");
-    background-repeat:no-repeat;
-    background-position: left top;
-    background-attachment: fixed;
+
     background-size: contain;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
+
+
+    background: -webkit-linear-gradient($background-color, #231900); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($background-color, #231900); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($background-color, #231900); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($background-color, #231900); /* Standard syntax (must be last)*/
+    background-attachment: fixed;
 }
 
 /**
  * Wrapper
  */
 .wrapper {
-    max-width: $width;
+    width: 75%;
+    max-width: 960px;
+    min-width: 300px;
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
     @extend %clearfix;
-    background-color: $wrapper-color;
+    background-color: #cdf4e5;
     padding-top: 1em;
     padding-bottom:1em;
 
-    /*@include media-query($on-laptop) {
-        max-width: -webkit-calc(800px - (#{$spacing-unit}));
-        max-width:         calc(800px - (#{$spacing-unit}));
-        padding-right: $spacing-unit / 2;
-        padding-left: $spacing-unit / 2;
-    }*/
+    border-radius: 0px;
+
+    margin-top: -1em;
 }
+
+
 
 
 /**
@@ -179,8 +184,8 @@ code {
     font-size: 15px;
     border: .2em solid $grey-color-light;
     border-radius: 3px;
-    background-color:  #002b36;
-    color:  #93a1a1;
+    background-color:  #fff9eb;
+    color:  #586e75;
 }
 
 code {
@@ -206,7 +211,7 @@ pre {
 
 
 a.sidebar:link{
-  color: #7d959d;
+  color: #ffdc86;
   font-family: $base-font-family;
   font-weight: bold;
   text-decoration:none;
@@ -232,8 +237,8 @@ a.sidebar:active{
 
 
 .downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
-  background-color: #002b36;
-  border-radius: 25px;
+  background-color: #0b6442;
+  border-radius: 0px;
   padding: .5em;
   margin-right:1em;
   width: 3.5em;
@@ -241,8 +246,8 @@ a.sidebar:active{
   height: 1.5em;
   text-align: center;
   border-style: solid;
-  border-width: 1px;
-  border-color: #336600;
+  border-width: 0px;
+  border-color: #946e10;
 
   position:fixed;
 }
@@ -270,22 +275,16 @@ a.sidebar:active{
 
 .comment {
     background-color: #ccffff;
-    max-width: -webkit-calc(800px - (#{$spacing-unit} * 2));
-    max-width:         calc(800px - (#{$spacing-unit} * 2));
+    width: 75%;
+    max-width: 960px;
+    min-width: 300px;
     align: center;
     margin-right: auto;
     margin-left: auto;
-    padding-right: 5em;
-    padding-left: 5em;
+    padding-right: $spacing-unit;
+    padding-left: $spacing-unit;
     @extend %clearfix;
 
-
-    @include media-query($on-laptop) {
-        max-width: -webkit-calc(800px - (#{$spacing-unit}));
-        max-width:         calc(800px - (#{$spacing-unit}));
-        padding-right: $spacing-unit / 2;
-        padding-left: $spacing-unit / 2;
-      }
 }
 
 /**
@@ -319,6 +318,26 @@ a.sidebar:active{
         }
     }
 }
+
+.site-header {
+  width: 75%;
+  max-width: 960px;
+  min-width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $spacing-unit;
+  padding-left: $spacing-unit;
+  @extend %clearfix;
+  background-color: #cdf4e5;
+  padding-top: .5em;
+  padding-bottom:.5em;
+
+  border-radius: 0px;
+
+  margin-top: 1em;
+  margin-bottom: 0em;
+}
+
 @media (max-width: 800px){
   .downloadzp, .clonelink, .juliadocs, .juliahelp, .about{
     position: absolute;
@@ -341,6 +360,6 @@ a.sidebar:active{
   }
 
   .site-header{
-    margin-top:4em;
+    margin-top: 4em;
   }
 }

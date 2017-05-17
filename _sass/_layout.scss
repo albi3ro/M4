@@ -1,13 +1,7 @@
 /**
  * Site header
  */
-.site-header {
-    border-top: 5px solid $grey-color-dark;
-    border-bottom: 1px solid $grey-color-light;
-    height: 6em;
-    // Positioning context for the mobile navigation icon
-    position: relative;
-}
+
 
 .tagtable, .tagtitle, .trtag, .tagprop{
   border: none;
@@ -109,8 +103,7 @@
  * Site footer
  */
 .site-footer {
-    border-top: 1px solid $grey-color-light;
-    padding: 0em;
+    margin-top: 2em;
 }
 
 .footer-heading {
