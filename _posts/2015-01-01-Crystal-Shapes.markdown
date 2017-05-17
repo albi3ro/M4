@@ -108,7 +108,7 @@ X=Array{Float64}(N,3);  #where we store the positions
 
 
 
-{% highlight Julia %}
+```julia
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
@@ -122,7 +122,7 @@ end
 for j in 2:Nz    #copying the first layer into the entire cube
     X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
 end
-{% endhighlight %}
+```
 
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
@@ -164,9 +164,9 @@ scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
 
 {% include image.html img="M4/Images/CrystalShapes/pt.png" title="pt" caption="Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D." %}
 
-{% include image.html img="M4/Images/CrystalShapes/bcc.jpg" title="bcc" caption="Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D." %}
+{% include image.html img="M4/Images/CrystalShapes/bcc.png" title="bcc" caption="Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D." %}
 
-{% include image.html img="M4/Images/CrystalShapes/fcc.jpg" title="fcc" caption="Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D." %}
+{% include image.html img="M4/Images/CrystalShapes/fcc.png" title="fcc" caption="Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D." %}
 
 ## Go Back and Fiddle!
 
