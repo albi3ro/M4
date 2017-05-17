@@ -79,7 +79,7 @@ M=15;
 {% endhighlight %}
 
 
-{% highlight julia %}
+```julia
 πapprox=zeros(Float64,length(N),M);
 
 for ii in 1:length(N)
@@ -98,7 +98,7 @@ for ii in 1:length(N)
 
     end
 end
-{% endhighlight %}
+```
 
 
 {% highlight julia %}
@@ -127,7 +127,7 @@ ax[:set_xscale]("log");
 ax[:set_xlim]([5,5*10^4]);
 {% endhighlight %}
 
-{% include image.html img="M4/Images/MonteCarlo/piestimation2.png" title="Result" caption="Image result.  I inverted the color scale though." %}
+{% include image.html img="M4/Images/MonteCarlo/pic1.png" title="Result" caption="Image result." %}
 
 
 When we have fewer numbers of points, our estimates vary much more wildly, and much further from 3.1415926 .
@@ -142,7 +142,7 @@ ylabel("standard deviation")
 xlabel("N points")
 semilogx(N,πstd,marker="o");
 {% endhighlight %}
-{% include image.html img="M4/Images/MonteCarlo/error.png" title="Result" caption="Image result. Colors tweaked." %}
+{% include image.html img="M4/Images/MonteCarlo/pic2.png" title="Result" caption="Image result." %}
 
 
 So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002
@@ -156,7 +156,7 @@ semilogx(N,π*ones(N));
 semilogx(N,πave,marker="o");
 {% endhighlight %}
 
-{% include image.html img="M4/Images/MonteCarlo/ave.png" title="Result" caption="Image result. Colors tweaked."%}
+{% include image.html img="M4/Images/MonteCarlo/pic3.png" title="Result" caption="Image result."%}
 
 
 Now lets just make a graphical representation of what we've been doing this whole time.  Plot our points on unit square, and color the ones inside a circle a different color.
@@ -184,7 +184,7 @@ scatter(X,Y);
 scatter(Xc,Yc,color="red");
 {% endhighlight %}
 
-{% include image.html img="M4/Images/MonteCarlo/dartboardpyplot.png" title="Result" caption="Result. Colors tweaked" %}
+{% include image.html img="M4/Images/MonteCarlo/pic4.png" title="Result" caption="Result." %}
 
 
 That's all folks!
