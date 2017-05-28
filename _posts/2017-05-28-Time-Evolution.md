@@ -72,10 +72,7 @@ To get an idea of what will happen, we will use a qualitative model of two state
 
 The eigenvalues and corresponding eigenvectors of the matrix are,
 
-$$
-\lambda_1 = E_0 + \epsilon \;\;\;\;\;\;
-\lambda_2 = E_0 - \epsilon
-$$
+<img src="/M4/Images/TimeEvolution/eq15.png" class="eqim2">
 
 <img src="/M4/Images/TimeEvolution/eq2.png" class="eqim">
 
