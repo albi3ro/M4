@@ -7,6 +7,16 @@ dl, dd, ol, ul, figure {
   margin: 0;
   padding: 0; }
 
+.eqim {
+  height: 3em;
+  margin: auto;
+  display: block; }
+
+.eqim2 {
+  height: 2em;
+  margin: auto;
+  display: block; }
+
 /**
  * Basic styling
  */

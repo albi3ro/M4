@@ -8,6 +8,287 @@
     <generator>Jekyll v3.4.3</generator>
     
       <item>
+        <title>Time Evolution Split Operator Method</title>
+        <description>&lt;p&gt;When cleaning my apartment, sometimes I just grab the nearest dirty thing to me and try to do something to it.  But that is not the most efficient way to get things done.  If I’m planning, I’ll first dedicate my attention to one problem, like putting clothing away, then rotate my attention to something else, like dirty dishes.  I can keep focused on just one task and do it well.  Each problem I solve optimally in shorter intervals instead of tackling everything at once.&lt;/p&gt;
+
+&lt;p&gt;That same principle applies to solving partial differential equations.  &lt;a href=&quot;#citation1&quot;&gt;&lt;u&gt;Splitting Methods in Communication, Imaging, Science, and Engineering&lt;/u&gt;&lt;/a&gt; called this principle one of the big ideas of numerical computation.  In numerics, we call it &lt;b&gt;Strang splitting&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;We will be applying Strang splitting to solve the Schrondinger equation, but people use the same idea to a variety of problems, like ones with different timescales, length scales, or physical processes.  We will be using it to separate out terms diagonal in position space from terms diagonal in momentum space.&lt;/p&gt;
+
+&lt;p&gt;We can describe a class of general partial differential equations by
+&lt;img src=&quot;/M4/Images/TimeEvolution/eq5.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Over a small time step, the following approximation holds
+&lt;img src=&quot;/M4/Images/TimeEvolution/eq6.png&quot; class=&quot;eqim2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For &lt;b&gt;Strang splitting&lt;/b&gt;, instead of applying both operators together, we break them up into two.  I’ll discuss non-commutivity later.
+&lt;img src=&quot;/M4/Images/TimeEvolution/eq7.png&quot; class=&quot;eqim2&quot; /&gt;
+$U_1$ and $U_2$ are evolution operators. We can define&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\tilde{y(0)}= U_2 y(0)&lt;/script&gt;
+
+&lt;p&gt;so that&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y (\delta t) = U_1 \tilde{y}(0)&lt;/script&gt;
+
+&lt;h3 id=&quot;applying-to-quantum-mechanics&quot;&gt;Applying to Quantum Mechanics&lt;/h3&gt;
+&lt;p&gt;Now let’s take a look at the Schrodinger Equation:
+&lt;img src=&quot;/M4/Images/TimeEvolution/eq8.png&quot; class=&quot;eqim&quot; /&gt;
+The Hamiltonian gets seperated into position terms and momentum terms.  For ease, let’s define our unitary evolution operators,
+&lt;img src=&quot;/M4/Images/TimeEvolution/eq9.png&quot; class=&quot;eqim2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I mentioned earlier that I would discuss non-communitvity.  We need to do that now.  We can’t simply seperate the evolution operator for the full Hamiltonian into two parts, because we would introduce terms proportional to the commutator.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq10.png&quot; class=&quot;eqim2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;$e^{A+B}$ expanded has terms that look like $AB$ &lt;b&gt;and&lt;/b&gt; $BA$, whereas $e^{A}e^{B}$ only has terms that look like $AB$.  We lose the symmetry of the expression.  We can gain back an order of accuracy by symmetrizing our formula, calculating a time step by&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq11.png&quot; class=&quot;eqim2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But the next step will the start with $U_x (\delta t/2)$ !&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq12.png&quot; class=&quot;eqim&quot; /&gt;
+&lt;img src=&quot;/M4/Images/TimeEvolution/eq13.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All we need to do to add an order of accuracy is start the simulation with $U_x(\delta t/2)$ and end it with $U_x(\delta t/2)$, leaving everything else the same.  Pretty remarkable you can get that much of an improvement for that little work.  Once we apply this to a bunch of time steps, we get&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq14.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We have to apply a few operators before starting the loop. Between the loop and a measurement, we have to apply an additional operator.&lt;/p&gt;
+
+&lt;p&gt;In the spatial domain, the momentum operator involves derivatives and is rather icky.  But in the momentum domain, we only have to multiply by $k^2/2m$.  Thanks to some nicely optimized libraries, we can just transform into the momentum domain with &lt;code class=&quot;highlighter-rouge&quot;&gt;fft&lt;/code&gt;, solve the momentum problem there, and transform back with &lt;code class=&quot;highlighter-rouge&quot;&gt;ifft&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;rabi-oscillations&quot;&gt;Rabi Oscillations&lt;/h2&gt;
+
+&lt;p&gt;To demonstrate time evolution in a simple system with interesting physics, I chose to apply the split operator to Rabi Oscillations between two harmonic oscillators.&lt;/p&gt;
+
+&lt;p&gt;To get an idea of what will happen, we will use a qualitative model of two states weakly coupled to each other by a parameter $\epsilon$.  If we have the two minima sufficifiently seperated from each other, tunneling will happen slowly and will not significantly affect the shape of the eigenfunctions and their energies $E_0$.  Instead of of solving for the shape of the wavefunction, we solve a two-state Hamiltonian that looks like this,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq1.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The eigenvalues and corresponding eigenvectors of the matrix are,
+\begin{equation}
+\lambda_1 = E_0 + \epsilon \;\;\;\;\;\;
+\lambda_2 = E_0 - \epsilon
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq2.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If a wavefunction starts purely in the right state, we want to choose a combination of our eigenvectors that sets the left state to zero at $t=0$.  The resulting wavefunction will evolve as,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq3.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/M4/Images/TimeEvolution/eq4.png&quot; class=&quot;eqim&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Thus this simple phenomological model shows us how we can expect the wavefunction to move back and forth between the two wells in a cyclical manner, with a period proportional to the rate of tunneling.&lt;/p&gt;
+
+&lt;h4 id=&quot;packages&quot;&gt;Packages&lt;/h4&gt;
+&lt;p&gt;For the first time, I’m using &lt;code class=&quot;highlighter-rouge&quot;&gt;Plots.jl&lt;/code&gt;, with &lt;code class=&quot;highlighter-rouge&quot;&gt;PlotlyJS&lt;/code&gt; as the backend for &lt;code class=&quot;highlighter-rouge&quot;&gt;Plots&lt;/code&gt;.  I had to coax my computer a bit to get the packages to work, but the errors were specific to my computer.  I choose to switch as I believe the &lt;code class=&quot;highlighter-rouge&quot;&gt;PlotlyJS&lt;/code&gt; output will provide a better expierence for those viewing the GitHub-Pages static site, though it might cause more trouble for anyone using the jupyter notebooks.  If you are having trouble plotting yourself, I recommend just switching back to whatever package is easiest for you.&lt;/p&gt;
+
+&lt;p&gt;I used &lt;code class=&quot;highlighter-rouge&quot;&gt;Plots&lt;/code&gt; to generate a gif for me directly, but I found my old method of generating a file of .png files and then using &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; from the command line much fast and easier.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Plots&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plotlyjs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#using Rsvg&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#using PyPlot # if you easiest for you&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;input-parameters&quot;&gt;Input Parameters&lt;/h2&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Set Time Parameters&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;t0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40000&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Set Space Grid Parameters&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xmax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# xmin will be -xmax.  Making the situation symmetric&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# How far seperated are the potential minima&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;seperation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# minima at seperation/2 and -seperation/2&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# How often we measure occupation and view the state&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nmeasure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;automatic-evaluation-parameters&quot;&gt;Automatic Evaluation Parameters&lt;/h2&gt;
+
+&lt;p&gt;Given the parameters above, we can calculate the following variables that we will use in the code.&lt;/p&gt;
+
+&lt;p&gt;Note: &lt;code class=&quot;highlighter-rouge&quot;&gt;k&lt;/code&gt; Gave me a bit of a headache. The algorithm depends quite a bit on the conventions &lt;code class=&quot;highlighter-rouge&quot;&gt;fft&lt;/code&gt; decides to use ;(
+Currently, I’m using odd &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;.  You’ll have to change the formula if you use even &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xmax&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xmax&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;nt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;x&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;x&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;x&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;π&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;occupation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Complex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nmeasure&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;the-potentials-and-evolution-operators&quot;&gt;The Potentials and Evolution Operators&lt;/h2&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Vx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seperation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Vk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Uxh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Ux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Uf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Vk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;potentials and evolvers defined&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Vx&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plot!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;V&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plot_title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Double Well Potential&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;iframe src=&quot;/M4/Images/TimeEvolution/potential.html&quot; style=&quot;border:none; background: #ffffff&quot; width=&quot;700px&quot; height=&quot;450px&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;the-unperturbed-wavefunctions&quot;&gt;The Unperturbed Wavefunctions&lt;/h2&gt;
+
+&lt;p&gt;The ground state for a harmonic oscillator is a Gaussian
+\begin{equation}
+\langle x | \phi \rangle= \phi (x) = \frac{1}{\pi^{1/4}} e^{-\frac{x^2}{2}}
+\end{equation}
+We assume $\omega = \hbar = m = 1$ for sake of convenience.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ϕ&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;π&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ϕl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕ&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seperation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ϕr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕ&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seperation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Ψ0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Complex&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕl&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕl&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ϕl&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plot!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕr&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ϕr&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plot!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ϕ&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plot_title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Left and Right Wavefunctions&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;iframe src=&quot;/M4/Images/TimeEvolution/lrpsi.html&quot; style=&quot;border:none; background: #ffffff&quot; width=&quot;700px&quot; height=&quot;450px&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;ffts&quot;&gt;FFT’s&lt;/h2&gt;
+
+&lt;p&gt;This algorithm runs a large number of Fast Fourier Transforms and Inverse Fast Fourier Transforms.  To speed the process, we can tell the computer to spend some time, in the beginning, allocating the right amount of space and optimizing the routine for the particular size and type of array we are passing it.&lt;/p&gt;
+
+&lt;p&gt;The next cell does this, by using &lt;code class=&quot;highlighter-rouge&quot;&gt;plan_fft&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;plan_ifft&lt;/code&gt; to generate objects that can act on our arrays as operators.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plan_fft&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Ψf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ift&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plan_ifft&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψf&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;occupancy-of-each-state&quot;&gt;Occupancy of each state&lt;/h2&gt;
+
+&lt;p&gt;To measure the occupancy of the total wavefunction in either the left or right well groundstate, I compute the value
+\begin{equation}
+c_r=\langle \Psi | \phi_r \rangle  = \int \Psi^* (x) \phi_r(x) dx \;\;\;\;\;\;\; p_r=c_r^2
+\end{equation}
+\begin{equation}
+c_l = \langle \Psi | \phi_l \rangle = \int \Psi^* (x) \phi_l (x) dx\;\;\;\;\;\;\; p_l = c_l^2
+\end{equation}
+The probability of being in the state is the coefficient squared.&lt;/p&gt;
+
+&lt;p&gt;Though in theory these values will always be real, numerical errors introduce some errors, and Julia will assume that the answer is complex.  Therefore, we need to apply &lt;code class=&quot;highlighter-rouge&quot;&gt;abs&lt;/code&gt; to make the numbers &lt;code class=&quot;highlighter-rouge&quot;&gt;Float64&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;Complex{Float64}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;nmeas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nmeas&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Uncomment the # lines to generate a gif.  Note: It takes a long time&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# The operators we have to start off with&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Uxh&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Uf&lt;/span&gt;    
+&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ift&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#@gif for ii in 1:nt&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nt&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ux&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ft&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Uf&lt;/span&gt;    
+    &lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ift&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Psif&lt;/span&gt;   
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nmeas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+        &lt;span class=&quot;c&quot;&gt;# Every time we measure, we have to finish with a U_x half time step&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;Ψt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Uxh&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψt&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕl&lt;/span&gt; &lt;span class=&quot;x&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψt&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ϕr&lt;/span&gt; &lt;span class=&quot;x&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;
+
+
+        &lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;#plot(x[21:141],Vx[21:141]/6, label=&quot;Vx scaled&quot;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#plot!(x,abs(conj(Ψt).*Ψt), label=&quot;Wavefunction&quot;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#plot!(xlabel=&quot;x&quot;, ylabel=&quot;Ψ&quot;,&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#    plot_title=&quot;Wavefunction evolution&quot;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;    
+&lt;span class=&quot;c&quot;&gt;#end every nmeas&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ψ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Uxh&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Left Prob&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plot!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Right Prob&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plot!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Probability&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plot_title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Rabi Oscillations for a Double Harmonic Oscillator&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;iframe src=&quot;/M4/Images/TimeEvolution/rabioscil.html&quot; style=&quot;border:none; background: #ffffff&quot; width=&quot;700px&quot; height=&quot;450px&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;The faster one can perform Fourier Transforms, the faster one can carry out this algorithm.  Therefore, scientists, such as [2] and [3], will use multiple cores or GPU’s.&lt;/p&gt;
+
+&lt;p&gt;In addition to real-time evolution, algorithms like this can determine the ground state of an arbitrary system by imaginary time evolution.  Soon, I will take the work covered here and look at this aspect of the algorithm.&lt;/p&gt;
+
+&lt;p&gt;I’d particularly like to thank Dr. Lee J. O’Riordan [3] for sharing his experience on this topic.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;citation1&quot;&gt;[1]&lt;/a&gt; Glowinski, Roland, Stanley J. Osher, and Wotao Yin, eds. Splitting Methods in Communication, Imaging, Science, and Engineering. Springer, 2017.&lt;/p&gt;
+
+&lt;p&gt;[2] Heiko Bauke and Christoph H. Keitel. Accelerating the Fourier split operator method via graphics processing unit. Computer Physics Communications, 182(12):2454–2463 (2011)&lt;/p&gt;
+
+&lt;p&gt;[3] Lee James O’Riordan et al., GPUE: Phasegineering release, Zenodo. (2016) &lt;a href=&quot;https://github.com/mlxd/GPUE&quot;&gt;https://github.com/mlxd/GPUE&lt;/a&gt; DOI:10.5281/zenodo.57968&lt;/p&gt;
+</description>
+        <link>http://localhost:4000/M4/prerequisites/Time-Evolution.html</link>
+        <guid isPermaLink="true">http://localhost:4000/M4/prerequisites/Time-Evolution.html</guid>
+        
+        <category>Quantum</category>
+        
+        
+        <category>Prerequisites</category>
+        
+      </item>
+    
+      <item>
         <title>Phase Transitions</title>
         <description>&lt;p&gt;Post Prerequisites: &lt;a href=&quot;/M4/numerics/Monte-Carlo.html&quot;&gt;Monte Carlo Calculation of pi&lt;/a&gt;, &lt;a href=&quot;/M4/numerics/MCMC.html&quot;&gt;Monte Carlo Markov Chain&lt;/a&gt; &lt;a href=&quot;/M4/prerequisites/Monte-Carlo-Ferromagnet.html&quot;&gt;Monte Carlo Ferromagnet&lt;/a&gt;&lt;/p&gt;
 
@@ -3285,224 +3566,6 @@ for using in an array that indexes from 1.&lt;/p&gt;
 </description>
         <link>http://localhost:4000/M4/numerics/MCMC.html</link>
         <guid isPermaLink="true">http://localhost:4000/M4/numerics/MCMC.html</guid>
-        
-        <category>Monte Carlo</category>
-        
-        
-        <category>Numerics</category>
-        
-      </item>
-    
-      <item>
-        <title>Monte Carlo Calculation of pi</title>
-        <description>&lt;h2 id=&quot;monte-carlo--random-numbers-to-improve-calculations&quot;&gt;Monte Carlo- Random Numbers to Improve Calculations&lt;/h2&gt;
-
-&lt;p&gt;When one hears “Monte Carlo”, most people might think of something like this:&lt;/p&gt;
-
-&lt;!-- _includes/image.html --&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/871.jpg&quot; alt=&quot;Monte Carlo&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;My Mom and I touring Monte Carlo, Monaco.&lt;/p&gt;
-    
-&lt;/div&gt;
-
-&lt;p&gt;Monte Carlo, Monaco: known for extremely large amounts of money, car racing, no income taxes,and copious gambling.&lt;/p&gt;
-
-&lt;p&gt;In addition to Monaco, Europe, Las Vegas decided to host a Monte Carlo-themed casino as well.  So during the Manhattan project, when the best minds in the United States were camped out in the New Mexican desert, they had plenty of inspiration from Las Vegas, and plenty of difficult problems to work on in the form of quantifying the inner workings of nuclei.  Enrico Fermi first played with these ideas, but Stanislaw Ulam invented the modern Monte Carlo Markov Chain later.&lt;/p&gt;
-
-&lt;p&gt;At the same time, these scientists now had computers at their disposal.  John von Neumann programmed Ulam’s algorithm onto ENIAC, Electronic Numerical Integrator and Computer, the very first electronic, general purpose computer, even though it did still run on vacuum tubes.&lt;/p&gt;
-
-&lt;p&gt;That still doesn’t answer, why do random numbers actually help us solve problems?&lt;/p&gt;
-
-&lt;p&gt;Imagine you are visiting a new city for the first time, maybe Monte Carlo. You only have a day or two, and you want to really get to know the city.  You have two options for your visit&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hit the tourist sites you researched online&lt;/li&gt;
-  &lt;li&gt;Wander around.  Try and communicate with the locals.  Find an out-of-the-way restaurant and sample food not tamed for foreigners.  Watch people interact.  Get lost.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Both are legitimate ways to see the city.  But depending on what you want, you might choose a different option.  The same goes for exploring physics problems.  Sometimes you want to go in and study just everything you knew about beforehand, but sometimes you need to wander around, not hit everything, but get a better feeling for what everything might be like.&lt;/p&gt;
-
-&lt;h2 id=&quot;buffons-needle-calculation-of-π&quot;&gt;Buffon’s Needle: Calculation of π&lt;/h2&gt;
-&lt;p&gt;Even back in the 18th century, Georges-Louis Leclerc, Comte de Buffon posed a problem in geometric probability.  Nowdays, we use a slightly different version of that problem to calculate π and illustrate Monte Carlo simulations.&lt;/p&gt;
-
-&lt;p&gt;Suppose we have a square dartboard, and someone with really bad, completely random aim, even though he/she always at least hits inside the dartboard.  We then inscribe a circle inside that dartboard. After an infinity number of hits, what is the ratio between hits in the circle, and hits in the square?&lt;/p&gt;
-
-&lt;!-- _includes/image.html --&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/dartboard.png&quot; alt=&quot;dartboard&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;Randomly thrown darts than can either be in the circle or not.&lt;/p&gt;
-    
-&lt;/div&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f= \frac{N_{circle}}{N_{square}} =\frac{\text{Area of circle}}{\text{Area of square}} =\frac{\pi r^2}{4 r^2}= \frac{\pi}{4}&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\pi = 4 f&lt;/script&gt;
-
-&lt;h2 id=&quot;onto-the-code&quot;&gt;Onto the Code!&lt;/h2&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;c&quot;&gt;#Pkg.update()&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#Pkg.add(&quot;PyPlot&quot;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PyPlot&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We will generate our random numbers on the unit interval.  Thus the radius in our circumstance is $.5$.&lt;/p&gt;
-
-&lt;p&gt;Write a function &lt;code class=&quot;highlighter-rouge&quot;&gt;incircle(r2)&lt;/code&gt; such that if &lt;code class=&quot;highlighter-rouge&quot;&gt;r2&lt;/code&gt; is in the circle, it returns true, else, it returns false.  We will use this with the julia function &lt;code class=&quot;highlighter-rouge&quot;&gt;filter&lt;/code&gt;.  Assume &lt;code class=&quot;highlighter-rouge&quot;&gt;r2&lt;/code&gt; is the radius squared, and already centered around the middle of the unit circle&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; incircle&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;true&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;false&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;c&quot;&gt;#The number of darts we will throw at the board.  We will see how accurate different numbers are&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;750&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2500&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7500&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# We will perform each number multiple times in order to calculate error bars&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;#initialize an array of proper size&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
-
-        &lt;span class=&quot;c&quot;&gt;#popular our array with random numbers on the unit interval&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rand!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;c&quot;&gt;#calculate their radius squared&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;R2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-
-        &lt;span class=&quot;c&quot;&gt;# 4*number in circle / total number&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;4.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;incircle&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;];&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Get our averages and standard deviations&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;πave&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;πstd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;analysis&quot;&gt;Analysis&lt;/h2&gt;
-
-&lt;p&gt;So that was a nice, short little piece of code.  Lets plot it now to see means.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Monte Carlo Estimation of π&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;π estimate&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;N points&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;π&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;o&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;green&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gca&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;errorbar&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;π&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yerr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πstd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;red&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;o&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_xscale&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;log&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_xlim&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;!-- _includes/image.html --&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/piestimation2.png&quot; alt=&quot;Result&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;Image result.  I inverted the color scale though.&lt;/p&gt;
-    
-&lt;/div&gt;
-
-&lt;p&gt;When we have fewer numbers of points, our estimates vary much more wildly, and much further from 3.1415926 .
-But, at least, the guesses from our different runs all seem equally distributed around the correct value, so it seems we have no systematic error.&lt;/p&gt;
-
-&lt;p&gt;As we get up to $10^4$, our estimate starts getting much more accurate and consistent.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Dependence of Monte Carlo Error on Number of Points&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;standard deviation&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;N points&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;semilogx&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πstd&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;o&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;!-- _includes/image.html --&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/error.png&quot; alt=&quot;Result&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;Image result. Colors tweaked.&lt;/p&gt;
-    
-&lt;/div&gt;
-
-&lt;p&gt;So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Overall Averages&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;N steps&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Average of 15 runs&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;semilogx&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;π&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;semilogx&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πave&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;marker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;o&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;!-- _includes/image.html --&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/ave.png&quot; alt=&quot;Result&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;Image result. Colors tweaked.&lt;/p&gt;
-    
-&lt;/div&gt;
-
-&lt;p&gt;Now lets just make a graphical representation of what we’ve been doing this whole time.  Plot our points on unit square, and color the ones inside a circle a different color.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;rand!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;rand!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;R2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.^&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Xc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[];&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Yc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;push!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Xc&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;push!&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Yc&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The dartboard&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;xlim&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ylim&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;scatter&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Xc&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Yc&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;red&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;!-- _includes/image.html --&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/dartboardpyplot.png&quot; alt=&quot;Result&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;Result. Colors tweaked&lt;/p&gt;
-    
-&lt;/div&gt;
-
-&lt;p&gt;That’s all folks!
-Now here’s a picture of some pie to congratulate you on calculating π.
-&lt;!-- _includes/image.html --&gt;&lt;/p&gt;
-&lt;div class=&quot;image-wrapper&quot;&gt;
-    
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/pie.jpg&quot; alt=&quot;pie&quot; /&gt;
-    
-    
-        &lt;p class=&quot;image-caption&quot;&gt;By Scott Bauer, USDA ARS - This image was released by the Agricultural Research Service, the research agency of the United States Department of Agriculture, with the ID K7252-47 (next).This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.English | français | македонски | +/−, Public Domain, https://commons.wikimedia.org/w/index.php?curid=264106&lt;/p&gt;
-    
-&lt;/div&gt;
-
-</description>
-        <link>http://localhost:4000/M4/numerics/Monte-Carlo.html</link>
-        <guid isPermaLink="true">http://localhost:4000/M4/numerics/Monte-Carlo.html</guid>
         
         <category>Monte Carlo</category>
         
