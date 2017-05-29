@@ -26,7 +26,7 @@ For <b>Strang splitting</b>, instead of applying both operators together, we bre
 $U_1$ and $U_2$ are evolution operators. We can define
 
 $$
-\tilde{y(0)}= U_2 y(0)
+\tilde{y}(0)= U_2 y(0)
 $$
 
 so that
