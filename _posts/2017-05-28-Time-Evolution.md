@@ -25,15 +25,7 @@ For <b>Strang splitting</b>, instead of applying both operators together, we bre
 <img src="/M4/Images/TimeEvolution/eq7.png" class="eqim2">
 $U_1$ and $U_2$ are evolution operators. We can define
 
-$$
-\tilde{y}(0)= U_2 y(0)
-$$
-
-so that
-
-$$
-y (\delta t) = U_1 \tilde{y}(0)
-$$
+<img src="/M4/Images/TimeEvolution/eq16.png" class="eqim2">
 
 ### Applying to Quantum Mechanics
 Now let's take a look at the Schrodinger Equation:
