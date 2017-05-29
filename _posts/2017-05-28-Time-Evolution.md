@@ -25,7 +25,7 @@ For <b>Strang splitting</b>, instead of applying both operators together, we bre
 <img src="/M4/Images/TimeEvolution/eq7.png" class="eqim2">
 $U_1$ and $U_2$ are evolution operators. We can define
 
-<img src="/M4/Images/TimeEvolution/eq16.png" class="eqim2">
+<img src="/M4/Images/TimeEvolution/eq16.png" class="eqim3">
 
 ### Applying to Quantum Mechanics
 Now let's take a look at the Schrodinger Equation:
@@ -35,11 +35,11 @@ The Hamiltonian gets seperated into position terms and momentum terms.  For ease
 
 I mentioned earlier that I would discuss non-communitvity.  We need to do that now.  We can't simply seperate the evolution operator for the full Hamiltonian into two parts, because we would introduce terms proportional to the commutator.  
 
-<img src="/M4/Images/TimeEvolution/eq10.png" class="eqim2">
+<img src="/M4/Images/TimeEvolution/eq10.png" class="eqim3">
 
 $e^{A+B}$ expanded has terms that look like $AB$ <b>and</b> $BA$, whereas $e^{A}e^{B}$ only has terms that look like $AB$.  We lose the symmetry of the expression.  We can gain back an order of accuracy by symmetrizing our formula, calculating a time step by
 
-<img src="/M4/Images/TimeEvolution/eq11.png" class="eqim2">
+<img src="/M4/Images/TimeEvolution/eq11.png" class="eqim3">
 
 But the next step will the start with $U_x (\delta t/2)$ !
 
@@ -64,15 +64,13 @@ To get an idea of what will happen, we will use a qualitative model of two state
 
 The eigenvalues and corresponding eigenvectors of the matrix are,
 
-<img src="/M4/Images/TimeEvolution/eq15.png" class="eqim2">
-
+<img src="/M4/Images/TimeEvolution/eq15.png" class="eqim3">
 <img src="/M4/Images/TimeEvolution/eq2.png" class="eqim">
 
 
 If a wavefunction starts purely in the right state, we want to choose a combination of our eigenvectors that sets the left state to zero at $t=0$.  The resulting wavefunction will evolve as,
 
 <img src="/M4/Images/TimeEvolution/eq3.png" class="eqim">
-
 <img src="/M4/Images/TimeEvolution/eq4.png" class="eqim">
 
 
