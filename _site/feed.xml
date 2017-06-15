@@ -482,13 +482,13 @@ beta: 1.0	M: 0.99934	E: -1.99739
 
 &lt;p&gt;That’s all for now.  Plenty more to talk about on this subject, but hopefully that can keep you occupied.&lt;/p&gt;
 </description>
-        <link>http://localhost:4000/M4/prerequisites/Phase-Transitions.html</link>
-        <guid isPermaLink="true">http://localhost:4000/M4/prerequisites/Phase-Transitions.html</guid>
+        <link>http://localhost:4000/M4/prerequisites%20required/Phase-Transitions.html</link>
+        <guid isPermaLink="true">http://localhost:4000/M4/prerequisites%20required/Phase-Transitions.html</guid>
         
         <category>Magnet</category>
         
         
-        <category>Prerequisites</category>
+        <category>Prerequisites Required</category>
         
       </item>
     
@@ -838,8 +838,8 @@ x(t) = v_x t&lt;/script&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4-element Array{Float64,1}:
  0.001
  0.01
- 0.1  
- 0.2  
+ 0.1
+ 0.2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -1159,13 +1159,13 @@ x(t) = v_x t&lt;/script&gt;
 
 &lt;p&gt;Now that we have see terminal velocity, I will terminate this post.  See you next time :)&lt;/p&gt;
 </description>
-        <link>http://localhost:4000/M4/general/Projectile-Motion.html</link>
-        <guid isPermaLink="true">http://localhost:4000/M4/general/Projectile-Motion.html</guid>
+        <link>http://localhost:4000/M4/general%20audience/Projectile-Motion.html</link>
+        <guid isPermaLink="true">http://localhost:4000/M4/general%20audience/Projectile-Motion.html</guid>
         
         <category>Intro</category>
         
         
-        <category>General</category>
+        <category>General Audience</category>
         
       </item>
     
@@ -2675,13 +2675,13 @@ You can edit the file to make your own types.&lt;/li&gt;
   &lt;li&gt;Structure Factorm, Fourier Transform&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <link>http://localhost:4000/M4/prerequisites/Monte-Carlo-Ferromagnet.html</link>
-        <guid isPermaLink="true">http://localhost:4000/M4/prerequisites/Monte-Carlo-Ferromagnet.html</guid>
+        <link>http://localhost:4000/M4/prerequisites%20required/Monte-Carlo-Ferromagnet.html</link>
+        <guid isPermaLink="true">http://localhost:4000/M4/prerequisites%20required/Monte-Carlo-Ferromagnet.html</guid>
         
         <category>Magnet</category>
         
         
-        <category>Prerequisites</category>
+        <category>Prerequisites Required</category>
         
       </item>
     
@@ -3368,7 +3368,7 @@ for using in an array that indexes from 1.&lt;/p&gt;
 &lt;span class=&quot;c&quot;&gt;# We will perform each number multiple times in order to calculate error bars&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;#initialize an array of proper size&lt;/span&gt;
@@ -3385,7 +3385,9 @@ for using in an array that indexes from 1.&lt;/p&gt;
         &lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;4.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;incircle&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;];&lt;/span&gt;
 
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Get our averages and standard deviations&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;πave&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;πapprox&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
@@ -3411,10 +3413,10 @@ for using in an array that indexes from 1.&lt;/p&gt;
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/piestimation2.png&quot; alt=&quot;Result&quot; /&gt;
+        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/pic1.png&quot; alt=&quot;Result&quot; /&gt;
     
     
-        &lt;p class=&quot;image-caption&quot;&gt;Image result.  I inverted the color scale though.&lt;/p&gt;
+        &lt;p class=&quot;image-caption&quot;&gt;Image result.&lt;/p&gt;
     
 &lt;/div&gt;
 
@@ -3431,10 +3433,10 @@ But, at least, the guesses from our different runs all seem equally distributed 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/error.png&quot; alt=&quot;Result&quot; /&gt;
+        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/pic2.png&quot; alt=&quot;Result&quot; /&gt;
     
     
-        &lt;p class=&quot;image-caption&quot;&gt;Image result. Colors tweaked.&lt;/p&gt;
+        &lt;p class=&quot;image-caption&quot;&gt;Image result.&lt;/p&gt;
     
 &lt;/div&gt;
 
@@ -3449,10 +3451,10 @@ But, at least, the guesses from our different runs all seem equally distributed 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/ave.png&quot; alt=&quot;Result&quot; /&gt;
+        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/pic3.png&quot; alt=&quot;Result&quot; /&gt;
     
     
-        &lt;p class=&quot;image-caption&quot;&gt;Image result. Colors tweaked.&lt;/p&gt;
+        &lt;p class=&quot;image-caption&quot;&gt;Image result.&lt;/p&gt;
     
 &lt;/div&gt;
 
@@ -3481,10 +3483,10 @@ But, at least, the guesses from our different runs all seem equally distributed 
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
-        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/dartboardpyplot.png&quot; alt=&quot;Result&quot; /&gt;
+        &lt;img src=&quot;http://localhost:4000/M4/Images/MonteCarlo/pic4.png&quot; alt=&quot;Result&quot; /&gt;
     
     
-        &lt;p class=&quot;image-caption&quot;&gt;Result. Colors tweaked&lt;/p&gt;
+        &lt;p class=&quot;image-caption&quot;&gt;Result.&lt;/p&gt;
     
 &lt;/div&gt;
 

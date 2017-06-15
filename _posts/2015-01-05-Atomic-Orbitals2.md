@@ -2,7 +2,7 @@
 title: Atomic Orbitals Pt. 2
 layout: post
 comments: True
-category: Prerequisites
+category: Prerequisites Required
 tags: [Quantum]
 author: Christina C. Lee
 description: We try out the GLVisualize.jl package to view the hydrogen orbitals computed in the last post.

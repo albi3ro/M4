@@ -2,7 +2,7 @@
 title: Monte Carlo Ferromagnet
 layout: post
 comments: True
-category: Prerequisites
+category: Prerequisites Required
 author: Christina C. Lee
 image: "{{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif"
 tags: [Magnet]

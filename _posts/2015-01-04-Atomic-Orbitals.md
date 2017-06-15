@@ -2,7 +2,7 @@
 title: Atomic Orbitals
 layout: post
 comments: True
-category: Prerequisites
+category: Prerequisites Required
 tags: [Quantum]
 author: Christina C. Lee
 description: We look at the Hydrogen orbitals created using GSL's, the GNU Scientific Library, associated Legendre polynomial and generalized Laguerre polynomial.

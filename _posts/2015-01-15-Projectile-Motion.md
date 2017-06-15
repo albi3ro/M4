@@ -2,18 +2,18 @@
 title: Intro to Jupyter and Projectile Motion
 layout: post
 comments: True
-category: General
+category: General Audience
 tags: Intro
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/Projectile/spaceship.png"
-description: A STEM high school introduction to Jupyter notebooks, numerics, and Julia through projectile motion.  
+description: A STEM high school introduction to Jupyter notebooks, numerics, and Julia through projectile motion.
 ---
 
-I wrote this piece as part of a presentation I gave to the robotics team at Benson High School in Portland, OR.  My thanks to my mentor John Delacy for working with me in high school and fostering my love for science and astronomy, and for inviting me to help work with the next generation of scientists and engineers.  I loved getting to see their robots and hear about the competitions.  
+I wrote this piece as part of a presentation I gave to the robotics team at Benson High School in Portland, OR.  My thanks to my mentor John Delacy for working with me in high school and fostering my love for science and astronomy, and for inviting me to help work with the next generation of scientists and engineers.  I loved getting to see their robots and hear about the competitions.
 
 # Intro to Jupyter Notebooks
 
-Currently we are using a jupyter notebook.  This format can support either Julia, Python, or R.  The format is quite similiar to that used in the propriety software Mathematica.  
+Currently we are using a jupyter notebook.  This format can support either Julia, Python, or R.  The format is quite similiar to that used in the propriety software Mathematica.
 
 We have two types of cells:
 * Markdown cells
@@ -21,7 +21,7 @@ We have two types of cells:
 
 ### Markdown Cells
 
-This is a <b>Markdown Cell</b>.  Here we write text or add pictures to describe what we are doing.  In raw format, everything is easily readable, but the computer can also render it to look even nicer with headings, lists,<b>bold</b>,<i>italic</i>, tables, links, and other formatting.  
+This is a <b>Markdown Cell</b>.  Here we write text or add pictures to describe what we are doing.  In raw format, everything is easily readable, but the computer can also render it to look even nicer with headings, lists,<b>bold</b>,<i>italic</i>, tables, links, and other formatting.
 
 I can even write equations.
 
@@ -29,7 +29,7 @@ $$
 x_0 = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}
 $$
 
-Equations use LaTeX syntax.  LaTeX is a document preparation language used by those in STEM.  It's how we make all those awesome looking papers.  It also automatically handles our citations for us :)  Check out [Overleaf](https://www.overleaf.com/) to create documents online.  
+Equations use LaTeX syntax.  LaTeX is a document preparation language used by those in STEM.  It's how we make all those awesome looking papers.  It also automatically handles our citations for us :)  Check out [Overleaf](https://www.overleaf.com/) to create documents online.
 
 I can also write code inline `x+=1` or in block style
 
@@ -42,13 +42,13 @@ I can also write code inline `x+=1` or in block style
 
 You can evaluate coding cells by pushing <b>Shift-Enter</b>.
 
-Next to Coding Cells, `In[ ]` specifies the code that will be executed, and `Out[]` specifies the output of the given cell.  The number specifies the order in which the code got evaluated.  
+Next to Coding Cells, `In[ ]` specifies the code that will be executed, and `Out[]` specifies the output of the given cell.  The number specifies the order in which the code got evaluated.
 
 <b>Important</b>: Global variables get edited each time you evaluate a new cell.  So order of evaluation matters.
 
 ### Julia's Packages
 
-Julia uses external packages, much like Python, to supplement its core functionality.  <b>PyPlot</b> imports plotting functionality from Python's PyPlot with the package PyCall.  [Julia](http://pkg.julialang.org/) maintains a complete list of supported external packages.  While many are quite specialized or out of date, some are incredibly useful, like different plotting tools, curve fitting, integrators, differential equations, accelerators, working with different file types, and more.  
+Julia uses external packages, much like Python, to supplement its core functionality.  <b>PyPlot</b> imports plotting functionality from Python's PyPlot with the package PyCall.  [Julia](http://pkg.julialang.org/) maintains a complete list of supported external packages.  While many are quite specialized or out of date, some are incredibly useful, like different plotting tools, curve fitting, integrators, differential equations, accelerators, working with different file types, and more.
 
 If you need to run a jupyter notebook on your machine instead of on JuliaBox, you would be using the IJulia package.
 
@@ -98,7 +98,7 @@ $$
 \frac{dx}{dt} \approx \frac{ \Delta x}{\Delta t}.
 $$
 
-Now because $\Delta x$ and $\Delta t$ have actual sizes instead of being infinitesimally small, the computer can deal with them.  
+Now because $\Delta x$ and $\Delta t$ have actual sizes instead of being infinitesimally small, the computer can deal with them.
 
 Now we take lots of baby steps of $\Delta t$ over our time interval to change the position with the changing velocity.
 
@@ -325,7 +325,7 @@ title("Velocity over time with bounce")
 
 So we just found our intercepts and made a bunch of nice graphs without ever having to do any algebra.  Why do we force you to slog through it?
 
-Because you need to know what to expect to know when it's completely going wrong or when something might fail numerically.  
+Because you need to know what to expect to know when it's completely going wrong or when something might fail numerically.
 
 This problem is pretty robust, but if you try other problems like the Van der Pol problem, or one's that display any instability or chaos, we would really need to callibrate to the right time step size.  More specialized algorithms, like the ones I talk about in my ODE post, also allow you more accuracy for larger step sizes.
 
@@ -343,8 +343,8 @@ dta=[.001,.01,.1,.2]
     4-element Array{Float64,1}:
      0.001
      0.01
-     0.1  
-     0.2  
+     0.1
+     0.2
 
 
 
@@ -434,7 +434,7 @@ title("Error in y position for different time step sizes")
 
 
 
-## But what about Air Resistence?  
+## But what about Air Resistence?
 
 Real objects encounter air resistence proportional to velocity.  This can't be solved analytically, but our code can handle it really easily.
 
@@ -615,4 +615,4 @@ title("Energy of Falling Particle")
 
 ## The Termination
 
-Now that we have see terminal velocity, I will terminate this post.  See you next time :)  
+Now that we have see terminal velocity, I will terminate this post.  See you next time :)

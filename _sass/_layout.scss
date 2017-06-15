@@ -7,11 +7,20 @@
   border: none;
   padding: 0em;
 }
+.thtitle, .thprop, .cattype{
+  border: solid #8f690a;
+  color: #6d084c;
+  font-weight: bold;
+}
+
+.tagtable{
+  width: 80%;
+  margin: auto;
+}
 
 
 .cattype{
   text-align: center;
-  text-decoration: underline;
 }
 
 .trtag:hover{

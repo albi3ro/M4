@@ -174,7 +174,7 @@
 <span class="c"># We will perform each number multiple times in order to calculate error bars</span>
 <span class="n">M</span><span class="o">=</span><span class="mi">15</span><span class="x">;</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">πapprox</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">length</span><span class="x">(</span><span class="n">N</span><span class="x">),</span><span class="n">M</span><span class="x">);</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">πapprox</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">length</span><span class="x">(</span><span class="n">N</span><span class="x">),</span><span class="n">M</span><span class="x">);</span>
 
 <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">N</span><span class="x">)</span>
     <span class="c">#initialize an array of proper size</span>
@@ -191,7 +191,9 @@
         <span class="n">πapprox</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="mf">4.</span><span class="o">*</span><span class="n">length</span><span class="x">(</span><span class="n">filter</span><span class="x">(</span><span class="n">incircle</span><span class="x">,</span><span class="n">R2</span><span class="x">))</span><span class="o">/</span><span class="n">N</span><span class="x">[</span><span class="n">ii</span><span class="x">];</span>
 
     <span class="k">end</span>
-<span class="k">end</span></code></pre></figure>
+<span class="k">end</span>
+</code></pre>
+</div>
 
 <figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Get our averages and standard deviations</span>
 <span class="n">πave</span><span class="o">=</span><span class="n">sum</span><span class="x">(</span><span class="n">πapprox</span><span class="x">,</span><span class="mi">2</span><span class="x">)</span><span class="o">/</span><span class="n">M</span><span class="x">;</span>
@@ -217,10 +219,10 @@
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="http://localhost:4000/M4/Images/MonteCarlo/piestimation2.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/pic1.png" alt="Result" />
     
     
-        <p class="image-caption">Image result.  I inverted the color scale though.</p>
+        <p class="image-caption">Image result.</p>
     
 </div>
 
@@ -237,10 +239,10 @@ But, at least, the guesses from our different runs all seem equally distributed 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="http://localhost:4000/M4/Images/MonteCarlo/error.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/pic2.png" alt="Result" />
     
     
-        <p class="image-caption">Image result. Colors tweaked.</p>
+        <p class="image-caption">Image result.</p>
     
 </div>
 
@@ -255,10 +257,10 @@ But, at least, the guesses from our different runs all seem equally distributed 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="http://localhost:4000/M4/Images/MonteCarlo/ave.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/pic3.png" alt="Result" />
     
     
-        <p class="image-caption">Image result. Colors tweaked.</p>
+        <p class="image-caption">Image result.</p>
     
 </div>
 
@@ -287,10 +289,10 @@ But, at least, the guesses from our different runs all seem equally distributed 
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="http://localhost:4000/M4/Images/MonteCarlo/dartboardpyplot.png" alt="Result" />
+        <img src="http://localhost:4000/M4/Images/MonteCarlo/pic4.png" alt="Result" />
     
     
-        <p class="image-caption">Result. Colors tweaked</p>
+        <p class="image-caption">Result.</p>
     
 </div>
 

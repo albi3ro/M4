@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Atomic Orbitals</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/prerequisites%20required/Atomic-Orbitals.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Atomic Orbitals" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/Orbitals/angular2d.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Atomic Orbitals" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/Orbitals/angular2d.png" />
+    <meta property="twitter:description" content="We look at the Hydrogen orbitals created using GSL's, the GNU Scientific Library, associated Legendre polynomial and generalized Laguerre polynomial." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/M4/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/M4/Images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/M4/Images/favicons/manifest.json">
+    <link rel="mask-icon" href="/M4/Images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#000000">
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div>
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="We look at the Hydrogen orbitals created using GSL's, the GNU Scientific Library, associated Legendre polynomial and generalized Laguerre polynomial." />
+<meta name="keywords" content="Quantum" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">Atomic Orbitals</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Prerequisites Required</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags">Quantum</a></p>
+        
+  </header>
+
+  <article class="post-content">
+
+    <p><b>Prerequiresites:</b> Quantum Mechanics course</p>
+
+<p>Electrons around a nucleus.  Do they look like little well behaved planets orbiting a sun?</p>
+
+<p>NOPE!</p>
+
+<p>We get spread out blobs in special little patterns called orbitals.  Here, we will look at their shapes and properties a bit.  Today we will look at graphs in 1D and 2D, but the next post, <a href="/M4/prerequisites/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>, uses a fancy, but slightly unstable plotting package, GLVisualize to generate some 3D plots.</p>
+
+<p>The Hamiltonian for our problem is:</p>
+
+<p>\begin{equation}
+{\cal H}\Psi(\mathbf{x}) =\left[ -\frac{\hbar}{2 m} \nabla^2 - \frac{Z e^2}{4 \pi \epsilon_0 r}\right]\Psi(\mathbf{x}) = E \Psi(\mathbf{x})
+\end{equation}
+with
+\begin{equation}
+\nabla^2= \frac{1}{r^2}\frac{\partial}{\partial r} \left(
+r^2 \frac{\partial}{\partial r}
+\right)+
+\frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left(
+\sin \theta \frac{\partial}{\partial \theta}
+\right)+
+\frac{1}{r^2 \sin^2 \theta} \frac{\partial^2}{\partial \phi^2}
+\end{equation}</p>
+
+<p>To solve this problem, we begin by guessing a solution with separated <i>radial</i> and <i>angular</i> variables,
+\begin{equation}
+\Psi(\mathbf{x}) = R(r) \Theta ( \theta,\phi)
+\end{equation}</p>
+
+<p>\begin{equation}
+\frac{E r^2 R(r)}{2r R^{\prime}(r) + r^2 R^{\prime \prime}(r)}=
+\frac{\left( \frac{1}{\sin \theta} \frac{\partial}{\partial \theta} \left(
+\sin \theta \frac{\partial \Theta(\theta,\phi)}{\partial \theta}
+\right)+
+\frac{1}{\sin^2 \theta} \frac{\partial^2 \Theta(\theta,\phi)}{\partial \phi^2}\right)      }{\Theta( \theta, \phi)}
+=C
+\end{equation}</p>
+
+<p>Instead of going into the precise mechanisms of solving those two separate equations here, trust for now that they follow standard special functions, the associated <i>Legendre polynomial</i> and the generalized <i>Laguerre polynomial</i>.  Try a standard quantum mechanics textbook for more information about this.</p>
+
+<p>\begin{equation}
+Y^m_l(θ,ϕ) = (-1)^m e^{i m \phi} P^m_l (\cos(θ))
+\end{equation}
+where $P^m_l (\cos (\theta))$ is the associated Legendre polynomial.</p>
+
+<p>\begin{equation}
+ R^{n,l} ( \rho ) = \rho ^l e^{- \rho  /2} L^{2 l+1}_{n-l-1} ( \rho )
+\end{equation}
+where $L^{2 l+1}_{n-l-1}(\rho)$ is the generalized Laguerre polynomial.</p>
+
+<p>\begin{equation}
+    \rho=\frac{2r}{n a_0}
+\end{equation}</p>
+
+<p>\begin{equation}
+    N=\sqrt{\left(\frac{2}{n}\right)^3 \frac{(n-l-1)}{2n(n+l)!}}
+\end{equation}</p>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#Pkg.update();</span>
+<span class="c">#Pkg.add("GSL");</span>
+<span class="c">#Pkg.add("PyPlot");</span>
+<span class="n">using</span> <span class="n">GSL</span><span class="x">;</span>    <span class="c">#GSL holds the special functions</span>
+<span class="n">using</span> <span class="n">PyPlot</span><span class="x">;</span></code></pre></figure>
+
+<h4 id="cell-to-evaluate">Cell to Evaluate</h4>
+<p>What’s below is a bunch of definitions that makes our calculations easier later on.  Here I utilize the GNU scientific library, GSL imported above, to calculate the special functions.</p>
+
+<div class="progtip">
+<h3 color="black"> Programming Tip!</h3>
+<p>Even though it's not necessary, specifying the type of inputs to a function through <code>m::Int</code> helps prevent improper inputs and allows the compiler to perform additional optimizations.  Julia also implements <i>abstract types</i>, so we don't have to specify the exact type of Int.  Real allows a numerical, non-complex type.</p>
+<p>
+Type Greek characters in Jupyter notebooks via LaTeX syntax,  e.g. \alpha+tab</p>
+<p>
+The function <code>Orbital</code> throws <code>DomainError()</code> when <code>l</code> or <code>m</code> do not obey their bounds.  Julia supports a wide variety of easy to use error messages.
+</p>
+</div>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">a0</span><span class="o">=</span><span class="mi">1</span><span class="x">;</span> <span class="c">#for convenience, or 5.2917721092(17)×10−11 m</span>
+
+<span class="c"># The unitless radial coordinate</span>
+<span class="n">ρ</span><span class="x">(</span><span class="n">r</span><span class="x">,</span><span class="n">n</span><span class="x">)</span><span class="o">=</span><span class="mi">2</span><span class="n">r</span><span class="o">/</span><span class="x">(</span><span class="n">n</span><span class="o">*</span><span class="n">a0</span><span class="x">);</span>
+
+<span class="c">#The θ dependence</span>
+<span class="k">function</span><span class="nf"> Pmlh</span><span class="x">(</span><span class="n">m</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">l</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">θ</span><span class="o">::</span><span class="n">Real</span><span class="x">)</span>
+    <span class="k">return</span> <span class="x">(</span><span class="o">-</span><span class="mf">1.0</span><span class="x">)</span><span class="o">^</span><span class="n">m</span> <span class="o">*</span><span class="n">sf_legendre_Plm</span><span class="x">(</span><span class="n">l</span><span class="x">,</span><span class="n">m</span><span class="x">,</span><span class="n">cos</span><span class="x">(</span><span class="n">θ</span><span class="x">));</span>
+<span class="k">end</span>
+
+<span class="c">#The θ and ϕ dependence</span>
+<span class="k">function</span><span class="nf"> Yml</span><span class="x">(</span><span class="n">m</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">l</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">θ</span><span class="o">::</span><span class="n">Real</span><span class="x">,</span><span class="n">ϕ</span><span class="o">::</span><span class="n">Real</span><span class="x">)</span>
+    <span class="k">return</span>  <span class="x">(</span><span class="o">-</span><span class="mf">1.0</span><span class="x">)</span><span class="o">^</span><span class="n">m</span><span class="o">*</span><span class="n">sf_legendre_Plm</span><span class="x">(</span><span class="n">l</span><span class="x">,</span><span class="n">m</span><span class="x">,</span><span class="n">cos</span><span class="x">(</span><span class="n">θ</span><span class="x">))</span><span class="o">*</span><span class="n">e</span><span class="o">^</span><span class="x">(</span><span class="nb">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">ϕ</span><span class="x">)</span>
+<span class="k">end</span>
+
+<span class="c">#The Radial dependence</span>
+<span class="k">function</span><span class="nf"> R</span><span class="x">(</span><span class="n">n</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">l</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">ρ</span><span class="o">::</span><span class="n">Real</span><span class="x">)</span>
+    <span class="k">if</span> <span class="n">isapprox</span><span class="x">(</span><span class="n">ρ</span><span class="x">,</span><span class="mi">0</span><span class="x">)</span>
+        <span class="n">ρ</span><span class="o">=.</span><span class="mi">01</span>
+    <span class="k">end</span>
+     <span class="k">return</span> <span class="n">sf_laguerre_n</span><span class="x">(</span><span class="n">n</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="x">,</span><span class="mi">2</span><span class="o">*</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="x">,</span><span class="n">ρ</span><span class="x">)</span><span class="o">*</span><span class="n">e</span><span class="o">^</span><span class="x">(</span><span class="o">-</span><span class="n">ρ</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="n">ρ</span><span class="o">^</span><span class="n">l</span>
+<span class="k">end</span>
+
+<span class="c">#A normalization: This is dependent on the choice of polynomial representation</span>
+<span class="k">function</span><span class="nf"> norm</span><span class="x">(</span><span class="n">n</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">l</span><span class="o">::</span><span class="kt">Int</span><span class="x">)</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="x">((</span><span class="mi">2</span><span class="o">/</span><span class="n">n</span><span class="x">)</span><span class="o">^</span><span class="mi">3</span> <span class="o">*</span> <span class="n">factorial</span><span class="x">(</span><span class="n">n</span><span class="o">-</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="n">n</span><span class="o">*</span><span class="n">factorial</span><span class="x">(</span><span class="n">n</span><span class="o">+</span><span class="n">l</span><span class="x">)))</span>
+<span class="k">end</span>
+
+<span class="c">#Generates an Orbital function of (r,θ,ϕ) for a specified n,l,m.</span>
+<span class="k">function</span><span class="nf"> Orbital</span><span class="x">(</span><span class="n">n</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">l</span><span class="o">::</span><span class="kt">Int</span><span class="x">,</span><span class="n">m</span><span class="o">::</span><span class="kt">Int</span><span class="x">)</span>
+    <span class="k">if</span> <span class="n">l</span><span class="o">&gt;</span><span class="n">n</span>    <span class="c"># we make sure l and m are within proper bounds</span>
+        <span class="nb">throw</span><span class="x">(</span><span class="n">DomainError</span><span class="x">())</span>
+    <span class="k">end</span>
+    <span class="k">if</span> <span class="n">abs</span><span class="x">(</span><span class="n">m</span><span class="x">)</span><span class="o">&gt;</span><span class="n">l</span>
+        <span class="nb">throw</span><span class="x">(</span><span class="n">DomainError</span><span class="x">())</span>
+    <span class="k">end</span>
+    <span class="n">psi</span><span class="x">(</span><span class="n">ρ</span><span class="x">,</span><span class="n">θ</span><span class="x">,</span><span class="n">ϕ</span><span class="x">)</span><span class="o">=</span><span class="n">norm</span><span class="x">(</span><span class="n">n</span><span class="x">,</span> <span class="n">l</span><span class="x">)</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">n</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">ρ</span><span class="x">)</span><span class="o">*</span><span class="n">Yml</span><span class="x">(</span><span class="n">m</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">θ</span><span class="x">,</span><span class="n">ϕ</span><span class="x">);</span>
+    <span class="k">return</span> <span class="n">psi</span>
+<span class="k">end</span>
+
+<span class="c">#We will calculate is spherical coordinates, but plot in Cartesian, so we need this array conversion</span>
+<span class="k">function</span><span class="nf"> SphtoCart</span><span class="x">(</span><span class="n">r</span><span class="o">::</span><span class="n">Array</span><span class="x">,</span><span class="n">θ</span><span class="o">::</span><span class="n">Array</span><span class="x">,</span><span class="n">ϕ</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="n">sin</span><span class="x">(</span><span class="n">θ</span><span class="x">)</span><span class="o">.*</span><span class="n">cos</span><span class="x">(</span><span class="n">ϕ</span><span class="x">);</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="n">sin</span><span class="x">(</span><span class="n">θ</span><span class="x">)</span><span class="o">.*</span><span class="n">sin</span><span class="x">(</span><span class="n">ϕ</span><span class="x">);</span>
+    <span class="n">z</span><span class="o">=</span><span class="n">r</span><span class="o">.*</span><span class="n">cos</span><span class="x">(</span><span class="n">θ</span><span class="x">);</span>
+    <span class="k">return</span> <span class="n">x</span><span class="x">,</span><span class="n">y</span><span class="x">,</span><span class="n">z</span><span class="x">;</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> CarttoSph</span><span class="x">(</span><span class="n">x</span><span class="o">::</span><span class="n">Array</span><span class="x">,</span><span class="n">y</span><span class="o">::</span><span class="n">Array</span><span class="x">,</span><span class="n">z</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="n">r</span><span class="o">=</span><span class="n">sqrt</span><span class="x">(</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">z</span><span class="o">.^</span><span class="mi">2</span><span class="x">);</span>
+    <span class="n">θ</span><span class="o">=</span><span class="n">acos</span><span class="x">(</span><span class="n">z</span><span class="o">./</span><span class="n">r</span><span class="x">);</span>
+    <span class="n">ϕ</span><span class="o">=</span><span class="n">atan</span><span class="x">(</span><span class="n">y</span><span class="o">./</span><span class="n">x</span><span class="x">);</span>
+    <span class="k">return</span> <span class="n">r</span><span class="x">,</span><span class="n">θ</span><span class="x">,</span><span class="n">ϕ</span><span class="x">;</span>
+<span class="k">end</span>
+
+<span class="s">"Defined Helper Functions"</span></code></pre></figure>
+
+<h4 id="parameters">Parameters</h4>
+<p>Grid parameters:
+You might need to change <code class="highlighter-rouge">rmax</code> to be able to view higher $n$ orbitals.</p>
+
+<p>Remember that
+\begin{equation}
+0&lt;n \;\;\;\;\; \;\;\;\; 0 \leq l &lt; n \;\;\;\;\; \;\;\;\; -l \leq m \leq l
+\;\;\;\;\; \;\;\;\; n,l,m \in {\cal Z}
+\end{equation}</p>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Grid Parameters</span>
+<span class="n">rmin</span><span class="o">=.</span><span class="mi">05</span>
+<span class="n">rmax</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">Nr</span><span class="o">=</span><span class="mi">100</span> <span class="c">#Sampling frequency</span>
+<span class="n">Nθ</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">Nϕ</span><span class="o">=</span><span class="mi">100</span>
+
+<span class="c"># Choose which Orbital to look at</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="x">;</span>
+<span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="x">;</span>
+<span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="x">;</span>
+<span class="s">"Defined parameters"</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#Linear Array of spherical coordinates</span>
+<span class="n">r</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">linspace</span><span class="x">(</span><span class="n">rmin</span><span class="x">,</span><span class="n">rmax</span><span class="x">,</span><span class="n">Nr</span><span class="x">));</span>
+<span class="n">ϕ</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">linspace</span><span class="x">(</span><span class="mi">0</span><span class="x">,</span><span class="mi">2</span><span class="n">π</span><span class="x">,</span><span class="n">Nθ</span><span class="x">));</span>
+<span class="n">θ</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">linspace</span><span class="x">(</span><span class="mi">0</span><span class="x">,</span><span class="n">π</span><span class="x">,</span><span class="n">Nϕ</span><span class="x">));</span>
+<span class="c">#3D arrays of spherical coordinates, in order r,θ,ϕ</span>
+<span class="n">ra</span><span class="o">=</span><span class="n">repeat</span><span class="x">(</span><span class="n">r</span><span class="x">,</span><span class="n">outer</span><span class="o">=</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="n">Nθ</span><span class="x">,</span><span class="n">Nϕ</span><span class="x">]);</span>
+<span class="n">θa</span><span class="o">=</span><span class="n">repeat</span><span class="x">(</span><span class="n">transpose</span><span class="x">(</span><span class="n">θ</span><span class="x">),</span><span class="n">outer</span><span class="o">=</span><span class="x">[</span><span class="n">Nr</span><span class="x">,</span><span class="mi">1</span><span class="x">,</span><span class="n">Nϕ</span><span class="x">]);</span>
+<span class="n">ϕa</span><span class="o">=</span><span class="n">repeat</span><span class="x">(</span><span class="n">reshape</span><span class="x">(</span><span class="n">ϕ</span><span class="x">,</span><span class="mi">1</span><span class="x">,</span><span class="mi">1</span><span class="x">,</span><span class="n">Nϕ</span><span class="x">),</span><span class="n">outer</span><span class="o">=</span><span class="x">[</span><span class="n">Nr</span><span class="x">,</span><span class="n">Nθ</span><span class="x">,</span><span class="mi">1</span><span class="x">]);</span>
+
+<span class="n">x</span><span class="x">,</span><span class="n">y</span><span class="x">,</span><span class="n">z</span><span class="o">=</span><span class="n">SphtoCart</span><span class="x">(</span><span class="n">ra</span><span class="x">,</span><span class="n">θa</span><span class="x">,</span><span class="n">ϕa</span><span class="x">);</span></code></pre></figure>
+
+<p>Though I could create a wrapped up function with <code class="highlighter-rouge">Orbital(n,l,m)</code> and evaluate that at each point, the below evaluation takes advantage of the separability of the solution with respect to spherical dimensions.  The special functions, especially for higher modes, take time to calculate, and the fewer calls to GSL, the faster the code will run.  Therefore, this implementation copies over radial and angular responses.</p>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">Ψ</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">Nr</span><span class="x">,</span><span class="n">Nϕ</span><span class="x">,</span><span class="n">Nθ</span><span class="x">)</span>
+<span class="n">θd</span><span class="o">=</span><span class="kt">Int64</span><span class="x">(</span><span class="n">round</span><span class="x">(</span><span class="n">Nθ</span><span class="o">/</span><span class="mi">2</span><span class="x">))</span>  <span class="c">## gives approximately the equator.  Will be useful later</span>
+
+<span class="n">p1</span><span class="o">=</span><span class="n">Pmlh</span><span class="x">(</span><span class="n">m</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">θ</span><span class="x">[</span><span class="mi">1</span><span class="x">]);</span>
+<span class="n">p2</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="nb">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">ϕ</span><span class="x">[</span><span class="mi">1</span><span class="x">]);</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">Nr</span>
+    <span class="n">Ψ</span><span class="x">[</span><span class="n">i</span><span class="x">,</span><span class="mi">1</span><span class="x">,</span><span class="mi">1</span><span class="x">]</span><span class="o">=</span><span class="n">norm</span><span class="x">(</span><span class="n">n</span><span class="x">,</span><span class="n">l</span><span class="x">)</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">n</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">ρ</span><span class="x">(</span><span class="n">r</span><span class="x">[</span><span class="n">i</span><span class="x">],</span><span class="n">n</span><span class="x">))</span><span class="o">*</span><span class="n">p1</span><span class="o">*</span><span class="n">p2</span><span class="x">;</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">Nθ</span>
+    <span class="n">Ψ</span><span class="x">[:,</span><span class="n">j</span><span class="x">,</span><span class="mi">1</span><span class="x">]</span><span class="o">=</span><span class="n">Ψ</span><span class="x">[:,</span><span class="mi">1</span><span class="x">,</span><span class="mi">1</span><span class="x">]</span><span class="o">*</span><span class="n">Pmlh</span><span class="x">(</span><span class="n">m</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">θ</span><span class="x">[</span><span class="n">j</span><span class="x">])</span><span class="o">/</span><span class="n">p1</span><span class="x">;</span>
+<span class="k">end</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">Nϕ</span>
+    <span class="n">Ψ</span><span class="x">[:,:,</span><span class="n">k</span><span class="x">]</span><span class="o">=</span><span class="n">Ψ</span><span class="x">[:,:,</span><span class="mi">1</span><span class="x">]</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="nb">im</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">ϕ</span><span class="x">[</span><span class="n">k</span><span class="x">])</span><span class="o">/</span><span class="n">p2</span><span class="x">;</span>
+<span class="k">end</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"θ"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Ψ"</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"Wavefunction for n= </span><span class="si">$</span><span class="s">n ,l= </span><span class="si">$</span><span class="s">l ,m= </span><span class="si">$</span><span class="s">m "</span><span class="x">)</span>
+
+<span class="n">annotate</span><span class="x">(</span><span class="s">"l= </span><span class="si">$</span><span class="s">l Angular Node"</span><span class="x">,</span>
+<span class="n">xy</span><span class="o">=</span><span class="x">[</span><span class="n">π</span><span class="o">/</span><span class="mi">2</span><span class="x">;</span><span class="mi">0</span><span class="x">],</span>
+<span class="n">xytext</span><span class="o">=</span><span class="x">[</span><span class="n">π</span><span class="o">/</span><span class="mi">2</span><span class="o">+.</span><span class="mi">1</span><span class="x">;</span><span class="o">.</span><span class="mi">02</span><span class="x">],</span>
+<span class="n">xycoords</span><span class="o">=</span><span class="s">"data"</span><span class="x">,</span>
+<span class="n">arrowprops</span><span class="o">=</span><span class="n">Dict</span><span class="x">(</span><span class="s">"facecolor"</span><span class="o">=&gt;</span><span class="s">"black"</span><span class="x">))</span>
+
+<span class="n">plot</span><span class="x">(</span><span class="n">θ</span><span class="x">,</span><span class="n">zeros</span><span class="x">(</span><span class="n">θ</span><span class="x">))</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">θ</span><span class="x">,</span><span class="n">reshape</span><span class="x">(</span><span class="n">Ψ</span><span class="x">[</span><span class="mi">50</span><span class="x">,:,</span><span class="mi">1</span><span class="x">],</span><span class="mi">100</span><span class="x">))</span> <span class="c">#reshape makes Ψ 1D</span></code></pre></figure>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/Orbitals/angular1di.png" alt="2p Angle Slice" />
+    
+    
+        <p class="image-caption">A slice along the θ plane showing an angular node for the 2p orbital.</p>
+    
+</div>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"r"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"Ψ"</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"Wavefunction for n= </span><span class="si">$</span><span class="s">n ,l= </span><span class="si">$</span><span class="s">l ,m= </span><span class="si">$</span><span class="s">m "</span><span class="x">)</span>
+
+<span class="n">plot</span><span class="x">(</span><span class="n">r</span><span class="x">,</span><span class="n">zeros</span><span class="x">(</span><span class="n">r</span><span class="x">))</span>
+<span class="n">plot</span><span class="x">(</span><span class="n">r</span><span class="x">,</span><span class="n">reshape</span><span class="x">(</span><span class="n">Ψ</span><span class="x">[:,</span><span class="mi">50</span><span class="x">,</span><span class="mi">1</span><span class="x">],</span><span class="mi">100</span><span class="x">))</span> <span class="c">#reshape makes Ψ 1D</span></code></pre></figure>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/Orbitals/radial1di.png" alt="3p Radial Slice" />
+    
+    
+        <p class="image-caption">A slice along the radial plane showing a radial node in the 3p orbital.</p>
+    
+</div>
+
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c">#rap=squeeze(ra[:,:,50],3)</span>
+<span class="c">#θap=squeeze(θa[:,:,50],3)</span>
+<span class="c">#ϕap=squeeze(ϕa[:,:,50],3)</span>
+<span class="c">#Ψp=squeeze(Ψ[:,:,50],3)</span>
+<span class="n">rap</span><span class="o">=</span><span class="n">ra</span><span class="x">[:,:,</span><span class="mi">50</span><span class="x">]</span>
+<span class="n">θap</span><span class="o">=</span><span class="n">θa</span><span class="x">[:,:,</span><span class="mi">50</span><span class="x">]</span>
+<span class="n">ϕap</span><span class="o">=</span><span class="n">ϕa</span><span class="x">[:,:,</span><span class="mi">50</span><span class="x">]</span>
+<span class="n">Ψp</span><span class="o">=</span><span class="n">Ψ</span><span class="x">[:,:,</span><span class="mi">50</span><span class="x">]</span>
+<span class="n">xp</span><span class="x">,</span><span class="n">yp</span><span class="x">,</span><span class="n">zp</span><span class="o">=</span><span class="n">SphtoCart</span><span class="x">(</span><span class="n">rap</span><span class="x">,</span><span class="n">θap</span><span class="x">,</span><span class="n">ϕap</span><span class="x">);</span>
+<span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>
+<span class="n">xlabel</span><span class="x">(</span><span class="s">"x"</span><span class="x">)</span>
+<span class="n">ylabel</span><span class="x">(</span><span class="s">"z"</span><span class="x">)</span>
+<span class="n">title</span><span class="x">(</span><span class="s">"ϕ-slice of Ψ for n=</span><span class="si">$</span><span class="s">n, l=</span><span class="si">$</span><span class="s">l, m=</span><span class="si">$</span><span class="s">m"</span><span class="x">)</span>
+<span class="n">pcolor</span><span class="x">(</span><span class="n">xp</span><span class="x">[:,:],</span><span class="n">zp</span><span class="x">[:,:],</span><span class="n">Ψp</span><span class="x">[:,:],</span><span class="n">cmap</span><span class="o">=</span><span class="s">"coolwarm"</span><span class="x">)</span>
+<span class="n">colorbar</span><span class="x">()</span></code></pre></figure>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/Orbitals/angular2di.png" alt="3p in 2d" />
+    
+    
+        <p class="image-caption">Slice of a 3p orbital in the x and z plane.</p>
+    
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/Orbitals/angular2d2i.png" alt="3dz2 in 2d" />
+    
+    
+        <p class="image-caption">Slice of a 3dz2 orbital in the x and z plane.</p>
+    
+</div>
+
+<p>Don’t forget to check out <a href="/M4/prerequisites/Atomic-Orbitals2.html">Atomic Orbitals Pt. 2</a>!</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/prerequisites%20required/Atomic-Orbitals.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/prerequisites%20required/Atomic-Orbitals.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

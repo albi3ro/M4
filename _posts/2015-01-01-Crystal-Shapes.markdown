@@ -2,7 +2,7 @@
 title: Computationally Visualizing Crystals
 layout: post
 comments: True
-category: General
+category: General Audience
 tags: [Lattices]
 author: Christina C. Lee
 description:  Here we compute and view the positions for a few simple Bravais lattices.

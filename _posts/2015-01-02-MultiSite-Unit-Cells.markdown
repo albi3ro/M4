@@ -2,7 +2,7 @@
 title: Computationally Visualizing Crystals Pt. 2
 layout: post
 comments: True
-category: General
+category: General Audience
 tags: [Lattices]
 author: Christina C. Lee
 description: Here we tile unit cells via Bravais lattice to create some common lattices like honeycomb and diamond.

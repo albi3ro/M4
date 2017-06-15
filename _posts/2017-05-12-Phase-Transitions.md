@@ -2,7 +2,7 @@
 title: Phase Transitions
 layout: post
 comments: True
-category: Prerequisites
+category: Prerequisites Required
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/PhaseTransitions/output_23_0.png"
 tags: [Magnet]
@@ -14,9 +14,9 @@ Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Mon
 Prerequisites: Statistical Mechanics
 
 
-In Monte Carlo Ferromagnets, we only looked at the state of a magnet at one temperature.  While I displayed how it looked at both a high temperature and a low-temperature situation, that had to be done manually.  Today we are going to automate our study of temperature's effect.  
+In Monte Carlo Ferromagnets, we only looked at the state of a magnet at one temperature.  While I displayed how it looked at both a high temperature and a low-temperature situation, that had to be done manually.  Today we are going to automate our study of temperature's effect.
 
-First off, what's the theory?  
+First off, what's the theory?
 
 The standard apparatus for phase transitions is <b>Landau Theory</b>.  In Landau theory, we assume that we have an <b>order parameter</b>.
 
@@ -24,7 +24,7 @@ Order parameters have
 * local physical meaning
 * global observational consequences
 
-For example, in magnets we use the local magnetization $m$; in freezing fluids, the difference in density $\rho$.  The value of an order parameter should undergo a jump across a phase transition, usually from a zero to a non-zero value.  
+For example, in magnets we use the local magnetization $m$; in freezing fluids, the difference in density $\rho$.  The value of an order parameter should undergo a jump across a phase transition, usually from a zero to a non-zero value.
 
 To construct Landau theory, we postulate that we can create a <b>Free Energy</b> for the system that is
 * continuous in the order parameter
@@ -36,7 +36,7 @@ F=f_0(T) + \alpha_0 (T-T_c) m^2+ \frac{1}{2} \beta m^4 - h m + ...
 \end{equation}
 From this simple equation, we can derive many of the qualitative properties of phase transitions.  I won't repeat that here, but you can look it up in a Statistical Mechanics textbook.
 
-Non-zero order parameters also represent symmetry breaking.  In an unmagnetized magnet, all directions are equivalent, but once it magnetizes, it chooses a preferred direction.  That direction is arbitrary up until the magnet spontaneously chooses it.  
+Non-zero order parameters also represent symmetry breaking.  In an unmagnetized magnet, all directions are equivalent, but once it magnetizes, it chooses a preferred direction.  That direction is arbitrary up until the magnet spontaneously chooses it.
 
 Back in the early days of cars, streets didn't have lanes and a specified side for cars to drive on.  Driving was symmetric.   When two cars approached each other on the same road, the drivers had to figure out how to avoid a collision, either by everyone going to their left or everyone going to their right.  Eventually, all the cars in a specific area picked up one convention. In the United States, we choose the right side of the road.  In Japan, they chose left.  Neither is wrong; it was pure chance.  The solution breaks the symmetry of the problem.
 
@@ -44,7 +44,7 @@ Back in the early days of cars, streets didn't have lanes and a specified side f
 
 ### Specific Heat and Magnetic Susceptibility
 
-In addition to magnetization and energy, today I introduce the physical observables specific heat and magnetic susceptibility.  These numbers describe how the old quantities change with temperature.  
+In addition to magnetization and energy, today I introduce the physical observables specific heat and magnetic susceptibility.  These numbers describe how the old quantities change with temperature.
 
 Let's take a look at the first one, <b>Specific Heat</b>:
 
@@ -127,7 +127,7 @@ d \theta
 \Bigg)
 $$
 
-If we can achieve these results to perfect accuracy on pen and paper, why do we even bother simulating them in a computer?  If you try some other lattices and coupling constants, you might soon find out why.  We want to make <i>sure</i> our code is running well on something where we know the results before venturing into unknown territory.    
+If we can achieve these results to perfect accuracy on pen and paper, why do we even bother simulating them in a computer?  If you try some other lattices and coupling constants, you might soon find out why.  We want to make <i>sure</i> our code is running well on something where we know the results before venturing into unknown territory.
 
 To start off our coding, let's just type those equations up.
 
@@ -162,7 +162,7 @@ end
 
 
 
-Load our packages.  
+Load our packages.
 
 `Lattices.jl` is the same class I used in the previous post.  Well, I got around to updating the Julia syntax.  So mostly the same.
 
@@ -175,7 +175,7 @@ using PyPlot
 
 Here we set up our lattice.
 
-If looking for a mind bender, look at an `"Checkerboard"`, with an anti-ferromagnetic coupling constant, like `J=-1`.  Otherwise, just stick with a square.  
+If looking for a mind bender, look at an `"Checkerboard"`, with an anti-ferromagnetic coupling constant, like `J=-1`.  Otherwise, just stick with a square.
 
 
 ```julia
@@ -187,7 +187,7 @@ S=ones(Int8,l,l);  #Our spins
 dt=1/(lt.N);
 ```
 
-Same as last time.  
+Same as last time.
 
 These functions calculate properties of our lattice.
 
@@ -294,7 +294,7 @@ end
 
 # The Temperature Loop
 
-This cell looks pretty simple: initialization and one for loop.  But this is where everything ties together.  
+This cell looks pretty simple: initialization and one for loop.  But this is where everything ties together.
 
 
 ```julia
@@ -322,7 +322,7 @@ end
     beta: 1.0	M: 0.99934	E: -1.99739
 
 
-That was the temperature loop for the MCMC method.  
+That was the temperature loop for the MCMC method.
 
 This is the temperature loop to calculate the exact numbers.
 
@@ -425,7 +425,7 @@ title("Specific Heat Divergence with Finite Size Scaling")
 
 
 
-I presented two different equivalent formulas for the specific heat.  Let's check to make sure their equivalent.  
+I presented two different equivalent formulas for the specific heat.  Let's check to make sure their equivalent.
 
 For the formal defination, we'll take a numeric derivative with respect to $\beta$,
 \begin{equation}
@@ -484,4 +484,4 @@ title("Comparing Methods of Computing Susceptibility")
 
 
 
-That's all for now.  Plenty more to talk about on this subject, but hopefully that can keep you occupied.  
+That's all for now.  Plenty more to talk about on this subject, but hopefully that can keep you occupied.
