@@ -252,7 +252,7 @@ you’ll notice they’re the same except for a scaling factor.  This has to be 
 <span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">}(</span><span class="n">N</span><span class="x">,</span><span class="mi">3</span><span class="x">);</span>  <span class="c">#where we store the positions</span>
 <span class="s">"Cell finished"</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Another cell to just evaluate</span>
 <span class="c"># Here we are actually calculating the positions for every site</span>
 <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">Nx</span>    <span class="c">#for the first row</span>
     <span class="n">X</span><span class="x">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="n">Ncell</span><span class="o">+</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">i</span><span class="x">,:]</span><span class="o">=</span><span class="n">unit</span><span class="o">+</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">aM</span><span class="x">;</span>
@@ -265,7 +265,9 @@ you’ll notice they’re the same except for a scaling factor.  This has to be 
 <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="x">:</span><span class="n">Nz</span>    <span class="c">#copying the first layer into the entire cube</span>
     <span class="n">X</span><span class="x">[</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">+</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">),:]</span><span class="o">=</span><span class="n">X</span><span class="x">[</span><span class="mi">1</span><span class="x">:</span><span class="n">Ncell</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">,:]</span><span class="o">+</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">cM</span><span class="x">;</span>
 <span class="k">end</span>
-<span class="s">"Cell finished"</span></code></pre></figure>
+<span class="s">"Cell finished"</span>
+</code></pre>
+</div>
 
 <figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># 2D plotter</span>
 <span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">)</span>

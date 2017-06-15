@@ -182,7 +182,7 @@ Current options:</p>
 
 <span class="n">X</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">}(</span><span class="n">N</span><span class="x">,</span><span class="mi">3</span><span class="x">);</span>  <span class="c">#where we store the positions</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># Another cell to just evaluate</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Another cell to just evaluate</span>
 <span class="c"># Here we are actually calculating the positions for every site</span>
 <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">Nx</span>    <span class="c">#for the first row</span>
     <span class="n">X</span><span class="x">[</span><span class="n">i</span><span class="x">,:]</span><span class="o">=</span><span class="x">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">a</span><span class="x">;</span>
@@ -194,7 +194,9 @@ Current options:</p>
 
 <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">2</span><span class="x">:</span><span class="n">Nz</span>    <span class="c">#copying the first layer into the entire cube</span>
     <span class="n">X</span><span class="x">[</span><span class="n">Ny</span><span class="o">*</span><span class="n">Nx</span><span class="o">*</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">+</span><span class="x">(</span><span class="mi">1</span><span class="x">:</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">),:]</span><span class="o">=</span><span class="n">X</span><span class="x">[</span><span class="mi">1</span><span class="x">:</span><span class="n">Nx</span><span class="o">*</span><span class="n">Ny</span><span class="x">,:]</span><span class="o">+</span><span class="x">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">*</span><span class="n">cM</span><span class="x">;</span>
-<span class="k">end</span></code></pre></figure>
+<span class="k">end</span>
+</code></pre>
+</div>
 
 <div class="progtip">
 <h3 color="black"> Programming Tip:</h3>
@@ -252,7 +254,7 @@ Current options:</p>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="http://localhost:4000/M4/Images/CrystalShapes/bcc.jpg" alt="bcc" />
+        <img src="http://localhost:4000/M4/Images/CrystalShapes/bcc.png" alt="bcc" />
     
     
         <p class="image-caption">Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D.</p>
@@ -262,7 +264,7 @@ Current options:</p>
 <!-- _includes/image.html -->
 <div class="image-wrapper">
     
-        <img src="http://localhost:4000/M4/Images/CrystalShapes/fcc.jpg" alt="fcc" />
+        <img src="http://localhost:4000/M4/Images/CrystalShapes/fcc.png" alt="fcc" />
     
     
         <p class="image-caption">Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D.</p>

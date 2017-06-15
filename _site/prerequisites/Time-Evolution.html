@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Time Evolution Split Operator Method</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/prerequisites/Time-Evolution.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Time Evolution Split Operator Method" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/TimeEvolution/shifting.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Time Evolution Split Operator Method" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/TimeEvolution/shifting.png" />
+    <meta property="twitter:description" content="Quantum mechanical time evolution through the split operator method looking at Rabi Oscillations between two harmonic oscillator wells." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/M4/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/M4/Images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/M4/Images/favicons/manifest.json">
+    <link rel="mask-icon" href="/M4/Images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#000000">
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div>
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="Quantum mechanical time evolution through the split operator method looking at Rabi Oscillations between two harmonic oscillator wells." />
+<meta name="keywords" content="Quantum" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">Time Evolution Split Operator Method</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Prerequisites</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags">Quantum</a></p>
+        
+  </header>
+
+  <article class="post-content">
+
+    <p>When cleaning my apartment, sometimes I just grab the nearest dirty thing to me and try to do something to it.  But that is not the most efficient way to get things done.  If I’m planning, I’ll first dedicate my attention to one problem, like putting clothing away, then rotate my attention to something else, like dirty dishes.  I can keep focused on just one task and do it well.  Each problem I solve optimally in shorter intervals instead of tackling everything at once.</p>
+
+<p>That same principle applies to solving partial differential equations.  <a href="#citation1"><u>Splitting Methods in Communication, Imaging, Science, and Engineering</u></a> called this principle one of the big ideas of numerical computation.  In numerics, we call it <b>Strang splitting</b>.</p>
+
+<p>We will be applying Strang splitting to solve the Schrondinger equation, but people use the same idea to a variety of problems, like ones with different timescales, length scales, or physical processes.  We will be using it to separate out terms diagonal in position space from terms diagonal in momentum space.</p>
+
+<p>We can describe a class of general partial differential equations by
+<img src="/M4/Images/TimeEvolution/eq5.png" class="eqim" /></p>
+
+<p>Over a small time step, the following approximation holds
+<img src="/M4/Images/TimeEvolution/eq6.png" class="eqim2" /></p>
+
+<p>For <b>Strang splitting</b>, instead of applying both operators together, we break them up into two.  I’ll discuss non-commutivity later.
+<img src="/M4/Images/TimeEvolution/eq7.png" class="eqim2" />
+$U_1$ and $U_2$ are evolution operators. We can define</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq16.png" class="eqim3" /></p>
+
+<h3 id="applying-to-quantum-mechanics">Applying to Quantum Mechanics</h3>
+<p>Now let’s take a look at the Schrodinger Equation:
+<img src="/M4/Images/TimeEvolution/eq8.png" class="eqim" />
+The Hamiltonian gets seperated into position terms and momentum terms.  For ease, let’s define our unitary evolution operators,
+<img src="/M4/Images/TimeEvolution/eq9.png" class="eqim2" /></p>
+
+<p>I mentioned earlier that I would discuss non-communitvity.  We need to do that now.  We can’t simply seperate the evolution operator for the full Hamiltonian into two parts, because we would introduce terms proportional to the commutator.</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq10.png" class="eqim3" /></p>
+
+<p>$e^{A+B}$ expanded has terms that look like $AB$ <b>and</b> $BA$, whereas $e^{A}e^{B}$ only has terms that look like $AB$.  We lose the symmetry of the expression.  We can gain back an order of accuracy by symmetrizing our formula, calculating a time step by</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq11.png" class="eqim3" /></p>
+
+<p>But the next step will the start with $U_x (\delta t/2)$ !</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq12.png" class="eqim" />
+<img src="/M4/Images/TimeEvolution/eq13.png" class="eqim" /></p>
+
+<p>All we need to do to add an order of accuracy is start the simulation with $U_x(\delta t/2)$ and end it with $U_x(\delta t/2)$, leaving everything else the same.  Pretty remarkable you can get that much of an improvement for that little work.  Once we apply this to a bunch of time steps, we get</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq14.png" class="eqim" /></p>
+
+<p>We have to apply a few operators before starting the loop. Between the loop and a measurement, we have to apply an additional operator.</p>
+
+<p>In the spatial domain, the momentum operator involves derivatives and is rather icky.  But in the momentum domain, we only have to multiply by $k^2/2m$.  Thanks to some nicely optimized libraries, we can just transform into the momentum domain with <code class="highlighter-rouge">fft</code>, solve the momentum problem there, and transform back with <code class="highlighter-rouge">ifft</code>.</p>
+
+<h2 id="rabi-oscillations">Rabi Oscillations</h2>
+
+<p>To demonstrate time evolution in a simple system with interesting physics, I chose to apply the split operator to Rabi Oscillations between two harmonic oscillators.</p>
+
+<p>To get an idea of what will happen, we will use a qualitative model of two states weakly coupled to each other by a parameter $\epsilon$.  If we have the two minima sufficifiently seperated from each other, tunneling will happen slowly and will not significantly affect the shape of the eigenfunctions and their energies $E_0$.  Instead of of solving for the shape of the wavefunction, we solve a two-state Hamiltonian that looks like this,</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq1.png" class="eqim" /></p>
+
+<p>The eigenvalues and corresponding eigenvectors of the matrix are,</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq15.png" class="eqim3" />
+<img src="/M4/Images/TimeEvolution/eq2.png" class="eqim" /></p>
+
+<p>If a wavefunction starts purely in the right state, we want to choose a combination of our eigenvectors that sets the left state to zero at $t=0$.  The resulting wavefunction will evolve as,</p>
+
+<p><img src="/M4/Images/TimeEvolution/eq3.png" class="eqim" />
+<img src="/M4/Images/TimeEvolution/eq4.png" class="eqim" /></p>
+
+<p>Thus this simple phenomological model shows us how we can expect the wavefunction to move back and forth between the two wells in a cyclical manner, with a period proportional to the rate of tunneling.</p>
+
+<h4 id="packages">Packages</h4>
+<p>For the first time, I’m using <code class="highlighter-rouge">Plots.jl</code>, with <code class="highlighter-rouge">PlotlyJS</code> as the backend for <code class="highlighter-rouge">Plots</code>.  I had to coax my computer a bit to get the packages to work, but the errors were specific to my computer.  I choose to switch as I believe the <code class="highlighter-rouge">PlotlyJS</code> output will provide a better expierence for those viewing the GitHub-Pages static site, though it might cause more trouble for anyone using the jupyter notebooks.  If you are having trouble plotting yourself, I recommend just switching back to whatever package is easiest for you.</p>
+
+<p>I used <code class="highlighter-rouge">Plots</code> to generate a gif for me directly, but I found my old method of generating a file of .png files and then using <code class="highlighter-rouge">ffmpeg</code> from the command line much fast and easier.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">Plots</span>
+<span class="n">plotlyjs</span><span class="x">()</span>
+<span class="c">#using Rsvg</span>
+<span class="c">#using PyPlot # if you easiest for you</span>
+</code></pre>
+</div>
+
+<h2 id="input-parameters">Input Parameters</h2>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Set Time Parameters</span>
+<span class="n">t0</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">tf</span><span class="o">=</span><span class="mi">40000</span>
+<span class="n">dt</span><span class="o">=.</span><span class="mi">1</span>
+
+<span class="c"># Set Space Grid Parameters</span>
+<span class="n">dx</span><span class="o">=.</span><span class="mi">1</span>
+<span class="n">xmax</span><span class="o">=</span><span class="mi">8</span>
+<span class="c"># xmin will be -xmax.  Making the situation symmetric</span>
+
+<span class="c"># How far seperated are the potential minima</span>
+<span class="n">seperation</span><span class="o">=</span><span class="mi">6</span><span class="x">;</span>
+<span class="c"># minima at seperation/2 and -seperation/2</span>
+
+<span class="c"># How often we measure occupation and view the state</span>
+<span class="n">nmeasure</span><span class="o">=</span><span class="mi">1000</span><span class="x">;</span>
+</code></pre>
+</div>
+
+<h2 id="automatic-evaluation-parameters">Automatic Evaluation Parameters</h2>
+
+<p>Given the parameters above, we can calculate the following variables that we will use in the code.</p>
+
+<p>Note: <code class="highlighter-rouge">k</code> Gave me a bit of a headache. The algorithm depends quite a bit on the conventions <code class="highlighter-rouge">fft</code> decides to use ;(
+Currently, I’m using odd <code class="highlighter-rouge">N</code>.  You’ll have to change the formula if you use even <code class="highlighter-rouge">N</code>.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">t</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">t0</span><span class="x">:</span><span class="n">dt</span><span class="x">:</span><span class="n">tf</span><span class="x">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="o">-</span><span class="n">xmax</span><span class="x">:</span><span class="n">dx</span><span class="x">:</span><span class="n">xmax</span><span class="x">)</span>
+
+<span class="n">nt</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">t</span><span class="x">)</span>
+<span class="n">N</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="x">[</span> <span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:((</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span><span class="x">))</span> <span class="x">;</span> <span class="n">collect</span><span class="x">(</span><span class="o">-</span><span class="x">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span><span class="x">:</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span> <span class="x">]</span> <span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">π</span><span class="o">/</span><span class="x">(</span><span class="n">N</span><span class="o">*</span><span class="n">dx</span><span class="x">);</span>
+
+<span class="n">occupation</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="n">floor</span><span class="x">(</span><span class="kt">Int</span><span class="x">,</span><span class="n">nt</span><span class="o">/</span><span class="n">nmeasure</span><span class="x">),</span><span class="mi">2</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<h2 id="the-potentials-and-evolution-operators">The Potentials and Evolution Operators</h2>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Vx</span><span class="o">=.</span><span class="mi">5</span><span class="o">*</span><span class="x">(</span><span class="n">abs</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">-</span><span class="n">seperation</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span><span class="o">.^</span><span class="mi">2</span><span class="x">;</span>
+<span class="n">Vk</span><span class="o">=</span><span class="n">k</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">Uxh</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="nb">im</span><span class="o">*</span><span class="n">Vx</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="mi">2</span><span class="x">);</span>
+<span class="n">Ux</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="nb">im</span><span class="o">*</span><span class="n">Vx</span><span class="o">*</span><span class="n">dt</span><span class="x">);</span>
+<span class="n">Uf</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="nb">im</span><span class="o">*</span><span class="n">Vk</span><span class="o">*</span><span class="n">dt</span><span class="x">);</span>
+<span class="s">"potentials and evolvers defined"</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="x">,</span> <span class="n">Vx</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">"V"</span><span class="x">,</span>
+<span class="n">plot_title</span><span class="o">=</span><span class="s">"Double Well Potential"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/TimeEvolution/potential.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<h2 id="the-unperturbed-wavefunctions">The Unperturbed Wavefunctions</h2>
+
+<p>The ground state for a harmonic oscillator is a Gaussian
+\begin{equation}
+\langle x | \phi \rangle= \phi (x) = \frac{1}{\pi^{1/4}} e^{-\frac{x^2}{2}}
+\end{equation}
+We assume $\omega = \hbar = m = 1$ for sake of convenience.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">ϕ</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="n">π</span><span class="o">^</span><span class="x">(</span><span class="o">-.</span><span class="mi">25</span><span class="x">)</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">ϕl</span><span class="o">=</span><span class="n">ϕ</span><span class="x">(</span><span class="n">x</span><span class="o">+</span><span class="n">seperation</span><span class="o">/</span><span class="mi">2</span><span class="x">);</span>
+<span class="n">ϕr</span><span class="o">=</span><span class="n">ϕ</span><span class="x">(</span><span class="n">x</span><span class="o">-</span><span class="n">seperation</span><span class="o">/</span><span class="mi">2</span><span class="x">);</span>
+<span class="n">Ψ0</span><span class="o">=</span><span class="nb">convert</span><span class="x">(</span><span class="n">Array</span><span class="x">{</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="mi">1</span><span class="x">},</span><span class="n">ϕl</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">ϕl</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"ϕl"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">ϕr</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"ϕr"</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">"ϕ"</span><span class="x">,</span>
+<span class="n">plot_title</span><span class="o">=</span><span class="s">"Left and Right Wavefunctions"</span><span class="x">)</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/TimeEvolution/lrpsi.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<h2 id="ffts">FFT’s</h2>
+
+<p>This algorithm runs a large number of Fast Fourier Transforms and Inverse Fast Fourier Transforms.  To speed the process, we can tell the computer to spend some time, in the beginning, allocating the right amount of space and optimizing the routine for the particular size and type of array we are passing it.</p>
+
+<p>The next cell does this, by using <code class="highlighter-rouge">plan_fft</code> and <code class="highlighter-rouge">plan_ifft</code> to generate objects that can act on our arrays as operators.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">ft</span><span class="o">=</span><span class="n">plan_fft</span><span class="x">(</span><span class="n">Ψ0</span><span class="x">);</span>
+<span class="n">Ψf</span><span class="o">=</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ0</span><span class="x">;</span>
+<span class="n">ift</span><span class="o">=</span><span class="n">plan_ifft</span><span class="x">(</span><span class="n">Ψf</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<h2 id="occupancy-of-each-state">Occupancy of each state</h2>
+
+<p>To measure the occupancy of the total wavefunction in either the left or right well groundstate, I compute the value
+\begin{equation}
+c_r=\langle \Psi | \phi_r \rangle  = \int \Psi^* (x) \phi_r(x) dx \;\;\;\;\;\;\; p_r=c_r^2
+\end{equation}
+\begin{equation}
+c_l = \langle \Psi | \phi_l \rangle = \int \Psi^* (x) \phi_l (x) dx\;\;\;\;\;\;\; p_l = c_l^2
+\end{equation}
+The probability of being in the state is the coefficient squared.</p>
+
+<p>Though in theory these values will always be real, numerical errors introduce some errors, and Julia will assume that the answer is complex.  Therefore, we need to apply <code class="highlighter-rouge">abs</code> to make the numbers <code class="highlighter-rouge">Float64</code> instead of <code class="highlighter-rouge">Complex{Float64}</code>.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">nmeas</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">c</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">floor</span><span class="x">(</span><span class="kt">Int</span><span class="x">,</span><span class="n">nt</span><span class="o">/</span><span class="n">nmeas</span><span class="x">),</span><span class="mi">2</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Uncomment the # lines to generate a gif.  Note: It takes a long time</span>
+
+<span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ0</span><span class="x">;</span>
+<span class="n">jj</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="c"># The operators we have to start off with</span>
+<span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Uxh</span>
+
+<span class="n">Psif</span><span class="o">=</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ</span>
+<span class="n">Psif</span><span class="o">=</span><span class="n">Psif</span><span class="o">.*</span><span class="n">Uf</span>    
+<span class="n">Ψ</span><span class="o">=</span><span class="n">ift</span><span class="o">*</span><span class="n">Psif</span>
+
+<span class="c">#@gif for ii in 1:nt</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">nt</span>
+
+    <span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Ux</span>
+
+    <span class="n">Psif</span><span class="o">=</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ</span>
+    <span class="n">Psif</span><span class="o">=</span><span class="n">Psif</span><span class="o">.*</span><span class="n">Uf</span>    
+    <span class="n">Ψ</span><span class="o">=</span><span class="n">ift</span><span class="o">*</span><span class="n">Psif</span>   
+
+    <span class="k">if</span> <span class="n">ii</span><span class="o">%</span><span class="n">nmeas</span> <span class="o">==</span> <span class="mi">0</span>
+
+        <span class="c"># Every time we measure, we have to finish with a U_x half time step</span>
+        <span class="n">Ψt</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Uxh</span>
+
+        <span class="n">c</span><span class="x">[</span><span class="n">jj</span><span class="x">,</span><span class="mi">1</span><span class="x">]</span><span class="o">=</span><span class="n">abs</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span> <span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span><span class="n">ϕl</span> <span class="x">))</span> <span class="o">*</span><span class="n">dx</span>
+        <span class="n">c</span><span class="x">[</span><span class="n">jj</span><span class="x">,</span><span class="mi">2</span><span class="x">]</span><span class="o">=</span><span class="n">abs</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span> <span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span><span class="n">ϕr</span> <span class="x">))</span> <span class="o">*</span><span class="n">dx</span>
+
+
+        <span class="n">jj</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">end</span>
+
+    <span class="c">#plot(x[21:141],Vx[21:141]/6, label="Vx scaled")</span>
+    <span class="c">#plot!(x,abs(conj(Ψt).*Ψt), label="Wavefunction")</span>
+    <span class="c">#plot!(xlabel="x", ylabel="Ψ",</span>
+    <span class="c">#    plot_title="Wavefunction evolution")</span>
+
+<span class="k">end</span>    
+<span class="c">#end every nmeas</span>
+
+<span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Uxh</span><span class="x">;</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/TimeEvolution/evolution_plots.gif" alt="Time Evolution" />
+    
+    
+        <p class="image-caption">Time Evolution in a double well potential.  This gif was generated by `Plots.jl`</p>
+    
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/TimeEvolution/doublewell.gif" alt="Time Evolution" />
+    
+    
+        <p class="image-caption">Time Evolution in a double well potential.  This gif was generated splicing together PyPlot png's.</p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">c</span><span class="x">[:,</span><span class="mi">1</span><span class="x">]</span><span class="o">.^</span><span class="mi">2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Left Prob"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">c</span><span class="x">[:,</span><span class="mi">2</span><span class="x">]</span><span class="o">.^</span><span class="mi">2</span><span class="x">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"Right Prob"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Probability"</span><span class="x">,</span>
+    <span class="n">plot_title</span><span class="o">=</span><span class="s">"Rabi Oscillations for a Double Harmonic Oscillator"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/TimeEvolution/rabioscil.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<p>The faster one can perform Fourier Transforms, the faster one can carry out this algorithm.  Therefore, scientists, such as [2] and [3], will use multiple cores or GPU’s.</p>
+
+<p>In addition to real-time evolution, algorithms like this can determine the ground state of an arbitrary system by imaginary time evolution.  Soon, I will take the work covered here and look at this aspect of the algorithm.</p>
+
+<p>I’d particularly like to thank Dr. Lee J. O’Riordan [3] for sharing his experience on this topic.</p>
+
+<p><a name="citation1">[1]</a> Glowinski, Roland, Stanley J. Osher, and Wotao Yin, eds. Splitting Methods in Communication, Imaging, Science, and Engineering. Springer, 2017.</p>
+
+<p>[2] Heiko Bauke and Christoph H. Keitel. Accelerating the Fourier split operator method via graphics processing unit. Computer Physics Communications, 182(12):2454–2463 (2011)</p>
+
+<p>[3] Lee James O’Riordan et al., GPUE: Phasegineering release, Zenodo. (2016) <a href="https://github.com/mlxd/GPUE">https://github.com/mlxd/GPUE</a> DOI:10.5281/zenodo.57968</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/prerequisites/Time-Evolution.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/prerequisites/Time-Evolution.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
