@@ -51,9 +51,8 @@ The ones implemented here, except for diamond, are frustrated lattices that I wo
 
 {% highlight julia %}
 # importing our packages
-Pkg.add("PyPlot");
-Pkg.update();
-using PyPlot;
+using Plots;
+plotlyjs()
 {% endhighlight %}
 
 
@@ -179,7 +178,6 @@ scatter(X[:,1],X[:,2])
 {% endhighlight %}
 
 
-{% include image.html img="M4/Images/MultiUnit/shurikenplot.png" title="Shuriken" caption="3x3 Shuriken or Square-Kagome Lattice." %}
 {% highlight julia %}
 # 3D plotter
 pygui(false)
@@ -190,7 +188,20 @@ scatter3D(X[:,1],X[:,2],X[:,3])
 {% endhighlight %}
 
 
+<iframe src="/M4/Images/MultiUnit/honeycomb.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
+<iframe src="/M4/Images/MultiUnit/kagome.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
+
+<iframe src="/M4/Images/MultiUnit/shuriken.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
+
+<iframe src="/M4/Images/MultiUnit/diamond.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
+
+<iframe src="/M4/Images/MultiUnit/pyrochlore.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
 
 ### Perdy Pictures
