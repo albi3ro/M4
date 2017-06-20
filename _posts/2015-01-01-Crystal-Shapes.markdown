@@ -29,9 +29,8 @@ Stay tuned for a later post where we explore more elaborate lattices.
 
 {% highlight Julia %}
 # importing our packages
-Pkg.add("PyPlot");
-Pkg.update();
-using PyPlot;
+using Plots
+plotlyjs()
 {% endhighlight %}
 
 
@@ -136,37 +135,42 @@ end
 
 
 {% highlight Julia %}
-pygui(false);  #if true, launches new window with interactive capabilities
+scatter(X[:,1],X[:,2],X[:,3],markershape=:circle)
 
-drawcube=true;  #gives lines for a cube, helps interpret the dots
-ls=2;  # how many cubes to draw
-if(drawcube==true)
-    v=collect(0:ls);
-    zed=zeros(v);
-    for i in 0:ls
-        for j in 0:ls
-            plot3D(zed+i,v,zed+j)
-            plot3D(zed+i,zed+j,v)
+ls=2
+v=collect(0:ls)
+zed=zeros(v)
+for i in 0:ls
+    for j in 0:ls
+        plot!(zed+i,v,zed+j)
+        plot!(zed+i,zed+j,v)
 
-            plot3D(v,zed+i,zed+j)
-            plot3D(zed+j,zed+i,v)
+        plot!(v,zed+i,zed+j)
+        plot!(zed+j,zed+i,v)
 
-            plot3D(v,zed+j,zed+i)
-            plot3D(zed+j,v,zed+i)
-        end
+        plot!(v,zed+j,zed+i)
+        plot!(zed+j,v,zed+i)
     end
 end
-
-scatter3D(X[:,1],X[:,2],X[:,3],s=200*ones(X[:,1]),alpha=1)
+plot!(xlabel="x",ylabel="y",zlabel="z",title="$lattice")
+savefig("$lattice.html")
 {% endhighlight %}
 
-{% include image.html img="M4/Images/CrystalShapes/sc.png" title="sc" caption="Simple Cubic: The easiest lattice out there short of the 1D chain." %}
 
-{% include image.html img="M4/Images/CrystalShapes/pt.png" title="pt" caption="Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D." %}
+<iframe src="/M4/Images/CrystalShapes/sc.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
-{% include image.html img="M4/Images/CrystalShapes/bcc.png" title="bcc" caption="Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D." %}
 
-{% include image.html img="M4/Images/CrystalShapes/fcc.png" title="fcc" caption="Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D." %}
+<iframe src="/M4/Images/CrystalShapes/pt.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
+
+
+<iframe src="/M4/Images/CrystalShapes/bcc.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
+
+
+<iframe src="/M4/Images/CrystalShapes/fcc.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
 ## Go Back and Fiddle!
 
