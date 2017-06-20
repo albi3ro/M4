@@ -2,18 +2,18 @@
 title: Time Evolution Split Operator Method
 layout: post
 comments: True
-category: Prerequisites
+category: Prerequisites Required
 tags: [Quantum]
 author: Christina C. Lee
 description: Quantum mechanical time evolution through the split operator method looking at Rabi Oscillations between two harmonic oscillator wells.
 image: "https://albi3ro.github.io/M4/Images/TimeEvolution/shifting.png"
 ---
 
-When cleaning my apartment, sometimes I just grab the nearest dirty thing to me and try to do something to it.  But that is not the most efficient way to get things done.  If I'm planning, I'll first dedicate my attention to one problem, like putting clothing away, then rotate my attention to something else, like dirty dishes.  I can keep focused on just one task and do it well.  Each problem I solve optimally in shorter intervals instead of tackling everything at once.  
+When cleaning my apartment, sometimes I just grab the nearest dirty thing to me and try to do something to it.  But that is not the most efficient way to get things done.  If I'm planning, I'll first dedicate my attention to one problem, like putting clothing away, then rotate my attention to something else, like dirty dishes.  I can keep focused on just one task and do it well.  Each problem I solve optimally in shorter intervals instead of tackling everything at once.
 
-That same principle applies to solving partial differential equations.  [<u>Splitting Methods in Communication, Imaging, Science, and Engineering</u>](#citation1) called this principle one of the big ideas of numerical computation.  In numerics, we call it <b>Strang splitting</b>.  
+That same principle applies to solving partial differential equations.  [<u>Splitting Methods in Communication, Imaging, Science, and Engineering</u>](#citation1) called this principle one of the big ideas of numerical computation.  In numerics, we call it <b>Strang splitting</b>.
 
-We will be applying Strang splitting to solve the Schrondinger equation, but people use the same idea to a variety of problems, like ones with different timescales, length scales, or physical processes.  We will be using it to separate out terms diagonal in position space from terms diagonal in momentum space.  
+We will be applying Strang splitting to solve the Schrondinger equation, but people use the same idea to a variety of problems, like ones with different timescales, length scales, or physical processes.  We will be using it to separate out terms diagonal in position space from terms diagonal in momentum space.
 
 We can describe a class of general partial differential equations by
 <img src="/M4/Images/TimeEvolution/eq5.png" class="eqim">
@@ -33,7 +33,7 @@ Now let's take a look at the Schrodinger Equation:
 The Hamiltonian gets seperated into position terms and momentum terms.  For ease, let's define our unitary evolution operators,
 <img src="/M4/Images/TimeEvolution/eq9.png" class="eqim2">
 
-I mentioned earlier that I would discuss non-communitvity.  We need to do that now.  We can't simply seperate the evolution operator for the full Hamiltonian into two parts, because we would introduce terms proportional to the commutator.  
+I mentioned earlier that I would discuss non-communitvity.  We need to do that now.  We can't simply seperate the evolution operator for the full Hamiltonian into two parts, because we would introduce terms proportional to the commutator.
 
 <img src="/M4/Images/TimeEvolution/eq10.png" class="eqim3">
 
@@ -56,7 +56,7 @@ In the spatial domain, the momentum operator involves derivatives and is rather 
 
 ## Rabi Oscillations
 
-To demonstrate time evolution in a simple system with interesting physics, I chose to apply the split operator to Rabi Oscillations between two harmonic oscillators.  
+To demonstrate time evolution in a simple system with interesting physics, I chose to apply the split operator to Rabi Oscillations between two harmonic oscillators.
 
 To get an idea of what will happen, we will use a qualitative model of two states weakly coupled to each other by a parameter $\epsilon$.  If we have the two minima sufficifiently seperated from each other, tunneling will happen slowly and will not significantly affect the shape of the eigenfunctions and their energies $E_0$.  Instead of of solving for the shape of the wavefunction, we solve a two-state Hamiltonian that looks like this,
 
@@ -191,7 +191,7 @@ width="700px" height="450px"></iframe>
 
 ## FFT's
 
-This algorithm runs a large number of Fast Fourier Transforms and Inverse Fast Fourier Transforms.  To speed the process, we can tell the computer to spend some time, in the beginning, allocating the right amount of space and optimizing the routine for the particular size and type of array we are passing it.  
+This algorithm runs a large number of Fast Fourier Transforms and Inverse Fast Fourier Transforms.  To speed the process, we can tell the computer to spend some time, in the beginning, allocating the right amount of space and optimizing the routine for the particular size and type of array we are passing it.
 
 The next cell does this, by using `plan_fft` and `plan_ifft` to generate objects that can act on our arrays as operators.
 
@@ -232,7 +232,7 @@ jj=1
 Ψ=Ψ.*Uxh
 
 Psif=ft*Ψ
-Psif=Psif.*Uf    
+Psif=Psif.*Uf
 Ψ=ift*Psif
 
 #@gif for ii in 1:nt
@@ -241,8 +241,8 @@ for ii in 1:nt
     Ψ=Ψ.*Ux
 
     Psif=ft*Ψ
-    Psif=Psif.*Uf    
-    Ψ=ift*Psif   
+    Psif=Psif.*Uf
+    Ψ=ift*Psif
 
     if ii%nmeas == 0
 
@@ -261,7 +261,7 @@ for ii in 1:nt
     #plot!(xlabel="x", ylabel="Ψ",
     #    plot_title="Wavefunction evolution")
 
-end    
+end
 #end every nmeas
 
 Ψ=Ψ.*Uxh;
@@ -280,9 +280,9 @@ plot!(xlabel="x",ylabel="Probability",
 <iframe src="/M4/Images/TimeEvolution/rabioscil.html"  style="border:none; background: #ffffff"
 width="700px" height="450px"></iframe>
 
-The faster one can perform Fourier Transforms, the faster one can carry out this algorithm.  Therefore, scientists, such as [2] and [3], will use multiple cores or GPU's.  
+The faster one can perform Fourier Transforms, the faster one can carry out this algorithm.  Therefore, scientists, such as [2] and [3], will use multiple cores or GPU's.
 
-In addition to real-time evolution, algorithms like this can determine the ground state of an arbitrary system by imaginary time evolution.  Soon, I will take the work covered here and look at this aspect of the algorithm.  
+In addition to real-time evolution, algorithms like this can determine the ground state of an arbitrary system by imaginary time evolution.  Soon, I will take the work covered here and look at this aspect of the algorithm.
 
 I'd particularly like to thank Dr. Lee J. O'Riordan [3] for sharing his experience on this topic.
 
