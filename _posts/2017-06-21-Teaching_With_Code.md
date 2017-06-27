@@ -6,7 +6,7 @@ category: General Audience
 tags:
 author: Christina C. Lee
 description: How do we write code when clarity and communication outway performance and features?
-image: "https://albi3ro.github.io/M4/Images/TWC/peerbeginner.png"
+image: "https://albi3ro.github.io/M4/Images/TWC/peerbeginner2.png"
 ---
 
 Clean code protocols exist to encourage code that is human-readable, maintainable and permit team collaboration instead of code that merely communicates to a computer.  We do not build software in isolation, and people often forget how their code works a week after writing it.
@@ -26,7 +26,7 @@ In fact, in this regime, performance and features hinder effective clarity and c
 
 ## Simplify
 Determine the simplest wording to achieve your aims.
-Not shortest, not the most elegant, and not necessarily the most efficient.
+Not shortest, not the most elegant, and not necessarily most efficient.
 
 Simplest.
 
