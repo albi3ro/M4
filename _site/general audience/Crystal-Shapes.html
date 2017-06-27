@@ -118,9 +118,8 @@
 <p>Stay tuned for a later post where we explore more elaborate lattices.</p>
 
 <figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="c"># importing our packages</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"PyPlot"</span><span class="x">);</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="x">();</span>
-<span class="n">using</span> <span class="n">PyPlot</span><span class="x">;</span></code></pre></figure>
+<span class="n">using</span> <span class="n">Plots</span>
+<span class="n">plotlyjs</span><span class="x">()</span></code></pre></figure>
 
 <h2 id="define-the-relevant-variables">Define The Relevant Variables</h2>
 
@@ -208,68 +207,33 @@ Current options:</p>
  <span color="#000000">Danger!</span> Make sure to use the parentheses around the range if you are performing these operations.</p>
 </div>
 
-<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">pygui</span><span class="x">(</span><span class="n">false</span><span class="x">);</span>  <span class="c">#if true, launches new window with interactive capabilities</span>
+<figure class="highlight"><pre><code class="language-julia" data-lang="julia"><span class="n">scatter</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">2</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">3</span><span class="x">],</span><span class="n">markershape</span><span class="o">=</span><span class="x">:</span><span class="n">circle</span><span class="x">)</span>
 
-<span class="n">drawcube</span><span class="o">=</span><span class="n">true</span><span class="x">;</span>  <span class="c">#gives lines for a cube, helps interpret the dots</span>
-<span class="n">ls</span><span class="o">=</span><span class="mi">2</span><span class="x">;</span>  <span class="c"># how many cubes to draw</span>
-<span class="k">if</span><span class="x">(</span><span class="n">drawcube</span><span class="o">==</span><span class="n">true</span><span class="x">)</span>
-    <span class="n">v</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:</span><span class="n">ls</span><span class="x">);</span>
-    <span class="n">zed</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">v</span><span class="x">);</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="x">:</span><span class="n">ls</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">0</span><span class="x">:</span><span class="n">ls</span>
-            <span class="n">plot3D</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">)</span>
-            <span class="n">plot3D</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">v</span><span class="x">)</span>
+<span class="n">ls</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">v</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:</span><span class="n">ls</span><span class="x">)</span>
+<span class="n">zed</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">v</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="x">:</span><span class="n">ls</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="mi">0</span><span class="x">:</span><span class="n">ls</span>
+        <span class="n">plot!</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">)</span>
+        <span class="n">plot!</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">v</span><span class="x">)</span>
 
-            <span class="n">plot3D</span><span class="x">(</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">)</span>
-            <span class="n">plot3D</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">v</span><span class="x">)</span>
+        <span class="n">plot!</span><span class="x">(</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">)</span>
+        <span class="n">plot!</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">,</span><span class="n">v</span><span class="x">)</span>
 
-            <span class="n">plot3D</span><span class="x">(</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">)</span>
-            <span class="n">plot3D</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">)</span>
-        <span class="k">end</span>
+        <span class="n">plot!</span><span class="x">(</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">)</span>
+        <span class="n">plot!</span><span class="x">(</span><span class="n">zed</span><span class="o">+</span><span class="n">j</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">zed</span><span class="o">+</span><span class="n">i</span><span class="x">)</span>
     <span class="k">end</span>
 <span class="k">end</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"y"</span><span class="x">,</span><span class="n">zlabel</span><span class="o">=</span><span class="s">"z"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"</span><span class="si">$</span><span class="s">lattice"</span><span class="x">)</span>
+<span class="n">savefig</span><span class="x">(</span><span class="s">"</span><span class="si">$</span><span class="s">lattice.html"</span><span class="x">)</span></code></pre></figure>
 
-<span class="n">scatter3D</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">2</span><span class="x">],</span><span class="n">X</span><span class="x">[:,</span><span class="mi">3</span><span class="x">],</span><span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">X</span><span class="x">[:,</span><span class="mi">1</span><span class="x">]),</span><span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="x">)</span></code></pre></figure>
+<iframe src="/M4/Images/CrystalShapes/sc.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/CrystalShapes/sc.png" alt="sc" />
-    
-    
-        <p class="image-caption">Simple Cubic: The easiest lattice out there short of the 1D chain.</p>
-    
-</div>
+<iframe src="/M4/Images/CrystalShapes/pt.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/CrystalShapes/pt.png" alt="pt" />
-    
-    
-        <p class="image-caption">Point Triangular: A 2D lattice.  Plotted using scatter instead of scatter3D.</p>
-    
-</div>
+<iframe src="/M4/Images/CrystalShapes/bcc.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/CrystalShapes/bcc.png" alt="bcc" />
-    
-    
-        <p class="image-caption">Body Centered Cubic:  Notice how some sites fall on the cubic lattice, but others fall in between.  Generated with pygui(true) and then manipulating in 3D.</p>
-    
-</div>
-
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/CrystalShapes/fcc.png" alt="fcc" />
-    
-    
-        <p class="image-caption">Face Centered Cubic: Here the sites either fall on the the cubic corners of in the center of the sides.   Generated with pygui(true), ls=1, and then manipulating in 3D.</p>
-    
-</div>
+<iframe src="/M4/Images/CrystalShapes/fcc.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <h2 id="go-back-and-fiddle">Go Back and Fiddle!</h2>
 

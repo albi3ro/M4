@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Teaching with Code</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/general%20audience/Teaching_With_Code.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Teaching with Code" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/TWC/peerbeginner.svg" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Teaching with Code" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/TWC/peerbeginner.svg" />
+    <meta property="twitter:description" content="How do we write code when clarity and communication outway performance and features?" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/M4/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/M4/Images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/M4/Images/favicons/manifest.json">
+    <link rel="mask-icon" href="/M4/Images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#000000">
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div>
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="juliadocs"><a href="http://docs.julialang.org/en/latest/manual/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="How do we write code when clarity and communication outway performance and features?" />
+<meta name="keywords" content="" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">Teaching with Code</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        General Audience</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+  </header>
+
+  <article class="post-content">
+
+    <p>Clean code protocols exist to encourage code that is human-readable, maintainable and permit team collaboration instead of code that merely communicates to a computer.  We do not build software in isolation, and people often forget how their code works a week after writing it.</p>
+
+<p>But code readability standards all assume a uniform audience, which is not the case in our work.</p>
+
+<p>We need to write one type of code when writing to our peers, and another type of code when writing to beginners.</p>
+
+<center>
+<div class="imgage-wrapper">
+ <img src="/M4/Images/TWC/peerbeginner.svg" width="50%" style="float: center; margin: 20px" /></div>
+</center>
+
+<p>A teaching regime holds whenever clarity and communication outway performance and features.</p>
+
+<p>In fact, in this regime, performance and features hinder effective clarity and communication.</p>
+
+<h2 id="simplify">Simplify</h2>
+<p>Determine the simplest wording to achieve your aims.
+Not shortest, not the most elegant, and not necessarily the most efficient.</p>
+
+<p>Simplest.</p>
+
+<p>Simple code is also not the same as prototype code.</p>
+
+<div class="imgage-wrapper">
+ <img src="/M4/Images/TWC/protosimple.svg" width="30%" style="float: right; margin: 20px" /></div>
+
+<p>Let’s compare a program to a path through unknown territory. Prototype code would twist and turn, often splitting off into dead ends.  Only after an explorer knows the terrain can they fill in the swamps, level the mountains, and take a straight path from A to B.  To someone else, this path looks simple and easy, but a massive effort went into creating the path.</p>
+
+<p>Get your code to work.</p>
+
+<p>Then write it again.</p>
+
+<p>Then write it again.</p>
+
+<p>And again.</p>
+
+<p>During this process don’t add features and don’t try to make the code run faster.  You’re not building a rocket ship.  Focus on making the code speak, just as if you were explaining the algorithm aloud or writing pseudocode down on paper.</p>
+
+<h2 id="explain-like-youre-talking-to-grandma">Explain like you’re talking to Grandma</h2>
+
+<div class="image-wrapper" width="200px" style="float: right; margin: 20px">
+ <img src="/M4/Images/TWC/If_you_Give_a_Mouse_a_Cookie.jpg" />
+<div>
+<sub><sub>By Source, Fair use
+ https://en.wikipedia.org/w/index.php?curid=15034811</sub></sub></div>
+</div>
+
+<p>Some might know the difference between a GPU and CPU, but some might not.  In my experience, looking up an unknown term is similar to giving a mouse a cookie. I’m going to want a cup of milk to go along with it.  A few hours and a hundred tabs later, I’ve learned a lot of interesting things, but I rarely get back to what I was originally doing.</p>
+
+<p>If you are using a technical word in a document, first ask if you need to use it.  If you do need to use the word, define it. No one will think less of you for defining a term.  Your audience might be impressed if you present a nice way of thinking about a tricky subject.</p>
+
+<p>Even when I assume a particular audience, say physics students, I like to explain the concepts in terms of everyday activities as well.</p>
+
+<h2 id="separate-tutorials-and-documentation">Separate Tutorials and Documentation</h2>
+
+<div class="image-wrapper">
+ <img src="/M4/Images/TWC/tutorial.png" width="40%" style="float: left; margin: 20px" />
+  <img src="/M4/Images/TWC/documentation.png" width="40%" style="float: left; margin: 20px" />
+</div>
+<div style="clear: both;"></div>
+
+<p>Both are necessary, but they serve distinctly different purposes.</p>
+
+<p>Users visit tutorials to find just what they need to get up and going quickly.  These should be the easiest pages to access.  The priority is efficiency.</p>
+
+<p>Developers use documentation to keep the project consistent, and users visit documentation to solve finicky issues.  The priority here is to be comprehensive.</p>
+
+<p>If you want anyone else to use your product, write both. Don’t try and pass off one as the other. I think at one time or another most of us have probably had to either learn something new from either 100 pages of technical jargon or do original research after a 10-minute walk through. I don’t want to name names, but I don’t have particularly fond feelings for either FFTW or COMSOL.</p>
+
+<h2 id="concepts-versus-details">Concepts versus Details</h2>
+
+<div class="image-wrapper">
+ <img src="/M4/Images/MKL/timescaling.png" width="40%" style="float: left; margin: 20px" />
+  <img src="/M4/Images/TWC/hdf.png" width="40%" style="float: left; margin: 20px" />
+</div>
+<div style="clear: both;"></div>
+
+<p>You can’t see the forest through the trees.  Either go to a mountain top to look at the whole valley or look at an individual tree.</p>
+
+<p>I don’t want my reader pondering over the meaning of a <code class="highlighter-rouge">&amp;&amp;</code> symbol while I’m trying to explain conserved quantities and Noether’s theorem, but I also don’t them to be pondering over the nature of quantum spin while I’m trying to teach how XOR works.</p>
+
+<p>In my experience, when I’m trying to juggle too many new things at once, I just get overwhelmed and don’t learn anything at all.</p>
+
+<h2 id="check-spelling-and-grammar">Check Spelling and Grammar</h2>
+
+<p>Check</p>
+
+<ul>
+  <li>With a Computer</li>
+  <li>By reading aloud</li>
+  <li>By another person</li>
+</ul>
+
+<p>I recommend <a href="grammarly.com">Grammarly</a> for automated spelling and grammar check.</p>
+
+<p>I feel silly harping on this because I have horrible grammar.  I might know exactly how to use a comma in Julia, but I have no idea how to use it in English. But whenever a mistake exists in the sentence, whether anyone realizes it or not, the brain has it’s expectations refuted and has to do a little more work to figure out what is going on.  I would prefer the reader’s brain to spend its time pondering the significance of symmetry breaking instead of whether or not I meant to put a comma in that sentence.</p>
+
+<p>Grammar goes beyond just those rules you learned in elementary school to elements of style and flow.  That’s why I recommend reading your writing aloud and having someone else read your work.</p>
+
+<h4 id="1-avoid-passive-sentences">1. Avoid passive sentences</h4>
+
+<div style="color: #B83E37">Bad: MKL got used.</div>
+<div style="color: #2b8f39">Good:  I used MKL.</div>
+
+<p>Historical norms say to avoid using the first person in formal writing, but I have no problem with the first person and do have a problem with passive.  Active sentences liven up your writing.</p>
+
+<h4 id="2-change-up-your-vocab">2. Change up your vocab</h4>
+
+<div style="color: #B83E37">Bad: Float changes to Int.  This change changes the amount of space used.</div>
+<div style="color: #2b8f39">Good: Float changes to Int.  This conversion expands the amount of space used. </div>
+
+<p>While in technical fields, we have many specific words that we can’t replace with synonyms, in other situations, a thesaurus can help writing from getting repetitive and clunky.  If only Grammarly stopped complaining when I use “Hamiltonian” for the 50th time.</p>
+
+<h4 id="3-avoid-unclear-antecedents">3. Avoid unclear antecedents</h4>
+<div style="color: #B83E37">Bad: Yoshi gave Ichiro a ride home, but he forgot his wallet.</div>
+<div style="color: #2b8f39">Good: Yoshi gave Ichiro a ride home, but Ichiro forgot his wallet.</div>
+
+<p>I didn’t know what an antecedent was before Grammarly kept correcting me on it. In the first example sentence, the pronoun “he” was unclear.</p>
+
+<p>Be wary of the word this.  People use the word “this” but leave unclear what the word “this” refers to.</p>
+
+<h4 id="4-remove-filler-words-and-wordy-phrasings">4. Remove filler words and wordy phrasings</h4>
+<div style="color: #B83E37">Bad: Basically, this sentence really has like a lot of words.</div>
+<div style="color: #2b8f39">Good: This sentence has words.</div>
+
+<p>Rule of Thumb: If you can remove a word from a sentence, and the meaning of the sentence doesn’t change, remove the word.</p>
+
+<h2 id="let-the-design-do-the-readers-work-for-them">Let the design do the reader’s work for them.</h2>
+
+<p>People are lazy.  Or busy.  Or busy and lazy.  You cannot expect them to sit down and spend an hour reading over everything in your documentation to find what they need, or to determine whether or not they want to use your package.</p>
+
+<p>They have deadlines too. And lunch hour soon.  And a movie playing in the corner of their screen.</p>
+
+<p>Make your page in such a way that people can glance at the screen and determine which information is important by</p>
+
+<div class="imgage-wrapper">
+ <img src="/M4/Images/TWC/wheretolook.png" width="30%" style="float: right; margin: 20px" /></div>
+
+<ul>
+  <li>how large it is</li>
+  <li>how it’s colored</li>
+  <li>where it’s placed</li>
+</ul>
+
+<p>Once the brain knows where to look, the page needs to keep them around and relaxed.</p>
+<ul>
+  <li>Color scheme</li>
+  <li>Font</li>
+  <li>Density</li>
+  <li>Busyness</li>
+</ul>
+
+<p>all play into whether a page relaxes or stresses someone.</p>
+
+<p>A few simple changes can make a huge difference.  I took the worst site out there, FFTW, and manipulated its HTML.  The original page is the far left image below.  Next, I just eliminated the underline.  After that, I altered the font to “Helvetica Neue” and highlighted the section heads.  Finally, I changed the color palette.  I never touched the content, but the page moved from terrifying to something readable.</p>
+
+<div class="image-wrapper">
+ <img src="/M4/Images/TWC/fftw_bad.png" width="22%" style="float: left;margin: 1%" />
+  <img src="/M4/Images/TWC/fftw_1.png" width="22%" style="float: left; margin: 1%" />
+    <img src="/M4/Images/TWC/fftw_2.png" width="22%" style="float: left; margin: 1%" />
+      <img src="/M4/Images/TWC/fftw_3.png" width="22%" style="float: left; margin: 1%" />
+</div>
+<div style="clear: both;"></div>
+
+<p>I recommend <a href="paletton.com">Paletton</a> for creating a color scheme.  The website generates a palette according to rules of color theory, eliminating the wishy-washyness of someone untrained in design judging based on personal taste.</p>
+
+<p>Sans-serif scripts work best for screens and presentations, but serif characters work best for printed works.  Arial or Helvetica fonts are clear and readable.  You can’t really go wrong with these choices.</p>
+
+<p>Whenever I make something for public consumption, I ask</p>
+<ul>
+  <li>Does the design reflect the information?</li>
+  <li>Does the brain know where to look?</li>
+  <li>Does my brain tense up or relax when I look at this?</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>These concepts seem fairly straight forward, but good documentation and tutorials take a massive amount of work.  To have good communication, we as a community need to place a priority on good tutorials, documentation, and communication.</p>
+
+<p>The best package in the world means nothing if no one is able to use it.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/general%20audience/Teaching_With_Code.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/general%20audience/Teaching_With_Code.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
