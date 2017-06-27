@@ -6,7 +6,7 @@ category: General Audience
 tags:
 author: Christina C. Lee
 description: How do we write code when clarity and communication outway performance and features?
-image: "https://albi3ro.github.io/M4/Images/TWC/peerbeginner.svg"
+image: "https://albi3ro.github.io/M4/Images/TWC/peerbeginner.png"
 ---
 
 Clean code protocols exist to encourage code that is human-readable, maintainable and permit team collaboration instead of code that merely communicates to a computer.  We do not build software in isolation, and people often forget how their code works a week after writing it.
