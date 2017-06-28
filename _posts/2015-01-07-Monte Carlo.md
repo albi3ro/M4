@@ -13,7 +13,9 @@ description: An Introduction to Monte Carlo methods by calculating Pi
 When one hears "Monte Carlo", most people might think of something like this:
 
 <center>
-<img src="../images/MonteCarlo/871.jpg" width="40%" style="align:center; margin: 20px"/></center>
+<div class="imgage-wrapper">
+ <img src="/M4/Images/MonteCarlo/871.jpg" width="50%" style="float: center; margin: 20px"/></div>
+</center>
 
 Monte Carlo, Monaco: known for extremely large amounts of money, car racing, no income taxes,and copious gambling.
 
