@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="134.66031mm"
+   width="110.06666mm"
    height="63.903179mm"
-   viewBox="0 0 477.14283 226.42859"
+   viewBox="0 0 389.99997 226.42859"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="241.61657"
-     inkscape:cy="42.85715"
+     inkscape:cx="241.61658"
+     inkscape:cy="42.857155"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -59,46 +59,46 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-127.14287,-377.3622)">
+     transform="translate(-127.14286,-377.36221)">
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#07603f;stroke-width:8.89382744;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#07603f;stroke-width:8.04816914;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4138"
-       width="468.24902"
-       height="217.53476"
-       x="131.58977"
-       y="381.80911"
+       width="381.95181"
+       height="218.38042"
+       x="131.16693"
+       y="381.38629"
        inkscape:export-xdpi="377.24551"
        inkscape:export-ydpi="377.24551" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="180.00002"
-       y="410.93362"
+       x="148.57144"
+       y="411.64792"
        id="text4140"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4142"
-         x="180.00002"
-         y="410.93362"
+         x="148.57144"
+         y="411.64792"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.5px;line-height:125%;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#07603f;fill-opacity:1">Computer Readable Code</tspan></text>
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#b48b22;stroke-width:8.30409908;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#b48b22;stroke-width:7.22157192;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4144"
-       width="440.26733"
-       height="153.83876"
-       x="148.43777"
-       y="425.08569" />
+       width="330.63559"
+       height="154.92128"
+       x="147.89651"
+       y="424.54443" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#b48b22;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="180.71429"
-       y="456.64792"
+       x="156.42857"
+       y="455.93362"
        id="text4146"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4148"
-         x="180.71429"
-         y="456.64792"
+         x="156.42857"
+         y="455.93362"
          style="font-size:27.5px;fill:#b48b22;fill-opacity:1">Human Readable Code</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#6d084c;stroke-width:5.37511873;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -122,21 +122,21 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#6d084c;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="425.71429"
-       y="520.93365"
+       x="290"
+       y="520.21936"
        id="text4158"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4160"
-         x="425.71429"
-         y="520.93365"
+         x="290"
+         y="520.21936"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.5px;line-height:125%;font-family:'Arial Rounded MT Bold';-inkscape-font-specification:'Arial Rounded MT Bold, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start">Beginner</tspan></text>
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#6d084c;stroke-width:7.1153698;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#6d084c;stroke-width:6.3033886;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4162"
-       width="195.74178"
-       height="89.31321"
-       x="279.98624"
-       y="468.06271" />
+       width="148.69662"
+       height="92.268051"
+       x="279.58026"
+       y="467.65674" />
   </g>
 </svg>

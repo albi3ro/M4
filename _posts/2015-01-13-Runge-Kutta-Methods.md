@@ -6,7 +6,7 @@ category: Numerics
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/ODE/graphic.png"
 tags: [ODE]
-description:  An introduction to the Runge-Kutta class of Ordinary Differential Equation solvers, specifically covering Euler, Implicit Euler, RK2, and RK4.  
+description:  An introduction to the Runge-Kutta class of Ordinary Differential Equation solvers, specifically covering Euler, Implicit Euler, RK2, and RK4.
 ---
 
 # Ordinary Differential Equation Solvers: Runge-Kutta Methods
@@ -15,7 +15,7 @@ description:  An introduction to the Runge-Kutta class of Ordinary Differential 
 
 So what's an <i>Ordinary Differential Equation</i>?
 
-Differential Equation means we have some equation, or equations, that have derivatives in them.  
+Differential Equation means we have some equation, or equations, that have derivatives in them.
 
 The <i>ordinary</i> part differentiates them from <i>partial</i> differential equations, the ones with curly $\partial$ derivatives.  Here, we only have one <b>independent</b> variable, let's call it $t$, and one or more <b>dependent</b>  variables, let's call them $x_1, x_2, ...$.  In partial differential equations, we can have more than one independent variable.
 
@@ -47,11 +47,11 @@ $$
 \frac{d^i x}{dt^i}=x_i
 $$
 
-Though STEM students such as I have probably spent thousands of hours pouring of ways to analytically solve both ordinary and partial differential equations, unfortunately, the real world is rarely so kind as to provide us with an exactly solvable differential equation.  At least for interesting problems.  
+Though STEM students such as I have probably spent thousands of hours pouring of ways to analytically solve both ordinary and partial differential equations, unfortunately, the real world is rarely so kind as to provide us with an exactly solvable differential equation.  At least for interesting problems.
 
-We can sometimes approximate the real world as an exactly solvable situation, but for the situation we are interested in, we have to turn to numerics.  I'm not saying those thousand different analytic methods are for nothing.  We need an idea ahead of time of what the differential equation should be doing, to tell if it's misbehaving or not.  We can't just blindly plug and chug.  
+We can sometimes approximate the real world as an exactly solvable situation, but for the situation we are interested in, we have to turn to numerics.  I'm not saying those thousand different analytic methods are for nothing.  We need an idea ahead of time of what the differential equation should be doing, to tell if it's misbehaving or not.  We can't just blindly plug and chug.
 
-Today will be about introducing four different methods based on Taylor expansion to a specific order, also known as Runge-Kutta Methods.  We can improve these methods with adaptive stepsize control, but that is a topic for another time, just like the other modern types of solvers such as Richardson extrapolation and predictor-corrector.  
+Today will be about introducing four different methods based on Taylor expansion to a specific order, also known as Runge-Kutta Methods.  We can improve these methods with adaptive stepsize control, but that is a topic for another time, just like the other modern types of solvers such as Richardson extrapolation and predictor-corrector.
 
 Nonetheless, to work with ANY computational differential equation solver, you need to understand the fundamentals of routines like Euler and Runge-Kutta, their error propagation, and where they can go wrong. Otherwise, you might misinterpret the results of more advanced methods.
 
@@ -60,11 +60,9 @@ Nonetheless, to work with ANY computational differential equation solver, you ne
 Let's first add our plotting package and colors.
 
 ```julia
-Pkg.update()
-Pkg.add("Gadfly")
-Pkg.add("Colors")
-Pkg.add("Lazy")
-using Gadfly
+using Plots
+plotlyjs()
+
 # Solarized Colors that I like working with
 # http://ethanschoonover.com/solarized
 using Colors
@@ -105,7 +103,7 @@ push!(f,f1)
 
 ### Euler's Method
 {% include image.html img="M4/Images/ODE/graphic.png" title="Stepping" caption="Approximating the slope each step." %}
-First published in Euler's <i>Instutionum calculi integralis</i> in 1768, this method gets a lot of milage, and if you are to understand anything, this method is it.  
+First published in Euler's <i>Instutionum calculi integralis</i> in 1768, this method gets a lot of milage, and if you are to understand anything, this method is it.
 
 We march along with step size $h$, and at each new point, calculate the slope.  The slope gives us our new direction to travel for the next $h$.
 
@@ -208,7 +206,7 @@ end
 ```
 
 ## 4th Order Runge-Kutta
-Wait! Where's 3rd order? There exists a 3rd order method, but I only just heard about it while fact-checking for this post.  RK4 is your dependable, multi-purpose workhorse, so we are going to skip right to it.  
+Wait! Where's 3rd order? There exists a 3rd order method, but I only just heard about it while fact-checking for this post.  RK4 is your dependable, multi-purpose workhorse, so we are going to skip right to it.
 
 $$
 k_1= f(t_n,x_n)
@@ -260,7 +258,7 @@ function RK4(f::Array{Function,1},t0::Float64,x::Array{Float64,1},h::Float64)
 end
 ```
 
-This next function merely iterates over a certain number of steps for a given method.  
+This next function merely iterates over a certain number of steps for a given method.
 
 ```julia
 function Solver(f::Array{Function,1},Method::Function,t0::Float64,
@@ -293,7 +291,7 @@ tRK2,xRK2=Solver(f,RK2,t0,x0,dt,N);
 tRK4,xRK4=Solver(f,RK4,t0,x0,dt,N);
 
 xi=tEU
-yi=exp(xi);
+yi=exp.(xi);
 
 errEU=reshape(xEU[1,:],N+1)-yi
 errIm=reshape(xIm[1,:],N+1)-yi
@@ -302,68 +300,32 @@ errRK4=reshape(xRK4[1,:],N+1)-yi;
 ```
 
 ```julia
-plot(x=tEU,y=xEU[1,:],Geom.point,
-Theme(highlight_width=0pt,default_color=green,
-default_point_size=3pt))
+plot(tEU,xEU[1,:],label="Euler")
+plot!(tIm,xIm[1,:],label="Implicit")
+plot!(tRK2,xRK2[1,:],label="RK2")
+plot!(tRK4,xRK4[1,:],label="RK4")
+plot!(xi,yi,label="Exact")
+plot!(xlabel="Independent Variable",ylabel="Dependent variable",title="Comparing Methods")
 ```
-<iframe src="/M4/Images/ODE/exp.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="400px"></iframe>
+<iframe src="/M4/Images/ODE/comp_exp.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
 ```julia
-lEU=layer(x=tEU,y=xEU[1,:],Geom.point,
-Theme(highlight_width=0pt,default_color=green,
-default_point_size=3pt))
-
-lIm=layer(x=tIm,y=xIm[1,:],Geom.point,
-Theme(highlight_width=0pt,default_color=yellow,
-default_point_size=3pt))
-
-lRK2=layer(x=tRK2,y=xRK2[1,:],Geom.point,
-Theme(highlight_width=0pt,default_color=cyan,
-default_point_size=2pt))
-
-lRK4=layer(x=tRK4,y=xRK4[1,:],Geom.point,
-Theme(highlight_width=0pt,default_color=violet,
-default_point_size=4pt))
-
-lp=layer(x->e^x,-.1,10,Geom.line,Theme(default_color=red))
-
-
-plot(lp,lEU,lIm,lRK2,lRK4,
-Guide.manual_color_key("Legend",["Euler","Implicit","RK2","RK4","Exact"],
-[green,yellow,cyan,violet,red]),
-Coord.cartesian(xmin=9.5,xmax=10.1))
+plot(xi,errEU,label="Euler")
+plot!(xi,errIm,label="Implicit")
+plot!(xi,errRK2,label="RK2")
+plot!(xi,errRK4,label="RK4")
+plot!(xlabel="Independent Variable",ylabel="Error",title="Comparison of error scaling")
+savefig("comp_err.html")
 ```
-<iframe src="/M4/Images/ODE/comp_exp.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="400px"></iframe>
+<iframe src="/M4/Images/ODE/comp_err.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
-```julia
-lEU=layer(x=xi,y=errEU,Geom.point,
-Theme(highlight_width=0pt,default_color=green,
-default_point_size=1pt))
-
-lIm=layer(x=xi,y=errIm,Geom.point,
-Theme(highlight_width=0pt,default_color=yellow,
-default_point_size=1pt))
-
-lRK2=layer(x=xi,y=errRK2,Geom.point,
-Theme(highlight_width=0pt,default_color=cyan,
-default_point_size=1pt))
-
-lRK4=layer(x=xi,y=errRK4,Geom.point,
-Theme(highlight_width=0pt,default_color=violet,
-default_point_size=1pt))
-
-plot(lEU,lIm,lRK2,lRK4,Scale.y_asinh,
-Guide.manual_color_key("Legend",["Euler","Implicit","RK2","RK4"],
-[green,yellow,cyan,violet]))
-```
-<iframe src="/M4/Images/ODE/comp_err.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="400px"></iframe>
 
 ## Scaling of the Error
 
 I talked above about the error scaling either as $h,h^2$, or $h^4$.  I won't just talk but here will numerically demonstrate the relationship as well.  For a variety of different step sizes, the below code calculates the final error for each method.  Then we will plot the error and see how it scales.
+
 
 ```julia
 t0=0.
@@ -397,63 +359,64 @@ for ii in 1:length(dt)
 end
 ```
 
+
 ```julia
-lEU=layer(x=dt,y=errfEU,Geom.point,
-Theme(highlight_width=0pt,default_color=green,
-default_point_size=1pt))
+plot(x->errfEU[end]*x/.01,dt[1],dt[end],label="Fitted line",
+    linewidth=10,linecolor=base03)
+plot!(dt,errfEU,label="Error",
+    linecolor=base2,linewidth=3)
 
-lIm=layer(x=dt,y=errfIm,Geom.point,
-Theme(highlight_width=0pt,default_color=yellow,
-default_point_size=1pt))
+plot!(xlabel="step size",ylabel="final error",title="Linear Error of Euler Method")
+savefig("Eul_scal.html")
+```
+<iframe src="/M4/Images/ODE/Eul_scal.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
-lRK2=layer(x=dt,y=errfRK2*10^5,Geom.point,
-Theme(highlight_width=0pt,default_color=cyan,
-default_point_size=1pt))
+```julia
+plot(x->errfIm[end]*x/.01,dt[1],dt[end],label="Fitted line",
+    linewidth=10,linecolor=base03)
+plot!(dt,errfIm,label="Error",
+    linecolor=base2,linewidth=3)
+plot!(xlabel="step size",ylabel="final error",title="Linear Error of Implicit Method")
+savefig("Im_scal.html")
+```
+<iframe src="/M4/Images/ODE/Im_scal.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
-lRK4=layer(x=dt,y=errfRK4*10^10,Geom.point,
-Theme(highlight_width=0pt,default_color=violet,
-default_point_size=1pt))
+```julia
+plot(x->errfRK2[end]*(x/.01)^2,dt[1],dt[end],label="Quadratic",
+    linewidth=10,linecolor=base03)
+plot!(dt,errfRK2,label="Error",
+    linecolor=base2,linewidth=3)
 
-tempEU(x)=(errfEU[end]*x/.01)
-tempIm(x)=(errfIm[end]*x/.01)
-#le=layer([tempEU,tempIm],0,.01,Geom.line,Theme(default_color=base01))
-le=layer(tempEU,0,.01,Geom.line,Theme(default_color=base01))
-lei=layer(tempIm,0,.01,Geom.line,Theme(default_color=base01))
+plot!(xlabel="step size",ylabel="final error",title="Quadratic Error of Runge-Kutta 2 Method")
+savefig("RK2_scal.html")
+```
+<iframe src="/M4/Images/ODE/RK2_scal.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
+```julia
+plot(x->errfRK4[end]*(x/.01)^4,dt[1],dt[end],label="Quartic",
+    linewidth=10,linecolor=base03)
+plot!(dt,errfRK4,label="Error",
+    linecolor=base2,linewidth=3)
 
-temp2(x)=(errfRK2[end]*(x/.01)^2*10^5)
-l2=layer(temp2,0,.01,Geom.line,Theme(default_color=base00))
-
-temp4(x)=(errfRK4[end]*(x/.01)^4*10^10)
-l4=layer(temp4,0,.01,Geom.line,Theme(default_color=base00))
-
-xl=Guide.xlabel("h")
-ylrk2=Guide.ylabel("Error e-5")
-ylrk4=Guide.ylabel("Error e-10")
-yl=Guide.ylabel("Error")
-
-pEU=plot(lEU,lIm,le,lei,xl,yl,Guide.title("Euler and Implicit, linear error"))
-p2=plot(lRK2,l2,xl,ylrk2,Guide.title("RK2, error h^2"))
-p4=plot(lRK4,l4,xl,ylrk4,Guide.title("RK4, error h^4"))
-vstack(hstack(p2,p4),pEU)
+plot!(xlabel="step size",ylabel="final error",title="Quartic Error of Runge-Kuuta 4 Method")
+savefig("RK4_Scal.html")
 ```
 
-<iframe src="/M4/Images/ODE/err_scale.js.svg"  style="border:none; background: #ffffff"
-width="600px" height="400px"></iframe>
+<iframe src="/M4/Images/ODE/RK4_scal.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
 ## Arbitrary Order
 While I have presented 4 concrete examples, many more exist. For any choice of variables $a_i, \beta_{i,j},a_i$ that fulfill
-
 $$
 x_{n+1}=x_n+h\left(\sum_{i=1}^s a_i k_i \right)+ \mathcal{O}(h^p)
 $$
-
 with
-
 $$
 k_i=f\left(t_n+\alpha_i h,x_n+h\left(\sum_{j=1}^s \beta_{ij} k_j \right) \right)
 $$
-
 we have a Runge-Kutta method of order $p$, where $p\geq s$.  The Butcher tableau provides a set of consistent coefficients.
 
 
