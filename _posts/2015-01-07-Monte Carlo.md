@@ -12,7 +12,8 @@ description: An Introduction to Monte Carlo methods by calculating Pi
 
 When one hears "Monte Carlo", most people might think of something like this:
 
-{% include image.html img="M4/Images/MonteCarlo/871.jpg" title="Monte Carlo" caption="My Mom and I touring Monte Carlo, Monaco." %}
+<center>
+<img src="../images/MonteCarlo/871.jpg" width="40%" style="align:center; margin: 20px"/></center>
 
 Monte Carlo, Monaco: known for extremely large amounts of money, car racing, no income taxes,and copious gambling.
 
@@ -49,9 +50,12 @@ $$
 
 
 {% highlight julia %}
-#Pkg.update()
-#Pkg.add("PyPlot")
-using PyPlot
+using Plots
+using Colors
+violet=parse(Colorant,"#6c71c4");
+cyan=parse(Colorant,"#3aa198");
+
+plotlyjs()
 {% endhighlight %}
 
 We will generate our random numbers on the unit interval.  Thus the radius in our circumstance is $.5$.
@@ -59,24 +63,23 @@ We will generate our random numbers on the unit interval.  Thus the radius in ou
  Write a function `incircle(r2)` such that if `r2` is in the circle, it returns true, else, it returns false.  We will use this with the julia function `filter`.  Assume `r2` is the radius squared, and already centered around the middle of the unit circle
 
 
-{% highlight julia %}
-function incircle(r2)
-    if r2<.25
-        return true
-    else
-        return false
-    end
-end
-{% endhighlight %}
+ ```julia
+ function incircle(r2)
+     if r2<.25
+         return true
+     else
+         return false
+     end
+ end
+ ```
 
 
-
-{% highlight julia %}
+```julia
 #The number of darts we will throw at the board.  We will see how accurate different numbers are
-N=[10,25,50,75,100,250,500,750,1000,2500,5000,7500,10000];
+N=round.(Int,10.^(1:.25:4))
 # We will perform each number multiple times in order to calculate error bars
 M=15;
-{% endhighlight %}
+```
 
 
 ```julia
@@ -112,22 +115,15 @@ end
 So that was a nice, short little piece of code.  Lets plot it now to see means.
 
 
-{% highlight julia %}
-title("Monte Carlo Estimation of π")
-ylabel("π estimate")
-xlabel("N points")
-plot(N,π*ones(N));
+```julia
+plot(xlabel="N points",ylabel="π estimate",title="Monte Carlo Estimate of π")
+scatter!(repmat(N,M),reshape(πapprox,195),xscale=:log10,label="Estimates")
+plot!(N,πave,yerr=πstd,xscale=:log10,label="Average of $M")
+```
 
-for j in 1:M
-    scatter(N,πapprox[:,j],marker="o",color="green");
-end
-ax=gca()
-errorbar(N,π*ones(N),yerr=πstd,color="red",fmt="o")
-ax[:set_xscale]("log");
-ax[:set_xlim]([5,5*10^4]);
-{% endhighlight %}
+<iframe src="/M4/Images/MonteCarlo/pie_estimation.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
-{% include image.html img="M4/Images/MonteCarlo/pic1.png" title="Result" caption="Image result." %}
 
 
 When we have fewer numbers of points, our estimates vary much more wildly, and much further from 3.1415926 .
@@ -136,55 +132,38 @@ But, at least, the guesses from our different runs all seem equally distributed 
 As we get up to $10^4$, our estimate starts getting much more accurate and consistent.
 
 
-{% highlight julia %}
-title("Dependence of Monte Carlo Error on Number of Points")
-ylabel("standard deviation")
-xlabel("N points")
-semilogx(N,πstd,marker="o");
-{% endhighlight %}
-{% include image.html img="M4/Images/MonteCarlo/pic2.png" title="Result" caption="Image result." %}
+```julia
+plot(N,πstd,label="Error",xscale=:log10)
+plot!(xlabel="N points",ylabel="std",title="Dependence of error on number of points")
+```
+<iframe src="/M4/Images/MonteCarlo/pie_error.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
 
-So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002
-
-
-{% highlight julia %}
-title("Overall Averages")
-xlabel("N steps")
-ylabel("Average of 15 runs")
-semilogx(N,π*ones(N));
-semilogx(N,πave,marker="o");
-{% endhighlight %}
-
-{% include image.html img="M4/Images/MonteCarlo/pic3.png" title="Result" caption="Image result."%}
-
+So what we guessed in the first plot about dispersion in estimate, we quantify here in this plot.  When we only have 10 darts, the guesses vary by up to .3, but when we get down to 1,000 trials, we are starting to be consistent to .0002.
 
 Now lets just make a graphical representation of what we've been doing this whole time.  Plot our points on unit square, and color the ones inside a circle a different color.
 
 
-{% highlight julia %}
+```julia
 X=zeros(Float64,1000);
 Y=zeros(Float64,1000);
 rand!(X);
 rand!(Y);
-R2=(X-.5).^2+(Y-.5).^2;
-Xc=[];
-Yc=[]
-for ii in 1:length(X)
-    if R2[ii]<.25
-        push!(Xc,X[ii]);
-        push!(Yc,Y[ii]);
-    end
-end
+inside =( (X-.5).^2+(Y-.5).^2 ) .< .25;
+```
 
-title("The dartboard")
-xlim(0,1)
-ylim(0,1)
-scatter(X,Y);
-scatter(Xc,Yc,color="red");
-{% endhighlight %}
 
-{% include image.html img="M4/Images/MonteCarlo/pic4.png" title="Result" caption="Result." %}
+```julia
+scatter(X[inside],Y[inside],label="Inside",
+    markercolor=violet)
+scatter!(X[.!inside],Y[.!inside],label="Outside",
+    markercolor=cyan)
+plot!(title="The Dartboard")
+```
+
+<iframe src="/M4/Images/MonteCarlo/dartboard.html"  style="border:none; background: #ffffff"
+width="700px" height="450px"></iframe>
 
 
 That's all folks!
