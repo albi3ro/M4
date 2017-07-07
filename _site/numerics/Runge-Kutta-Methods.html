@@ -141,11 +141,9 @@
 
 <p>Let’s first add our plotting package and colors.</p>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Pkg</span><span class="o">.</span><span class="n">update</span><span class="x">()</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"Gadfly"</span><span class="x">)</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"Colors"</span><span class="x">)</span>
-<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="x">(</span><span class="s">"Lazy"</span><span class="x">)</span>
-<span class="n">using</span> <span class="n">Gadfly</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">Plots</span>
+<span class="n">plotlyjs</span><span class="x">()</span>
+
 <span class="c"># Solarized Colors that I like working with</span>
 <span class="c"># http://ethanschoonover.com/solarized</span>
 <span class="n">using</span> <span class="n">Colors</span>
@@ -354,7 +352,7 @@ Summing over the entire interval, we accumuluate error according to</p>
 <span class="n">tRK4</span><span class="x">,</span><span class="n">xRK4</span><span class="o">=</span><span class="n">Solver</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">RK4</span><span class="x">,</span><span class="n">t0</span><span class="x">,</span><span class="n">x0</span><span class="x">,</span><span class="n">dt</span><span class="x">,</span><span class="n">N</span><span class="x">);</span>
 
 <span class="n">xi</span><span class="o">=</span><span class="n">tEU</span>
-<span class="n">yi</span><span class="o">=</span><span class="n">exp</span><span class="x">(</span><span class="n">xi</span><span class="x">);</span>
+<span class="n">yi</span><span class="o">=</span><span class="n">exp</span><span class="o">.</span><span class="x">(</span><span class="n">xi</span><span class="x">);</span>
 
 <span class="n">errEU</span><span class="o">=</span><span class="n">reshape</span><span class="x">(</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span><span class="o">-</span><span class="n">yi</span>
 <span class="n">errIm</span><span class="o">=</span><span class="n">reshape</span><span class="x">(</span><span class="n">xIm</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="x">)</span><span class="o">-</span><span class="n">yi</span>
@@ -363,62 +361,25 @@ Summing over the entire interval, we accumuluate error according to</p>
 </code></pre>
 </div>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tEU</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">3</span><span class="n">pt</span><span class="x">))</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">tEU</span><span class="x">,</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">label</span><span class="o">=</span><span class="s">"Euler"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">tIm</span><span class="x">,</span><span class="n">xIm</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">label</span><span class="o">=</span><span class="s">"Implicit"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">tRK2</span><span class="x">,</span><span class="n">xRK2</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">label</span><span class="o">=</span><span class="s">"RK2"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">tRK4</span><span class="x">,</span><span class="n">xRK4</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">label</span><span class="o">=</span><span class="s">"RK4"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xi</span><span class="x">,</span><span class="n">yi</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Exact"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"Independent Variable"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Dependent variable"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Comparing Methods"</span><span class="x">)</span>
 </code></pre>
 </div>
-<iframe src="/M4/Images/ODE/exp.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+<iframe src="/M4/Images/ODE/comp_exp.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">lEU</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tEU</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xEU</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">3</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lIm</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tIm</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xIm</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">yellow</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">3</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lRK2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tRK2</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xRK2</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">cyan</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">2</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lRK4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">tRK4</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">xRK4</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">violet</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">4</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lp</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">e</span><span class="o">^</span><span class="n">x</span><span class="x">,</span><span class="o">-.</span><span class="mi">1</span><span class="x">,</span><span class="mi">10</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">red</span><span class="x">))</span>
-
-
-<span class="n">plot</span><span class="x">(</span><span class="n">lp</span><span class="x">,</span><span class="n">lEU</span><span class="x">,</span><span class="n">lIm</span><span class="x">,</span><span class="n">lRK2</span><span class="x">,</span><span class="n">lRK4</span><span class="x">,</span>
-<span class="n">Guide</span><span class="o">.</span><span class="n">manual_color_key</span><span class="x">(</span><span class="s">"Legend"</span><span class="x">,[</span><span class="s">"Euler"</span><span class="x">,</span><span class="s">"Implicit"</span><span class="x">,</span><span class="s">"RK2"</span><span class="x">,</span><span class="s">"RK4"</span><span class="x">,</span><span class="s">"Exact"</span><span class="x">],</span>
-<span class="x">[</span><span class="n">green</span><span class="x">,</span><span class="n">yellow</span><span class="x">,</span><span class="n">cyan</span><span class="x">,</span><span class="n">violet</span><span class="x">,</span><span class="n">red</span><span class="x">]),</span>
-<span class="n">Coord</span><span class="o">.</span><span class="n">cartesian</span><span class="x">(</span><span class="n">xmin</span><span class="o">=</span><span class="mf">9.5</span><span class="x">,</span><span class="n">xmax</span><span class="o">=</span><span class="mf">10.1</span><span class="x">))</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">xi</span><span class="x">,</span><span class="n">errEU</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Euler"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xi</span><span class="x">,</span><span class="n">errIm</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Implicit"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xi</span><span class="x">,</span><span class="n">errRK2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"RK2"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xi</span><span class="x">,</span><span class="n">errRK4</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"RK4"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"Independent Variable"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Error"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Comparison of error scaling"</span><span class="x">)</span>
+<span class="n">savefig</span><span class="x">(</span><span class="s">"comp_err.html"</span><span class="x">)</span>
 </code></pre>
 </div>
-<iframe src="/M4/Images/ODE/comp_exp.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
-
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">lEU</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errEU</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lIm</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errIm</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">yellow</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lRK2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errRK2</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">cyan</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">lRK4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">xi</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errRK4</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">violet</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
-
-<span class="n">plot</span><span class="x">(</span><span class="n">lEU</span><span class="x">,</span><span class="n">lIm</span><span class="x">,</span><span class="n">lRK2</span><span class="x">,</span><span class="n">lRK4</span><span class="x">,</span><span class="n">Scale</span><span class="o">.</span><span class="n">y_asinh</span><span class="x">,</span>
-<span class="n">Guide</span><span class="o">.</span><span class="n">manual_color_key</span><span class="x">(</span><span class="s">"Legend"</span><span class="x">,[</span><span class="s">"Euler"</span><span class="x">,</span><span class="s">"Implicit"</span><span class="x">,</span><span class="s">"RK2"</span><span class="x">,</span><span class="s">"RK4"</span><span class="x">],</span>
-<span class="x">[</span><span class="n">green</span><span class="x">,</span><span class="n">yellow</span><span class="x">,</span><span class="n">cyan</span><span class="x">,</span><span class="n">violet</span><span class="x">]))</span>
-</code></pre>
-</div>
-<iframe src="/M4/Images/ODE/comp_err.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+<iframe src="/M4/Images/ODE/comp_err.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <h2 id="scaling-of-the-error">Scaling of the Error</h2>
 
@@ -456,59 +417,56 @@ Summing over the entire interval, we accumuluate error according to</p>
 </code></pre>
 </div>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">lEU</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfEU</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">green</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">errfEU</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="n">dt</span><span class="x">[</span><span class="k">end</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Fitted line"</span><span class="x">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span><span class="n">linecolor</span><span class="o">=</span><span class="n">base03</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">dt</span><span class="x">,</span><span class="n">errfEU</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Error"</span><span class="x">,</span>
+    <span class="n">linecolor</span><span class="o">=</span><span class="n">base2</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="x">)</span>
 
-<span class="n">lIm</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfIm</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">yellow</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"step size"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"final error"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Linear Error of Euler Method"</span><span class="x">)</span>
+<span class="n">savefig</span><span class="x">(</span><span class="s">"Eul_scal.html"</span><span class="x">)</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/ODE/Eul_scal.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<span class="n">lRK2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfRK2</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">5</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">cyan</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">errfIm</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="n">dt</span><span class="x">[</span><span class="k">end</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Fitted line"</span><span class="x">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span><span class="n">linecolor</span><span class="o">=</span><span class="n">base03</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">dt</span><span class="x">,</span><span class="n">errfIm</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Error"</span><span class="x">,</span>
+    <span class="n">linecolor</span><span class="o">=</span><span class="n">base2</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"step size"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"final error"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Linear Error of Implicit Method"</span><span class="x">)</span>
+<span class="n">savefig</span><span class="x">(</span><span class="s">"Im_scal.html"</span><span class="x">)</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/ODE/Im_scal.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<span class="n">lRK4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">x</span><span class="o">=</span><span class="n">dt</span><span class="x">,</span><span class="n">y</span><span class="o">=</span><span class="n">errfRK4</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">10</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">point</span><span class="x">,</span>
-<span class="n">Theme</span><span class="x">(</span><span class="n">highlight_width</span><span class="o">=</span><span class="mi">0</span><span class="n">pt</span><span class="x">,</span><span class="n">default_color</span><span class="o">=</span><span class="n">violet</span><span class="x">,</span>
-<span class="n">default_point_size</span><span class="o">=</span><span class="mi">1</span><span class="n">pt</span><span class="x">))</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">errfRK2</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="x">(</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="n">dt</span><span class="x">[</span><span class="k">end</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Quadratic"</span><span class="x">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span><span class="n">linecolor</span><span class="o">=</span><span class="n">base03</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">dt</span><span class="x">,</span><span class="n">errfRK2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Error"</span><span class="x">,</span>
+    <span class="n">linecolor</span><span class="o">=</span><span class="n">base2</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="x">)</span>
 
-<span class="n">tempEU</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfEU</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span>
-<span class="n">tempIm</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfIm</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span>
-<span class="c">#le=layer([tempEU,tempIm],0,.01,Geom.line,Theme(default_color=base01))</span>
-<span class="n">le</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">tempEU</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base01</span><span class="x">))</span>
-<span class="n">lei</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">tempIm</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base01</span><span class="x">))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"step size"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"final error"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Quadratic Error of Runge-Kutta 2 Method"</span><span class="x">)</span>
+<span class="n">savefig</span><span class="x">(</span><span class="s">"RK2_scal.html"</span><span class="x">)</span>
+</code></pre>
+</div>
+<iframe src="/M4/Images/ODE/RK2_scal.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">errfRK4</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="x">(</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span><span class="o">^</span><span class="mi">4</span><span class="x">,</span><span class="n">dt</span><span class="x">[</span><span class="mi">1</span><span class="x">],</span><span class="n">dt</span><span class="x">[</span><span class="k">end</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Quartic"</span><span class="x">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span><span class="n">linecolor</span><span class="o">=</span><span class="n">base03</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">dt</span><span class="x">,</span><span class="n">errfRK4</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Error"</span><span class="x">,</span>
+    <span class="n">linecolor</span><span class="o">=</span><span class="n">base2</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="x">)</span>
 
-<span class="n">temp2</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfRK2</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="x">(</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">5</span><span class="x">)</span>
-<span class="n">l2</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">temp2</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base00</span><span class="x">))</span>
-
-<span class="n">temp4</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="x">(</span><span class="n">errfRK4</span><span class="x">[</span><span class="k">end</span><span class="x">]</span><span class="o">*</span><span class="x">(</span><span class="n">x</span><span class="o">/.</span><span class="mi">01</span><span class="x">)</span><span class="o">^</span><span class="mi">4</span><span class="o">*</span><span class="mi">10</span><span class="o">^</span><span class="mi">10</span><span class="x">)</span>
-<span class="n">l4</span><span class="o">=</span><span class="n">layer</span><span class="x">(</span><span class="n">temp4</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="o">.</span><span class="mi">01</span><span class="x">,</span><span class="n">Geom</span><span class="o">.</span><span class="n">line</span><span class="x">,</span><span class="n">Theme</span><span class="x">(</span><span class="n">default_color</span><span class="o">=</span><span class="n">base00</span><span class="x">))</span>
-
-<span class="n">xl</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">xlabel</span><span class="x">(</span><span class="s">"h"</span><span class="x">)</span>
-<span class="n">ylrk2</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">ylabel</span><span class="x">(</span><span class="s">"Error e-5"</span><span class="x">)</span>
-<span class="n">ylrk4</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">ylabel</span><span class="x">(</span><span class="s">"Error e-10"</span><span class="x">)</span>
-<span class="n">yl</span><span class="o">=</span><span class="n">Guide</span><span class="o">.</span><span class="n">ylabel</span><span class="x">(</span><span class="s">"Error"</span><span class="x">)</span>
-
-<span class="n">pEU</span><span class="o">=</span><span class="n">plot</span><span class="x">(</span><span class="n">lEU</span><span class="x">,</span><span class="n">lIm</span><span class="x">,</span><span class="n">le</span><span class="x">,</span><span class="n">lei</span><span class="x">,</span><span class="n">xl</span><span class="x">,</span><span class="n">yl</span><span class="x">,</span><span class="n">Guide</span><span class="o">.</span><span class="n">title</span><span class="x">(</span><span class="s">"Euler and Implicit, linear error"</span><span class="x">))</span>
-<span class="n">p2</span><span class="o">=</span><span class="n">plot</span><span class="x">(</span><span class="n">lRK2</span><span class="x">,</span><span class="n">l2</span><span class="x">,</span><span class="n">xl</span><span class="x">,</span><span class="n">ylrk2</span><span class="x">,</span><span class="n">Guide</span><span class="o">.</span><span class="n">title</span><span class="x">(</span><span class="s">"RK2, error h^2"</span><span class="x">))</span>
-<span class="n">p4</span><span class="o">=</span><span class="n">plot</span><span class="x">(</span><span class="n">lRK4</span><span class="x">,</span><span class="n">l4</span><span class="x">,</span><span class="n">xl</span><span class="x">,</span><span class="n">ylrk4</span><span class="x">,</span><span class="n">Guide</span><span class="o">.</span><span class="n">title</span><span class="x">(</span><span class="s">"RK4, error h^4"</span><span class="x">))</span>
-<span class="n">vstack</span><span class="x">(</span><span class="n">hstack</span><span class="x">(</span><span class="n">p2</span><span class="x">,</span><span class="n">p4</span><span class="x">),</span><span class="n">pEU</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"step size"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"final error"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Quartic Error of Runge-Kuuta 4 Method"</span><span class="x">)</span>
+<span class="n">savefig</span><span class="x">(</span><span class="s">"RK4_Scal.html"</span><span class="x">)</span>
 </code></pre>
 </div>
 
-<iframe src="/M4/Images/ODE/err_scale.js.svg" style="border:none; background: #ffffff" width="600px" height="400px"></iframe>
+<iframe src="/M4/Images/ODE/RK4_scal.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <h2 id="arbitrary-order">Arbitrary Order</h2>
-<p>While I have presented 4 concrete examples, many more exist. For any choice of variables $a_i, \beta_{i,j},a_i$ that fulfill</p>
-
-<script type="math/tex; mode=display">x_{n+1}=x_n+h\left(\sum_{i=1}^s a_i k_i \right)+ \mathcal{O}(h^p)</script>
-
-<p>with</p>
-
-<script type="math/tex; mode=display">k_i=f\left(t_n+\alpha_i h,x_n+h\left(\sum_{j=1}^s \beta_{ij} k_j \right) \right)</script>
-
-<p>we have a Runge-Kutta method of order $p$, where $p\geq s$.  The Butcher tableau provides a set of consistent coefficients.</p>
+<p>While I have presented 4 concrete examples, many more exist. For any choice of variables $a_i, \beta_{i,j},a_i$ that fulfill
+<script type="math/tex">x_{n+1}=x_n+h\left(\sum_{i=1}^s a_i k_i \right)+ \mathcal{O}(h^p)</script>
+with
+<script type="math/tex">k_i=f\left(t_n+\alpha_i h,x_n+h\left(\sum_{j=1}^s \beta_{ij} k_j \right) \right)</script>
+we have a Runge-Kutta method of order $p$, where $p\geq s$.  The Butcher tableau provides a set of consistent coefficients.</p>
 
 <p>These routines are also present in the M4 folder in a module named <code class="highlighter-rouge">diffeq.jl</code>. For later work, you may simply import the module.</p>
 
