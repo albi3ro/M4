@@ -199,7 +199,7 @@ a.sidebar:active {
   font-weight: bold;
   text-decoration: none; }
 
-.downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
+.downloadzp, .clonelink, .pdfslink, .juliadocs, .juliahelp, .about {
   background-color: #0b6442;
   border-radius: 0px;
   padding: .5em;
@@ -213,20 +213,23 @@ a.sidebar:active {
   border-color: #946e10;
   position: fixed; }
 
-.clonelink {
-  top: 4.5em; }
-
 .downloadzp {
   top: 1em; }
 
-.juliadocs {
+.clonelink {
+  top: 4.5em; }
+
+.pdfslink {
   top: 8em; }
 
-.juliahelp {
+.juliadocs {
   top: 11.5em; }
 
-.about {
+.juliahelp {
   top: 15em; }
+
+.about {
+  top: 18.5em; }
 
 .comment {
   background-color: #ccffff;

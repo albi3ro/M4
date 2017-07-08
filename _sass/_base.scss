@@ -255,7 +255,7 @@ a.sidebar:active{
 }
 
 
-.downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
+.downloadzp, .clonelink, .pdfslink, .juliadocs, .juliahelp, .about {
   background-color: #0b6442;
   border-radius: 0px;
   padding: .5em;
@@ -271,24 +271,28 @@ a.sidebar:active{
   position:fixed;
 }
 
-.clonelink{
-  top:4.5em;
-}
-
 .downloadzp{
   top: 1em;
 }
 
-.juliadocs {
-  top: 8em;
+.clonelink{
+  top:4.5em;
 }
 
-.juliahelp {
+.pdfslink{
+    top:8em;
+}
+
+.juliadocs {
   top: 11.5em;
 }
 
-.about {
+.juliahelp {
   top: 15em;
+}
+
+.about {
+  top: 18.5em;
 }
 
 
