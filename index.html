@@ -50,7 +50,10 @@ That's where my categories come in.
   						<tr class="trtag">
   						  <td class="tagtitle"><h3><a href="{{base.url}}/M4/{{ post.url }}">{{ post.title }}</a></h3></td>
   							<td class="tagprop"><p class="post-meta">{{ post.category }}</p></td>
-                <td class="tagprop"><o class="post-meta">{{ post.tags }}</p></td>
+                <td class="tagprop"><p class="post-meta">
+                  {% for tt in post.tags %}
+                     {{ tt }} &nbsp;
+                  {% endfor %}</p></td>
   						</tr>
               {% endfor %}
               {% endfor %}

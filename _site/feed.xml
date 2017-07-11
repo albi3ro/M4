@@ -8,6 +8,362 @@
     <generator>Jekyll v3.4.3</generator>
     
       <item>
+        <title>1D Spin Chain Values and Vectors</title>
+        <description>&lt;p&gt;Check out &lt;a href=&quot;/M4/Graduate/Spin-Chain-Prerequisites.html&quot;&gt;Part 1&lt;/a&gt; for the theoretical background.  Today is all programming.&lt;/p&gt;
+
+&lt;p&gt;Remember to keep a reasonable number of spins, $n$.  The number of states goes as $2^n$, and the size of the Hamiltonian will go as $2^n \times 2^n$.  A 10-spin chain will have over a million entries, before taking into account any memory reducing tricks.&lt;/p&gt;
+
+&lt;p&gt;Here’s the details of the largest spin-chains that fit on my machine which has 16GB of RAM and a 3.2 GHz Intel i5 processor:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;n&lt;/th&gt;
+      &lt;th&gt;m_z&lt;/th&gt;
+      &lt;th&gt;t (min)&lt;/th&gt;
+      &lt;th&gt;Memory (Gb)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;16&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;1.5&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;18&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;?&lt;/td&gt;
+      &lt;td&gt;&amp;gt;16&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;18&lt;/td&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;32.1&lt;/td&gt;
+      &lt;td&gt;15.5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;I have included a file in this directory, ED.jl, that is just the necessary executable parts of this Jupyter notebook.  For large $n$, I recommend running ED.jl.&lt;/p&gt;
+
+&lt;p&gt;Here, we input one parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, the number of spins in our chain.&lt;/p&gt;
+
+&lt;p&gt;The program automatically calculates the parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;nstates&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nstates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;16
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, let’s write out all of our possible states in the $S^z$ basis.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;psi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nstates&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;psi&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0000 0
+0001 1
+0010 2
+0011 3
+0100 4
+0101 5
+0110 6
+0111 7
+1000 8
+1001 9
+1010 10
+1011 11
+1100 12
+1101 13
+1110 14
+1111 15
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As in Part 1, we will be using the powers of 2 to compute magnetization, and masks to flip spins.  To not have to calculate them each time, we just store them in memory.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;];[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)]]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0011
+0110
+1100
+1001
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In Part 1, I used the number of up-spins as a proxy for magnetization.  Here, we need the &lt;i&gt;actual&lt;/i&gt; magnetization, not a proxy.  An up-spin is $+1/2$ and a down-spin is $-1/2$.  We modify our magnetization by&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}
+m=\frac{1}{2}\left(n_{\uparrow}-n_{\downarrow} \right)
+= \frac{1}{2} \left( n_{\uparrow}- \left( n - n_{\uparrow} \right) \right),
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}
+m = n_{\uparrow} - \frac{n}{2}.
+\end{equation}&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nstates&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;16-element Array{Float64,1}:
+ -2.0
+ -1.0
+ -1.0
+  0.0
+ -1.0
+  0.0
+  0.0
+  1.0
+ -1.0
+  0.0
+  0.0
+  1.0
+  0.0
+  1.0
+  1.0
+  2.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;grouped-by-magnetization&quot;&gt;Grouped by Magnetization&lt;/h2&gt;
+
+&lt;p&gt;Now that we have the magnetizations corresponding to each state, we perform some trickery that allows us to reduce the difficulty of our problem dramatically.&lt;/p&gt;
+
+&lt;p&gt;Magnetization is a conserved quantity. By Noether’s theorem, we know that the Hamiltonian is not going to mix states of different magnetizations. We only deal with one magnetization at a time, which is a much smaller problem.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# The possible values for magnetization&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;5-element Array{Float64,1}:
+ -2.0
+ -1.0
+  0.0
+  1.0
+  2.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now let’s just pick out a single magnetization quantum number $mz$ and only work with that matrix for the rest of the post.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# The magnetic quantum number&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# An array of states with the correct magnetization&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.==&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ma&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]]&lt;/span&gt;
+
+&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;6×3 Array{Any,2}:
+  3  &quot;0011&quot;  0.0
+  5  &quot;0101&quot;  0.0
+  6  &quot;0110&quot;  0.0
+  9  &quot;1001&quot;  0.0
+ 10  &quot;1010&quot;  0.0
+ 12  &quot;1100&quot;  0.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And now creating the matrix.&lt;/p&gt;
+
+&lt;p&gt;Stuff goes here&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ma&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ma&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Float64&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#M=zeros(Float64,dim,dim); use this for XY model&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Though we have significantly reduced the size of the matrix by restricting to one magnetization, we no longer have our states in &lt;code class=&quot;highlighter-rouge&quot;&gt;1,2,3,4...&lt;/code&gt; order.  Their position in an array no longer corresponds to their value.  Therefore, we need a function to determine their index once we know their value.&lt;/p&gt;
+
+&lt;p&gt;We can find the index of the flipped state multiple different ways, but the simplest is by the Midpoint method.  We split the interval in half, and see if the value we are looking for is higher or lower than the middle point.  Then we get a new interval.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt; findstate&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;})&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;#Lower bound of interval&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;imin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;#Upper bound of interval&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;imax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;# checking if the lower bound is what we are looking for&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imin&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imin&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# checking if the upper bound is what we are looking for&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imax&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imax&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;# Initializing variables&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# looking to see if we've found it yet&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# how many times we've gone around the while loop&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imin&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;imax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;elseif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;imin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;true&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;found&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;false&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;findstate never found a match&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Are you sure the state is in that Array?&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;findstate (generic function with 1 method)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now time to generate the matrix.&lt;/p&gt;
+
+&lt;p&gt;For each state and for each pair of adjacent spins within that state, we apply the operator that flips adjacent spins, &lt;code class=&quot;highlighter-rouge&quot;&gt;$mask&lt;/code&gt;.  Sometimes the adjacent spins will take on the same value, &lt;code class=&quot;highlighter-rouge&quot;&gt;00&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;11&lt;/code&gt;.  In this circumstance, the off-diagonal part of the Hamiltonian would not act on those spins.  The state generated by the operator would have a different magnetization, and we can neglect that pair.&lt;/p&gt;
+
+&lt;p&gt;If the new state produced by this process has the same magnetization, we know that the flip exists in the Hamiltonian, and add the entry to the matrix.&lt;/p&gt;
+
+&lt;p&gt;In this algorithm, we do end up going over each pair twice, but I have yet to figure out how to take advantage of the degeneracy to cut the calculation in half.  Let me know if you have a better way to write this.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;flipped&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jj&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flipped&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;powers2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mp&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findstate&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flipped&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psi_mz&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tester&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ii&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'\t'&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flipped&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0011	0101
+0011	1010
+0101	0110
+0101	0011
+0101	1001
+0101	1100
+0110	0101
+0110	1010
+1001	1010
+1001	0101
+1010	1001
+1010	1100
+1010	0110
+1010	0011
+1100	1010
+1100	0101
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;6×6 Array{Float64,2}:
+ 0.0  0.5  0.0  0.0  0.5  0.0
+ 0.5  0.0  0.5  0.5  0.0  0.5
+ 0.0  0.5  0.0  0.0  0.5  0.0
+ 0.0  0.5  0.0  0.0  0.5  0.0
+ 0.5  0.0  0.5  0.5  0.0  0.5
+ 0.0  0.5  0.0  0.0  0.5  0.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eigfact&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vectors&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;6-element Array{Float64,1}:
+ -1.41421
+  0.0
+  0.0
+  0.0
+  1.9984e-15
+  1.41421
+
+
+
+6×6 Array{Float64,2}:
+  0.353553   0.0       -0.211325   0.788675  -0.288675    -0.353553
+ -0.5        0.707107   0.0        0.0       -5.1279e-16  -0.5
+  0.353553   0.0        0.788675  -0.211325  -0.288675    -0.353553
+  0.353553   0.0       -0.57735   -0.57735   -0.288675    -0.353553
+ -0.5       -0.707107   0.0        0.0       -5.1279e-16  -0.5
+  0.353553   0.0        0.0        0.0        0.866025    -0.353553
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we have eigenvalues and eigenvectors! You just solved the Heisenburg Spin Chain!&lt;/p&gt;
+
+&lt;p&gt;In my next post, I will analyze what this tells us about the system and what we can do with the information.&lt;/p&gt;
+
+&lt;div class=&quot;language-julia highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <link>http://localhost:4000/M4/graduate/Spin-Chain-pt2.html</link>
+        <guid isPermaLink="true">http://localhost:4000/M4/graduate/Spin-Chain-pt2.html</guid>
+        
+        <category>Magnet</category>
+        
+        <category>Quantum</category>
+        
+        <category>ED</category>
+        
+        
+        <category>Graduate</category>
+        
+      </item>
+    
+      <item>
         <title>Homology Part 1</title>
         <description>&lt;p&gt;I’ve been learning the pure mathematics of topology to understand the physics of topological materials better.   Predictably, my sources have a lot of theorems, the examples tend to be esoteric and hard to conceptualize, and I have little idea how it all relates to my pretty crystals.  There also aren’t that many examples.  I almost miss the days back in high school when they forced us to do the same problem 1,000 times over.&lt;/p&gt;
 
@@ -3592,189 +3948,6 @@ You can edit the file to make your own types.&lt;/li&gt;
         
         
         <category>Prerequisites Required</category>
-        
-      </item>
-    
-      <item>
-        <title>HDF5 in Julia</title>
-        <description>&lt;p&gt;So, last summer, my program was producing three dimensional data, and I needed a way to export and save that data from my C++ program.  Simple ASCII files, my default method, no longer covered my needs.  Of course, I wasn’t the first person to encounter this problem, so I discovered the HDF5 standard.&lt;/p&gt;
-
-&lt;p&gt;Instead of storing data in a human readable format like ASCII, the Hierarchical Data Format, HDF, stores data in binary format.  This preserves the shape of the data in the computer and keeps it at its minimum size.  WOHOO!!&lt;/p&gt;
-
-&lt;p&gt;Sadly, the syntax for HDF5 in C++ and Fortran is just as bad as FFTW or OpenBLAS.  But happily, just like FFTW and OpenBLAS, HDF5 has wonderful syntax in Julia, Python, and julia, among others.&lt;/p&gt;
-
-&lt;p&gt;So how does it work?&lt;/p&gt;
-
-&lt;p&gt;We don’t just print a single variable.  Each HDF5 file is like its own file system.  In my home directory, I have my documents folder, my programming folder, my pictures, configuration files,… and inside each folder I can have subfolders or files.&lt;/p&gt;
-
-&lt;p&gt;The same is true for an HDF5 file.  We have the root, and then we have groups and subgroups.  A group is like a folder.  Then we can have datasets. Datasets are objects that hold data (files).&lt;/p&gt;
-
-&lt;h2 id=&quot;installing-the-package&quot;&gt;Installing the Package&lt;/h2&gt;
-
-&lt;p&gt;While running &lt;code class=&quot;highlighter-rouge&quot;&gt;Pkg.add(&quot;HDF5&quot;);&lt;/code&gt; should hopefully add the HDF5 library, additional steps may be required.  I remember having a horrible time with the HDF installation when using C++ a year ago.  If at all possible, just use a package manager, and do not try and install it from source! See the HDF5.jl or HDFGroup pages for details.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HDF5&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;hello-world&quot;&gt;Hello World&lt;/h1&gt;
-&lt;p&gt;Firstly, lets open a file and then write some data to it.&lt;/p&gt;
-
-&lt;p&gt;We can open a file in three ways:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Symbol&lt;/th&gt;
-      &lt;th&gt;Meaning&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;“w”&lt;/td&gt;
-      &lt;td&gt;Write.  Will overwrite anything already there.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;“r”&lt;/td&gt;
-      &lt;td&gt;Ready-only.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;“r+”&lt;/td&gt;
-      &lt;td&gt;Read-write. Preserving existing contents.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;If we open with this syntax, we have to always remember to close it with &lt;code class=&quot;highlighter-rouge&quot;&gt;close()&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h5open&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.h5&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;w&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;navigating-a-file&quot;&gt;Navigating a File&lt;/h3&gt;
-
-&lt;p&gt;Now lets see if we were successful by reading.  Instead of reading the dataset, we are going to checkout the structure of the file first.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;names(fid)&lt;/code&gt; tells us what is inside the location &lt;code class=&quot;highlighter-rouge&quot;&gt;fid&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dump(fid)&lt;/code&gt; is much more in depth, exploring everything below &lt;code class=&quot;highlighter-rouge&quot;&gt;fid&lt;/code&gt;.  If we had a bunch of subdirectories, it would go down each one to see what was there.&lt;/p&gt;
-
-&lt;p&gt;Both these functions help you find your way around a file.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h5open&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.h5&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;names &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; dump&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;names
-Union{ASCIIString,UTF8String}[&quot;string&quot;]
-
- dump
-HDF5.HDF5File len 1
-  string: HDF5Dataset () : Hello World
-nothing
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;reading-data&quot;&gt;Reading Data&lt;/h3&gt;
-&lt;p&gt;Now when we are reading data, we need to know the difference between dataset and the data the dataset contains.&lt;/p&gt;
-
-&lt;p&gt;Look at the below example&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h5open&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.h5&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;the dataset: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;typeof&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;the string: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;typeof&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;data2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;read another way: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;typeof&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data2&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;the dataset: 	HDF5.HDF5Dataset
-the string: 	ASCIIString	Hello World
-read another way: 	ASCIIString	Hello World
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;A dataset is like the filename “fairytale.txt”, so we then need to read the file to get “Once upon a time …”.&lt;/p&gt;
-
-&lt;h3 id=&quot;groups&quot;&gt;Groups&lt;/h3&gt;
-&lt;p&gt;I’ve talked about groups, but we haven’t done anything with them yet. Let’s make some!&lt;/p&gt;
-
-&lt;p&gt;Here we use &lt;code class=&quot;highlighter-rouge&quot;&gt;g_create&lt;/code&gt; to create two groups, one inside the other.  For the subgroup, it’s parent is &lt;code class=&quot;highlighter-rouge&quot;&gt;g&lt;/code&gt;, so we have to create it at location &lt;code class=&quot;highlighter-rouge&quot;&gt;g&lt;/code&gt;.  Just like in a filesystem, it’s name/ path is nested within its parent’s path.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h5open&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.h5&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;w&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g_create&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mygroup&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g_create&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mysubgroup&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dump&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; path of h:  &quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;HDF5.HDF5File len 1
-  mygroup: HDF5.HDF5Group len 1
-    mysubgroup: HDF5.HDF5Group len 0
-nothing
-
- path of h:  /mygroup/mysubgroup
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;attributes&quot;&gt;Attributes&lt;/h3&gt;
-
-&lt;p&gt;Say in a file I want to include the information that I ran the simulation with 100 sites, at 1 Kelvin, for 100,000 timesteps.  Instead of creating new datasets for each of these individual numbers, I can create attributes and tie them to either a group or a dataset.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h5open&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.h5&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;w&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Temp&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;N Sites&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;100&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h5open&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.h5&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;typeof attrs: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;typeof&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Temp: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Temp&quot;&lt;/span&gt;  &lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;N Sites: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;N Sites&quot;&lt;/span&gt;  &lt;span class=&quot;x&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fid&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typeof attrs: 	HDF5.HDF5Attributes
-Temp: 	1
-N Sites: 	100
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;final-tips&quot;&gt;Final Tips&lt;/h3&gt;
-
-&lt;p&gt;Before diving in to learn how to use this, think about whether you need it or not.  How large and complex is your data?  Is it worth the time to learn?  While the syntax might be relatively simple in Julia, ASCII files are still much easier to deal with.&lt;/p&gt;
-
-&lt;p&gt;If you are going to play around or use this format, I recommend getting an HDF viewer, like &lt;a href=&quot;https://www.hdfgroup.org/products/java/release/download.html&quot;&gt;HDFViewer&lt;/a&gt;. While you can have much more control via code, sometimes it is just that much simpler to check everything is working with a GUI.&lt;/p&gt;
-
-&lt;p&gt;For more information, checkout the Package page at &lt;a href=&quot;https://github.com/JuliaLang/HDF5.jl&quot;&gt;HDF5.jl&lt;/a&gt; or the HDFGroup page at &lt;a href=&quot;https://www.hdfgroup.org/&quot;&gt;HDFGroup&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I’ve shown some of the basic functionality in simple test cases.  If you want more control, you might just have to work a bit for it.&lt;/p&gt;
-</description>
-        <link>http://localhost:4000/M4/programming/HDF5.html</link>
-        <guid isPermaLink="true">http://localhost:4000/M4/programming/HDF5.html</guid>
-        
-        
-        <category>Programming</category>
         
       </item>
     

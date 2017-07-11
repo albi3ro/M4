@@ -19,8 +19,8 @@ layout: default
         {{ page.category }}</a> &nbsp;  &nbsp; &nbsp; &nbsp;
         Tags:
       {% for tagname in page.tags %}
-      <a href="{{base.url}}/M4/tags">{{tagname}}</a></p>
-        {% endfor %}
+      <a href="{{base.url}}/M4/tags#{{tagname}}">{{tagname}}</a>&nbsp; 
+        {% endfor %}</p>
   </header>
 
   <article class="post-content">

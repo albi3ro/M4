@@ -277,7 +277,7 @@ a.sidebar:active {
   margin-bottom: 0em; }
 
 @media (max-width: 800px) {
-  .downloadzp, .clonelink, .juliadocs, .juliahelp, .about {
+  .downloadzp, .clonelink, .pdfslink, .juliadocs, .juliahelp, .about {
     position: absolute;
     top: .5em; }
 
@@ -287,14 +287,17 @@ a.sidebar:active {
   .clonelink {
     left: 6em; }
 
-  .juliadocs {
+  .pdfslink {
     left: 11em; }
 
-  .juliahelp {
+  .juliadocs {
     left: 16em; }
 
-  .about {
+  .juliahelp {
     left: 21em; }
+
+  .about {
+    left: 26em; }
 
   .site-header {
     margin-top: 4em; } }
