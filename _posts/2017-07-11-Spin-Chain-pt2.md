@@ -6,6 +6,7 @@ category: Graduate
 tags:
     Magnet Quantum ED
 author: Christina C. Lee
+image: "https://albi3ro.github.io/M4/Images/SpinChainED/mag.png"
 description: Construct the matrix corresponding to the 1D Heisenburg Spin Chain and calculate its eigenvalues and eigenvectors.
 ---
 
