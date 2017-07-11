@@ -9,7 +9,7 @@ author: Christina C. Lee
 description: Construct the matrix corresponding to the 1D Heisenburg Spin Chain and calculate its eigenvalues and eigenvectors.
 ---
 
-Check out [Part 1]({{base.url}}/M4/Graduate/Spin-Chain-Prerequisites.html) for the theoretical background.  Today is all programming.
+Check out [Part 1]({{base.url}}/M4/graduate/Spin-Chain-Prerequisites.html) for the theoretical background.  Today is all programming.
 
 Remember to keep a reasonable number of spins, $n$.  The number of states goes as $2^n$, and the size of the Hamiltonian will go as $2^n \times 2^n$.  A 10-spin chain will have over a million entries, before taking into account any memory reducing tricks.
 
