@@ -17,6 +17,9 @@
 # Graduate
 * Quantum Mechanics
     * 1D Spin Chain Prerequisites
+    * 1D Spin Chain Pt2
+* Mathematics
+    * Simplices 
 
 # Numerics
 * Exact Diagonalization

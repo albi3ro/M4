@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.2"
+     width="160mm" height="160mm" viewBox="0 0 160 160"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g stroke-width="1" fill="#000000" fill-opacity="0.000" stroke="#D3D3D3" id="img-6b244374-1">
+  <path fill="none" d="M91.67,16.83 L 142.35 57.79"/>
+  <path fill="none" d="M88.35,18.8 L 100.25 83.94"/>
+  <path fill="none" d="M85.88,18.69 L 65.6 92.32"/>
+  <path fill="none" d="M82.68,16.34 L 18.01 57.91"/>
+  <path fill="none" d="M84.95,18.34 L 66.99 55.68"/>
+  <path fill="none" d="M141.94,64.21 L 105.97 86.48"/>
+  <path fill="none" d="M141.58,63.53 L 69.2 95.44"/>
+  <path fill="none" d="M144.23,66.28 L 111.27 133.78"/>
+  <path fill="none" d="M141.11,61.25 L 70.14 60.73"/>
+  <path fill="none" d="M95.96,87.7 L 18.62 62.62"/>
+  <path fill="none" d="M96.02,91.29 L 20.77 118.36"/>
+  <path fill="none" d="M102.09,94.9 L 107.98 133.28"/>
+  <path fill="none" d="M97.44,93.46 L 51.21 142.62"/>
+  <path fill="none" d="M59.62,94.42 L 17.83 64.17"/>
+  <path fill="none" d="M59.08,100.02 L 20.58 117.9"/>
+  <path fill="none" d="M68.21,101.44 L 104.74 135.02"/>
+  <path fill="none" d="M62.33,102.94 L 49.2 141.41"/>
+  <path fill="none" d="M13.54,66.46 L 15.33 114.69"/>
+  <path fill="none" d="M15.38,66.07 L 45.35 141.5"/>
+  <path fill="none" d="M18.89,60.89 L 59.03 60.71"/>
+  <path fill="none" d="M20.99,121.32 L 103.38 137.69"/>
+  <path fill="none" d="M19.82,123.79 L 43.13 143.12"/>
+  <path fill="none" d="M19.07,115.95 L 61.05 64.97"/>
+  <path fill="none" d="M103.32,139.48 L 52.91 145.96"/>
+  <path fill="none" d="M106.09,133.94 L 67.33 65.52"/>
+  <path fill="none" d="M48.49,141.22 L 63.5 66.13"/>
+</g>
+<g stroke-width="1" stroke="#D3D3D3" id="img-6b244374-2">
+</g>
+<g font-size="4" stroke="#000000" stroke-opacity="0.000" fill="#000000" id="img-6b244374-3">
+</g>
+<g stroke-width="0" stroke="#000000" stroke-opacity="0.000" fill="#40E0D0" id="img-6b244374-4">
+  <use xlink:href="#img-6b244374-5" x="87.35" y="13.33"/>
+  <use xlink:href="#img-6b244374-5" x="146.67" y="61.29"/>
+  <use xlink:href="#img-6b244374-5" x="101.24" y="89.41"/>
+  <use xlink:href="#img-6b244374-5" x="64.12" y="97.68"/>
+  <use xlink:href="#img-6b244374-5" x="13.33" y="60.91"/>
+  <use xlink:href="#img-6b244374-5" x="15.54" y="120.24"/>
+  <use xlink:href="#img-6b244374-5" x="108.83" y="138.78"/>
+  <use xlink:href="#img-6b244374-5" x="47.4" y="146.67"/>
+  <use xlink:href="#img-6b244374-5" x="64.59" y="60.69"/>
+</g>
+<g font-size="4" stroke="#000000" stroke-opacity="0.000" fill="#000000" id="img-6b244374-6">
+</g>
+<defs>
+  <g id="img-6b244374-5">
+    <circle cx="0" cy="0" r="5.33"/>
+  </g>
+</defs>
+</svg>
