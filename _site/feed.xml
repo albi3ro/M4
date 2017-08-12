@@ -9,7 +9,7 @@
     
       <item>
         <title>1D Spin Chain Values and Vectors</title>
-        <description>&lt;p&gt;Check out &lt;a href=&quot;/M4/Graduate/Spin-Chain-Prerequisites.html&quot;&gt;Part 1&lt;/a&gt; for the theoretical background.  Today is all programming.&lt;/p&gt;
+        <description>&lt;p&gt;Check out &lt;a href=&quot;/M4/graduate/Spin-Chain-Prerequisites.html&quot;&gt;Part 1&lt;/a&gt; for the theoretical background.  Today is all programming.&lt;/p&gt;
 
 &lt;p&gt;Remember to keep a reasonable number of spins, $n$.  The number of states goes as $2^n$, and the size of the Hamiltonian will go as $2^n \times 2^n$.  A 10-spin chain will have over a million entries, before taking into account any memory reducing tricks.&lt;/p&gt;
 
@@ -2865,8 +2865,8 @@ We know that if the mask changes a 01 for a 10, or vice versa, that the overall 
 
 &lt;p&gt;[1]  &lt;a href=&quot;https://www.amazon.com/Field-Theories-Condensed-Matter-Physics/dp/0521764440&quot;&gt;Field Theories of Condensed Matter Physics&lt;/a&gt; by Fradkin.&lt;/p&gt;
 </description>
-        <link>http://localhost:4000/M4/graduate/Spin-Chain-Prerequisities.html</link>
-        <guid isPermaLink="true">http://localhost:4000/M4/graduate/Spin-Chain-Prerequisities.html</guid>
+        <link>http://localhost:4000/M4/graduate/Spin-Chain-Prerequisites.html</link>
+        <guid isPermaLink="true">http://localhost:4000/M4/graduate/Spin-Chain-Prerequisites.html</guid>
         
         <category>Magnet</category>
         
