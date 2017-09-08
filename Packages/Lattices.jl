@@ -1,6 +1,5 @@
 module Lattices
-export Lattice, MakeLattice, PlotNeighbors
-    using PyPlot
+export Lattice, MakeLattice
 
     type Lattice
         name::String
@@ -15,7 +14,7 @@ export Lattice, MakeLattice, PlotNeighbors
     end
 
     function armod(x,y)
-        return mod(x-1,y)+1
+        return mod.(x-1,y)+1
     end
 
 
@@ -40,57 +39,56 @@ export Lattice, MakeLattice, PlotNeighbors
     end
 
     function MakeSquare(l)
-        N=l^2;
-        d=2;
-        X=Array{Int16}(N,2);
-        nnei=4;
-        neigh=Array{Int16}(N,4);
+          N=l^2;
+          d=2;
+          X=Array{Int16}(N,2);
+          nnei=4;
+          neigh=Array{Int16}(N,4);
 
-        X[:,1]=armod(collect(1:N),l);
-        X[:,2]=ceil(collect(1:(N))/l);
-        a=[[1 0]
-            [0 1]];
-        unit=[0,0];
+          X[:,1]=armod(collect(1:N),l);
+          X[:,2]=ceil.(collect(1:(N))/l);
+          a=[[1 0]
+              [0 1]];
+          unit=[0,0];
 
-        neigh[:,1]=armod(X[:,1]+1,l)+l*(X[:,2]-1);
-        neigh[:,2]=armod(X[:,1]+l-1,l)+l*(X[:,2]-1);
-        neigh[:,3]=X[:,1]+mod(X[:,2],l)*l;
-        neigh[:,4]=X[:,1]+mod(X[:,2]+l-2,l)*l;
+          neigh[:,1]=armod(X[:,1]+1,l)+l*(X[:,2]-1);
+          neigh[:,2]=armod(X[:,1]+l-1,l)+l*(X[:,2]-1);
+          neigh[:,3]=X[:,1]+mod.(X[:,2],l)*l;
+          neigh[:,4]=X[:,1]+mod.(X[:,2]+l-2,l)*l;
 
-        return Lattice("Square",l,d,a,unit,N,X,nnei,neigh)
-    end
+          return Lattice("Square",l,d,a,unit,N,X,nnei,neigh)
+      end
 
-    function MakeCheckerboard(l)
-        N=l^2;
-        d=2;
-        X=Array{Int16}(N,2);
-        nnei=6;
-        neigh=Array{Int16}(N,6);
+      function MakeCheckerboard(l)
+          N=l^2;
+          d=2;
+          X=Array{Int16}(N,2);
+          nnei=6;
+          neigh=Array{Int16}(N,6);
 
-        X[:,1]=armod(collect(1:N),l);
-        X[:,2]=ceil(collect(1:(N))/l);
-        a=[[1 0]
-            [0 1]];
-        unit=[0,0];
+          X[:,1]=armod(collect(1:N),l);
+          X[:,2]=ceil.(collect(1:(N))/l);
+          a=[[1 0]
+              [0 1]];
+          unit=[0,0];
 
-        neigh[:,1]=armod(X[:,1]+1,l)+l*(X[:,2]-1);
-        neigh[:,2]=armod(X[:,1]+l-1,l)+l*(X[:,2]-1);
-        neigh[:,3]=X[:,1]+mod(X[:,2],l)*l;
-        neigh[:,4]=X[:,1]+mod(X[:,2]+l-2,l)*l;
+          neigh[:,1]=armod(X[:,1]+1,l)+l*(X[:,2]-1);
+          neigh[:,2]=armod(X[:,1]+l-1,l)+l*(X[:,2]-1);
+          neigh[:,3]=X[:,1]+mod.(X[:,2],l)*l;
+          neigh[:,4]=X[:,1]+mod.(X[:,2]+l-2,l)*l;
 
-        for ii in 1:N
-            if isodd(X[ii,1])==isodd(X[ii,2])
-                neigh[ii,5]=armod(X[ii,1]+1,l)+l*mod(X[ii,2],l);
-                neigh[ii,6]=armod(X[ii,1]+l-1,l)+l*mod(X[ii,2]+l-2,l);
-            else
-              neigh[ii,5]=armod(X[ii,1]+1,l)+l*mod(X[ii,2]+l-2,l);
-              neigh[ii,6]=armod(X[ii,1]+l-1,l)+l*mod(X[ii,2],l);
-            end
-        end
+          for ii in 1:N
+              if isodd(X[ii,1])==isodd(X[ii,2])
+                  neigh[ii,5]=armod(X[ii,1]+1,l)+l*mod.(X[ii,2],l);
+                  neigh[ii,6]=armod(X[ii,1]+l-1,l)+l*mod.(X[ii,2]+l-2,l);
+              else
+                neigh[ii,5]=armod(X[ii,1]+1,l)+l*mod.(X[ii,2]+l-2,l);
+                neigh[ii,6]=armod(X[ii,1]+l-1,l)+l*mod.(X[ii,2],l);
+              end
+          end
 
-        return Lattice("Checkerboard",l,d,a,unit,N,X,nnei,neigh)
-    end
-
+          return Lattice("Checkerboard",l,d,a,unit,N,X,nnei,neigh)
+      end
 
     function MakeChain(l)
         N=l
@@ -142,33 +140,5 @@ export Lattice, MakeLattice, PlotNeighbors
         return Lattice(name,l,d,a,unit,N,X,nnei,neigh)
     end
 
-
-
-    function PlotNeighbors(lt::Lattice)
-        fig=gcf()
-        if(lt.dim==2)
-            for i in 1:lt.N
-                for j in 1:lt.nnei
-                    xx=[lt.X[i,1], lt.X[lt.neigh[i,j],1] ]
-                    yx=[lt.X[i,2], lt.X[lt.neigh[i,j],2] ]
-                    println(xx,' ',yx)
-                    plot(xx,yx)
-                end
-            end
-        elseif(lt.dim==3)
-            for i in 1:lt.N
-                for j in 1:lt.nnei
-                    xx=[lt.X[i,1], lt.X[lt.neigh[i,j],1] ]
-                    yx=[lt.X[i,2], lt.X[lt.neigh[i,j],2] ]
-                    zx=[lt.X[i,3], lt.X[lt.neigh[i,j],3] ]
-                    println(xx,' ',yx)
-                    plot3D(xx,yx)
-                end
-            end
-        else
-            println("Dimension not 2 or 3")
-            println("Not plotting")
-        end
-    end
 
 end
