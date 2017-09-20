@@ -14,6 +14,9 @@
 <h3>Prerequisites</h3>
 <a href="{{base.url}}/M4/pdf_folder/Monte+Carlo+Ferromagnet.pdf">Monte Carlo Ferromagnet</a>
 
+<h3>Programming</h3>
+<a href="{{base.url}}/M4/pdf_folder/HDF5.pdf">HDF5</a>
+
 <h3>Graduate</h3>
 <a href="{{base.url}}/M4/pdf_folder/Homology+Pt1.pdf">Homology Pt 1</a>
 
