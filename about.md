@@ -11,15 +11,19 @@ a subset of Frustration, a subset of Condensed Matter Physics.
 
 I would greatly like to thank Lee J. O'Riordan, (Github: [mlxd](https://github.com/mlxd)), for conversations, advice, and the large amount of grammar checking this physicist needs.
 
-## For further reference
-Interested in learning more?
+## My Favorite Papers
 
-* Principles of Condensed Matter Physics- Chaikin & Lubensky
-* Condensed Matter in a Nutshell- Mahan
-* Inna Vishik on <a href="https://www.quora.com/profile/Inna-Vishik">Quora</a>
-* <a href="https://thiscondensedlife.wordpress.com/">https://thiscondensedlife.wordpress.com/</a>
-
-Know any good ones? Let me know!
+References
+*  Leon Balents, Spin liquids in frustrated magnets , Nature 464 (2010), no. 7286, 199–208.
+*  Xie Chen, Zheng Cheng Gu, Zheng Xin Liu, and Xiao Gang Wen, Symmetry protected topological orders and the group cohomology of their symmetry group, Physical Review B Condensed Matter and Materials Physics 87 (2013), no. 15, 1–55.
+*  Ching Kai Chiu, Jeffrey C.Y. Teo, Andreas P. Schnyder, and Shinsei Ryu, Classification  of topological  quantum  matter  with  symmetries,  Reviews of Modern Physics 88 (2016),  no. 3, 1–70.
+*  Allen Hatcher, Algebraic Topology, 2001.
+*  Alexei Kitaev and John Preskill, Topological entanglement entropy, Physical Review Letters 96 (2006), no. 11, 4–7.
+*  N. D. Mermin, The topological theory of defects in ordered media, Reviews of Modern Physics 51 (1979), no. 3.
+*  Frank Pollmann, Symmetry Protected Topological Phases in One-Dimensional Systems, Oxford University Press.
+*  John Preskill, Lecture Notes for Physics 219 :  Quantum Computation, no. June, 2004.
+*  Anders W. Sandvik, Computational Studies of Quantum Spin Systems, 135 (2011), no. 2010.
+*  Xiao-Gang Wen, Topological  order:  from  long-range  entangled  quantum  matter  to  an  unification of light and electrons, ISRN Condensed Matter Physics 2013 (2012), 1–20.
 
 ## Usage and license
 
