@@ -20,6 +20,8 @@
     * 1D Spin Chain Pt2
 * Mathematics
     * Simplices 
+* Topological Matter
+    * Chern Number
 
 # Numerics
 * Exact Diagonalization
