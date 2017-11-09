@@ -131,32 +131,16 @@
 
 <h2 id="our-model">Our Model</h2>
 
-<p>A page of a Review of Modern Physics behemoth, “Classification of topological quantum matter with symmetries” [1], presented this model below. It inspired me to dig deeper and fill in the details.   They attributed this model as describing the Quantum Anomolous Hall Effect, QAHE, but this form describes a wide variety topological phenomena.</p>
-
-<p>\begin{equation}
-H(k) = R_0(k) \sigma_0 + \vec{R}(k) \cdot \vec{\sigma}
-\end{equation}
-\begin{equation}
-= R_0(k) \sigma_0 + R_1(k) \sigma_1 + R_2(k) \sigma_2 + R_3(k) \sigma_3
-\end{equation}
+<p>A page of a Review of Modern Physics behemoth, “Classification of topological quantum matter with symmetries” [1], presented this model below. It inspired me to dig deeper and fill in the details.   They attributed this model as describing the Quantum Anomolous Hall Effect, QAHE, but this form describes a wide variety topological phenomena.
+<img src="/M4/Images/ChernNumber/eqn1.svg" class="eqim" />
+<img src="/M4/Images/ChernNumber/eqn2.svg" class="eqim" />
 where $\sigma_0$ is the identity matrix and $\sigma_i$ are simply the Pauli matrices.
 Combining the terms, $H(k)$ is a 2x2 matrix.
-\begin{equation}=
-\begin{pmatrix}
-R_0 + R_3 &amp; R_1 -i R_2 <br />
-R_1 + i R_2 &amp; R_0 - R_3
-\end{pmatrix}
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn3.svg" class="eqim" />
 The wavefunction will then be 2-valued.  This could denote two sublattices, or two different types of particles.</p>
 
 <p>While we could use any values for $\vec{R}(k)$, we will use
-\begin{equation}
-\vec{R}(k) = \begin{pmatrix}
--2 \sin k_x <br />
--2 \sin k_y <br />
-\mu +2 \sum_{x,y} \cos k_i <br />
-\end{pmatrix}
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn4.svg" class="eqim" />
 as it’s a fairly simple form that gives us the physics we want and exhibits phase transitions depending on the value of $\mu$.  I set $\mu$ as $1$ early on.  Go through the notebook with that value, then go through the notebook with $\mu = -5, -1, 1, 5$.</p>
 
 <div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">Plots</span>
@@ -211,13 +195,9 @@ as it’s a fairly simple form that gives us the physics we want and exhibits ph
 <p>First, let’s just take a look at the energy spectrum.  For each $k$, we calculate the eigenvalues of the 2x2 matrix Hamiltonian.</p>
 
 <p>To make the calculation simpler, I denote the function $R$ as
-\begin{equation}
-R=\sqrt{R_1^2+R_2^2+R_3^2}
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn5.svg" class="eqim" />
 With that, energy can simply be written as
-\begin{equation}
-\lambda= R_0 \pm R
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn6.svg" class="eqim" />
 $R_0$ moves the entire spectrum up and down but doesn’t effect the gap, and won’t affect the physics.  That term won’t even factor into the eigenvectors.</p>
 
 <div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> </span><span class="o">λ</span><span class="n">p</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">})</span>
@@ -268,58 +248,24 @@ $R_0$ moves the entire spectrum up and down but doesn’t effect the gap, and wo
 <h2 id="eigenvectors">Eigenvectors</h2>
 
 <p>To find the eigenvectors, we find the nullspace of the following matrix,
-\begin{equation}
-\begin{vmatrix}
-R_0 +R_3 - R_0 \mp R &amp; R_1 - i R_2 <br />
-R_1 + i R_2 &amp; R_0 - R_3 -R_0 \mp R <br />
-\end{vmatrix}
-\end{equation}</p>
+<img src="/M4/Images/ChernNumber/eqn7.svg" class="eqim" /></p>
 
 <p>Take the bottom row. Second column value multiples first column and first column value multiples second column.
-\begin{equation}
-\begin{pmatrix}
-\pm R + R_3 <br />
-R_1 + i R_2
-\end{pmatrix}
-\end{equation}</p>
+<img src="/M4/Images/ChernNumber/eqn8.svg" class="eqim" /></p>
 
 <p>And now we need to normalize the state
-\begin{equation}
-\frac{1}{\sqrt{2 R \left( R \pm R_3 \right) }}
-\begin{pmatrix}
-\pm R + R_3<br />
-R_1 + i R_2
-\end{pmatrix}
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn9.svg" class="eqim" />
 In low energy, just the minus state will be occupied ,lower energy, but it has a singularity at $\vec{R} = ( 0 ,0, R) $.</p>
 
 <p>We have two complex numbers in this vector, and thus four things to plot $r_1, \theta_1, r_2, \theta_2$,
-\begin{equation}
-|\psi \rangle =
-\begin{pmatrix}
-r_1 e^{i \theta_1} <br />
-r_2 e^{i \theta_2}
-\end{pmatrix}
-\end{equation}</p>
+<img src="/M4/Images/ChernNumber/eqn10.svg" class="eqim" />
+But since the eigenvector is only unique up to a phase,  we only need to examine the difference in phase, $\theta_1 - \theta_2$.</p>
 
 <p>If we chose to create our vector from the top row instead,
-\begin{equation}
-\begin{pmatrix}
-R_1 -i R_2 \</p>
-<ul>
-  <li>R_3 \mp R
-\end{pmatrix}
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn11.svg" class="eqim" />
 and normalized
-\begin{equation}
-\frac{1}{\sqrt{2 R \left( R \mp R_3 \right) }}
-\begin{pmatrix}
-R_1 - i R_2 <br />
-\pm R - R_3
-\end{pmatrix}
-\end{equation}
-But the minus state for this one has a singularity at $\vec{R} = (0,0, -R )$.</li>
-</ul>
+<img src="/M4/Images/ChernNumber/eqn12.svg" class="eqim" />
+But the minus state for this one has a singularity at $\vec{R} = (0,0, -R )$.</p>
 
 <p>We can move where the singularity is, but we can’t get rid of it.  The problem-point doesn’t show up in the physics, only in the wavefunction representation of it.  We cannot well represent the state across the entire Brillouin Zone at the same time.  This problem occurs because we have a topologically non-trivial state and a non-zero Chern number.</p>
 
@@ -428,18 +374,12 @@ But the minus state for this one has a singularity at $\vec{R} = (0,0, -R )$.</l
 
 <p>The first step in calculating the Chern number is evaluating the Berry Connection.</p>
 
-<p>\begin{equation}
-\mathcal{A}^{i} = \langle u (k,r) | d_{i} u (k,r) \rangle
-\end{equation}</p>
+<p><img src="/M4/Images/ChernNumber/eqn13.svg" class="eqim" /></p>
 
 <p>Though $\mathcal{A}^i$ looks like a vector, it is not invariant under gauge tranformation.  If a wavefunction transforms as
-\begin{equation}
-| u(k,r) \rangle \rightarrow e^{-i \phi} | u(k,r) \rangle
-\end{equation}
+<img src="/M4/Images/ChernNumber/eqn14.svg" class="eqim" />
 then the connection transforms as
-\begin{equation}
-\mathcal{A}^i \rightarrow \mathcal{A}^i -i \partial_i \phi
-\end{equation}</p>
+<img src="/M4/Images/ChernNumber/eqn15.svg" class="eqim" /></p>
 
 <p>Near the Dirac points in the Brillouin Zone, the wavefunction has quite a high curvature, which makes the numerical computation of the derivative prone to errors.  I tried numerical derivation but was unable to arrive at a correct, stable answer.  Therefore, I’m using the ‘ForwardDiff’ Package to take derivatives analytically.</p>
 
@@ -565,9 +505,7 @@ then the connection transforms as
 <h3 id="berry-phase-and-loops-of-connection">Berry Phase and Loops of Connection</h3>
 <p>Even though the connection is not gauge invariant, if we integrate the connection around a loop, we do get a gauge invariant geometric phase, the <i>Berry phase</i>.  The value varies depending on whether the circuit encompasses a Dirac point or not.</p>
 
-<p>\begin{equation}
-e^{i \oint A \cdot ds} = e^{i \phi}
-\end{equation}</p>
+<p><img src="/M4/Images/ChernNumber/eqn16.svg" class="eqim" /></p>
 
 <div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> Loop</span><span class="x">(</span><span class="n">box_center</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="n">box_size</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">N</span><span class="o">::</span><span class="kt">Int64</span><span class="x">)</span>
 
@@ -667,17 +605,11 @@ e^{i \oint A \cdot ds} = e^{i \phi}
 <p>Of course it’s called Berry.  Every thing in this calculation is named after Berry.  At least its not Euler.  Done with side note, back to equations.</p>
 
 <p>Here’s our version of Gauss’s Theorem:
-\begin{equation}
-\oint \mathcal{A} \cdot ds  = \iint F_{n}^{xy} d^2 k
-\end{equation}</p>
+<img src="/M4/Images/ChernNumber/eqn17.svg" class="eqim" /></p>
 
 <p>And $F_n^{xy}$ will take on this form:
-\begin{equation}
-F_{n}^{xy} = \nabla \times \mathcal{A} = \partial_{k_x} \mathcal{A}^y_{n} - \partial_{k_y} \mathcal{A}^x_{n}
-\end{equation}
-\begin{equation}
-= \partial_{k_x} \langle u | \partial_{k_y} u \rangle - \partial_{k_y} \langle u | \partial_{k_x} u \rangle
-\end{equation}</p>
+<img src="/M4/Images/ChernNumber/eqn18.svg" class="eqim" />
+<img src="/M4/Images/ChernNumber/eqn19.svg" class="eqim" /></p>
 
 <p>TIME FOR MORE DERIVATIVES!</p>
 
@@ -733,9 +665,7 @@ F_{n}^{xy} = \nabla \times \mathcal{A} = \partial_{k_x} \mathcal{A}^y_{n} - \par
 
 <p>This single integer not only seperates out topological phases from topologically trivial phases, but seperates different topological phases from each other.  And always evaluates to an integer.</p>
 
-<p>\begin{equation}
-Ch = \frac{1}{2 \pi i} \iint_{BZ} F^{xy}_n d^2 k
-\end{equation}</p>
+<p><img src="/M4/Images/ChernNumber/eqn20.svg" class="eqim" /></p>
 
 <p>If you don’t get approximately an integer, try a finer mesh.</p>
 

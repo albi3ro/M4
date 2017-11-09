@@ -8,7 +8,8 @@ dl, dd, ol, ul, figure {
   padding: 0; }
 
 .eqim {
-  height: 3em;
+  /**height: 3em;**/
+  transform: scale(0.5, 0.5);
   margin: auto;
   display: block; }
 
