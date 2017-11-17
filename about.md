@@ -25,6 +25,8 @@ References
 *  Anders W. Sandvik, Computational Studies of Quantum Spin Systems, 135 (2011), no. 2010.
 *  Xiao-Gang Wen, Topological  order:  from  long-range  entangled  quantum  matter  to  an  unification of light and electrons, ISRN Condensed Matter Physics 2013 (2012), 1–20.
 
+I'd also like to recommend the [<u>Lectures on Gemeterical Anatomy of Theoretical Physics</u>](https://www.youtube.com/playlist?list=PLPH7f_7ZlzxTi6kS4vCmv4ZKm9u8g5yic) YouTube playlist by Fredric Schuller.  
+
 ## Usage and license
 
 Feel free to use this code as you would like. Just please give me credit! And keep the MIT license with it.
