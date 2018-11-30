@@ -21,14 +21,19 @@
 
 &lt;p&gt;In the previous post, I just used a variation on an exactly solvable problem,  allowing me to plug in an exact solution.  However, I won’t always be able to do that, given the minimal number of exact solutions in Quantum Mechanics. Imaginary time allows us to determine the lowest energy eigenstate, or ground state, of just about any Hamiltonian.  In cold atomic physics, we usually care most about the ground state, and this method provides a robust method of determining it.&lt;/p&gt;
 
-&lt;p&gt;So how does imaginary time in Quantum Mechanics work? We can write  any arbitrary wavefunction as a superposition of eigenstates,
-&lt;script type=&quot;math/tex&quot;&gt;\Psi = \sum_i a_i \phi_i .&lt;/script&gt;
-Each eigenstate doesn’t change in overall magnitude as time progresses but rotates with a frequency proportional to the energy.  The superposition changes from a changing interference pattern,
-&lt;script type=&quot;math/tex&quot;&gt;\Psi (t) = \sum_i a_i (0) e^{-i E_i t} \phi_i .&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;So how does imaginary time in Quantum Mechanics work? We can write  any arbitrary wavefunction as a superposition of eigenstates,&lt;/p&gt;
 
-&lt;p&gt;If we now perform the substitution $(t \mapsto -i t)$
-&lt;script type=&quot;math/tex&quot;&gt;\Psi (-it) = \sum_i a_i (0) e^{- E_i t} \phi_i,&lt;/script&gt;
-we can see that all eigenstates dissipate away in an imaginary time system, but the states with higher energy dissipate more rapidly.  Over time, the lowest energy state comes to dominate the wavefunction.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Psi = \sum_i a_i \phi_i .&lt;/script&gt;
+
+&lt;p&gt;Each eigenstate doesn’t change in overall magnitude as time progresses but rotates with a frequency proportional to the energy.  The superposition changes from a changing interference pattern,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Psi (t) = \sum_i a_i (0) e^{-i E_i t} \phi_i .&lt;/script&gt;
+
+&lt;p&gt;If we now perform the substitution $(t \mapsto -i t)$&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Psi (-it) = \sum_i a_i (0) e^{- E_i t} \phi_i,&lt;/script&gt;
+
+&lt;p&gt;we can see that all eigenstates dissipate away in an imaginary time system, but the states with higher energy dissipate more rapidly.  Over time, the lowest energy state comes to dominate the wavefunction.&lt;/p&gt;
 
 &lt;p&gt;This trick is called a &lt;a href=&quot;https://en.wikipedia.org/wiki/Wick_rotation&quot;&gt;Wick rotation&lt;/a&gt;.  Wick rotations are also used to equate inverse temperature $1/T$ with imaginary time $i t$ to statistical quantum mechanics problems or to solve problems in cosmology.&lt;/p&gt;
 

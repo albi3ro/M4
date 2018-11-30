@@ -25,11 +25,9 @@ In the previous post, I just used a variation on an exactly solvable problem,  a
 
 So how does imaginary time in Quantum Mechanics work? We can write  any arbitrary wavefunction as a superposition of eigenstates,
 
-
 $$
 \Psi = \sum_i a_i \phi_i .
 $$
-
 
 Each eigenstate doesn't change in overall magnitude as time progresses but rotates with a frequency proportional to the energy.  The superposition changes from a changing interference pattern,
 
@@ -251,7 +249,7 @@ hline!([1/2],label="1/2")
 plot!(xlabel="Steps",ylabel="Energy",title="Convergence of Energy")
 ```
 
-{% inM4/Images/GroundStates/occupation.pngclude image.html img="M4/Images/GroundStates/Energy.png" title="Evolution of Energy" caption=""%}
+{% include image.html img="M4/Images/GroundStates/Energy.png" title="Evolution of Energy" caption=""%}
 
 Here we look at how the state converges to the ground state by dissipating out higher energy states.  
 

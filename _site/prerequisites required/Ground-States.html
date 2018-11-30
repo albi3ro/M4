@@ -32,11 +32,11 @@
 
 
     <meta property="og:title" content="Ground States, Imaginary Time Evolution" />
-    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/ChernNumber/diff_phase.png" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/GroundStates/occupation.png" />
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:site" content="@PyrochloreLee" />
     <meta property="twitter:title" content="Ground States, Imaginary Time Evolution" />
-    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/ChernNumber/diff_phase.png" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/GroundStates/occupation.png" />
     <meta property="twitter:description" content="Evolving a state in imaginary time dissipates away higher energy states, leaving behind the ground state." />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
@@ -127,14 +127,19 @@
 
 <p>In the previous post, I just used a variation on an exactly solvable problem,  allowing me to plug in an exact solution.  However, I won’t always be able to do that, given the minimal number of exact solutions in Quantum Mechanics. Imaginary time allows us to determine the lowest energy eigenstate, or ground state, of just about any Hamiltonian.  In cold atomic physics, we usually care most about the ground state, and this method provides a robust method of determining it.</p>
 
-<p>So how does imaginary time in Quantum Mechanics work? We can write  any arbitrary wavefunction as a superposition of eigenstates,
-<script type="math/tex">\Psi = \sum_i a_i \phi_i .</script>
-Each eigenstate doesn’t change in overall magnitude as time progresses but rotates with a frequency proportional to the energy.  The superposition changes from a changing interference pattern,
-<script type="math/tex">\Psi (t) = \sum_i a_i (0) e^{-i E_i t} \phi_i .</script></p>
+<p>So how does imaginary time in Quantum Mechanics work? We can write  any arbitrary wavefunction as a superposition of eigenstates,</p>
 
-<p>If we now perform the substitution $(t \mapsto -i t)$
-<script type="math/tex">\Psi (-it) = \sum_i a_i (0) e^{- E_i t} \phi_i,</script>
-we can see that all eigenstates dissipate away in an imaginary time system, but the states with higher energy dissipate more rapidly.  Over time, the lowest energy state comes to dominate the wavefunction.</p>
+<script type="math/tex; mode=display">\Psi = \sum_i a_i \phi_i .</script>
+
+<p>Each eigenstate doesn’t change in overall magnitude as time progresses but rotates with a frequency proportional to the energy.  The superposition changes from a changing interference pattern,</p>
+
+<script type="math/tex; mode=display">\Psi (t) = \sum_i a_i (0) e^{-i E_i t} \phi_i .</script>
+
+<p>If we now perform the substitution $(t \mapsto -i t)$</p>
+
+<script type="math/tex; mode=display">\Psi (-it) = \sum_i a_i (0) e^{- E_i t} \phi_i,</script>
+
+<p>we can see that all eigenstates dissipate away in an imaginary time system, but the states with higher energy dissipate more rapidly.  Over time, the lowest energy state comes to dominate the wavefunction.</p>
 
 <p>This trick is called a <a href="https://en.wikipedia.org/wiki/Wick_rotation">Wick rotation</a>.  Wick rotations are also used to equate inverse temperature $1/T$ with imaginary time $i t$ to statistical quantum mechanics problems or to solve problems in cosmology.</p>
 
