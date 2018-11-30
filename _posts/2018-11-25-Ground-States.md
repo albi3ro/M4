@@ -6,7 +6,7 @@ category: Prerequisites Required
 tags:
     Quantum
 author: Christina C. Lee
-image: "https://albi3ro.github.io/M4/Images/GroundStates/occupation.png"
+image: "https://albi3ro.github.io/M4/Images/GroundStates/occupation_show.png"
 description: Evolving a state in imaginary time dissipates away higher energy states, leaving behind the ground state.
 ---
 
