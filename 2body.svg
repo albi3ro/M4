@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="68.829987mm"
-   height="60mm"
-   viewBox="0 0 68.829987 60"
+   width="76.589676mm"
+   height="63.713905mm"
+   viewBox="0 0 76.589676 63.713905"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="124.15057"
-     inkscape:cy="135.86289"
+     inkscape:cx="150.78761"
+     inkscape:cy="153.73662"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -43,17 +43,17 @@
      inkscape:window-y="-13"
      inkscape:window-maximized="1">
     <sodipodi:guide
-       position="81.92634,132.39718"
+       position="88.974058,134.45358"
        orientation="1,0"
        id="guide4526"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="30.001859,35.446293"
+       position="37.049576,37.502691"
        orientation="1,0"
        id="guide4534"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="47.341517,30.107379"
+       position="54.389234,32.163777"
        orientation="0,1"
        id="guide4536"
        inkscape:locked="false" />
@@ -74,7 +74,14 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(1.3411045e-7,-237.20001)">
+     transform="translate(7.0477155,-235.5425)">
+    <rect
+       style="fill:#fdf6e3;fill-opacity:1;stroke:#002b36;stroke-width:1.03920329;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4612"
+       width="75.550476"
+       height="62.674702"
+       x="-6.5281138"
+       y="236.0621" />
     <circle
        id="path3713"
        cx="30"
@@ -109,16 +116,16 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#dc322f;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="61.605625"
-       y="262.75607"
+       x="59.734737"
+       y="261.68698"
        id="text4548"><tspan
          sodipodi:role="line"
          id="tspan4546"
-         x="61.605625"
-         y="262.75607"
+         x="59.734737"
+         y="261.68698"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#dc322f;fill-opacity:1;stroke-width:0.26458332">M<tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;fill:#dc322f;fill-opacity:1"
-   id="tspan4550">1</tspan></tspan></text>
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan4594">2</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -136,12 +143,12 @@
        id="path4556"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#002b36;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 30.828683,266.17131 -1.606399,1.79538 v 0"
        id="path4542"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#002b36;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 29.065516,266.20828 2.164765,1.6403"
        id="path4540"
        inkscape:connector-curvature="0"
@@ -157,8 +164,8 @@
          x="6.9925585"
          y="263.59637"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#268bd2;fill-opacity:1;stroke-width:0.26458332">M<tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;baseline-shift:sub;text-anchor:start;fill:#268bd2;fill-opacity:1"
-   id="tspan4562">2</tspan></tspan></text>
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan4590">1</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#dc322f;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -170,8 +177,8 @@
          x="44.081474"
          y="264.54129"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#dc322f;fill-opacity:1;stroke-width:0.26458332">r<tspan
-   style="font-size:64.99999762%;baseline-shift:sub;fill:#dc322f;fill-opacity:1"
-   id="tspan4568">1</tspan></tspan></text>
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan4592">2</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#268bd2;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -183,17 +190,17 @@
          x="23.906992"
          y="263.69086"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#268bd2;fill-opacity:1;stroke-width:0.26458332">r<tspan
-   style="font-size:64.99999762%;baseline-shift:sub;fill:#268bd2;fill-opacity:1"
-   id="tspan4576">2</tspan></tspan></text>
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan4588">1</tspan></tspan></text>
     <path
-       style="fill:none;stroke:#6c71c4;stroke-width:1.00222504;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#002b36;stroke-width:1.00222504;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 25.601129,268.70239 57.641411,268.4156"
        id="path4578"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#002b36;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="48.630955"
        y="273.73016"
        id="text4582"><tspan
@@ -201,10 +208,10 @@
          id="tspan4580"
          x="48.630955"
          y="273.73016"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#6c71c4;fill-opacity:1;stroke-width:0.26458332">r</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#002b36;fill-opacity:1;stroke-width:0.26458332">r</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:1.25;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#002b36;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="24.922884"
        y="274.28214"
        id="text4586"><tspan
@@ -212,6 +219,6 @@
          id="tspan4584"
          x="24.922884"
          y="274.28214"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">COM</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Bahnschrift;-inkscape-font-specification:'Bahnschrift, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#002b36;fill-opacity:1;stroke-width:0.26458332">COM</tspan></text>
   </g>
 </svg>
