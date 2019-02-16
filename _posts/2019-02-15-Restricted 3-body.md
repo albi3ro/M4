@@ -12,44 +12,51 @@ description: We solve for evolution in a corotating frame of a test mass moving 
 
 The full 3-body problem has challenged, intrigued, confounded, and thrilled physicists for hundreds of years. Even today, researchers still actively work at untangling the intricacies of planetary dynamics. In the 17-1800's, many physicists/ mathematicians would spend most of their careers devoted to tackling the problem. For some, this resulted in calculating another term or two in a perturbation expansion.  In modern days with the advent of exo-planet detection methods, we have hundreds of real planetary systems to examine. As a result of this, the questions about planetary evolution and stability become much more relevant and observationally testable.
 
-A variety of different methods exist for examining the characteristics of these systems; from full-scale simulations of billions of particles, down to simple toy models we can solve on paper (if you really like algebra).  In this post, we will make a series of approximations to discover properties of planetary dynamics visible within our solar system.
+A variety of different methods exist for examining the characteristics of these systems; from full-scale simulations of billions of particles, down to simple toy models we can solve on paper... if you really like algebra.  In this post, we will make a series of approximations to discover properties of planetary dynamics visible within our solar system.
 
 ### Center of Mass
 
 To specify a two-body Keplerian system, we pass in two masses $M_1$ and $M_2$ and the relative distance between them $r$.
 
-![](../images/2body.svg)
+{% include image.html img="M4/Images/3body/2body.svg" title="Two massive bodies orbiting each other" caption=""%}
 
-While we might think that the origin of the solar system should be the center of the Sun (the more massive body), we find computations much easier if we take our stationary origin point to be the <b>Center of Mass</b>(COM). The sun will then actually orbit around the COM. For systems for large mass differences $M_2/M_1 << 1$ the Sun's orbit will be extremely small.  
+While we might think that the origin of the solar system should be the center of the Sun, the more massive body, we find computations much easier if we take our stationary origin point to be the <b>Center of Mass</b>, COM. The sun will then actually orbit around the COM. For systems for large mass differences $M_2/M_1 << 1$ the Sun's orbit will be extremely small.  
 
 Let's first calculate the distances between the two masses and the COM.
+
 $$
 M_1 r_1 = M_2 r_2= M_1 (r-r_2)
 $$
+
 $$
 (M_2+M_1) r_2 = M_1 r
 $$
+
 $$
 r_2 = \frac{M_1}{M_2+M_1} r \qquad \qquad r_1 = \frac{M_2}{M_2+M_1} r
 $$
 
 ### Co-rotating Frame
-To illustrate ideas more succinctly and simplify computation, we are going to perform our calculations in the <b>co-rotating</b> frame. Even though both our masses will physically be rotating around each other, they will be stationary in our coordinate system.  This may seem initially strange, but realize that we are in a corotating system on the surface on the Earth.  On the equator, you are not aware that you are rotating through space at 1,000 mph.  Everything else is moving at that speed too, and the effects of rotation are usually overcome by gravity.  (See weather patterns for an exception)
+To illustrate ideas more succinctly and simplify computation, we are going to perform our calculations in the <b>co-rotating</b> frame. Even though both our masses will physically be rotating around each other, they will be stationary in our coordinate system.  This may seem initially strange, but realize that we are in a corotating system on the surface on the Earth.  On the equator, you are not aware that you are rotating through space at 1,000 mph.  Everything else is moving at that speed too, and the effects of rotation are usually overcome by gravity.  See weather patterns for an exception.
 
 When moving into a <b>non-inertial</b> reference frame like a co-rotating frame, we pick up fictitious forces that are a byproduct of the frame's acceleration.  Think of when you're looking out a train window at a train next to you starting to move.  Sometimes, I momentarily begin to think that I'm actually accelerating instead.
 
 When dealing with a rotating frame, we need the Centrifugal and Coriolis forces.  
+
 $$
 F_{Centrifugal} = - m \vec{\Omega} \times ( \vec{\Omega} \times \vec{r} )
 $$
+
 $$
 F_{Coriolis} = - 2m \vec{\Omega} \times \vec{v}
 $$
 
 If we assume a planar orbit, we can set $\vec{\Omega} = \omega \hat{z}$.  We can then proceed with simplyfying the above equations to
+
 $$
 F_{Centrifugal} = m \omega^2 ( x, y , 0)
 $$
+
 $$
 F_{Coriolis} = - 2 m \omega ( - v_y, v_x, 0 )
 $$
@@ -91,16 +98,6 @@ using DifferentialEquations
 gr() #plotlyjs doesn't seem to be working write now :(
 ```
 
-    ┌ Info: Precompiling DifferentialEquations [0c46a032-eb83-5123-abaf-570d42b7fbaa]
-    └ @ Base loading.jl:1189
-
-
-
-
-
-    Plots.GRBackend()
-
-
 
 
 ```julia
@@ -112,24 +109,11 @@ r=1.
 
 
 
-
-    1.0
-
-
-
-
 ```julia
 # Gravitational Constant
 # Change G to 6.67e-11 if you want a physical system
 G=1
 ```
-
-
-
-
-    1
-
-
 
 
 ```julia
@@ -149,13 +133,6 @@ x2=[r2,0,0]
 # rotation frequency
 ω=sqrt(G*(M1+M2)/r^3)
 ```
-
-
-
-
-    1.000499875062461
-
-
 
 ## Zero Velocity Potential
 
@@ -182,9 +159,11 @@ The first three Lagrangian points are unstable.  Objects that either just start 
 $$
 x_{L_1}= r_2-r_{Hill}
 $$
+
 $$
 x_{L_2}= r_2+r_{Hill}
 $$
+
 $$
 x_{L_3} = -r\left(1+\frac{5 M_2}{12 M_1}\right)
 $$
@@ -232,11 +211,6 @@ rhill= r*cbrt(M2/(3*M1))
 
 
 
-    0.06933612743506347
-
-
-
-
 ```julia
 xgrid=collect(-1.4*r2:0.005:1.4*r2)
 ygrid=copy(xgrid)
@@ -267,7 +241,7 @@ plot!(xlabel="X",ylabel="Y", zlabel="Potential",title="2-body Corotating Potenti
 
 
 
-{% include image.html img="M4/Images/3body/output_9_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_9_0.svg" title="Zero Velocity Potential" caption=""%}
 
 
 
@@ -282,7 +256,7 @@ plot!(xlabel="X",ylabel="Y", zlabel="asinh Potential",title="Cropped and asinh P
 
 
 
-{% include image.html img="M4/Images/3body/output_11_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_11_0.svg" title="Cropped and asinh Potential" caption=""%}
 
 
 
@@ -294,7 +268,7 @@ plot!(xlabel="x",ylabel="y", zlabel="Potential",title="Zoom on 2nd Mass")
 
 
 
-{% include image.html img="M4/Images/3body/output_12_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_12_0.svg" title="2nd mass zoom" caption=""%}
 
 
 
@@ -309,7 +283,7 @@ plot!(xlabel="X",ylabel="Y",title="Heatmap of asinh Cut Potential",legend=false)
 
 
 
-{% include image.html img="M4/Images/3body/output_13_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_13_0.svg" title="Heatmap cut and asinh potential" caption=""%}
 
 
 
@@ -331,12 +305,6 @@ function F_G(x::Array{Float64})
    return -G*M1*(x-x1)/norm(x-x1)^3-G*M2*(x-x2)/norm(x-x2)^3
 end
 ```
-
-
-
-
-    F_G (generic function with 1 method)
-
 
 
 Now that we have forces let's that there is in fact zero (or approximately zero) net force at the Lagrangian points.  I stick in other random non-Langrangian points so we can get an idea of the order of magnitude forces are other places.
@@ -375,12 +343,6 @@ end
 ```
 
 
-
-
-    DiffEqForm (generic function with 1 method)
-
-
-
 ## Orbits to Examine
 
 Here I list out some initial conditions for the orbits we will evolve.
@@ -410,12 +372,6 @@ u0_L5_2=[r2*cos(π/3)+.005;-r2*sin(π/3);0.;0.;0.0;0.]
 tspan_45=(0.,100.)
 tspan_horse=(0.,1500.)
 ```
-
-
-
-
-    (0.0, 1500.0)
-
 
 
 ## Solving the ODE's
@@ -485,7 +441,7 @@ plot!(xlabel="X",ylabel="Y",title="Starting near L1")
 
 
 
-{% include image.html img="M4/Images/3body/output_25_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_25_0.svg" title="L1 orbits" caption=""%}
 
 
 
@@ -504,7 +460,7 @@ plot!(xlabel="X",ylabel="Y",title="Starting near L2")
 
 
 
-{% include image.html img="M4/Images/3body/output_26_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_26_0.svg" title="L2 orbits" caption=""%}
 
 
 
@@ -526,7 +482,7 @@ plot!(xlabel="X",ylabel="Y",title="Starting near L3")
 
 
 
-{% include image.html img="M4/Images/3body/output_27_0.svg" title="Horseshoe Orbit" caption=""%}
+{% include image.html img="M4/Images/3body/output_27_0.svg" title="L3 orbits" caption=""%}
 
 
 
