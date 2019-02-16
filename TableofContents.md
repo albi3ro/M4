@@ -14,6 +14,8 @@
 * Statistical Mechanics
     * Monte Carlo Ferromagnet
     * Phase Transitions
+* Classical Mechanics
+    * Restricted 3-body
 
 # Graduate
 * Quantum Mechanics
