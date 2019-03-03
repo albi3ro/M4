@@ -68,7 +68,7 @@ That's where my categories come in.
               {% for posts in cat %}
               {% for post in posts %}
   						<tr class="trtag">
-  						  <td class="tagtitle"><h3><a href="{{base.url}}/M4/{{ post.url }}">{{ post.title }}</a></h3></td>
+  						  <td class="tagtitle"><h3><a href="{{base.url}}/M4{{ post.url }}">{{ post.title }}</a></h3></td>
   							<td class="tagprop"><p class="post-meta">{{ post.category }}</p></td>
                 <td class="tagprop"><p class="post-meta">
                   {% for tt in post.tags %}
