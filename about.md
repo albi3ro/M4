@@ -5,11 +5,6 @@ permalink: /about/
 ---
 
 
-## Me!
-I'm a PhD student at the Okinawa Institute of Science and Technology Graduate Uinveristy studying Quantum Spin Liquids,
-a subset of Frustration, a subset of Condensed Matter Physics.
-
-I would greatly like to thank Lee J. O'Riordan, (Github: [mlxd](https://github.com/mlxd)), for conversations, advice, and the large amount of grammar checking this physicist needs.
 
 ## My Favorite Papers
 
