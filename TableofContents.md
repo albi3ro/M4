@@ -34,6 +34,8 @@
     * Monte Carlo Markov Chain
 * ODE's
     * Runge-Kutta Methods
+* Roots
+    * 1D Roots
 
 # Programming
 * HDF5 in Julia
