@@ -2,13 +2,10 @@
 ## Metals, Magnets, and Miscellaneous Materials: Blog Introduction to Computational Condensed Matter
 
 ### by Christina Lee,
-### PhD student at Okinawa Institute of Science and Technology Graduate University, Japan.
 
 ### Check out http://albi3ro.github.io/M4/ to get the static blog website version of these jupyter notebooks.
 
 
-You thought particle physics and astronomy were the only big frontiers in physics? Well, you thought wrong.
-Follow this blog to start discovering some of the wonders of materials all around you, and some of the revolutions that are shocking the field.
 
 I will vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to peruse.  So you know what you are getting yourself into, I've developed a difficulty ranking scheme:
 
@@ -16,13 +13,11 @@ I will vary the level from undergraduate physics major to graduate student in th
 * <b>Prerequisites:</b> I will spell out classes in the beginning that one should have taken
     in order to understand the physics of the post.  For example, in order to understand calculating
     the orbitals of a hydrogen-like atom, I will assume you analytically solved it in a Quantum Mechanics course.
-    Even if you haven't taken  the classes, feel free to still try.
-* <b>Research:</b> A general research technique.
-* <b>In Field:</b> A specialized technique.  Unless you are doing research on the topic, or need to use this tool,
-     you will probably not learn this technique, though researchers might hear about it. Consider where you want to spend your time.
+    Even if you haven't taken  the classes, feel free to still try
+* <b>Graduate:</b> Specialty technique that assumes you have a solid grounding in the basics.  I still try to not take any knowledge for granted, but not everyone will be trying to learn these things in the first place.
 * <b>Numerics:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
     numerical method related.
-* <b>Fun:</b> Something off topic and silly for everyone!
+* <b>Programming:<b> Something related to the language itself.
 
 ## Julia - A possible future for scientific computing
 
