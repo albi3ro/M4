@@ -17,9 +17,9 @@ I will vary the level from undergraduate physics major to graduate student in th
 * <b>Graduate:</b> Specialty technique that assumes you have a solid grounding in the basics.  I still try to not take any knowledge for granted, but not everyone will be trying to learn these things in the first place.
 * <b>Numerics:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
     numerical method related.
-* <b>Programming:<b> Something related to the language itself.
+* <b>Programming:</b> Something related to the language itself.
 
-## Julia - A possible future for scientific computing
+## Julia
 
 The blog will be written in the form of Julia (http://julialang.org/) Jupyter notebooks. This new language has a syntax similar to MATLAB or Python, and is easily human readable.  I encourage active participation by playing with the code.
 
