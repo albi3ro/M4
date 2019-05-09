@@ -52,10 +52,10 @@ Also, input the size of lattice you want to look at.
 
 
 {% highlight Julia %}
-lattice="sc";
+lattice="fcc";
 
 Nx=3;
-Ny=3;
+Ny=2;
 Nz=3;
 {% endhighlight %}
 
@@ -94,13 +94,15 @@ end
 
 {% highlight Julia %}
 # Another cell to just evaluate
-# Here we set up some numbers and matrices for our computation
 N=Nx*Ny*Nz;    #The total number of sites
+
+#these allow us to copy an entire row or layer at once
 aM=transpose(a);
-bM=transpose(repeat(b,outer=[1,Nx])); #these allow us to copy an entire row or layer at once
+bM=transpose(repeat(b,outer=[1,Nx])); 
 cM=transpose(repeat(c,outer=[1,Nx*Ny]));
 
-X=Array{Float64}(N,3);  #where we store the positions
+X=Array{Float64}(undef,N,3);  #where we store the positions
+"Cell Finished"
 {% endhighlight %}
 
 
@@ -115,11 +117,11 @@ for i in 1:Nx    #for the first row
 end
 
 for j in 2:Ny    #copying the first row into the first layer
-    X[Nx*(j-1)+(1:Nx),:]=X[1:Nx,:]+(j-1)*bM;
+    X[Nx*(j-1).+(1:Nx),:]=X[1:Nx,:].+(j-1)*bM;
 end
 
 for j in 2:Nz    #copying the first layer into the entire cube
-    X[Ny*Nx*(j-1)+(1:Nx*Ny),:]=X[1:Nx*Ny,:]+(j-1)*cM;
+    X[Ny*Nx*(j-1).+(1:Nx*Ny),:]=X[1:Nx*Ny,:].+(j-1)*cM;
 end
 ```
 
@@ -135,25 +137,20 @@ end
 
 
 {% highlight Julia %}
-scatter(X[:,1],X[:,2],X[:,3],markershape=:circle)
+plot(legend=false,title=lattice,xlabel="X",ylabel="Y",zlabel="Z")
 
 ls=2
 v=collect(0:ls)
-zed=zeros(v)
-for i in 0:ls
-    for j in 0:ls
-        plot!(zed+i,v,zed+j)
-        plot!(zed+i,zed+j,v)
-
-        plot!(v,zed+i,zed+j)
-        plot!(zed+j,zed+i,v)
-
-        plot!(v,zed+j,zed+i)
-        plot!(zed+j,v,zed+i)
+zed=zeros(length(v))
+for ii in 0:ls
+    for jj in 0:ls
+        plot!(zed .+ii,v,zed .+jj,linecolor=:black)
+        plot!(zed .+ii,zed .+jj,v,linecolor=:black)
+        plot!(v, zed .+ii,zed .+jj,linecolor=:black)
     end
 end
-plot!(xlabel="x",ylabel="y",zlabel="z",title="$lattice")
-savefig("$lattice.html")
+
+scatter!(X[:,1],X[:,2],X[:,3])
 {% endhighlight %}
 
 
