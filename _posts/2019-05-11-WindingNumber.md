@@ -14,10 +14,7 @@ description: The Su-Shrieffer-Heeger Model for trans-polyacetylene with two diff
 The Chern number isn't the only topological invariant.  We have multiple invariants, each convenient in their own situations.  The Chern number just happened to appear one of the biggest, early examples, the Integer Quantum Hall Effect, but the winding number actually occurs much more often in a wider variety of circumstances.
 
 How many times does the phase wrap as we transverse a closed loop?
-$$
-n = \frac{1}{2 \pi i } \oint \text{d}\phi =
-\frac{1}{2\pi i } \oint \frac{\text{d}z}{z}
-$$
+<img src="/M4/Images/SSH/eqn1.png" class="eqim">
 
 This expression shows up in complex analysis with <i>Residues</i> and [the Cauchy Integral Formula](https://en.wikipedia.org/wiki/Cauchy%27s_integral_formula), but we're interested in applying this formula to topology.
 
@@ -49,46 +46,22 @@ The chemical under doping has high electrical conductivity, opened the entire fi
 
 {% include image.html img="M4/Images/SSH/chemstruct.png" title="trans-polyacetylene" caption=""%}
 
-Scary Organic Chemistry stuff... but all we really need to learn from that picture is that we have two different types on bonds (single bond and double bond) alternating along one dimension. These different bonds correspond to different transition probabilities for a particle hopping along a line.
+Scary Organic Chemistry stuff... but all we really need to learn from that picture is that we have two different types on bonds, single bonds and double bonds, alternating along one dimension. These different bonds correspond to different transition probabilities for a particle hopping along a line.
 
 {% include image.html img="M4/Images/SSH/ssh_hopping.svg" title="hopping on 1D chain" caption=""%}
 
 $v$ and $w$ are our two transition probabilities, and we also have two different types of sites, $a$ and $b$. We can write down a hopping Hamiltonian from this information,
-\begin{equation}
-\mathcal{H}= v \sum_i \left(a_i^{\dagger} b_i + \text{h.c.} \right)
--w \sum_i \left(b_i^{\dagger} a_{i+1} + \text{h.c.} \right)
-\end{equation}
+<img src="/M4/Images/SSH/eqn2.png" class="eqim">
 
 We can Fourier transform the Hamiltonian,
-\begin{equation}
-\mathcal{\tilde{H}}= \sum_k v \left( a_k^{\dagger} b_k + b_k a_k^{\dagger} \right) 
-- w \left( e^{-i k}  b_k^{\dagger} a_k + e^{i k} a_k^{\dagger} b_k \right) 
-\end{equation}
+<img src="/M4/Images/SSH/eqn3.png" class="eqim">
 and change forms
-\begin{equation}
-= \sum_k  \left(v -w \cos k \right) \left( b_k^{\dagger} a_k + a_k^{\dagger} b_k \right)
--i w \sin k \left( - b_k^{\dagger} a_k + a_k^{\dagger} b_k \right)
-\end{equation}
-\begin{equation}
-=\begin{bmatrix}
-a_k^{\dagger} & b_k^{\dagger}
-\end{bmatrix}
-\begin{bmatrix}
-0 & \left(v-w \cos k\right) -i \left( -w \sin k \right) \\
-\left(v-w \cos k\right) + i \left( -w \sin k \right) & 0 \\
-\end{bmatrix}
-\begin{bmatrix}
-a_k \\ b_k
-\end{bmatrix}
-\end{equation}
+<img src="/M4/Images/SSH/eqn4.png" class="eqim">
+<img src="/M4/Images/SSH/eqn5.png" class="eqim">
 to something where we can read off a quite useful form for this type of topological stuff:
-\begin{equation}
-\mathcal{\tilde{H}} = \vec{R} \cdot \vec{\sigma}
-\end{equation}
+<img src="/M4/Images/SSH/eqn6.png" class="eqim">
 
-\begin{equation}
-R_x(k) = v - w \cos k \qquad \qquad R_y (k) = -w \sin k \qquad \qquad R_z = 0
-\end{equation}
+<img src="/M4/Images/SSH/eqn7.png" class="eqim">
 
 
 ## Code up the Model
@@ -135,9 +108,7 @@ dk=ks[2]-ks[1]
 ### Chiral Symmetry
 
 A Hamiltonian is said to possess chiral symmetry if there exists a $U$ such that
-$$
-U H U^{-1} = -H  \qquad \qquad U U^{\dagger} =\mathbb{1}.
-$$
+<img src="/M4/Images/SSH/eqn8.png" class="eqim">
 Finding $U$ if even exists and determining its form if it exists is a problem for another time.  Today, multiple places said that $\sigma_z$ works for the SSH model, and we can confirm that it does.  
 
 A little less intellectually satisfying (at least for me), but it works.
@@ -178,17 +149,11 @@ Now we don't have to change the topological phase at a gap closing, but it's onl
 Beforehand doing a lot of calculations and work, if we can identify where band closings occur and regions where parameters can be perturbed and changed without causing band closings, we can reduce the number of things we need to solve later on.
 
 Analytically, we know that the two eigenvalues occur at: (see QAHE post)
-$$
-R=\pm \sqrt{R_x^2+ R_y^2}
-$$
-$$
-=\pm \sqrt{v^2+w^2 \cos^2 k -2 vw \cos k + w^2 \sin^2 k} 
-= \pm \sqrt{v^2 - 2 vw \cos k + w^2}
-$$
+<img src="/M4/Images/SSH/eqn9.png" class="eqim">
+<img src="/M4/Images/SSH/eqn10.png" class="eqim">
+<img src="/M4/Images/SSH/eqn11.png" class="eqim">
 The difference between the upper and lower band will be at it's minimum when $\cos k$ is greatest,$k=0$.
-$$
-=\pm \sqrt{(v-w)^2}
-$$
+<img src="/M4/Images/SSH/eqn12.png" class="eqim">
 
 So when $v=w$, the gap closes.  This $v=w$ line in parameter space could separate two different topological phases.  Now we need to perform some calculations to see if that is they are actually different phases.
 
@@ -255,9 +220,7 @@ We can look at <b>either</b> the homotopy of the Hamiltonian <b>or</b> the homot
 Looking at the Hamiltonian seems easier since we don't have to go through the work of calculating the wavefunctions, especially if we have a complicated system, but homotopy is a geometric, almost pictorial thing. How do we go about getting something like that for an operator?  
 
 Let's go back to how we wrote our Hamiltonian down, both this one and the QAHE one before,
-$$
-\mathcal{H}=\vec{R}(k) \cdot \vec{\sigma}.
-$$
+<img src="/M4/Images/SSH/eqn6.png" class="eqim">
 Here we have a 1-1 correspondence between the Hamiltonian and a <b>geometric</b> object, this $\vec{R}$ vector.  When we look at how it depends on $k$, we get insight into how $\mathcal{H}$ depends on $k$ as well.
 
 The two different groups, purple and turquoise, will have two different behaviors.  $\vec{R}(k)$ for purple will circle the origin like $S^1$ the unit circle, whereas $\vec{R}(k)$ for turquoise not circle the origin and will not be like $S^1$.
@@ -288,13 +251,7 @@ xlabel="Rx", ylabel="Ry",legend=:bottomright,aspect_ratio=1)
 ## Wavefunction
 
 Going back to what we did in the QAHE post again, we have an analytical expression for the wavefunction:
-\begin{equation}
-\Psi = \frac{1}{\sqrt{2}}
-\begin{bmatrix}
--1\\
-\frac{R_x + i R_y}{R}
-\end{bmatrix}
-\end{equation}
+<img src="/M4/Images/SSH/eqn13.png" class="eqim">
 
 Now that we don't have $R_z$, the magnitudes of both components are constant and uniform. For the first component, the phase also remains constant, but the phase of the second component varies.  It's the behavior of this phase that we will be looking at, and that will determine whether or not the system is topological.
 
@@ -354,9 +311,7 @@ plot!(title="Phase",xlabel="k",ylabel="angle")
 
 
 We've qualitatively seen the difference between the phases, but now let's quantitatively look at the difference between the phases. This is as simple integrating the formula in the introduction,
-\begin{equation}
-n= \oint \frac{\text{d} z}{z}
-\end{equation}
+<img src="/M4/Images/SSH/eqn1.png" class="eqim">
 
 
 ```julia
@@ -415,10 +370,6 @@ plot!(xlabel="v",ylabel="w", title="Two Different Topological Phases")
 ```
 
 {% include image.html img="M4/Images/SSH/output_29_0.svg" title="Topological Phases" caption=""%}
-
-
-![svg](output_29_0.svg)
-
 
 
 ## Conclusion
