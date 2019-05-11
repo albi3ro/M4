@@ -111,13 +111,13 @@ A Hamiltonian is said to possess chiral symmetry if there exists a $U$ such that
 <img src="/M4/Images/SSH/eqn8.png" class="eqim">
 Finding $U$ if even exists and determining its form if it exists is a problem for another time.  Today, multiple places said that $\sigma_z$ works for the SSH model, and we can confirm that it does.  
 
-A little less intellectually satisfying (at least for me), but it works.
+A little less intellectually satisfying ... at least for me... , but it works.
 
 We could test that equation analytically on pen and paper, analytically using 'SymPy', or by plugging in random 'k' values a bunch of times and assuming that's good enough.
 
 I'm going the bunch of random k values route. Just keep evaluating the next cell till you're convinced.
 
-<b>Bonus Note:</b>  We only have a situation with a winding number because we have chiral symmetry and have an odd number of dimensions.  If we have no chiral (and no other any other anti-unitary) symmetry, then we could only have the topologically trivial phase. That's why I'm making sure to mention this.  Check out the Periodic Table of Topological Insulators for more information.
+<b>Bonus Note:</b>  We only have a situation with a winding number because we have chiral symmetry and have an odd number of dimensions.  If we have no chiral, and no other any other anti-unitary, symmetry, then we could only have the topologically trivial phase. That's why I'm making sure to mention this.  Check out the Periodic Table of Topological Insulators for more information.
 
 
 ```julia
