@@ -6,7 +6,7 @@ category: Graduate
 tags:
     Quantum Topological
 author: Christina C. Lee
-image: "https://albi3ro.github.io/M4/Images/Roots/nrmethod.png"
+image: "https://albi3ro.github.io/M4/Images/SSH/phase.png"
 description: The Su-Shrieffer-Heeger Model for trans-polyacetylene 
 ---
 <b>Prerequisites:</b> [Chern Number QAHE]({{base.url}}/M4/graduate/QAHE.html) 
