@@ -138,7 +138,7 @@ k_test=rand()
 
 We want to know if two sets of parameters $c_1=(v_1,w_1)$ and $c_2=(v_2,w_2)$ will describe topologically equivalent systems.  
 
-We are gifted by the fact have some convenient theorems relating the SPT (Symmetry Protected Topological) topology of the phases and band gap closings.
+We are gifted by the fact have some convenient theorems relating the SPT, Symmetry Protected Topological, topology of the phases and band gap closings.
 
 As we change the parameters, we will remain in the same topological phase as long as <b>we don't close the gap</b> or <b>break symmetries</b>.  [2]
 
