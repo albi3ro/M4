@@ -143,7 +143,7 @@ aM=transpose(repeat(a,outer=[1,Ncell]));
 bM=transpose(repeat(b,outer=[1,Ncell*Nx])); #these allow us to copy an entire row or layer at once
 cM=transpose(repeat(c,outer=[1,Ncell*Nx*Ny]));
 
-X=Array{Float64}(N,3);  #where we store the positions
+X=Array{Float64}(undef,N,3);  #where we store the positions
 "Cell finished"
 {% endhighlight %}
 
@@ -153,15 +153,15 @@ X=Array{Float64}(N,3);  #where we store the positions
 # Another cell to just evaluate
 # Here we are actually calculating the positions for every site
 for i in 1:Nx    #for the first row
-    X[Ncell*i-Ncell+1:Ncell*i,:]=unit+(i-1)*aM;
+    X[Ncell*i-Ncell+1:Ncell*i,:]=unit.+(i-1)*aM;
 end
 
 for j in 2:Ny    #copying the first row into the first layer
-    X[Ncell*Nx*(j-1)+(1:Ncell*Nx),:]=X[1:Ncell*Nx,:]+(j-1)*bM;
+    X[Ncell*Nx*(j-1).+(1:Ncell*Nx),:]=X[1:Ncell*Nx,:].+(j-1)*bM;
 end
 
 for j in 2:Nz    #copying the first layer into the entire cube
-    X[Ncell*Ny*Nx*(j-1)+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:]+(j-1)*cM;
+    X[Ncell*Ny*Nx*(j-1).+(1:Ncell*Nx*Ny),:]=X[1:Ncell*Nx*Ny,:].+(j-1)*cM;
 end
 "Cell finished"
 ```
@@ -170,21 +170,9 @@ end
 
 
 {% highlight julia %}
-# 2D plotter
-pygui(false)
-w, h = plt[:figaspect](1)
-figure(figsize=(w,h))
 scatter(X[:,1],X[:,2])
-{% endhighlight %}
-
-
-{% highlight julia %}
-# 3D plotter
-pygui(false)
-w, h = plt[:figaspect](1)
-figure(figsize=(w,h))
-areas=100*ones(length(X[:,1]))
-scatter3D(X[:,1],X[:,2],X[:,3])
+# scatter(X[:,1],X[:,2],X[:,3])
+plot!(title=lattice,xlabel="X",ylabel="Y",zlabel="Z",legend=false)
 {% endhighlight %}
 
 
