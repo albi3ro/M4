@@ -52,12 +52,9 @@ $$
 
 
 {% highlight julia %}
+using Statistics
 using Plots
-using Colors
-violet=parse(Colorant,"#6c71c4");
-cyan=parse(Colorant,"#3aa198");
-
-plotlyjs()
+gr()
 {% endhighlight %}
 
 We will generate our random numbers on the unit interval.  Thus the radius in our circumstance is $.5$.
@@ -66,19 +63,19 @@ We will generate our random numbers on the unit interval.  Thus the radius in ou
 
 
  ```julia
- function incircle(r2)
-     if r2<.25
-         return true
-     else
-         return false
-     end
- end
+function incircle(r2)
+    if r2<.25 
+        return true
+    else
+        return false
+    end
+end
  ```
 
 
 ```julia
 #The number of darts we will throw at the board.  We will see how accurate different numbers are
-N=round.(Int,10.^(1:.25:4))
+N=[10,25,50,75,100,250,500,750,1000,2500,5000,7500,10000];
 # We will perform each number multiple times in order to calculate error bars
 M=15;
 ```
@@ -87,20 +84,18 @@ M=15;
 ```julia
 πapprox=zeros(Float64,length(N),M);
 
-for ii in 1:length(N)
-    #initialize an array of proper size
-    X=zeros(Float64,N[ii],2);
+for ii in 1:length(N) 
     for jj in 1:M
-
+        
         #popular our array with random numbers on the unit interval
-        rand!(X);
-
+        X=rand(N[ii],2)
+        
         #calculate their radius squared
-        R2=(X[:,1]-.5).^2+(X[:,2]-.5).^2
-
+        R2=(X[:,1].-0.5).^2.0.+(X[:,2].-0.5).^2
+        
         # 4*number in circle / total number
-        πapprox[ii,jj]=4.*length(filter(incircle,R2))/N[ii];
-
+        πapprox[ii,jj]=4.0*length(filter(incircle,R2))/N[ii];
+        
     end
 end
 ```
@@ -108,8 +103,8 @@ end
 
 {% highlight julia %}
 # Get our averages and standard deviations
-πave=sum(πapprox,2)/M;
-πstd=std(πapprox,2);
+πave=mean(πapprox,dims=2);
+πstd=std(πapprox,dims=2);
 {% endhighlight %}
 
 ## Analysis
@@ -118,9 +113,15 @@ So that was a nice, short little piece of code.  Lets plot it now to see means.
 
 
 ```julia
-plot(xlabel="N points",ylabel="π estimate",title="Monte Carlo Estimate of π")
-scatter!(repmat(N,M),reshape(πapprox,195),xscale=:log10,label="Estimates")
-plot!(N,πave,yerr=πstd,xscale=:log10,label="Average of $M")
+plot(N,π*ones(length(N)),xscale=:log10);
+
+for j in 1:M
+    scatter!(N,πapprox[:,j]);
+end
+
+scatter!(N,πave,yerr=πstd)
+plot!(xlabel="Number of Darts",ylabel="π Estimate",
+        title="Monte Carlo Estimate of π",legend=:false)
 ```
 
 <iframe src="/M4/Images/MonteCarlo/pie_estimation.html"  style="border:none; background: #ffffff"
@@ -135,8 +136,11 @@ As we get up to $10^4$, our estimate starts getting much more accurate and consi
 
 
 ```julia
-plot(N,πstd,label="Error",xscale=:log10)
-plot!(xlabel="N points",ylabel="std",title="Dependence of error on number of points")
+plot(N,πstd,xscale=:log10)
+
+plot!(xlabel="N points"
+    ,ylabel="standard deviation"
+    ,title="Dependence of Monte Carlo Error on Number of Points")
 ```
 <iframe src="/M4/Images/MonteCarlo/pie_error.html"  style="border:none; background: #ffffff"
 width="700px" height="450px"></iframe>
@@ -148,20 +152,25 @@ Now lets just make a graphical representation of what we've been doing this whol
 
 
 ```julia
-X=zeros(Float64,1000);
-Y=zeros(Float64,1000);
-rand!(X);
-rand!(Y);
-inside =( (X-.5).^2+(Y-.5).^2 ) .< .25;
+X=rand(1000);
+Y=rand(1000);
+R2=(X.-0.5).^2.0.+(Y.-0.5).^2;
+Xc=[];
+Yc=[]
+for ii in 1:length(X)
+    if R2[ii]<.25
+        push!(Xc,X[ii]);
+        push!(Yc,Y[ii]);
+    end
+end
 ```
 
 
 ```julia
-scatter(X[inside],Y[inside],label="Inside",
-    markercolor=violet)
-scatter!(X[.!inside],Y[.!inside],label="Outside",
-    markercolor=cyan)
-plot!(title="The Dartboard")
+scatter(X,Y)
+scatter!(Xc,Yc)
+plot!(aspect_ratio=1,xlabel="X",ylabel="Y",legend=:false,
+        title="Dartboard")
 ```
 
 <iframe src="/M4/Images/MonteCarlo/dartboard.html"  style="border:none; background: #ffffff"

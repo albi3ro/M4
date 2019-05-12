@@ -24,6 +24,11 @@ Here's the details of the largest spin-chains that fit on my machine which has 1
 
 I have included a file in this directory, ED.jl, that is just the necessary executable parts of this Jupyter notebook.  For large $n$, I recommend running ED.jl.
 
+```julia
+using LinearAlgebra
+```
+
+
 Here, we input one parameter `n`, the number of spins in our chain.
 
 The program automatically calculates the parameter `nstates`.
@@ -35,38 +40,33 @@ nstates=2^n
 ```
 
 
-
-
-    16
-
-
-
 Now, let's write out all of our possible states in the $S^z$ basis.
 
 
 ```julia
-psi=collect(0:(nstates-1))
+psi=convert.(Int8, collect(0:(nstates-1)) )
 for p in psi
-    println(bin(p,n),' ',p)
+    println(bitstring(p)[end-n:end],' ',p)
 end
 ```
 
-    0000 0
-    0001 1
-    0010 2
-    0011 3
-    0100 4
-    0101 5
-    0110 6
-    0111 7
-    1000 8
-    1001 9
-    1010 10
-    1011 11
-    1100 12
-    1101 13
-    1110 14
-    1111 15
+        00000 0
+        00001 1
+        00010 2
+        00011 3
+        00100 4
+        00101 5
+        00110 6
+        00111 7
+        01000 8
+        01001 9
+        01010 10
+        01011 11
+        01100 12
+        01101 13
+        01110 14
+        01111 15
+
 
 
 As in Part 1, we will be using the powers of 2 to compute magnetization, and masks to flip spins.  To not have to calculate them each time, we just store them in memory.
@@ -74,19 +74,21 @@ As in Part 1, we will be using the powers of 2 to compute magnetization, and mas
 
 ```julia
 powers2=collect(0:(n-1));
-powers2=2.^powers2;
+powers2=convert.(Int8, 2.0 .^powers2 );
 
 mask=[0;powers2]+[powers2;0];
-mask=[mask[2:end-1];[1+2^(n-1)]]
+mask=convert.(Int8, [mask[2:end-1];[1+2^(n-1)]])
+
 for m in mask
-    println(bin(m,n))
+    println(bitstring(m)[end-n:end])
 end
 ```
 
-    0011
-    0110
-    1100
-    1001
+        00011
+        00110
+        01100
+        01001
+
 
 
 In Part 1, I used the number of up-spins as a proxy for magnetization.  Here, we need the <i>actual</i> magnetization, not a proxy.  An up-spin is $+1/2$ and a down-spin is $-1/2$.  We modify our magnetization by
@@ -102,33 +104,33 @@ m = n_{\uparrow} - \frac{n}{2}.
 
 
 ```julia
-m=zeros(psi)
+m=zeros(Int8,length(psi))
 for i in 1:nstates
-    m[i]=sum((psi[i]&powers2)./(powers2))
+    m[i]=sum((psi[i].&powers2)./(powers2))
 end
-m=m-n/2
+m=m.-n/2
 ```
 
 
 
 
-    16-element Array{Float64,1}:
-     -2.0
-     -1.0
-     -1.0
-      0.0
-     -1.0
-      0.0
-      0.0
-      1.0
-     -1.0
-      0.0
-      0.0
-      1.0
-      0.0
-      1.0
-      1.0
-      2.0
+        16-element Array{Float64,1}:
+        -2.0
+        -1.0
+        -1.0
+        0.0
+        -1.0
+        0.0
+        0.0
+        1.0
+        -1.0
+        0.0
+        0.0
+        1.0
+        0.0
+        1.0
+        1.0
+        2.0
 
 
 
@@ -141,7 +143,7 @@ Magnetization is a conserved quantity. By Noether's theorem, we know that the Ha
 
 ```julia
 # The possible values for magnetization
-ma=collect(0:1:n)-n/2
+ma=collect(0:1:n).-n/2
 ```
 
 
@@ -166,19 +168,19 @@ mz=3
 # An array of states with the correct magnetization
 psi_mz=psi[m.==ma[mz]]
 
-[psi_mz bin.(psi_mz,n) m[psi_mz+1]]
+[psi_mz bitstring.(psi_mz) m[psi_mz.+1]]
 ```
 
 
 
 
-    6×3 Array{Any,2}:
-      3  "0011"  0.0
-      5  "0101"  0.0
-      6  "0110"  0.0
-      9  "1001"  0.0
-     10  "1010"  0.0
-     12  "1100"  0.0
+        6×3 Array{Any,2}:
+        3  "00000011"  0.0
+        5  "00000101"  0.0
+        6  "00000110"  0.0
+        9  "00001001"  0.0
+        10  "00001010"  0.0
+        12  "00001100"  0.0
 
 
 
@@ -190,7 +192,7 @@ Stuff goes here
 ```julia
 dim=length(psi_mz)
 
-M=ma[mz]*(ma[mz]+1)*eye(Float64,dim,dim)
+M=ma[mz]*(ma[mz]+1)*Matrix{Float64}(I,dim,dim)
 #M=zeros(Float64,dim,dim); use this for XY model
 ```
 
@@ -200,13 +202,13 @@ We can find the index of the flipped state multiple different ways, but the simp
 
 
 ```julia
-function findstate(state::Int,set::Array{Int})
-
+function findstate(state,set)
+    
     #Lower bound of interval
     imin=1
     #Upper bound of interval
     imax=length(set)
-
+    
     # checking if the lower bound is what we are looking for
     if set[imin] == state
         return imin
@@ -215,15 +217,15 @@ function findstate(state::Int,set::Array{Int})
     if set[imax] == state
         return imax
     end
-
+    
     # Initializing variables
     # looking to see if we've found it yet
     found=false
     # how many times we've gone around the while loop
     count=0
-
+    
     while found==false && count < length(set)
-
+        
         count+=1
         tester=floor(Int,imin+(imax-imin)/2)
 
@@ -236,22 +238,15 @@ function findstate(state::Int,set::Array{Int})
             return tester
         end
     end
-
+    
     if found == false
         println("findstate never found a match")
         println("Are you sure the state is in that Array?")
     end
-
+    
     return 0
 end
 ```
-
-
-
-
-    findstate (generic function with 1 method)
-
-
 
 Now time to generate the matrix.
 
@@ -263,39 +258,40 @@ In this algorithm, we do end up going over each pair twice, but I have yet to fi
 
 
 ```julia
-mp=sum(psi_mz[1]&powers2./powers2)
+mp=sum(psi_mz[1].&powers2./powers2)
 
 for ii in 1:length(psi_mz)
     p=psi_mz[ii]
     for jj in 1:n
-        flipped=p$mask[jj]
-        if sum((flipped&powers2)./powers2) == mp
+        flipped=p⊻mask[jj]
+        if sum((flipped.&powers2)./powers2) == mp
             tester=findstate(flipped,psi_mz)
             M[ii,tester]=.5
             M[tester,ii]=.5
-            println(bin(p,n),'\t',bin(flipped,n))
+            println(bitstring(p)[end-n:end],'\t',bitstring(flipped)[end-n:end])
         end
-
+            
     end
 end
 ```
 
-    0011	0101
-    0011	1010
-    0101	0110
-    0101	0011
-    0101	1001
-    0101	1100
-    0110	0101
-    0110	1010
-    1001	1010
-    1001	0101
-    1010	1001
-    1010	1100
-    1010	0110
-    1010	0011
-    1100	1010
-    1100	0101
+        00011	00101
+        00011	01010
+        00101	00110
+        00101	00011
+        00101	01001
+        00101	01100
+        00110	00101
+        00110	01010
+        01001	01010
+        01001	00101
+        01010	01001
+        01010	01100
+        01010	00110
+        01010	00011
+        01100	01010
+        01100	00101
+
 
 
 
@@ -318,36 +314,30 @@ M
 
 
 ```julia
-F=eigfact(M)
-display(F[:values])
-display(F[:vectors])
+F=eigen(M)
+display(F.values)
+display(F.vectors)
 ```
 
 
-    6-element Array{Float64,1}:
-     -1.41421
-      0.0
-      0.0
-      0.0
-      1.9984e-15
-      1.41421
+        6-element Array{Float64,1}:
+        -1.4142135623730943    
+        0.0                   
+        0.0                   
+        0.0                   
+        1.9984014443252818e-15
+        1.414213562373095     
 
-
-
-    6×6 Array{Float64,2}:
-      0.353553   0.0       -0.211325   0.788675  -0.288675    -0.353553
-     -0.5        0.707107   0.0        0.0       -5.1279e-16  -0.5
-      0.353553   0.0        0.788675  -0.211325  -0.288675    -0.353553
-      0.353553   0.0       -0.57735   -0.57735   -0.288675    -0.353553
-     -0.5       -0.707107   0.0        0.0       -5.1279e-16  -0.5
-      0.353553   0.0        0.0        0.0        0.866025    -0.353553
+        6×6 Array{Float64,2}:
+        0.353553   0.0       -0.211325   0.788675  -0.288675    -0.353553
+        -0.5        0.707107   0.0        0.0       -5.1279e-16  -0.5     
+        0.353553   0.0        0.788675  -0.211325  -0.288675    -0.353553
+        0.353553   0.0       -0.57735   -0.57735   -0.288675    -0.353553
+        -0.5       -0.707107   0.0        0.0       -5.1279e-16  -0.5     
+        0.353553   0.0        0.0        0.0        0.866025    -0.353553
 
 
 Now we have eigenvalues and eigenvectors! You just solved the Heisenburg Spin Chain!
 
 In my next post, I will analyze what this tells us about the system and what we can do with the information.
 
-
-```julia
-
-```

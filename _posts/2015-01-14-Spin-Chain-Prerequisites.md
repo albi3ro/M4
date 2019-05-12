@@ -149,12 +149,6 @@ nstates=2^n
 ```
 
 
-
-
-    16
-
-
-
 Exact Diagonalization is often memory limited.  Thus we want to represent our states in the most compact format possible.  Luckily, if we are dealing with spin $\frac{1}{2}$, we can just use the `0`'s ,$\mid \downarrow \rangle $ , and `1`'s, $\mid \uparrow \rangle $,  of the machine.  If you are dealing with higher spin, you can use base 3, 4, etc...  Part of the reason I needed to create this separate post was to examine working with binary data.
 
 We will keep our states stored as Int, but Julia has operations we can perform to look at the binary format and change the bits.
@@ -162,51 +156,53 @@ We will keep our states stored as Int, but Julia has operations we can perform t
 
 ```julia
 # psi is an array of all our wavefunctions
-psi=collect(0:(nstates-1))
+psi=convert.(Int8,collect(0:(nstates-1)) )
 
 # Lets look at each state both in binary and base 10
 println("binary form \t integer")
 for p in psi
-    println(bin(p,n),"\t\t ",p)
+    println(bitstring(p)[end-n:end],"\t\t ",p)
 end
 ```
 
-    binary form 	 integer
-    0000		 0
-    0001		 1
-    0010		 2
-    0011		 3
-    0100		 4
-    0101		 5
-    0110		 6
-    0111		 7
-    1000		 8
-    1001		 9
-    1010		 10
-    1011		 11
-    1100		 12
-    1101		 13
-    1110		 14
-    1111		 15
+      binary form 	 integer
+      00000		 0
+      00001		 1
+      00010		 2
+      00011		 3
+      00100		 4
+      00101		 5
+      00110		 6
+      00111		 7
+      01000		 8
+      01001		 9
+      01010		 10
+      01011		 11
+      01100		 12
+      01101		 13
+      01110		 14
+      01111		 15
+
 
 
 Because we will be using the powers of $2$ frequently in our calculations, we will store all them in an array. They are our placeholders, like $1,10,100,...$
 
 
 ```julia
-powers2=2.^collect(0:(n-1))
+powers2=convert.(Int8, 2.0 .^collect(0:(n-1)) )
 
 println("binary form \t integer")
 for p in powers2
-    println(bin(p,n),"\t\t ",p)
+    println(bitstring(p)[end-n:end],"\t\t ",p)
 end
 ```
 
-    binary form 	 integer
-    0001		 1
-    0010		 2
-    0100		 4
-    1000		 8
+      binary form 	 integer
+      00001		 1
+      00010		 2
+      00100		 4
+      01000		 8
+
 
 
 ### & And Operation and Computing Magnetization
@@ -254,45 +250,46 @@ We will use this to compute magnetization.
 
 
 ```julia
-println(bin(1,4),"\t", bin(3,4),"\t", bin(1&3,4))
+println(bitstring(1)[end-2:end],"\t", 
+    bitstring(3)[end-2:end],"\t", bitstring(1&3)[end-2:end])
 ```
 
-    0001	0011	0001
+    001	011	001
 
 
 
 ```julia
 #initializing the magnetization array
-m=zeros(psi)
+m=zeros(length(psi))
 
 println("String \tp&powers2 \tNormed \t\tMagentization")
 for i in 1:length(psi)
-
+    
     #Writing the magnetization
-    m[i]=sum(round(Int,(psi[i]&powers2)./powers2))
-
-    println(bin(psi[i],n),"\t",psi[i]&powers2,"\t"
-    ,round(Int,(psi[i]&powers2)./powers2),"\t",m[i])
+    m[i]=sum(round.(Int,(psi[i].&powers2)./powers2))
+    
+    println(bitstring(psi[i])[end-n:end],"\t",psi[i].&powers2,"\t"
+    ,round.(Int,(psi[i].&powers2)./powers2),"\t",m[i]) 
 end
 ```
 
-    String 	p&powers2 	Normed 		Magentization
-    0000	[0,0,0,0]	[0,0,0,0]	0
-    0001	[1,0,0,0]	[1,0,0,0]	1
-    0010	[0,2,0,0]	[0,1,0,0]	1
-    0011	[1,2,0,0]	[1,1,0,0]	2
-    0100	[0,0,4,0]	[0,0,1,0]	1
-    0101	[1,0,4,0]	[1,0,1,0]	2
-    0110	[0,2,4,0]	[0,1,1,0]	2
-    0111	[1,2,4,0]	[1,1,1,0]	3
-    1000	[0,0,0,8]	[0,0,0,1]	1
-    1001	[1,0,0,8]	[1,0,0,1]	2
-    1010	[0,2,0,8]	[0,1,0,1]	2
-    1011	[1,2,0,8]	[1,1,0,1]	3
-    1100	[0,0,4,8]	[0,0,1,1]	2
-    1101	[1,0,4,8]	[1,0,1,1]	3
-    1110	[0,2,4,8]	[0,1,1,1]	3
-    1111	[1,2,4,8]	[1,1,1,1]	4
+      String 	p&powers2 	Normed 		Magentization
+      00000	Int8[0, 0, 0, 0]	[0, 0, 0, 0]	0.0
+      00001	Int8[1, 0, 0, 0]	[1, 0, 0, 0]	1.0
+      00010	Int8[0, 2, 0, 0]	[0, 1, 0, 0]	1.0
+      00011	Int8[1, 2, 0, 0]	[1, 1, 0, 0]	2.0
+      00100	Int8[0, 0, 4, 0]	[0, 0, 1, 0]	1.0
+      00101	Int8[1, 0, 4, 0]	[1, 0, 1, 0]	2.0
+      00110	Int8[0, 2, 4, 0]	[0, 1, 1, 0]	2.0
+      00111	Int8[1, 2, 4, 0]	[1, 1, 1, 0]	3.0
+      01000	Int8[0, 0, 0, 8]	[0, 0, 0, 1]	1.0
+      01001	Int8[1, 0, 0, 8]	[1, 0, 0, 1]	2.0
+      01010	Int8[0, 2, 0, 8]	[0, 1, 0, 1]	2.0
+      01011	Int8[1, 2, 0, 8]	[1, 1, 0, 1]	3.0
+      01100	Int8[0, 0, 4, 8]	[0, 0, 1, 1]	2.0
+      01101	Int8[1, 0, 4, 8]	[1, 0, 1, 1]	3.0
+      01110	Int8[0, 2, 4, 8]	[0, 1, 1, 1]	3.0
+      01111	Int8[1, 2, 4, 8]	[1, 1, 1, 1]	4.0
 
 
 ## Masks and Permuting Indices
@@ -301,33 +298,37 @@ The off diagonal, ladder, elements of the Hamiltonian are the permutation of two
 
 
 ```julia
-mask=3
+mask=Int8(3)
 testp=1
 println("Mask \ttest \tmasked test")
-println(bin(mask,2),'\t',bin(testp,2),'\t',bin(testp$mask,2))
+println(bitstring(mask)[end-2:end],'\t',bitstring(testp)[end-2:end]
+    ,'\t',bitstring(testp⊻mask)[end-2:end])
 ```
 
     Mask 	test 	masked test
-    11	01	10
+    011	001	010
 
 
 But the mask 3 aka 11 only switches the spins in the first two positions.  I need to switch spins in any two adjacent locations.  I create this by summing together padded powers of two in order to get the 11 in the correct location.
 
 
 ```julia
-mask=[0;powers2]+[powers2;0]
+mask=convert.(Int8,[0;powers2]+[powers2;0])
 mask=mask[2:end-1]
 
 println("Mask base10 \tMask Binary \tSummed from")
 for i in 1:length(mask)
-    println(mask[i],"\t\t",bin(mask[i],n),"\t\t",bin(powers2[i],n),"\t",bin(powers2[i+1],n))
+    println(mask[i],"\t\t",bitstring(mask[i])[end-n:end],"\t\t",
+        bitstring(powers2[i])[end-n:end],"\t",
+        bitstring(powers2[i+1])[end-n:end])
 end
 ```
 
     Mask base10 	Mask Binary 	Summed from
-    3		0011		0001	0010
-    6		0110		0010	0100
-    12		1100		0100	1000
+    3		00011		00001	00010
+    6		00110		00010	00100
+    12		01100		00100	01000
+
 
 
 So now lets test how the first of our three masks behaves:
@@ -337,32 +338,35 @@ We know that if the mask changes a 01 for a 10, or vice versa, that the overall 
 ```julia
 println("Psi \tPsi \tMasked \t Masked\t \tmPsi  \tmMasked")
 for p in psi
-    if m[p+1]==m[p$mask[1]+1]
-        println("  ",p,"\t  ",bin(p,n),"\t  ",p $ mask[1],"\t  ",bin(p$mask[1],n),"\t\t  ",m[p+1],"\t  ",m[p$mask[1]+1])
+    if m[p+1]==m[p.⊻mask[1]+1]
+        println("  ",p,"\t  ",bitstring(p)[end-n:end],"\t  ",
+            p.⊻mask[1],"\t  ",bitstring(p.⊻mask[1])[end-n:end],
+            "\t\t  ",m[p+1],"\t  ",m[p.⊻mask[1]+1]) 
     else
-        println(p,'\t',bin(p,n),'\t',p $ mask[1],'\t',bin(p$mask[1],n),"\t\t",m[p+1],"\t",m[p$mask[1]+1])
+        println(p,'\t',bitstring(p)[end-n:end],'\t',
+            p.⊻mask[1],'\t',bitstring(p.⊻mask[1])[end-n:end],
+            "\t\t",m[p+1],"\t",m[p.⊻mask[1]+1]) 
     end
 end
 ```
 
-    Psi 	Psi 	Masked 	 Masked	 	mPsi  	mMasked
-    0	0000	3	0011		0	2
-      1	  0001	  2	  0010		  1	  1
-      2	  0010	  1	  0001		  1	  1
-    3	0011	0	0000		2	0
-    4	0100	7	0111		1	3
-      5	  0101	  6	  0110		  2	  2
-      6	  0110	  5	  0101		  2	  2
-    7	0111	4	0100		3	1
-    8	1000	11	1011		1	3
-      9	  1001	  10	  1010		  2	  2
-      10	  1010	  9	  1001		  2	  2
-    11	1011	8	1000		3	1
-    12	1100	15	1111		2	4
-      13	  1101	  14	  1110		  3	  3
-      14	  1110	  13	  1101		  3	  3
-    15	1111	12	1100		4	2
-
+      Psi 	Psi 	Masked 	 Masked	 	mPsi  	mMasked
+      0	00000	3	00011		0.0	2.0
+        1	  00001	  2	  00010		  1.0	  1.0
+        2	  00010	  1	  00001		  1.0	  1.0
+      3	00011	0	00000		2.0	0.0
+      4	00100	7	00111		1.0	3.0
+        5	  00101	  6	  00110		  2.0	  2.0
+        6	  00110	  5	  00101		  2.0	  2.0
+      7	00111	4	00100		3.0	1.0
+      8	01000	11	01011		1.0	3.0
+        9	  01001	  10	  01010		  2.0	  2.0
+        10	  01010	  9	  01001		  2.0	  2.0
+      11	01011	8	01000		3.0	1.0
+      12	01100	15	01111		2.0	4.0
+        13	  01101	  14	  01110		  3.0	  3.0
+        14	  01110	  13	  01101		  3.0	  3.0
+      15	01111	12	01100		4.0	2.0
 
 Now let's try the same thing, but for the second mask.  This changes the second and third spin.
 
@@ -370,31 +374,36 @@ Now let's try the same thing, but for the second mask.  This changes the second 
 ```julia
 println("Psi \tPsi \tMasked \t Masked\t \tmPsi  \tmMasked")
 for p in psi
-    if m[p+1]==m[p$mask[2]+1]
-        println("  ",p,"\t  ",bin(p,n),"\t  ",p $ mask[2],"\t  ",bin(p$mask[2],n),"\t\t  ",m[p+1],"\t  ",m[p$mask[2]+1])
+    if m[p+1]==m[p.⊻mask[2]+1]
+        println("  ",p,"\t  ",bitstring(p)[end-n:end],"\t  ",
+            p .⊻ mask[2],"\t  ",bitstring(p.⊻mask[2])[end-n:end],
+            "\t\t  ",m[p+1],"\t  ",m[p.⊻mask[2]+1]) 
     else
-        println(p,'\t',bin(p,n),'\t',p $ mask[2],'\t',bin(p$mask[2],n),"\t\t",m[p+1],"\t",m[p$mask[2]+1])
+        println(p,'\t',bitstring(p)[end-n:end],'\t',
+            p .⊻ mask[2],'\t',bitstring(p.⊻mask[2])[end-n:end],
+            "\t\t",m[p+1],"\t",m[p.⊻mask[2]+1]) 
     end
 end
 ```
 
-    Psi 	Psi 	Masked 	 Masked	 	mPsi  	mMasked
-    0	0000	6	0110		0	2
-    1	0001	7	0111		1	3
-      2	  0010	  4	  0100		  1	  1
-      3	  0011	  5	  0101		  2	  2
-      4	  0100	  2	  0010		  1	  1
-      5	  0101	  3	  0011		  2	  2
-    6	0110	0	0000		2	0
-    7	0111	1	0001		3	1
-    8	1000	14	1110		1	3
-    9	1001	15	1111		2	4
-      10	  1010	  12	  1100		  2	  2
-      11	  1011	  13	  1101		  3	  3
-      12	  1100	  10	  1010		  2	  2
-      13	  1101	  11	  1011		  3	  3
-    14	1110	8	1000		3	1
-    15	1111	9	1001		4	2
+      Psi 	Psi 	Masked 	 Masked	 	mPsi  	mMasked
+      0	00000	6	00110		0.0	2.0
+      1	00001	7	00111		1.0	3.0
+        2	  00010	  4	  00100		  1.0	  1.0
+        3	  00011	  5	  00101		  2.0	  2.0
+        4	  00100	  2	  00010		  1.0	  1.0
+        5	  00101	  3	  00011		  2.0	  2.0
+      6	00110	0	00000		2.0	0.0
+      7	00111	1	00001		3.0	1.0
+      8	01000	14	01110		1.0	3.0
+      9	01001	15	01111		2.0	4.0
+        10	  01010	  12	  01100		  2.0	  2.0
+        11	  01011	  13	  01101		  3.0	  3.0
+        12	  01100	  10	  01010		  2.0	  2.0
+        13	  01101	  11	  01011		  3.0	  3.0
+      14	01110	8	01000		3.0	1.0
+      15	01111	9	01001		4.0	2.0
+
 
 
 That's it for background.  
