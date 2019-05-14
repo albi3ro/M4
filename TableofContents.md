@@ -7,7 +7,7 @@
 # Prerequisites
 * Quantum Mechanics
     * Atomic Orbitals
-    * Atomic Orbitals 2
+    * Atomic Orbitals 2 -NOT UPDATING
     * QHO - Quantum Harmonic Osscillator
     * Time Evolution
     * Imaginary Time Evolution
@@ -40,5 +40,5 @@
 
 # Programming
 * HDF5 in Julia
-* Gadfly
-* Julia with MKL on OSX
+* Gadfly -NOT UPDATING
+* Julia with MKL on OSX -NO LONGER APPLICABLE
