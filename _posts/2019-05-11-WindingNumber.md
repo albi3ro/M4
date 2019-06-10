@@ -46,7 +46,13 @@ The chemical under doping has high electrical conductivity, opened the entire fi
 
 {% include image.html img="M4/Images/SSH/chemstruct.png" title="trans-polyacetylene" caption=""%}
 
-Scary Organic Chemistry stuff... but all we really need to learn from that picture is that we have two different types on bonds, single bonds and double bonds, alternating along one dimension. These different bonds correspond to different transition probabilities for a particle hopping along a line.
+Scary Organic Chemistry stuff... and due to my lack of understand Organic Chemistry stuff, I actually understood the physical situation wrong for a while, but now let me take a crack at explaining what I think is actually the case.  
+
+Though just the plain <i>positions</i> of the atoms are translationally symmetric with a period of one, due to [Pereils instability in 1D](https://en.wikipedia.org/wiki/Peierls_transition) the bonds break into having a translational period of <b>2</b>.  This gives a degeneracy in the ground state.  The way the structure is tiled with "single-bond"--"double-bond" could just be shifted by one site, giving an equally viable chemical structure.  
+
+Now we have regions of uniform tiling and boundaries between them.  The boundaries then act like solitons with certain transitions probabilities to move around.  We are looking at the Hamiltonian that describes how this boundary soliton moves.
+
+All we really need to know is we have a particle free to move in one dimension, with different transition probabilities depending on the type of bond.  For the technical history, see [4], [5], [6]. [6] makes the most sense.
 
 {% include image.html img="M4/Images/SSH/ssh_hopping.svg" title="hopping on 1D chain" caption=""%}
 
@@ -388,4 +394,10 @@ The Su-Schrieffer-Heeger model exhibits two different topological phases.
 
 [3] https://www.nobelprize.org/prizes/chemistry/2000/popular-information/
 
-http://paletton.com/#uid=31b0J0kllll8rOUeTt+rNcHBJ42
+[4] Su, W-P_, J. R. Schrieffer, and A. J. Heeger. "Soliton excitations in polyacetylene." Physical Review B 22.4 (1980): 2099.
+
+[5] Heeger, Alan J., et al. "Solitons in conducting polymers." Reviews of Modern Physics 60.3 (1988): 781.
+
+[6] Takayama, Hajime, Yo R. Lin-Liu, and Kazumi Maki. "Continuum model for solitons in polyacetylene." Physical Review B 21.6 (1980): 2388.
+
+[7] Meier, E. J. et al. Observation of the topological soliton state in the Su-Schrieffer-Heeger model. Nat. Commun. 7, 13986 doi: 10.1038/ncomms13986 (2016)
