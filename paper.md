@@ -7,7 +7,12 @@ tags:
 authors:
 - name: Christina Colleen Lee
   orchid: 0000-0002-2127-8453
+  affiliation: 1
+affiliations:
+- name:  Independent Researcher
+  index: 1
 date: 09 June 2019
+bibliography: bibliography.bib
 ---
 
 # Summary
