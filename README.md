@@ -5,7 +5,7 @@
 
 ### Check out http://albi3ro.github.io/M4/ to get the static website version of these jupyter notebooks.
 
-
+[![status](http://jose.theoj.org/papers/f84b319959fff4dcab2da564579512cc/status.svg)](http://jose.theoj.org/papers/f84b319959fff4dcab2da564579512cc)
 
 I vary the level from undergraduate physics major to graduate student in the field.  I still encourage the curious layperson to peruse.  So you know what you are getting yourself into, I've developed a difficulty ranking scheme:
 
@@ -28,18 +28,32 @@ To use JuliaBox (the easiest option), log in with a Google account, and then cli
 
 Check out http://julialang.org/ for documentation on this new and exciting language, and learn how to install it on your own machine.
 
-### Introductory note on packages
-Many times I will use extra packages developed for Julia, such as for plotting functionality. If you are using the package for the first time on your machine, you will need to evaluate 
+### Packages
+
+Many times I will use extra packages developed for Julia, such as for plotting functionality. The file Project.toml file specifies all explicitly required packages used, and Manifest.toml lists dependencies as well.  To install all the required packages for use in this folder:
+
+* ``cd`` to the project directory
+* Enter a Julia REPL
+* Enter Package Mode by pressing `]`
+* Type the following instructions
+
+```julia
+(v1.0) pkg> activate .
+(M4)   pkg> instantiate 
+
+```
+* Exit Package mode with backspace
+
+If you don't want to use an REPL Package `]` mode, you can also add packages individually  with the commands
 
 ```julia
     using Pkg
     Pkg.add("pkgname")
-    using pkgname
 ```
 
-If you are using JuliaBox, you will need to evaluate the those lines each time.
+See more at the [Pkg documentation](https://julialang.github.io/Pkg.jl/v1/environments/#Using-someone-else's-project-1).
 
-You can also install a package at the REPL (Read Evaluate Print Loop) before entering a Jupiter notebook.  Enter the Package Management Mode by entering `[`.  In this mode, you can simply type `add pkgname`.  
+If you are using JuliaBox, you will need to evaluate the those lines each time.
 
 [Plots.jl](https://github.com/JuliaPlots/Plots.jl), the plotting utility I prefer, calls to other plotting packges, which also need to be installed.  I prefer [GR.jl](https://github.com/jheinen/GR.jl) or [PlotlyJS.jl](https://github.com/sglyon/PlotlyJS.jl), though PlotlyJS doesn't seem to be working anymore.
 
