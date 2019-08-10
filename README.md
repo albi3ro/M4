@@ -28,7 +28,7 @@ To use JuliaBox (the easiest option), log in with a Google account, and then cli
 
 ![The JuliaBox launch page](images/juliabox.png)
 
-Under the Github directory, input the clone https://github.com/albi3ro/M4.git , use branch master, and name the folder as you see fit.
+Under the Github directory, input the clone https://github.com/albi3ro/M4.git , use branch master, and name the folder as you see fit. If this isn't working automatically, you may need to link an SSH key between your JuliaBox account and Github account.  Basically, copy and paste the big, ugly number from the JuliaBox settings into your [Github Settings](https://github.com/settings/keys).
 
 Check out http://julialang.org/ for documentation on this new and exciting language, and learn how to install it on your own machine.
 
