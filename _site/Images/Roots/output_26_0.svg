@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
+<defs>
+  <clipPath id="clip7300">
+    <rect x="0" y="0" width="2000" height="2000"/>
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id="clip7301">
+    <rect x="0" y="0" width="2400" height="1600"/>
+  </clipPath>
+</defs>
+<polygon clip-path="url(#clip7301)" points="
+0,1600 2400,1600 2400,0 0,0 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip7302">
+    <rect x="480" y="0" width="1681" height="1600"/>
+  </clipPath>
+</defs>
+<polygon clip-path="url(#clip7301)" points="
+212.353,1440.48 2321.26,1440.48 2321.26,125.984 212.353,125.984 
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip7303">
+    <rect x="212" y="125" width="2110" height="1315"/>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,1440.48 212.353,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  513.625,1440.48 513.625,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  814.898,1440.48 814.898,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1116.17,1440.48 1116.17,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1417.44,1440.48 1417.44,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1718.71,1440.48 1718.71,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2019.99,1440.48 2019.99,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2321.26,1440.48 2321.26,125.984 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,1440.48 2321.26,1440.48 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,1221.4 2321.26,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,1002.32 2321.26,1002.32 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,783.233 2321.26,783.233 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,564.15 2321.26,564.15 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,345.067 2321.26,345.067 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  212.353,125.984 2321.26,125.984 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,1440.48 2321.26,1440.48 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,1440.48 212.353,125.984 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,1440.48 212.353,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  513.625,1440.48 513.625,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  814.898,1440.48 814.898,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1116.17,1440.48 1116.17,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1417.44,1440.48 1417.44,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1718.71,1440.48 1718.71,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2019.99,1440.48 2019.99,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2321.26,1440.48 2321.26,1420.77 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,1440.48 243.986,1440.48 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,1221.4 243.986,1221.4 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,1002.32 243.986,1002.32 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,783.233 243.986,783.233 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,564.15 243.986,564.15 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,345.067 243.986,345.067 
+  "/>
+<polyline clip-path="url(#clip7301)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,125.984 243.986,125.984 
+  "/>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 212.353, 1494.48)" x="212.353" y="1494.48">-0.5</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 513.625, 1494.48)" x="513.625" y="1494.48">0.0</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 814.898, 1494.48)" x="814.898" y="1494.48">0.5</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1116.17, 1494.48)" x="1116.17" y="1494.48">1.0</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1417.44, 1494.48)" x="1417.44" y="1494.48">1.5</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1718.71, 1494.48)" x="1718.71" y="1494.48">2.0</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2019.99, 1494.48)" x="2019.99" y="1494.48">2.5</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2321.26, 1494.48)" x="2321.26" y="1494.48">3.0</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 1457.98)" x="188.353" y="1457.98">-1</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 1238.9)" x="188.353" y="1238.9">0</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 1019.82)" x="188.353" y="1019.82">1</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 800.733)" x="188.353" y="800.733">2</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 581.65)" x="188.353" y="581.65">3</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 362.567)" x="188.353" y="362.567">4</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 188.353, 143.484)" x="188.353" y="143.484">5</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:84px; text-anchor:middle;" transform="rotate(0, 1266.81, 73.2)" x="1266.81" y="73.2">Newton-Raphson Cycle</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(0, 1266.81, 1590.4)" x="1266.81" y="1590.4">x</text>
+</g>
+<g clip-path="url(#clip7301)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:66px; text-anchor:middle;" transform="rotate(-90, 57.6, 783.233)" x="57.6" y="783.233">y</text>
+</g>
+<polyline clip-path="url(#clip7303)" style="stroke:#009af9; stroke-width:4; stroke-opacity:1; fill:none" points="
+  212.353,591.536 218.378,594.307 224.404,597.143 230.429,600.041 236.455,603.002 242.48,606.023 248.505,609.103 254.531,612.241 260.556,615.435 266.582,618.685 
+  272.607,621.988 278.633,625.344 284.658,628.752 290.684,632.209 296.709,635.715 302.734,639.268 308.76,642.868 314.785,646.512 320.811,650.199 326.836,653.929 
+  332.862,657.699 338.887,661.508 344.913,665.356 350.938,669.241 356.964,673.161 362.989,677.115 369.014,681.102 375.04,685.121 381.065,689.17 387.091,693.247 
+  393.116,697.353 399.142,701.485 405.167,705.641 411.193,709.822 417.218,714.024 423.243,718.248 429.269,722.491 435.294,726.753 441.32,731.032 447.345,735.327 
+  453.371,739.636 459.396,743.958 465.422,748.292 471.447,752.637 477.472,756.991 483.498,761.353 489.523,765.721 495.549,770.094 501.574,774.472 507.6,778.852 
+  513.625,783.233 519.651,787.615 525.676,791.995 531.702,796.372 537.727,800.746 543.752,805.114 549.778,809.476 555.803,813.83 561.829,818.175 567.854,822.509 
+  573.88,826.831 579.905,831.14 585.931,835.435 591.956,839.714 597.981,843.976 604.007,848.219 610.032,852.443 616.058,856.645 622.083,860.826 628.109,864.982 
+  634.134,869.114 640.16,873.219 646.185,877.297 652.211,881.346 658.236,885.365 664.261,889.352 670.287,893.306 676.312,897.226 682.338,901.111 688.363,904.958 
+  694.389,908.768 700.414,912.538 706.44,916.268 712.465,919.955 718.49,923.599 724.516,927.198 730.541,930.752 736.567,934.258 742.592,937.715 748.618,941.122 
+  754.643,944.479 760.669,947.782 766.694,951.032 772.719,954.226 778.745,957.364 784.77,960.444 790.796,963.465 796.821,966.426 802.847,969.324 808.872,972.16 
+  814.898,974.931 820.923,977.637 826.949,980.275 832.974,982.845 838.999,985.345 845.025,987.775 851.05,990.132 857.076,992.415 863.101,994.624 869.127,996.756 
+  875.152,998.811 881.178,1000.79 887.203,1002.68 893.228,1004.5 899.254,1006.23 905.279,1007.88 911.305,1009.44 917.33,1010.91 923.356,1012.3 929.381,1013.6 
+  935.407,1014.8 941.432,1015.92 947.458,1016.94 953.483,1017.87 959.508,1018.7 965.534,1019.43 971.559,1020.07 977.585,1020.6 983.61,1021.04 989.636,1021.37 
+  995.661,1021.6 1001.69,1021.72 1007.71,1021.73 1013.74,1021.64 1019.76,1021.44 1025.79,1021.13 1031.81,1020.71 1037.84,1020.17 1043.86,1019.52 1049.89,1018.75 
+  1055.92,1017.87 1061.94,1016.87 1067.97,1015.75 1073.99,1014.51 1080.02,1013.14 1086.04,1011.65 1092.07,1010.04 1098.09,1008.3 1104.12,1006.44 1110.14,1004.44 
+  1116.17,1002.32 1122.2,1000.06 1128.22,997.67 1134.25,995.147 1140.27,992.488 1146.3,989.692 1152.32,986.758 1158.35,983.685 1164.37,980.471 1170.4,977.116 
+  1176.42,973.617 1182.45,969.973 1188.48,966.184 1194.5,962.247 1200.53,958.162 1206.55,953.927 1212.58,949.54 1218.6,945.002 1224.63,940.309 1230.65,935.461 
+  1236.68,930.457 1242.7,925.295 1248.73,919.975 1254.76,914.493 1260.78,908.85 1266.81,903.044 1272.83,897.074 1278.86,890.938 1284.88,884.636 1290.91,878.165 
+  1296.93,871.524 1302.96,864.712 1308.98,857.729 1315.01,850.571 1321.04,843.239 1327.06,835.731 1333.09,828.046 1339.11,820.181 1345.14,812.137 1351.16,803.911 
+  1357.19,795.502 1363.21,786.909 1369.24,778.131 1375.26,769.167 1381.29,760.014 1387.32,750.672 1393.34,741.14 1399.37,731.415 1405.39,721.498 1411.42,711.385 
+  1417.44,701.077 1423.47,690.572 1429.49,679.868 1435.52,668.965 1441.54,657.86 1447.57,646.553 1453.6,635.042 1459.62,623.326 1465.65,611.404 1471.67,599.274 
+  1477.7,586.935 1483.72,574.386 1489.75,561.625 1495.77,548.651 1501.8,535.463 1507.82,522.059 1513.85,508.438 1519.88,494.6 1525.9,480.541 1531.93,466.262 
+  1537.95,451.761 1543.98,437.036 1550,422.086 1556.03,406.911 1562.05,391.508 1568.08,375.876 1574.1,360.014 1580.13,343.921 1586.16,327.595 1592.18,311.035 
+  1598.21,294.24 1604.23,277.208 1610.26,259.939 1616.28,242.43 1622.31,224.68 1628.33,206.689 1634.36,188.454 1640.38,169.975 1646.41,151.251 1652.44,132.279 
+  1658.46,113.058 1664.49,93.5882 1670.51,73.867 1676.54,53.8934 1682.56,33.6662 1688.59,13.1839 1694.61,-7.55476 1700.64,-28.551 1706.66,-49.8062 1712.69,-71.3217 
+  1718.71,-93.0988 1724.74,-115.139 1730.77,-137.443 1736.79,-160.013 1742.82,-182.849 1748.84,-205.954 1754.87,-229.328 1760.89,-252.973 1766.92,-276.89 1772.94,-301.081 
+  1778.97,-325.546 1784.99,-350.287 1791.02,-375.306 1797.05,-400.603 1803.07,-426.18 1809.1,-452.039 1815.12,-478.18 1821.15,-504.605 1827.17,-531.316 1833.2,-558.313 
+  1839.22,-585.598 1845.25,-613.172 1851.27,-641.036 1857.3,-669.192 1863.33,-697.642 1869.35,-726.386 1875.38,-755.425 1881.4,-784.762 1887.43,-814.397 1893.45,-844.332 
+  1899.48,-874.568 1905.5,-905.106 1911.53,-935.948 1917.55,-967.095 1923.58,-998.548 1929.61,-1030.31 1935.63,-1062.38 1941.66,-1094.76 1947.68,-1127.45 1953.71,-1160.45 
+  1959.73,-1193.77 1965.76,-1227.41 1971.78,-1261.36 1977.81,-1295.63 1983.83,-1330.21 1989.86,-1365.12 1995.89,-1400.35 2001.91,-1435.91 2007.94,-1471.79 2013.96,-1507.99 
+  2019.99,-1544.52 2026.01,-1581.39 2032.04,-1618.58 2038.06,-1656.1 2044.09,-1693.95 2050.11,-1732.14 2056.14,-1770.67 2062.17,-1809.53 2068.19,-1848.72 2074.22,-1888.26 
+  2080.24,-1928.14 2086.27,-1968.36 2092.29,-2008.92 2098.32,-2049.83 2104.34,-2091.08 2110.37,-2132.68 2116.39,-2174.63 2122.42,-2216.93 2128.45,-2259.57 2134.47,-2302.58 
+  2140.5,-2345.93 2146.52,-2389.64 2152.55,-2433.71 2158.57,-2478.13 2164.6,-2522.91 2170.62,-2568.05 2176.65,-2613.56 2182.67,-2659.42 2188.7,-2705.65 2194.73,-2752.25 
+  2200.75,-2799.21 2206.78,-2846.54 2212.8,-2894.24 2218.83,-2942.31 2224.85,-2990.76 2230.88,-3039.57 2236.9,-3088.77 2242.93,-3138.33 2248.95,-3188.28 2254.98,-3238.6 
+  2261.01,-3289.3 2267.03,-3340.39 2273.06,-3391.85 2279.08,-3443.7 2285.11,-3495.94 2291.13,-3548.56 2297.16,-3601.57 2303.18,-3654.97 2309.21,-3708.76 2315.23,-3762.94 
+  2321.26,-3817.51 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#e26f46; stroke-width:4; stroke-opacity:1; fill:none" points="
+  -210678,1221.4 213212,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#040313; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1146.3,989.692 658.904,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#040313; stroke-width:8; stroke-opacity:1; fill:none" points="
+  658.904,1221.4 658.904,885.808 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#0c0727; stroke-width:8; stroke-opacity:1; fill:none" points="
+  658.904,885.808 1164.48,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#0c0727; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1164.48,1221.4 1164.48,980.414 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#160b39; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1164.48,980.414 722.722,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#160b39; stroke-width:8; stroke-opacity:1; fill:none" points="
+  722.722,1221.4 722.722,926.131 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#240b4e; stroke-width:8; stroke-opacity:1; fill:none" points="
+  722.722,926.131 1218.28,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#240b4e; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1218.28,1221.4 1218.28,945.252 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#33095d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1218.28,945.252 857.11,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#33095d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  857.11,1221.4 857.11,992.428 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#420a67; stroke-width:8; stroke-opacity:1; fill:none" points="
+  857.11,992.428 1471.43,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#420a67; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1471.43,1221.4 1471.43,599.766 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#500d6c; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1471.43,599.766 1165.06,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#500d6c; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1165.06,1221.4 1165.06,980.096 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#5d126d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1165.06,980.096 724.556,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#5d126d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  724.556,1221.4 724.556,927.222 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#6a176e; stroke-width:8; stroke-opacity:1; fill:none" points="
+  724.556,927.222 1220.2,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#6a176e; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1220.2,1221.4 1220.2,943.769 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#781c6d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1220.2,943.769 860.942,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#781c6d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  860.942,1221.4 860.942,993.841 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#86216a; stroke-width:8; stroke-opacity:1; fill:none" points="
+  860.942,993.841 1484.78,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#86216a; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1484.78,1221.4 1484.78,572.159 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#942666; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1484.78,572.159 1176.56,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#942666; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1176.56,1221.4 1176.56,973.536 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#a02a62; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1176.56,973.536 758.722,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#a02a62; stroke-width:8; stroke-opacity:1; fill:none" points="
+  758.722,1221.4 758.722,946.721 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#ad305b; stroke-width:8; stroke-opacity:1; fill:none" points="
+  758.722,946.721 1261.14,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#ad305b; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1261.14,1221.4 1261.14,908.505 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#ba3654; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1261.14,908.505 932.347,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#ba3654; stroke-width:8; stroke-opacity:1; fill:none" points="
+  932.347,1221.4 932.347,1014.2 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#c73e4c; stroke-width:8; stroke-opacity:1; fill:none" points="
+  932.347,1014.2 1966.1,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#c73e4c; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1966.1,1221.4 1966.1,-1229.31 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#d24643; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1966.1,-1229.31 1529.34,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#d24643; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1529.34,1221.4 1529.34,472.409 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#db503a; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1529.34,472.409 1213.64,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#db503a; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1213.64,1221.4 1213.64,948.753 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#e55c2f; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1213.64,948.753 847.682,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#e55c2f; stroke-width:8; stroke-opacity:1; fill:none" points="
+  847.682,1221.4 847.682,988.823 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#ec6925; stroke-width:8; stroke-opacity:1; fill:none" points="
+  847.682,988.823 1441.12,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#ec6925; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1441.12,1221.4 1441.12,658.655 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f37719; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1441.12,658.655 1138.13,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f37719; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1138.13,1221.4 1138.13,993.447 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f7850e; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1138.13,993.447 625.374,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f7850e; stroke-width:8; stroke-opacity:1; fill:none" points="
+  625.374,1221.4 625.374,863.099 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#fa9307; stroke-width:8; stroke-opacity:1; fill:none" points="
+  625.374,863.099 1144.9,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#fa9307; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1144.9,1221.4 1144.9,990.354 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#fba40a; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1144.9,990.354 653.395,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#fba40a; stroke-width:8; stroke-opacity:1; fill:none" points="
+  653.395,1221.4 653.395,882.138 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#fbb419; stroke-width:8; stroke-opacity:1; fill:none" points="
+  653.395,882.138 1160.89,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#fbb419; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1160.89,1221.4 1160.89,982.346 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f9c52d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1160.89,982.346 711.139,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f9c52d; stroke-width:8; stroke-opacity:1; fill:none" points="
+  711.139,1221.4 711.139,919.148 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f6d645; stroke-width:8; stroke-opacity:1; fill:none" points="
+  711.139,919.148 1206.65,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f6d645; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1206.65,1221.4 1206.65,953.858 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f2e55f; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1206.65,953.858 832.868,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f2e55f; stroke-width:8; stroke-opacity:1; fill:none" points="
+  832.868,1221.4 832.868,982.8 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f2f382; stroke-width:8; stroke-opacity:1; fill:none" points="
+  832.868,982.8 1399.62,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#f2f382; stroke-width:8; stroke-opacity:1; fill:none" points="
+  1399.62,1221.4 1399.62,731 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1002.32 513.625,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,1221.4 513.625,783.233 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,783.233 1116.17,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1221.4 1116.17,1002.32 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1002.32 513.625,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,1221.4 513.625,783.233 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,783.233 1116.17,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1221.4 1116.17,1002.32 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1002.32 513.625,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,1221.4 513.625,783.233 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,783.233 1116.17,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1221.4 1116.17,1002.32 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1002.32 513.625,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,1221.4 513.625,783.233 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,783.233 1116.17,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1221.4 1116.17,1002.32 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  1116.17,1002.32 513.625,1221.4 
+  "/>
+<polyline clip-path="url(#clip7303)" style="stroke:#000000; stroke-width:20; stroke-opacity:1; fill:none" points="
+  513.625,1221.4 513.625,783.233 
+  "/>
+</svg>

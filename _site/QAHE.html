@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>The Chern Number</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/QAHE.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="The Chern Number" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/ChernNumber/diff_phase.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="The Chern Number" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/ChernNumber/diff_phase.png" />
+    <meta property="twitter:description" content="Construct the matrix corresponding to the 1D Heisenburg Spin Chain and calculate its eigenvalues and eigenvectors." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/M4/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/M4/Images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/M4/Images/favicons/manifest.json">
+    <link rel="mask-icon" href="/M4/Images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#000000">
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div>
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="float: right">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="chrissie.c.l@gmail.com">
+    <input type="hidden" name="lc" value="US">
+    <input type="hidden" name="item_name" value="M4">
+    <input type="hidden" name="no_note" value="0">
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="pdfslink"><a href="/M4/pdfs" class="sidebar">PDFs</a></div>
+
+        <div class="juliadocs"><a href="https://docs.julialang.org/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="Construct the matrix corresponding to the 1D Heisenburg Spin Chain and calculate its eigenvalues and eigenvectors." />
+<meta name="keywords" content="Quantum,Topological" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">The Chern Number</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Graduate</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags#Quantum">Quantum</a>&nbsp; 
+        
+      <a href="/M4/tags#Topological">Topological</a>&nbsp; 
+        </p>
+  </header>
+
+  <article class="post-content">
+
+    <h2 id="overview">Overview</h2>
+
+<p>A Chern number tells us whether something non-trivial is going on in the wavefunction and lets us distinguish between different topological phases.</p>
+
+<p>Now let me clarify what I mean when I say “non-trivial”.</p>
+
+<p>Normally, when we are studying materials, we move from a spatial dependence for the wavefunction to a momentum dependence across a Brillouin Zone.</p>
+
+<p>When we are in a non-trivial phase, we can’t define a wavefunction across the entire Brillouin Zone at the same time. We can rewrite the wavefunction to cover the area that didn’t work before, but then some other section isn’t well-defined.</p>
+
+<p>To be clear, the physics is well defined everywhere, and every way we write the wavefunction gives the same physics. The problem lies in our inability to write down a single “chart” for the whole Zone. This conundrum is similar to the problem with plotting a globe in 2 dimensions. We always have to make cuts, but the entire globe can be covered by “charts” that make up an “atlas”.</p>
+
+<h2 id="our-model">Our Model</h2>
+
+<p>A page of a Review of Modern Physics behemoth, “Classification of topological quantum matter with symmetries” [1], presented this model below. It inspired me to dig deeper and fill in the details.   They attributed this model as describing the Quantum Anomolous Hall Effect, QAHE, but this form describes a wide variety topological phenomena.
+<img src="/M4/Images/ChernNumber/eqn1.svg" class="eqim" />
+<img src="/M4/Images/ChernNumber/eqn2.svg" class="eqim" />
+where $\sigma_0$ is the identity matrix and $\sigma_i$ are simply the Pauli matrices.
+Combining the terms, $H(k)$ is a 2x2 matrix.
+<img src="/M4/Images/ChernNumber/eqn3.svg" class="eqim" />
+The wavefunction will then be 2-valued.  This could denote two sublattices, or two different types of particles.</p>
+
+<p>While we could use any values for $\vec{R}(k)$, we will use
+<img src="/M4/Images/ChernNumber/eqn4.svg" class="eqim" />
+as it’s a fairly simple form that gives us the physics we want and exhibits phase transitions depending on the value of $\mu$.  I set $\mu$ as $1$ early on.  Go through the notebook with that value, then go through the notebook with $\mu = -5, -1, 1, 5$.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">Plots</span>
+<span class="n">plotlyjs</span><span class="x">()</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">μ</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">labels</span><span class="o">=</span><span class="x">[</span><span class="s">"-π"</span><span class="x">,</span><span class="s">"-π/2"</span><span class="x">,</span><span class="s">"0"</span><span class="x">,</span><span class="s">"π/2"</span><span class="x">,</span><span class="s">"π"</span><span class="x">]</span>
+<span class="n">ticks</span><span class="o">=</span><span class="x">[</span><span class="o">-</span><span class="n">π</span><span class="x">,</span><span class="o">-</span><span class="n">π</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="mi">0</span><span class="x">,</span><span class="n">π</span><span class="o">/</span><span class="mi">2</span><span class="x">,</span><span class="n">π</span><span class="x">];</span>
+
+<span class="n">ks</span><span class="o">=</span><span class="n">linspace</span><span class="x">(</span><span class="o">-</span><span class="n">π</span><span class="x">,</span><span class="n">π</span><span class="x">,</span><span class="mi">314</span><span class="x">)</span>
+<span class="n">l</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">ks</span><span class="x">)</span>
+
+<span class="n">ka</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="mi">2</span><span class="x">}(</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">ks</span><span class="x">[</span><span class="n">ii</span><span class="x">]</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+        <span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="x">[</span><span class="n">x</span><span class="x">,</span><span class="n">ks</span><span class="x">[</span><span class="n">jj</span><span class="x">]]</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> R0</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> R1</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">1</span><span class="x">])</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> R2</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">2</span><span class="x">])</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> R3</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="k">return</span> <span class="n">μ</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">cos</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">1</span><span class="x">])</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">cos</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">2</span><span class="x">])</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> R</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="x">(</span><span class="n">R1</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">R2</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="band-diagram">Band Diagram</h2>
+
+<p>First, let’s just take a look at the energy spectrum.  For each $k$, we calculate the eigenvalues of the 2x2 matrix Hamiltonian.</p>
+
+<p>To make the calculation simpler, I denote the function $R$ as
+<img src="/M4/Images/ChernNumber/eqn5.svg" class="eqim" />
+With that, energy can simply be written as
+<img src="/M4/Images/ChernNumber/eqn6.svg" class="eqim" />
+$R_0$ moves the entire spectrum up and down but doesn’t effect the gap, and won’t affect the physics.  That term won’t even factor into the eigenvectors.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> </span><span class="o">λ</span><span class="n">p</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">})</span>
+    <span class="k">return</span> <span class="n">R0</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> </span><span class="o">λ</span><span class="n">m</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">{</span><span class="kt">Float64</span><span class="x">})</span>
+    <span class="k">return</span> <span class="n">R0</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">-</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Notation Note:  I denote the Array evaluation of a function as the function name followed by ‘a’.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">λpa</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+<span class="n">λma</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+        <span class="n">λpa</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">λp</span><span class="x">(</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+        <span class="n">λma</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">λm</span><span class="x">(</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">surface</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">λpa</span><span class="x">)</span>
+<span class="n">surface!</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">λma</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">zlabel</span><span class="o">=</span><span class="s">"Energy"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"Band Diagram"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/BandDiagram.png" alt="Band Diagram" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<h2 id="eigenvectors">Eigenvectors</h2>
+
+<p>To find the eigenvectors, we find the nullspace of the following matrix,
+<img src="/M4/Images/ChernNumber/eqn7.svg" class="eqim" /></p>
+
+<p>Take the bottom row. Second column value multiples first column and first column value multiples second column.
+<img src="/M4/Images/ChernNumber/eqn8.svg" class="eqim" /></p>
+
+<p>And now we need to normalize the state
+<img src="/M4/Images/ChernNumber/eqn9.svg" class="eqim" />
+In low energy, just the minus state will be occupied ,lower energy, but it has a singularity at $\vec{R} = ( 0 ,0, R) $.</p>
+
+<p>We have two complex numbers in this vector, and thus four things to plot $r_1, \theta_1, r_2, \theta_2$,
+<img src="/M4/Images/ChernNumber/eqn10.svg" class="eqim" />
+But since the eigenvector is only unique up to a phase,  we only need to examine the difference in phase, $\theta_1 - \theta_2$.</p>
+
+<p>If we chose to create our vector from the top row instead,
+<img src="/M4/Images/ChernNumber/eqn11.svg" class="eqim" />
+and normalized
+<img src="/M4/Images/ChernNumber/eqn12.svg" class="eqim" />
+But the minus state for this one has a singularity at $\vec{R} = (0,0, -R )$.</p>
+
+<p>We can move where the singularity is, but we can’t get rid of it.  The problem-point doesn’t show up in the physics, only in the wavefunction representation of it.  We cannot well represent the state across the entire Brillouin Zone at the same time.  This problem occurs because we have a topologically non-trivial state and a non-zero Chern number.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> up1</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="n">front</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">)))</span>
+    <span class="k">return</span> <span class="n">front</span><span class="o">*</span><span class="x">(</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">))</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> up2</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="n">front</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">)))</span>
+    <span class="k">return</span> <span class="n">front</span><span class="o">*</span><span class="x">(</span><span class="n">R1</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="nb">im</span><span class="o">*</span><span class="n">R2</span><span class="x">(</span><span class="n">k</span><span class="x">))</span>
+<span class="k">end</span>
+
+<span class="n">up</span><span class="o">=</span><span class="n">Function</span><span class="x">[]</span>
+<span class="n">push!</span><span class="x">(</span><span class="n">up</span><span class="x">,</span><span class="n">up1</span><span class="x">)</span>
+<span class="n">push!</span><span class="x">(</span><span class="n">up</span><span class="x">,</span><span class="n">up2</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> um1</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="n">front</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">-</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">)))</span>
+    <span class="k">return</span> <span class="n">front</span><span class="o">*</span><span class="x">(</span><span class="o">-</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">))</span>
+<span class="k">end</span>
+
+<span class="k">function</span><span class="nf"> um2</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="n">Array</span><span class="x">)</span>
+    <span class="n">front</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">-</span><span class="n">R3</span><span class="x">(</span><span class="n">k</span><span class="x">)))</span>
+    <span class="k">return</span> <span class="n">front</span><span class="o">*</span><span class="x">(</span><span class="n">R1</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="nb">im</span><span class="o">*</span><span class="n">R2</span><span class="x">(</span><span class="n">k</span><span class="x">))</span>
+<span class="k">end</span>
+
+<span class="n">um</span><span class="o">=</span><span class="n">Function</span><span class="x">[]</span>
+<span class="n">push!</span><span class="x">(</span><span class="n">um</span><span class="x">,</span><span class="n">um1</span><span class="x">)</span>
+<span class="n">push!</span><span class="x">(</span><span class="n">um</span><span class="x">,</span><span class="n">um2</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">upa</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="mi">2</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+<span class="n">uma</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="mi">2</span><span class="x">,</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+        <span class="n">upa</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">up</span><span class="x">[</span><span class="mi">1</span><span class="x">](</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+        <span class="n">upa</span><span class="x">[</span><span class="mi">2</span><span class="x">,</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">up</span><span class="x">[</span><span class="mi">2</span><span class="x">](</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+        <span class="n">uma</span><span class="x">[</span><span class="mi">1</span><span class="x">,</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">um</span><span class="x">[</span><span class="mi">1</span><span class="x">](</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+        <span class="n">uma</span><span class="x">[</span><span class="mi">2</span><span class="x">,</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">um</span><span class="x">[</span><span class="mi">2</span><span class="x">](</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Plotting θ2</span>
+<span class="n">heatmap</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">angle</span><span class="o">.</span><span class="x">(</span><span class="n">uma</span><span class="x">[</span><span class="mi">2</span><span class="x">,:,:])</span><span class="o">-</span><span class="n">angle</span><span class="o">.</span><span class="x">(</span><span class="n">uma</span><span class="x">[</span><span class="mi">1</span><span class="x">,:,:]))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"difference in phase, lower energy"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/diff_phase.png" alt="Difference in phase" />
+    
+    
+        <p class="image-caption">Since eigenvectors are only unique up to a phase, only the relative difference in phase between components is interesting.  Notice how there is a singularity where we can't define the phase, and a branch cut where the phase jumps from 0 to $-2\pi$.</p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">surface</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">norm</span><span class="o">.</span><span class="x">(</span><span class="n">uma</span><span class="x">[</span><span class="mi">2</span><span class="x">,:,:]))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"magnitude,second component, lower energy"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/mag_2.png" alt="Magnitude of second component" />
+    
+    
+        <p class="image-caption">Though this looks smooth throughout the middle, the magnitude does start to behave strangly at the boundries.</p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">surface</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">norm</span><span class="o">.</span><span class="x">(</span><span class="n">uma</span><span class="x">[</span><span class="mi">1</span><span class="x">,:,:]))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"magnitude,first component, lower energy"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/mag_1.png" alt="Magnitude of First component" />
+    
+    
+        <p class="image-caption">This component is non-differentialable at the origin, as well as four points along the boundary.  The phase can be ill defined at the origin only becuase this component goes to zero.</p>
+    
+</div>
+
+<h2 id="calculating-the-connection">Calculating the Connection</h2>
+
+<p>The first step in calculating the Chern number is evaluating the Berry Connection.</p>
+
+<p><img src="/M4/Images/ChernNumber/eqn13.svg" class="eqim" /></p>
+
+<p>Though $\mathcal{A}^i$ looks like a vector, it is not invariant under gauge tranformation.  If a wavefunction transforms as
+<img src="/M4/Images/ChernNumber/eqn14.svg" class="eqim" />
+then the connection transforms as
+<img src="/M4/Images/ChernNumber/eqn15.svg" class="eqim" /></p>
+
+<p>Near the Dirac points in the Brillouin Zone, the wavefunction has quite a high curvature, which makes the numerical computation of the derivative prone to errors.  I tried numerical derivation but was unable to arrive at a correct, stable answer.  Therefore, I’m using the ‘ForwardDiff’ Package to take derivatives analytically.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">ForwardDiff</span>
+</code></pre>
+</div>
+
+<p>Before dealing with the physics, let’s just look at the syntax for the package.</p>
+
+<p>Here’s just an example of taking the gradient of $x^2$.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">ex</span><span class="o">=</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">t</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span><span class="o">^</span><span class="mi">2</span><span class="x">,</span><span class="n">x</span><span class="x">)</span>
+<span class="n">ex</span><span class="x">([</span><span class="mi">1</span><span class="x">])</span>
+
+<span class="mi">1</span><span class="o">-</span><span class="n">element</span> <span class="n">Array</span><span class="x">{</span><span class="kt">Int64</span><span class="x">,</span><span class="mi">1</span><span class="x">}:</span>
+ <span class="mi">2</span>
+</code></pre>
+</div>
+
+<p>Now let’s apply that syntax to our wavefunctions.</p>
+
+<p>The ‘ForwardDiff’ package seems to only work on purely real functions, so we have to take the derivative of the real and imaginary parts separately.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">dum1</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">um1</span><span class="x">,</span><span class="n">kt</span><span class="x">)</span>
+
+<span class="n">Rdum2</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">real</span><span class="x">(</span><span class="n">um2</span><span class="x">(</span><span class="n">t</span><span class="x">)),</span><span class="n">kt</span><span class="x">)</span>
+<span class="n">Idum2</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">imag</span><span class="x">(</span><span class="n">um2</span><span class="x">(</span><span class="n">t</span><span class="x">)),</span><span class="n">kt</span><span class="x">)</span>
+<span class="n">dum2</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">=</span><span class="n">Rdum2</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">+</span><span class="nb">im</span><span class="o">*</span><span class="n">Idum2</span><span class="x">(</span><span class="n">k</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<p>With the derivatives, we can now calculate the connection.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Amkx</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">=</span><span class="n">conj</span><span class="x">(</span><span class="n">um1</span><span class="x">(</span><span class="n">k</span><span class="x">))</span><span class="o">*</span><span class="n">dum1</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">1</span><span class="x">]</span><span class="o">+</span><span class="n">conj</span><span class="x">(</span><span class="n">um2</span><span class="x">(</span><span class="n">k</span><span class="x">))</span><span class="o">*</span><span class="n">dum2</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">1</span><span class="x">]</span>
+<span class="n">Amky</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">=</span><span class="n">conj</span><span class="x">(</span><span class="n">um1</span><span class="x">(</span><span class="n">k</span><span class="x">))</span><span class="o">*</span><span class="n">dum1</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">2</span><span class="x">]</span><span class="o">+</span><span class="n">conj</span><span class="x">(</span><span class="n">um2</span><span class="x">(</span><span class="n">k</span><span class="x">))</span><span class="o">*</span><span class="n">dum2</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">2</span><span class="x">]</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Akxa</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">}}(</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+<span class="n">Akya</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">}}(</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+        <span class="n">Akxa</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">Amkx</span><span class="x">(</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+        <span class="n">Akya</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">Amky</span><span class="x">(</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">heatmap</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">log</span><span class="o">.</span><span class="x">(</span><span class="n">norm</span><span class="o">.</span><span class="x">(</span><span class="n">Akxa</span><span class="x">)))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"Akx Berry Connection"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/Akx_norm.png" alt="Norm of Connection kx component" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">heatmap</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">log</span><span class="o">.</span><span class="x">(</span><span class="n">norm</span><span class="o">.</span><span class="x">(</span><span class="n">Akya</span><span class="x">)))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"Aky Berry Connection"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/Aky_norm.png" alt="Norm of Connection ky component" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">heatmap</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">angle</span><span class="o">.</span><span class="x">(</span><span class="n">Akxa</span><span class="x">))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"Akx Berry Connection"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/Akx_angle.png" alt="Angle of Connection ky component" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">heatmap</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">angle</span><span class="o">.</span><span class="x">(</span><span class="n">Akya</span><span class="x">))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"Aky Berry Connection"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/Aky_angle.png" alt="Angle of Connection ky component" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<h2 id="curvature">Curvature</h2>
+
+<p>I previously had a section here about Berry phases, but I need to fix it.  Until then, please believe the mass of physics literature that from the guage-dependent Berry connection, we can get a gauge independent quantity called the <i>Berry Curvature</i>.  Hopefully I can clarify this mathematical magic when I understand it myself.</p>
+
+<p>Of course it’s called Berry.  Every thing in this calculation is named after Berry.  At least its not Euler.  Done with side note, back to equations.</p>
+
+<p>Here’s our version of Gauss’s Theorem:
+<img src="/M4/Images/ChernNumber/eqn17.svg" class="eqim" /></p>
+
+<p>And $F_n^{xy}$ will take on this form:
+<img src="/M4/Images/ChernNumber/eqn18.svg" class="eqim" />
+<img src="/M4/Images/ChernNumber/eqn19.svg" class="eqim" /></p>
+
+<p>TIME FOR MORE DERIVATIVES!</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">DRAmkx</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="x">(</span><span class="n">real</span><span class="x">(</span><span class="n">Amkx</span><span class="x">(</span><span class="n">t</span><span class="x">))),</span><span class="n">kt</span> <span class="x">)</span>
+<span class="n">DImAmkx</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="x">(</span><span class="n">imag</span><span class="x">(</span><span class="n">Amkx</span><span class="x">(</span><span class="n">t</span><span class="x">))),</span><span class="n">kt</span> <span class="x">)</span>
+
+<span class="n">DRAmky</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="x">(</span><span class="n">real</span><span class="x">(</span><span class="n">Amky</span><span class="x">(</span><span class="n">t</span><span class="x">))),</span><span class="n">kt</span> <span class="x">)</span>
+<span class="n">DImAmky</span><span class="o">=</span><span class="n">kt</span><span class="o">-&gt;</span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="x">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="x">(</span><span class="n">imag</span><span class="x">(</span><span class="n">Amky</span><span class="x">(</span><span class="n">t</span><span class="x">))),</span><span class="n">kt</span> <span class="x">)</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">F</span><span class="x">(</span><span class="n">k</span><span class="x">)</span><span class="o">=</span><span class="n">DRAmky</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">1</span><span class="x">]</span><span class="o">+</span><span class="nb">im</span><span class="o">*</span><span class="n">DImAmky</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">1</span><span class="x">]</span><span class="o">-</span><span class="n">DRAmkx</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">2</span><span class="x">]</span><span class="o">-</span><span class="nb">im</span><span class="o">*</span><span class="n">DImAmkx</span><span class="x">(</span><span class="n">k</span><span class="x">)[</span><span class="mi">2</span><span class="x">]</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Fa</span><span class="o">=</span><span class="n">Array</span><span class="x">{</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">}}(</span><span class="n">l</span><span class="x">,</span><span class="n">l</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">l</span>
+        <span class="n">Fa</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">F</span><span class="x">(</span><span class="n">ka</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>maximum(real(Fa))
+5.687672555154677e-13
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">heatmap</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">ks</span><span class="x">,</span><span class="n">imag</span><span class="o">.</span><span class="x">(</span><span class="n">Fa</span><span class="x">))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xticks</span><span class="o">=</span> <span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+    <span class="n">yticks</span><span class="o">=</span><span class="x">(</span><span class="n">ticks</span><span class="x">,</span><span class="n">labels</span><span class="x">),</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"kx"</span><span class="x">,</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s">"ky"</span><span class="x">,</span>
+<span class="n">title</span><span class="o">=</span><span class="s">"Imaginary part of Berry Curvature"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/ChernNumber/imagF.png" alt="Imaginary Berry Curvature Magnitude" />
+    
+    
+        <p class="image-caption">In this situation, the Berry Curvature is a purely imaginary quantity.  As you can see in the colorbar, it has both positive and negative areas, but there is an assymtry with much larger positive values.  This gives an overall non-zero integral.</p>
+    
+</div>
+
+<h2 id="chern-number">Chern Number</h2>
+
+<p>Last Step!</p>
+
+<p>Easy calculation now in terms of code, but this number has a great deal of significance.  I’m still trying to wrap my head around it.  The Chern number seems to pop up in a variety of obscure mathematical stuff over this physicist’s head, but hopefully none of that is necessary to grasp its incredible mind-blowing usefullness.</p>
+
+<p>This single integer not only seperates out topological phases from topologically trivial phases, but seperates different topological phases from each other.  And always evaluates to an integer.</p>
+
+<p><img src="/M4/Images/ChernNumber/eqn20.svg" class="eqim" /></p>
+
+<p>If you don’t get approximately an integer, try a finer mesh.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">sum</span><span class="x">(</span><span class="n">Fa</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">ks</span><span class="x">[</span><span class="mi">2</span><span class="x">]</span><span class="o">-</span><span class="n">ks</span><span class="x">[</span><span class="mi">1</span><span class="x">])</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="n">π</span><span class="o">*</span><span class="nb">im</span><span class="x">)</span>
+</code></pre>
+</div>
+<div class="highlighter-rouge"><pre class="highlight"><code>1.0250189329637478 - 9.296489318262423e-34im
+</code></pre>
+</div>
+
+<h2 id="victory-">Victory !!!!!!!!!!</h2>
+
+<p>You made it!</p>
+
+<p>Even if you didn’t understand everything, or really understand much at all, pat yourself on the back.  This is the very frontier of science.</p>
+
+<p>[1] Ching Kai Chiu, Jeffrey C.Y. Teo, Andreas P. Schnyder, and Shinsei Ryu, Classification of topological quantum matter with symmetries, Reviews of Modern Physics 88 2016, no. 3, 1–70.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>
+</code></pre>
+</div>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/QAHE.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/QAHE.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

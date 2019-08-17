@@ -13,7 +13,7 @@ I will vary the level from undergraduate physics major to graduate student in th
 
 The blog will be written in the form of julia (http://julialang.org/) jupyter notebooks. This new language has a syntax similiar to Matlab or Python, and is easily human readable.  I encourage active participation by manipulating the code.
 
-You can either install Julia and jupyter notebook on your own machine, or use juliabox (https://www.juliabox.org/) to view and interact with the files.  
+You can either install Julia and jupyter notebook on your own machine, or use juliabox (https://www.juliabox.com/) to view and interact with the files.  
 
 To use juliabox (the easiest option), log in with a google account, and then click on the sync tab.  Under the Github directory, input the clone https://github.com/albi3ro/M4.git , use branch master, and name the folder as you see fit.  
 
