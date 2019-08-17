@@ -11,7 +11,7 @@ image: "https://albi3ro.github.io/M4/Images/Projectile/pyrochloresvg2.png"
 
 #### Christina C. Lee, github: albi3ro
 
-<b>Prerequisites:</b> [Computationally Visualizing Crystals Pt. 1]({{base.url}}/M4/general/Crystal-Shapes.html)
+<b>Prerequisites:</b> [Computationally Visualizing Crystals Pt. 1]({{base.url}}/M4/Crystal-Shapes.html)
 
 Time to one-up the Bravais lattice from Part 1.  Many beautiful lattices don't adhere to the "every site the same" policy.  They still repeat, but just take a little bit longer to get around to doing so.
 
@@ -128,7 +128,7 @@ end
 
 ### Connections to Bravais Lattices
 
-If you look at some of the comments above, and checkout the basis vectors from [<i>Crystal Shapes</i>]({{base.url}}/M4/General/Crystal-Shapes.html), like pt,
+If you look at some of the comments above, and checkout the basis vectors from [<i>Crystal Shapes</i>]({{base.url}}/M4/Crystal-Shapes.html), like pt,
         \begin{equation}
             a=[1,0,0]\;\;\;\;\;\;\;\;\; b=[.5,\frac{\sqrt{3}}{2},0],
         \end{equation}

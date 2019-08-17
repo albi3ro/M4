@@ -9,7 +9,7 @@ tags: [Magnet]
 description:  A look at phase transitions in magnets using a Metropolis-Hastings Algorithm, specifically at the square lattice Ising model.
 ---
 
-Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html) [Monte Carlo Ferromagnet]({{base.url}}/M4/prerequisites/Monte-Carlo-Ferromagnet.html)
+Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/MCMC.html) [Monte Carlo Ferromagnet]({{base.url}}/M4/Monte-Carlo-Ferromagnet.html)
 
 Prerequisites: Statistical Mechanics
 

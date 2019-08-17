@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Winding Number and SSH Model</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/WindingNumber.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Winding Number and SSH Model" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/SSH/phase.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Winding Number and SSH Model" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/SSH/phase.png" />
+    <meta property="twitter:description" content="The Su-Shrieffer-Heeger Model for trans-polyacetylene with two different topological phases characterized by winding numbers." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/M4/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/M4/Images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/M4/Images/favicons/manifest.json">
+    <link rel="mask-icon" href="/M4/Images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#000000">
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div>
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="float: right">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="chrissie.c.l@gmail.com">
+    <input type="hidden" name="lc" value="US">
+    <input type="hidden" name="item_name" value="M4">
+    <input type="hidden" name="no_note" value="0">
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="pdfslink"><a href="/M4/pdfs" class="sidebar">PDFs</a></div>
+
+        <div class="juliadocs"><a href="https://docs.julialang.org/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="The Su-Shrieffer-Heeger Model for trans-polyacetylene with two different topological phases characterized by winding numbers." />
+<meta name="keywords" content="Quantum,Topological" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">Winding Number and SSH Model</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Graduate</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags#Quantum">Quantum</a>&nbsp; 
+        
+      <a href="/M4/tags#Topological">Topological</a>&nbsp; 
+        </p>
+  </header>
+
+  <article class="post-content">
+
+    <p><b>Prerequisites:</b> <a href="/M4/QAHE.html">Chern Number QAHE</a></p>
+
+<p>The Chern number isn’t the only topological invariant.  We have multiple invariants, each convenient in their own situations.  The Chern number just happened to appear one of the biggest, early examples, the Integer Quantum Hall Effect, but the winding number actually occurs much more often in a wider variety of circumstances.</p>
+
+<p>How many times does the phase wrap as we transverse a closed loop?
+<img src="/M4/Images/SSH/eqn1.png" class="eqim" /></p>
+
+<p>This expression shows up in complex analysis with <i>Residues</i> and <a href="https://en.wikipedia.org/wiki/Cauchy%27s_integral_formula">the Cauchy Integral Formula</a>, but we’re interested in applying this formula to topology.</p>
+
+<h2 id="topology-and-homotopy">Topology and Homotopy</h2>
+
+<p><b>Topology</b> is a general umbrella term for studying properties independent of deformation or coordinate systems.  If we go back to “what does topology formally mean?”, it’s a structure we can put on sets.  From there, we have a variety of different ways to study that structure, and one of those is <b>Homotopy</b>.</p>
+
+<p><b>Homotopy</b> considers two functions and asks whether or not they can be deformed into each other.</p>
+
+<p>Here’s a simple example:</p>
+
+<p>We have positions $\vec{x}(t)$ over time with a fixed starting and stopping point.  And we have some fixed puncture point in space our function can never occupy.  We can classify all the possible paths by the number of times they go around the puncture point.</p>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/homotopy.svg" alt="Winding numbers" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>The domain in our situation is the unit circle $k$, and we want to know what the range looks like in terms of unit circles:</p>
+<ul>
+  <li>Zero unit circles= a point?</li>
+  <li>One Unit Circle?</li>
+  <li>A Unit Circle followed by another Unit Circle?</li>
+  <li>A Unit Circle, but flipped and traveled in the opposite direction?</li>
+</ul>
+
+<p>Each of these is a different homotopy class.</p>
+
+<h2 id="su-schrieffer-heeger-model-for-trans-polyacetylene">Su-Schrieffer-Heeger Model for Trans-polyacetylene</h2>
+
+<p>The Su-Schrieffer-Heeger Model for Trans-Polyacetylene hosts topological phases characterized by the winding number.</p>
+
+<p>The chemical under doping has high electrical conductivity, opened the entire field of conductive polymers, and led to the 2000 Chemistry Nobel Prize [3].  To get to the model, we first need to look at the chemical structure,</p>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/chemstruct.png" alt="trans-polyacetylene" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>Scary Organic Chemistry stuff… and due to my lack of understand Organic Chemistry stuff, I actually understood the physical situation wrong for a while, but now let me take a crack at explaining what I think is actually the case.</p>
+
+<p>Though just the plain <i>positions</i> of the atoms are translationally symmetric with a period of one, due to <a href="https://en.wikipedia.org/wiki/Peierls_transition">Pereils instability in 1D</a> the bonds break into having a translational period of <b>2</b>.  This gives a degeneracy in the ground state.  The way the structure is tiled with “single-bond”–“double-bond” could just be shifted by one site, giving an equally viable chemical structure.</p>
+
+<p>Now we have regions of uniform tiling and boundaries between them.  The boundaries then act like solitons with certain transitions probabilities to move around.  We are looking at the Hamiltonian that describes how this boundary soliton moves.</p>
+
+<p>All we really need to know is we have a particle free to move in one dimension, with different transition probabilities depending on the type of bond.  For the technical history, see [4], [5], [6]. [6] makes the most sense.</p>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/ssh_hopping.svg" alt="hopping on 1D chain" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>$v$ and $w$ are our two transition probabilities, and we also have two different types of sites, $a$ and $b$. We can write down a hopping Hamiltonian from this information,
+<img src="/M4/Images/SSH/eqn2.png" class="eqim" /></p>
+
+<p>We can Fourier transform the Hamiltonian,
+<img src="/M4/Images/SSH/eqn3.png" class="eqim" />
+and change forms
+<img src="/M4/Images/SSH/eqn4.png" class="eqim" />
+<img src="/M4/Images/SSH/eqn5.png" class="eqim" />
+to something where we can read off a quite useful form for this type of topological stuff:
+<img src="/M4/Images/SSH/eqn6.png" class="eqim" /></p>
+
+<p><img src="/M4/Images/SSH/eqn7.png" class="eqim" /></p>
+
+<h2 id="code-up-the-model">Code up the Model</h2>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Adding the Packages</span>
+<span class="n">using</span> <span class="n">Plots</span>
+<span class="n">using</span> <span class="n">LinearAlgebra</span>
+<span class="n">gr</span><span class="x">()</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Pauli Matrices</span>
+<span class="n">σx</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="mi">1</span><span class="x">]</span>
+    <span class="x">[</span><span class="mi">1</span> <span class="mi">0</span><span class="x">]]</span>
+<span class="n">σy</span><span class="o">=</span><span class="x">[[</span><span class="mi">0</span> <span class="o">-</span><span class="nb">im</span><span class="x">]</span>
+    <span class="x">[</span><span class="nb">im</span> <span class="mi">0</span><span class="x">]]</span>
+<span class="n">σz</span><span class="o">=</span><span class="x">[[</span><span class="mi">1</span> <span class="mi">0</span><span class="x">]</span>
+    <span class="x">[</span><span class="mi">0</span> <span class="o">-</span><span class="mi">1</span><span class="x">]]</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Functions</span>
+<span class="n">Rx</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="x">,</span><span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="x">)</span><span class="o">=</span><span class="n">v</span><span class="o">-</span><span class="n">w</span><span class="o">*</span><span class="n">cos</span><span class="x">(</span><span class="n">k</span><span class="x">)</span>
+<span class="n">Ry</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="x">,</span><span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="x">)</span><span class="o">=-</span><span class="n">w</span><span class="o">*</span><span class="n">sin</span><span class="x">(</span><span class="n">k</span><span class="x">)</span>
+
+<span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="x">,</span><span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="x">)</span><span class="o">=</span><span class="n">sqrt</span><span class="x">(</span><span class="n">Rx</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">Ry</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span><span class="o">^</span><span class="mi">2</span><span class="x">)</span>
+
+<span class="n">H</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="x">,</span><span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="x">)</span><span class="o">=</span><span class="n">Rx</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span><span class="o">*</span><span class="n">σx</span><span class="o">+</span><span class="n">Ry</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span><span class="o">*</span><span class="n">σy</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># domain we will calculate on</span>
+<span class="n">l</span><span class="o">=</span><span class="mi">314</span>
+
+<span class="n">ks</span><span class="o">=</span><span class="n">range</span><span class="x">(</span><span class="o">-</span><span class="n">π</span><span class="x">,</span><span class="n">stop</span><span class="o">=</span><span class="n">π</span><span class="x">,</span><span class="n">length</span><span class="o">=</span><span class="n">l</span><span class="x">)</span>
+<span class="n">dk</span><span class="o">=</span><span class="n">ks</span><span class="x">[</span><span class="mi">2</span><span class="x">]</span><span class="o">-</span><span class="n">ks</span><span class="x">[</span><span class="mi">1</span><span class="x">]</span>
+</code></pre>
+</div>
+
+<h3 id="chiral-symmetry">Chiral Symmetry</h3>
+
+<p>A Hamiltonian is said to possess chiral symmetry if there exists a $U$ such that
+<img src="/M4/Images/SSH/eqn8.png" class="eqim" />
+Finding $U$ if even exists and determining its form if it exists is a problem for another time.  Today, multiple places said that $\sigma_z$ works for the SSH model, and we can confirm that it does.</p>
+
+<p>A little less intellectually satisfying … at least for me… , but it works.</p>
+
+<p>We could test that equation analytically on pen and paper, analytically using ‘SymPy’, or by plugging in random ‘k’ values a bunch of times and assuming that’s good enough.</p>
+
+<p>I’m going the bunch of random k values route. Just keep evaluating the next cell till you’re convinced.</p>
+
+<p><b>Bonus Note:</b>  We only have a situation with a winding number because we have chiral symmetry and have an odd number of dimensions.  If we have no chiral, and no other any other anti-unitary, symmetry, then we could only have the topologically trivial phase. That’s why I’m making sure to mention this.  Check out the Periodic Table of Topological Insulators for more information.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">k_test</span><span class="o">=</span><span class="n">rand</span><span class="x">()</span>
+<span class="n">σz</span><span class="o">*</span><span class="n">H</span><span class="x">(</span><span class="n">k_test</span><span class="x">)</span><span class="o">*</span><span class="n">σz</span><span class="o">^</span><span class="x">(</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">+</span><span class="n">H</span><span class="x">(</span><span class="n">k_test</span><span class="x">)</span> <span class="c"># Should equal zero</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2×2 Array{Complex{Float64},2}:
+ 0.0+0.0im  0.0+0.0im
+ 0.0+0.0im  0.0+0.0im
+</code></pre>
+</div>
+
+<h3 id="homotopically-different-hamiltonians">Homotopically Different Hamiltonians</h3>
+
+<p>We want to know if two sets of parameters $c_1=(v_1,w_1)$ and $c_2=(v_2,w_2)$ will describe topologically equivalent systems.</p>
+
+<p>We are gifted by the fact have some convenient theorems relating the SPT, Symmetry Protected Topological, topology of the phases and band gap closings.</p>
+
+<p>As we change the parameters, we will remain in the same topological phase as long as <b>we don’t close the gap</b> or <b>break symmetries</b>.  [2]</p>
+
+<p>The states are in the same phase if they can be <i>smoothly deformed</i> into each other.  In this context, smoothly deformed means connected by local unitary evolution. Nothing drastic is happening to the system.  Closing the gap is considered drastic.</p>
+
+<p>Now we don’t have to change the topological phase at a gap closing, but it’s only possible there.</p>
+
+<p>Beforehand doing a lot of calculations and work, if we can identify where band closings occur and regions where parameters can be perturbed and changed without causing band closings, we can reduce the number of things we need to solve later on.</p>
+
+<p>Analytically, we know that the two eigenvalues occur at: (see QAHE post)
+<img src="/M4/Images/SSH/eqn9.png" class="eqim" />
+<img src="/M4/Images/SSH/eqn10.png" class="eqim" />
+<img src="/M4/Images/SSH/eqn11.png" class="eqim" />
+The difference between the upper and lower band will be at it’s minimum when $\cos k$ is greatest,$k=0$.
+<img src="/M4/Images/SSH/eqn12.png" class="eqim" /></p>
+
+<p>So when $v=w$, the gap closes.  This $v=w$ line in parameter space could separate two different topological phases.  Now we need to perform some calculations to see if that is they are actually different phases.</p>
+
+<p>To more quickly see which side of the dividing line a parameter set falls on, I’m instead going to write out parameters in terms of $v$ and $d = v-w$.  This way, the sign of $d$ can quickly tell me which phase we are in.</p>
+
+<p>If d is positive, we are in the <b>Purple</b> phase, designated so because that’s what I am using for my color scheme. The Purple phase also turns out to be the topological phase, as we will see later.</p>
+
+<p>When d is negative, we are in the <b>Turquoise</b> phase, again because of my color scheme.  This phase is topologically trivial.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Parameters chosen to look at</span>
+<span class="n">va</span><span class="o">=</span><span class="x">[</span><span class="mf">1.0</span><span class="x">,</span> <span class="mf">0.5</span><span class="x">,</span><span class="mf">1.0</span><span class="x">,</span>  <span class="mf">0.0</span><span class="x">,</span><span class="mf">0.5</span><span class="x">,</span>  <span class="mf">0.4</span><span class="x">,</span><span class="mf">0.6</span><span class="x">]</span>
+<span class="n">da</span><span class="o">=</span><span class="x">[</span><span class="mf">0.0</span><span class="x">,</span> <span class="mf">0.5</span><span class="x">,</span><span class="o">-</span><span class="mf">0.5</span><span class="x">,</span> <span class="mf">0.5</span><span class="x">,</span><span class="o">-</span><span class="mf">0.5</span><span class="x">,</span> <span class="mf">0.2</span><span class="x">,</span><span class="o">-</span><span class="mf">0.2</span><span class="x">]</span>
+
+<span class="c"># w values corresponding to chosen ds</span>
+<span class="n">wa</span><span class="o">=</span><span class="n">round</span><span class="o">.</span><span class="x">(</span><span class="n">va</span><span class="o">+</span><span class="n">da</span><span class="x">;</span><span class="n">sigdigits</span><span class="o">=</span><span class="mi">2</span><span class="x">)</span> <span class="c">#Floating point error was making it print bad</span>
+
+<span class="c"># how to plot chosen parameters</span>
+<span class="n">colors</span><span class="o">=</span><span class="x">[</span><span class="n">colorant</span><span class="s">"#aa8e39"</span><span class="x">,</span>
+    <span class="n">colorant</span><span class="s">"#592a71"</span><span class="x">,</span><span class="n">colorant</span><span class="s">"#4e918f"</span><span class="x">,</span>
+    <span class="n">colorant</span><span class="s">"#310c43"</span><span class="x">,</span><span class="n">colorant</span><span class="s">"#226764"</span><span class="x">,</span>
+    <span class="n">colorant</span><span class="s">"#cca7df"</span><span class="x">,</span><span class="n">colorant</span><span class="s">"#a0d9d7"</span><span class="x">,</span>
+    <span class="x">]</span>
+<span class="n">styles</span><span class="o">=</span><span class="x">[:</span><span class="n">solid</span><span class="x">,</span>
+    <span class="x">:</span><span class="n">dash</span><span class="x">,:</span><span class="n">dash</span><span class="x">,</span>
+    <span class="x">:</span><span class="n">solid</span><span class="x">,:</span><span class="n">solid</span><span class="x">,</span>
+    <span class="x">:</span><span class="n">dot</span><span class="x">,:</span><span class="n">dot</span><span class="x">]</span>
+<span class="n">widths</span><span class="o">=</span><span class="x">[</span><span class="mi">10</span><span class="x">,</span><span class="mi">15</span><span class="x">,</span><span class="mi">5</span><span class="x">,</span><span class="mi">15</span><span class="x">,</span><span class="mi">5</span><span class="x">,</span><span class="mi">10</span><span class="x">,</span><span class="mi">3</span><span class="x">];</span>
+</code></pre>
+</div>
+
+<h2 id="band-diagrams-for-different-parameters">Band diagrams for different parameters</h2>
+
+<p>When $d=0$, we have the gold line with zero band-gap.</p>
+
+<p>If $d\neq 0$, then the band gap is not zero.</p>
+
+<p>If $v$ and $w$ are flipped, the model will look identical in its energy structure.  We can see the two different sets of purple and turquoise lines plotted over each other.  Only when we look at the phase of the wavefunctions can we see that flipping the $v$ and $w$ actually does have quite an influence on the solution.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">()</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">va</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">R</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+        <span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"v=</span><span class="si">$</span><span class="s">(va[ii]) w=</span><span class="si">$</span><span class="s">(wa[ii])"</span>
+        <span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="n">widths</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">linestyle</span><span class="o">=</span><span class="n">styles</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+    
+    <span class="n">plot!</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="o">-</span><span class="n">R</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+        <span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">""</span>
+        <span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="n">widths</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">linestyle</span><span class="o">=</span><span class="n">styles</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+<span class="k">end</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Band diagrams for different parameters"</span><span class="x">,</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"Momentum"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Energy"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/output_14_0.svg" alt="Band Diagram" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<h2 id="homotopy-of-hamiltonian-vector">Homotopy of Hamiltonian Vector</h2>
+
+<p>We can look at <b>either</b> the homotopy of the Hamiltonian <b>or</b> the homotopy of the eigenfunctions.</p>
+
+<p>Looking at the Hamiltonian seems easier since we don’t have to go through the work of calculating the wavefunctions, especially if we have a complicated system, but homotopy is a geometric, almost pictorial thing. How do we go about getting something like that for an operator?</p>
+
+<p>Let’s go back to how we wrote our Hamiltonian down, both this one and the QAHE one before,
+<img src="/M4/Images/SSH/eqn6.png" class="eqim" />
+Here we have a 1-1 correspondence between the Hamiltonian and a <b>geometric</b> object, this $\vec{R}$ vector.  When we look at how it depends on $k$, we get insight into how $\mathcal{H}$ depends on $k$ as well.</p>
+
+<p>The two different groups, purple and turquoise, will have two different behaviors.  $\vec{R}(k)$ for purple will circle the origin like $S^1$ the unit circle, whereas $\vec{R}(k)$ for turquoise not circle the origin and will not be like $S^1$.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">()</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">va</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">Rx</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">]),</span>
+        <span class="n">Ry</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+    <span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"v=</span><span class="si">$</span><span class="s">(va[ii]) , d=</span><span class="si">$</span><span class="s">(da[ii])"</span>
+    <span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">linestyle</span><span class="o">=</span><span class="n">styles</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+<span class="k">end</span>
+
+<span class="n">statval</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">scatter!</span><span class="x">(</span><span class="n">Rx</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">statval</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">statval</span><span class="x">]),</span><span class="n">Ry</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">statval</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">statval</span><span class="x">])</span>
+    <span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="x">[</span><span class="n">statval</span><span class="x">])</span>
+
+<span class="n">scatter!</span><span class="x">([</span><span class="mi">0</span><span class="x">],[</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Origin"</span><span class="x">,</span>
+        <span class="n">markersize</span><span class="o">=</span><span class="mi">20</span><span class="x">,</span><span class="n">markershape</span><span class="o">=</span><span class="x">:</span><span class="n">star5</span><span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="n">colorant</span><span class="s">"#6f4f0d"</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"R(k) for different parmeters"</span><span class="x">,</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s">"Rx"</span><span class="x">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">"Ry"</span><span class="x">,</span><span class="n">legend</span><span class="o">=</span><span class="x">:</span><span class="n">bottomright</span><span class="x">,</span><span class="n">aspect_ratio</span><span class="o">=</span><span class="mi">1</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/output_16_0.svg" alt="Hamiltonian Homotopy" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<h2 id="wavefunction">Wavefunction</h2>
+
+<p>Going back to what we did in the QAHE post again, we have an analytical expression for the wavefunction:
+<img src="/M4/Images/SSH/eqn13.png" class="eqim" /></p>
+
+<p>Now that we don’t have $R_z$, the magnitudes of both components are constant and uniform. For the first component, the phase also remains constant, but the phase of the second component varies.  It’s the behavior of this phase that we will be looking at, and that will determine whether or not the system is topological.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">um1</span><span class="o">=-</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="x">)</span> 
+
+<span class="k">function</span><span class="nf"> um2</span><span class="x">(</span><span class="n">k</span><span class="o">::</span><span class="kt">Float64</span><span class="x">,</span><span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="x">,</span><span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="x">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="x">(</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="n">R</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">))</span><span class="o">*</span><span class="x">(</span><span class="n">Rx</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span><span class="o">+</span><span class="nb">im</span><span class="o">*</span><span class="n">Ry</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">))</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<h2 id="plotting-the-phase">Plotting the Phase</h2>
+
+<p>In plotting the phase for the different parameter combinations, we can really see the differences between the topological phases.  In the turquoise group that didn’t encircle zero, the phase changes sinusoidally, going up then back down again, so on and so forth around zero.</p>
+
+<p>But for our purple states $d&gt;0$, the phase just keeps increasing, so we get jumps as we confine it between $-\pi$ and $\pi$. The phase itself is continuous; it just goes across a branch cut which gives us a discontinuity in how we write it down.</p>
+
+<p>As for the $d=0$ systems, those are both boundary cases with more complicated behavior.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">()</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">va</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">angle</span><span class="o">.</span><span class="x">(</span><span class="n">um2</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">]))</span>
+    <span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"v=</span><span class="si">$</span><span class="s">(va[ii]) , d=</span><span class="si">$</span><span class="s">(da[ii])"</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span>
+    <span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">linestyle</span><span class="o">=</span><span class="n">styles</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+<span class="k">end</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Phase"</span><span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"k"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"angle"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/output_20_0.svg" alt="Wavefunction Phase" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>We can look at the effect of our decision of how to take an angle by rotating the system before applying the $-\pi$-$\pi$ boundary.</p>
+
+<p>If we rotate the system by $\pi/4$ first, the discontinuity in the topological wavefunctions occurs at a different k-location, but it doesn’t go away.  This same thing happened in the QAHE Chern number situation.  We can write something different and make a problem area occur in a different spot, but it’s still going to occur somewhere.  We can’t get rid of the wrapping behavior of the topological systems by any amount of looking at it differently or smooth manipulations.  We can only move the discontinuity that arises from it to a different location.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">()</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">va</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">angle</span><span class="o">.</span><span class="x">(</span><span class="n">exp</span><span class="x">(</span><span class="nb">im</span><span class="o">*</span><span class="n">π</span><span class="o">/</span><span class="mi">4</span><span class="x">)</span><span class="o">*</span><span class="n">um2</span><span class="o">.</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">]))</span>
+    <span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"v=</span><span class="si">$</span><span class="s">(va[ii]) , w=</span><span class="si">$</span><span class="s">(wa[ii])"</span><span class="x">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span>
+    <span class="x">,</span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+<span class="k">end</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Phase"</span><span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"k"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"angle"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/output_22_0.svg" alt="Rotated Wavefunction Phase" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>We’ve qualitatively seen the difference between the phases, but now let’s quantitatively look at the difference between the phases. This is as simple integrating the formula in the introduction,
+<img src="/M4/Images/SSH/eqn1.png" class="eqim" /></p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="k">function</span><span class="nf"> Winding_phi</span><span class="x">(</span><span class="n">k</span><span class="x">,</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span>
+    <span class="n">dum2</span><span class="o">=</span><span class="x">(</span><span class="n">um2</span><span class="o">.</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">2</span><span class="x">:</span><span class="k">end</span><span class="x">],</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span><span class="o">.-</span><span class="n">um2</span><span class="o">.</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">1</span><span class="x">:(</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="x">)],</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">))</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="n">π</span><span class="o">*</span><span class="nb">im</span><span class="x">)</span><span class="o">*</span><span class="n">sum</span><span class="x">(</span><span class="n">dum2</span><span class="o">./</span><span class="n">um2</span><span class="o">.</span><span class="x">(</span><span class="n">k</span><span class="x">[</span><span class="mi">2</span><span class="x">:</span><span class="k">end</span><span class="x">],</span><span class="n">v</span><span class="x">,</span><span class="n">w</span><span class="x">)</span> <span class="x">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>Calculating the winding number specifically for the parameter combinations we’ve been looking at so far, we can see that the positive phase $d&gt;0$ has a winding number of 1 and the negative phase $d&lt;0$ has a winding number of 0.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">println</span><span class="x">(</span><span class="s">"|Phase </span><span class="se">\t</span><span class="s"> n </span><span class="se">\t</span><span class="s">| d </span><span class="se">\t</span><span class="s"> v </span><span class="se">\t</span><span class="s"> w |</span><span class="se">\t</span><span class="s"> Real </span><span class="se">\t</span><span class="s"> Imag"</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">length</span><span class="x">(</span><span class="n">va</span><span class="x">)</span>
+    <span class="n">temp</span><span class="o">=</span><span class="n">Winding_phi</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">])</span>
+    
+    <span class="n">println</span><span class="x">(</span><span class="s">"| "</span><span class="x">,</span><span class="n">sign</span><span class="x">(</span><span class="n">da</span><span class="x">[</span><span class="n">ii</span><span class="x">]),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">round</span><span class="x">(</span><span class="n">real</span><span class="x">(</span><span class="n">temp</span><span class="x">),</span><span class="n">digits</span><span class="o">=</span><span class="mi">1</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">|"</span><span class="x">,</span>
+        <span class="n">da</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">va</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">wa</span><span class="x">[</span><span class="n">ii</span><span class="x">],</span><span class="s">"|</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span>
+        <span class="n">round</span><span class="x">(</span><span class="n">real</span><span class="x">(</span><span class="n">temp</span><span class="x">),</span><span class="n">digits</span><span class="o">=</span><span class="mi">5</span><span class="x">),</span><span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="x">,</span><span class="n">round</span><span class="x">(</span><span class="n">imag</span><span class="x">(</span><span class="n">temp</span><span class="x">),</span><span class="n">digits</span><span class="o">=</span><span class="mi">5</span><span class="x">))</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>|Phase 	 n 	| d 	 v 	 w |	 Real 	 Imag
+| 0.0	0.5	|0.0	1.0	1.0|	0.4968	-0.3208
+| 1.0	1.0	|0.5	0.5	1.0|	0.99989	-0.01171
+| -1.0	0.0	|-0.5	1.0	0.5|	1.0e-5	-0.00167
+| 1.0	1.0	|0.5	0.0	0.5|	0.99993	-0.01004
+| -1.0	0.0	|-0.5	0.5	0.0|	0.0	0.0
+| 1.0	1.0	|0.2	0.4	0.6|	0.99982	-0.01405
+| -1.0	0.0	|-0.2	0.6	0.4|	3.0e-5	-0.00401
+</code></pre>
+</div>
+
+<p>But we can also calculate the winding number for the entire grid of parameter values. Here we can much more obviously see how $d=0 \rightarrow v=w$ represents a phase transition between two different topological phases.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">vaa</span><span class="o">=</span><span class="n">repeat</span><span class="x">(</span><span class="n">range</span><span class="x">(</span><span class="mi">0</span><span class="x">,</span><span class="mi">1</span><span class="x">,</span><span class="n">length</span><span class="o">=</span><span class="mi">100</span><span class="x">),</span><span class="mi">1</span><span class="x">,</span><span class="mi">100</span><span class="x">)</span>
+<span class="n">waa</span><span class="o">=</span><span class="n">transpose</span><span class="x">(</span><span class="n">vaa</span><span class="x">)</span>
+
+<span class="n">ϕaa</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="mi">100</span><span class="x">,</span><span class="mi">100</span><span class="x">)</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="mi">100</span>
+    <span class="k">for</span> <span class="n">jj</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="mi">100</span>
+        <span class="n">ϕaa</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">Winding_phi</span><span class="x">(</span><span class="n">ks</span><span class="x">,</span><span class="n">vaa</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">],</span><span class="n">waa</span><span class="x">[</span><span class="n">ii</span><span class="x">,</span><span class="n">jj</span><span class="x">])</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">heatmap</span><span class="x">(</span><span class="n">vaa</span><span class="x">[:,</span><span class="mi">1</span><span class="x">],</span><span class="n">waa</span><span class="x">[</span><span class="mi">1</span><span class="x">,:],</span><span class="n">real</span><span class="o">.</span><span class="x">(</span><span class="n">ϕaa</span><span class="x">))</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"v"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"w"</span><span class="x">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Two Different Topological Phases"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/SSH/output_29_0.svg" alt="Topological Phases" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Systems in one dimension with chiral symmetry can host topological phases characterized by the winding number.</p>
+
+<p>The winding behavior appears in both the Hamiltonian and the wavefunctions.</p>
+
+<p>Transitions between topological phases occur at band gap closings.</p>
+
+<p>The Su-Schrieffer-Heeger model exhibits two different topological phases.</p>
+
+<p>[1] Public Domain, https://commons.wikimedia.org/w/index.php?curid=1499462</p>
+
+<p>[2] Chen, Xie, Zheng-Cheng Gu, and Xiao-Gang Wen. “Local unitary transformation, long-range quantum entanglement, wave function renormalization, and topological order.” Physical review b 82.15 (2010): 155138. https://arxiv.org/pdf/1004.3835.pdf</p>
+
+<p>[3] https://www.nobelprize.org/prizes/chemistry/2000/popular-information/</p>
+
+<p>[4] Su, W-P_, J. R. Schrieffer, and A. J. Heeger. “Soliton excitations in polyacetylene.” Physical Review B 22.4 (1980): 2099.</p>
+
+<p>[5] Heeger, Alan J., et al. “Solitons in conducting polymers.” Reviews of Modern Physics 60.3 (1988): 781.</p>
+
+<p>[6] Takayama, Hajime, Yo R. Lin-Liu, and Kazumi Maki. “Continuum model for solitons in polyacetylene.” Physical Review B 21.6 (1980): 2388.</p>
+
+<p>[7] Meier, E. J. et al. Observation of the topological soliton state in the Su-Schrieffer-Heeger model. Nat. Commun. 7, 13986 doi: 10.1038/ncomms13986 (2016)</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/WindingNumber.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/WindingNumber.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

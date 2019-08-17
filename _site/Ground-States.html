@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Ground States, Imaginary Time Evolution</title>
+    <!-- <meta name="description" content="Blog Introduction to Computational Condensed Matter Physics"> -->
+    <link rel="stylesheet" href="/M4/css/main.css">
+    <link rel="canonical" href="http://localhost:4000/M4/Ground-States.html">
+    <meta name="google-site-verification" content="FLWeXTRDBUYGSJXcdiUyqbwExBElCj76l3EdhtLL-wI" />
+          <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: true,
+    }
+  });
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    <meta property="og:title" content="Ground States, Imaginary Time Evolution" />
+    <meta property="og:image" content="https://albi3ro.github.io/M4/Images/GroundStates/occupation_show.png" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@PyrochloreLee" />
+    <meta property="twitter:title" content="Ground States, Imaginary Time Evolution" />
+    <meta property="twitter:image" content="https://albi3ro.github.io/M4/Images/GroundStates/occupation_show.png" />
+    <meta property="twitter:description" content="Evolving a state in imaginary time dissipates away higher energy states, leaving behind the ground state." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/M4/Images/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/M4/Images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/M4/Images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/M4/Images/favicons/manifest.json">
+    <link rel="mask-icon" href="/M4/Images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#000000">
+
+</head>
+
+
+  <body>
+
+
+    <header class="site-header">
+
+  <div>
+
+    <a class="site-title" href="/M4/">Metals, Magnets, and Miscellaneous Materials</a>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="float: right">
+    <input type="hidden" name="cmd" value="_donations">
+    <input type="hidden" name="business" value="chrissie.c.l@gmail.com">
+    <input type="hidden" name="lc" value="US">
+    <input type="hidden" name="item_name" value="M4">
+    <input type="hidden" name="no_note" value="0">
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="bn" value="PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+
+
+
+  </div>
+
+</header>
+
+
+
+
+    <div class="page-content">
+        <div class="downloadzp"><a href="https://github.com/albi3ro/M4/archive/master.zip" class="sidebar">Zip!</a></div>
+
+        <div class="clonelink"><a href="https://github.com/albi3ro/M4.git" class="sidebar">Clone!</a></div>
+
+        <div class="pdfslink"><a href="/M4/pdfs" class="sidebar">PDFs</a></div>
+
+        <div class="juliadocs"><a href="https://docs.julialang.org/" class="sidebar">Docs</a></div>
+
+        <div class="juliahelp"><a href="/M4/jupyterjulia" class="sidebar">Interact</a></div>
+
+        <div class="about"><a href="/M4/about" class="sidebar">About</a></div>
+
+      <div class="wrapper">
+        <div class="post">
+<meta name="description" content="Evolving a state in imaginary time dissipates away higher energy states, leaving behind the ground state." />
+<meta name="keywords" content="Quantum" />
+<meta name="author" content="Christina C. Lee" />
+
+  <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name">Ground States, Imaginary Time Evolution</h1>
+    <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
+      Category: <a href="/M4/categories">
+        Prerequisites Required</a> &nbsp;  &nbsp; &nbsp; &nbsp;
+        Tags:
+      
+      <a href="/M4/tags#Quantum">Quantum</a>&nbsp; 
+        </p>
+  </header>
+
+  <article class="post-content">
+
+    <p>Post Prerequisties: <a href="/M4/Time-Evolution.html">Time Evolution</a>, Quantum Mechanics</p>
+
+<p>I’ve long thought that instead of being called the imaginary number, $i$ should be called the magic number. For many tricky problems, I feel like I can almost just throw $i$ at the problem and then the problem solves itself.  Once again, $i$ performs unexpected wonders when we perform <i>analytic continuation</i> of the time variable into the complex plane.</p>
+
+<p><i>Analytic continuation</i> is when we take a variable limited to the Real $\mathbb{R}$ axis and allow it to take on all values in the complex plane $\mathbb{C}$.</p>
+
+<p>In the Split Operator post, we saw one computational method of performing time evolution. If you haven’t read that, I recommend perusing it before trying the parse the code here. Split Operator is just one method; other methods include Green’s functions and semi-classical molecular dynamics. Imaginary time evolution would equally apply to any other time evolution method.</p>
+
+<p>Given the Split Operator Method, we can evolve any wavefunction we want. But what wavefunction do we evolve?</p>
+
+<p>In the previous post, I just used a variation on an exactly solvable problem,  allowing me to plug in an exact solution.  However, I won’t always be able to do that, given the minimal number of exact solutions in Quantum Mechanics. Imaginary time allows us to determine the lowest energy eigenstate, or ground state, of just about any Hamiltonian.  In cold atomic physics, we usually care most about the ground state, and this method provides a robust method of determining it.</p>
+
+<p>So how does imaginary time in Quantum Mechanics work? We can write  any arbitrary wavefunction as a superposition of eigenstates,</p>
+
+<script type="math/tex; mode=display">\Psi = \sum_i a_i \phi_i .</script>
+
+<p>Each eigenstate doesn’t change in overall magnitude as time progresses but rotates with a frequency proportional to the energy.  The superposition changes from a changing interference pattern,</p>
+
+<script type="math/tex; mode=display">\Psi (t) = \sum_i a_i (0) e^{-i E_i t} \phi_i .</script>
+
+<p>If we now perform the substitution $(t \mapsto -i t)$</p>
+
+<script type="math/tex; mode=display">\Psi (-it) = \sum_i a_i (0) e^{- E_i t} \phi_i,</script>
+
+<p>we can see that all eigenstates dissipate away in an imaginary time system, but the states with higher energy dissipate more rapidly.  Over time, the lowest energy state comes to dominate the wavefunction.</p>
+
+<p>This trick is called a <a href="https://en.wikipedia.org/wiki/Wick_rotation">Wick rotation</a>.  Wick rotations are also used to equate inverse temperature $1/T$ with imaginary time $i t$ to statistical quantum mechanics problems or to solve problems in cosmology.</p>
+
+<h2 id="coding-time">Coding Time!</h2>
+
+<p>Let’s load our packages:</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">FFTW</span>
+<span class="n">using</span> <span class="n">Plots</span>
+<span class="n">gr</span><span class="x">()</span>
+</code></pre>
+</div>
+
+<h2 id="parameters">Parameters</h2>
+<p>This code just needs to run long enough to get decent convergence.  Make sure to have small enough steps in space and time.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c"># Set Time Parameters</span>
+<span class="n">t0</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">tf</span><span class="o">=</span><span class="mi">5</span>
+<span class="n">dt</span><span class="o">=.</span><span class="mi">01</span>
+
+<span class="c"># Set Space Grid Parameters</span>
+<span class="n">dx</span><span class="o">=.</span><span class="mi">05</span>
+<span class="n">xmax</span><span class="o">=</span><span class="mi">6</span>
+<span class="c"># xmin will be -xmax.  Making the situation symmetric</span>
+
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">t</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="n">t0</span><span class="x">:</span><span class="n">dt</span><span class="x">:</span><span class="n">tf</span><span class="x">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="o">-</span><span class="n">xmax</span><span class="x">:</span><span class="n">dx</span><span class="x">:</span><span class="n">xmax</span><span class="x">)</span>
+
+<span class="n">nt</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">t</span><span class="x">)</span>
+<span class="n">N</span><span class="o">=</span><span class="n">length</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+
+<span class="n">dk</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">π</span><span class="o">/</span><span class="x">(</span><span class="n">N</span><span class="o">*</span><span class="n">dx</span><span class="x">)</span>
+<span class="k">if</span> <span class="n">iseven</span><span class="x">(</span><span class="n">N</span><span class="x">)</span>
+    <span class="n">k</span><span class="x">[</span><span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span> <span class="x">;</span> <span class="n">collect</span><span class="x">(</span><span class="o">-</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="x">:</span><span class="o">-</span><span class="mi">1</span><span class="x">)]</span><span class="o">*</span><span class="n">dk</span>
+    <span class="k">else</span> <span class="c"># N is odd</span>
+    <span class="n">k</span><span class="o">=</span><span class="x">[</span><span class="n">collect</span><span class="x">(</span><span class="mi">0</span><span class="x">:(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span> <span class="x">;</span> <span class="n">collect</span><span class="x">(</span><span class="o">-</span><span class="x">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span><span class="o">/</span><span class="mi">2</span><span class="x">:</span><span class="o">-</span><span class="mi">1</span><span class="x">)]</span><span class="o">*</span><span class="n">dk</span>
+<span class="k">end</span><span class="x">;</span>
+</code></pre>
+</div>
+
+<p>In the next cell, we define our evolution operators.</p>
+
+<p>This cell holds the key differences between standard time evolution and imaginary time evolution.  Note the absence of $i$ in the definition of the evolution operators.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Vx</span><span class="o">=.</span><span class="mi">5</span><span class="o">*</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="x">;</span>
+<span class="n">Vk</span><span class="o">=.</span><span class="mi">5</span><span class="o">*</span><span class="n">k</span><span class="o">.^</span><span class="mi">2</span>
+
+<span class="n">Uxh</span><span class="o">=</span><span class="n">exp</span><span class="o">.</span><span class="x">(</span><span class="o">-</span><span class="n">Vx</span><span class="o">*</span><span class="n">dt</span><span class="o">/</span><span class="mi">2</span><span class="x">);</span>
+<span class="n">Ux</span><span class="o">=</span><span class="n">exp</span><span class="o">.</span><span class="x">(</span><span class="o">-</span><span class="n">Vx</span><span class="o">*</span><span class="n">dt</span><span class="x">);</span>
+<span class="n">Uf</span><span class="o">=</span><span class="n">exp</span><span class="o">.</span><span class="x">(</span><span class="o">-</span><span class="n">Vk</span><span class="o">*</span><span class="n">dt</span><span class="x">);</span>
+<span class="s">"potentials and evolvers defined"</span>
+</code></pre>
+</div>
+
+<p>To see the decay to the ground state, we will check the overlap with some higher energy harmonic oscillator eigenstates.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">ϕ</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="n">π</span><span class="o">^</span><span class="x">(</span><span class="o">-.</span><span class="mi">25</span><span class="x">)</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span>
+<span class="n">ϕ1</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="n">π</span><span class="o">^</span><span class="x">(</span><span class="o">-.</span><span class="mi">25</span><span class="x">)</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="n">x</span>
+<span class="n">ϕ2</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="n">π</span><span class="o">^</span><span class="x">(</span><span class="o">-.</span><span class="mi">25</span><span class="x">)</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="x">)</span>
+<span class="n">ϕ4</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sqrt</span><span class="x">(</span><span class="mi">6</span><span class="x">)</span><span class="o">*</span><span class="n">π</span><span class="o">^</span><span class="x">(</span><span class="o">.</span><span class="mi">25</span><span class="x">))</span><span class="o">*</span><span class="n">exp</span><span class="x">(</span><span class="o">-</span><span class="n">x</span><span class="o">.^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">-</span><span class="mi">12</span><span class="o">*</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">3</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Ψ0</span><span class="o">=</span><span class="x">(</span><span class="mf">1.0</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">xmax</span><span class="x">))</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="n">N</span><span class="x">);</span>
+<span class="n">Ψtrue</span><span class="o">=</span><span class="x">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">0</span><span class="o">*</span><span class="nb">im</span><span class="x">)</span><span class="o">.*</span><span class="n">ϕ</span><span class="o">.</span><span class="x">(</span><span class="n">x</span><span class="x">);</span>
+<span class="n">fΨtrue</span><span class="o">=</span><span class="n">fft</span><span class="x">(</span><span class="n">Ψtrue</span><span class="x">);</span>
+<span class="n">Ψ1</span><span class="o">=</span><span class="x">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">0</span><span class="o">*</span><span class="nb">im</span><span class="x">)</span><span class="o">.*</span><span class="n">ϕ1</span><span class="o">.</span><span class="x">(</span><span class="n">x</span><span class="x">);</span>
+<span class="n">Ψ2</span><span class="o">=</span><span class="x">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">0</span><span class="o">*</span><span class="nb">im</span><span class="x">)</span><span class="o">.*</span><span class="n">ϕ2</span><span class="o">.</span><span class="x">(</span><span class="n">x</span><span class="x">);</span>
+<span class="n">Ψ4</span><span class="o">=</span><span class="x">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">0</span><span class="o">*</span><span class="nb">im</span><span class="x">)</span><span class="o">.*</span><span class="n">ϕ4</span><span class="o">.</span><span class="x">(</span><span class="n">x</span><span class="x">);</span>
+
+<span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">Ψ0</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="s">"Starting Wavefunction"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">Ψtrue</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="s">"Analytic Ground State"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">Ψ1</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="s">"First Excited"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">Ψ2</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="s">"Second Excited"</span><span class="x">)</span>
+
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Absolute Value"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Wavefunctions"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<h3 id="planning-and-initializing">Planning and Initializing</h3>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="c">## If you are doing lots of fft's, plan them before for optimization!</span>
+<span class="n">ft</span><span class="o">=</span><span class="n">plan_fft</span><span class="x">(</span><span class="n">Ψ0</span><span class="x">);</span>
+<span class="n">Ψf</span><span class="o">=</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ0</span><span class="x">;</span>
+<span class="n">ift</span><span class="o">=</span><span class="n">plan_ifft</span><span class="x">(</span><span class="n">Ψf</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">nmeas</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">lmeas</span><span class="o">=</span><span class="n">floor</span><span class="x">(</span><span class="kt">Int</span><span class="x">,</span> <span class="n">nt</span><span class="o">/</span><span class="n">nmeas</span><span class="x">)</span>
+
+<span class="n">Ex</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+<span class="n">Ek</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+<span class="n">E</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+<span class="n">E2</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+
+<span class="n">c</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+<span class="n">c1</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+<span class="n">c2</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+<span class="n">c4</span><span class="o">=</span><span class="n">zeros</span><span class="x">(</span><span class="kt">Float64</span><span class="x">,</span><span class="n">lmeas</span><span class="x">);</span>
+</code></pre>
+</div>
+
+<h2 id="the-code-body">The Code Body</h2>
+
+<p>Now we finally get to run the body of the code.  If you look back over the Split Operator Method Post, you will see almost identical code, as I am doing virtually the same thing.  I am only using different evolution operators and measuring different quantities.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">Ψ0</span><span class="o">=</span><span class="x">(</span><span class="mf">1.0</span><span class="o">/</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="n">xmax</span><span class="x">))</span><span class="o">*</span><span class="n">ones</span><span class="x">(</span><span class="n">Complex</span><span class="x">{</span><span class="kt">Float64</span><span class="x">},</span><span class="n">N</span><span class="x">);</span>
+<span class="n">Ψ</span><span class="o">=</span><span class="n">copy</span><span class="x">(</span><span class="n">Ψ0</span><span class="x">);</span>
+<span class="n">jj</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="c"># The operators we have to start off with</span>
+<span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Uxh</span>
+
+<span class="n">Psif</span><span class="o">=</span><span class="x">(</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ</span><span class="x">)</span><span class="o">*</span><span class="n">dx</span>
+<span class="n">Psif</span><span class="o">=</span><span class="n">Psif</span><span class="o">.*</span><span class="n">Uf</span>    
+<span class="n">Ψ</span><span class="o">=</span><span class="x">(</span><span class="n">ift</span><span class="o">*</span><span class="n">Psif</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">dk</span><span class="o">/</span><span class="mi">2</span><span class="n">π</span><span class="x">)</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">nt</span>
+
+    <span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Ux</span>
+
+
+    <span class="n">Psif</span><span class="o">=</span><span class="x">(</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ</span><span class="x">)</span><span class="o">*</span><span class="n">dx</span>
+    <span class="n">Psif</span><span class="o">=</span><span class="n">Psif</span><span class="o">.*</span><span class="n">Uf</span>
+
+    <span class="n">Ψ</span><span class="o">=</span><span class="x">(</span><span class="n">ift</span><span class="o">*</span><span class="n">Psif</span><span class="x">)</span><span class="o">*</span><span class="x">(</span><span class="n">dk</span><span class="o">/</span><span class="mi">2</span><span class="n">π</span><span class="x">)</span>   
+    <span class="n">nn</span><span class="o">=</span><span class="n">sum</span><span class="x">(</span><span class="n">conj</span><span class="x">(</span><span class="n">Ψ</span><span class="x">)</span><span class="o">.*</span><span class="n">Ψ</span><span class="x">)</span><span class="o">*</span><span class="n">dx</span>
+    <span class="n">Ψ</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="x">(</span><span class="n">nn</span><span class="x">)</span><span class="o">*</span><span class="n">Ψ</span>
+
+    <span class="k">if</span> <span class="n">ii</span><span class="o">%</span><span class="n">nmeas</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="c"># Every time we measure, we have to finish with a U_x half time step</span>
+        <span class="n">Ψt</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Uxh</span>
+        <span class="n">Ψft</span><span class="o">=</span><span class="x">(</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψt</span><span class="x">)</span><span class="o">*</span><span class="n">dx</span>
+
+        <span class="n">Ex</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">real</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span><span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span><span class="n">Vx</span><span class="o">.*</span><span class="n">Ψt</span><span class="x">))</span><span class="o">*</span><span class="n">dx</span>
+
+        <span class="n">Ek</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">real</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span><span class="n">conj</span><span class="x">(</span><span class="n">Ψft</span><span class="x">)</span><span class="o">.*</span><span class="n">Vk</span><span class="o">.*</span><span class="n">Ψft</span><span class="x">))</span><span class="o">*</span><span class="x">(</span><span class="n">dk</span><span class="o">/</span><span class="mi">2</span><span class="n">π</span><span class="x">)</span>
+
+        <span class="n">E</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">Ex</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">+</span><span class="n">Ek</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span>
+
+        <span class="n">c</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">abs</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span> <span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span> <span class="n">Ψtrue</span><span class="x">))</span> <span class="o">*</span><span class="n">dx</span>
+        <span class="n">c1</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">abs</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span> <span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span> <span class="n">Ψ1</span><span class="x">))</span> <span class="o">*</span><span class="n">dx</span>
+        <span class="n">c2</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">abs</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span> <span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span> <span class="n">Ψ2</span><span class="x">))</span> <span class="o">*</span><span class="n">dx</span>
+        <span class="n">c4</span><span class="x">[</span><span class="n">jj</span><span class="x">]</span><span class="o">=</span><span class="n">abs</span><span class="x">(</span><span class="n">sum</span><span class="x">(</span> <span class="n">conj</span><span class="x">(</span><span class="n">Ψt</span><span class="x">)</span><span class="o">.*</span> <span class="n">Ψ4</span><span class="x">))</span> <span class="o">*</span><span class="n">dx</span>
+
+        <span class="n">jj</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">end</span>
+<span class="k">end</span>    
+
+
+<span class="n">Ψ</span><span class="o">=</span><span class="n">Ψ</span><span class="o">.*</span><span class="n">Uxh</span><span class="x">;</span>
+<span class="n">fΨ</span><span class="o">=</span><span class="n">ft</span><span class="o">*</span><span class="n">Ψ</span><span class="x">;</span>
+</code></pre>
+</div>
+
+<h2 id="results">Results</h2>
+
+<p>In this next section, we examine the results that we calculated above, making sure they agree with our analytical predictions.</p>
+
+<p>The first two pictures show how the final wavefunction after imaginary time evolution agrees with the ground state for the Quantum Harmonic Oscillator, both in position and momentum space.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">Ψ</span><span class="x">),</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"Final"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="x">,</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">Ψtrue</span><span class="x">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Analytic"</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Absolute Value"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Wavefunction"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/GroundStates/wavefunc.png" alt="Comparison of Wavefunctions" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">fftshift</span><span class="x">(</span><span class="n">k</span><span class="x">),</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">fftshift</span><span class="x">(</span><span class="n">fΨ</span><span class="x">)),</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">10</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Final"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">fftshift</span><span class="x">(</span><span class="n">k</span><span class="x">),</span><span class="n">abs</span><span class="o">.</span><span class="x">(</span><span class="n">fftshift</span><span class="x">(</span><span class="n">fΨtrue</span><span class="x">)),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Analytic"</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"k"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Absolute Value"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Fourier Transform of Wavefunction"</span><span class="x">)</span>
+</code></pre>
+</div>
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/GroundStates/wavefunc_f.png" alt="Comparison of Wavefunction Momentums" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>The Energy of the system converges to $1/2 \hbar \omega$, which in this case is just 1/2.  The potential and kinetic energy each contribute to half of the total energy.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">E</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">" Total Energy"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">Ex</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Potential"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">Ek</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Kinetic"</span><span class="x">)</span>
+<span class="n">hline!</span><span class="x">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"1/2"</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"Steps"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Energy"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Convergence of Energy"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/GroundStates/Energy.png" alt="Evolution of Energy" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<p>Here we look at how the state converges to the ground state by dissipating out higher energy states.</p>
+
+<p>We start with an even ground state, so any odd eigenstates will have no occupation in the beginning. As the state evolves, the odd eigenstates will never have any occupation, as that quantity can’t climb from zero.  That’s why the 1st excited state remains zero for all steps.  This highlights the importance of a good first guess, though numerical error might save the day if the ground state wasn’t present in our starting state.</p>
+
+<p>The higher the energy of the state, the faster it will decay.  We even see that the Second Excited State increases in occupation for a short while in the beginning as the higher energy states rapidly disappear.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">c</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Ground State"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">c1</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"First Excited"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">c2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Second Excited"</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">c4</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Fourth Excited"</span><span class="x">)</span>
+
+<span class="n">plot!</span><span class="x">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"Steps"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Occupation of State"</span><span class="x">,</span><span class="n">title</span><span class="o">=</span><span class="s">"Occupation of Eigenstates"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<!-- _includes/image.html -->
+<div class="image-wrapper">
+    
+        <img src="http://localhost:4000/M4/Images/GroundStates/occupation.png" alt="Evolution to the Ground Sate" />
+    
+    
+        <p class="image-caption"></p>
+    
+</div>
+
+<h2 id="points-of-clarification">Points of Clarification</h2>
+
+<ul>
+  <li>This algorithm will fall prey to <b>degeneracies</b>.  If you have two or more ground states, or states extremely close together, this algorithm will fail to distinguish between them or let you know they exist.  If you start in a different starting state, you may end in a different superposition.</li>
+  <li>Make sure to store your wavefunction as double precision Float64</li>
+</ul>
+
+<p>A big thank you to Lee O’Riordan for his expertise. Check out his Github repository <a href="https://github.com/mlxd">@mlxd</a>, his project <a href="https://github.com/GPUE-group/GPUE">GPUE</a> solving for the evolution of rapidly rotating Bose-Einstein condensates, or his thesis on that topic (<a href="https://ci.nii.ac.jp/naid/500001054902/?l=en">Non-equilibrium vortex dynamics in rapidly rotating Bose-Einstein condensates</a>).</p>
+
+<h2 id="bibliography">Bibliography</h2>
+
+<p>Bader, Philipp, Sergio Blanes, and Fernando Casas. “Solving the Schrödinger eigenvalue problem by the imaginary time propagation technique using splitting methods with complex coefficients.” The Journal of chemical physics 139.12 (2013): 124117.</p>
+
+<p>O’Riordan, Lee James. Non-equilibrium vortex dynamics in rapidly rotating Bose-Einstein condensates. Diss. Okinawa Institute of Science and Technology Graduate University, 2017.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <div class="comment">
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'M4julia'; // required: replace example with your forum shortname
+  var disqus_identifier = "/Ground-States.html";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+
+    <footer class="site-footer">
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Metals, Magnets, and Miscellaneous Materials</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Metals, Magnets, and Miscellaneous Materials</li>
+          <li><a href="mailto:chrissie.c.l@gmail.com">chrissie.c.l@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/albi3ro">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">albi3ro</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/PyrochloreLee">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">PyrochloreLee</span>
+            </a>
+          </li>
+          
+          <li>
+              <div class="fb-share-button"
+               data-href="/M4/Ground-States.html" data-layout="button_count"></div>
+
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Blog Introduction to Computational Condensed Matter Physics</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70984222-1', 'auto');
+  ga('send', 'pageview');
+
+</script>

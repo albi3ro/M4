@@ -8,7 +8,7 @@ image: "{{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif"
 tags: [Magnet]
 ---
 
-Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/numerics/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/numerics/MCMC.html)
+Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/MCMC.html)
 
 Prerequisites: Statistical Mechanics
 

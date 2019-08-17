@@ -11,7 +11,7 @@ description: Evolving a state in imaginary time dissipates away higher energy st
 ---
 
 
-Post Prerequisties: [Time Evolution]({{base.url}}/M4/prerequisites/Time-Evolution.html), Quantum Mechanics
+Post Prerequisties: [Time Evolution]({{base.url}}/M4/Time-Evolution.html), Quantum Mechanics
 
 I've long thought that instead of being called the imaginary number, $i$ should be called the magic number. For many tricky problems, I feel like I can almost just throw $i$ at the problem and then the problem solves itself.  Once again, $i$ performs unexpected wonders when we perform <i>analytic continuation</i> of the time variable into the complex plane.  
 

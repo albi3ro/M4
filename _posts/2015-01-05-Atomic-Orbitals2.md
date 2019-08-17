@@ -10,7 +10,7 @@ image: "https://albi3ro.github.io/M4/Images/Orbitals2/3p_surface.png"
 ---
 <b>Prerequiresites:</b> Quantum Mechanics course
 
-If you haven't read it already, check out [Atomic Orbitals Pt. 1]({{base.url}}/M4/prerequisites/Atomic-Orbitals.html).  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.
+If you haven't read it already, check out [Atomic Orbitals Pt. 1]({{base.url}}/M4/Atomic-Orbitals.html).  Today, we try and make some prettier pictures. GLVisualize is quite a beautiful package, but not entirely the easiest to use at this point with some not so consistent documentation.
 
 To add this package:
 

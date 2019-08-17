@@ -9,7 +9,7 @@ author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/SSH/phase.png"
 description: The Su-Shrieffer-Heeger Model for trans-polyacetylene with two different topological phases characterized by winding numbers.
 ---
-<b>Prerequisites:</b> [Chern Number QAHE]({{base.url}}/M4/graduate/QAHE.html) 
+<b>Prerequisites:</b> [Chern Number QAHE]({{base.url}}/M4/QAHE.html) 
 
 The Chern number isn't the only topological invariant.  We have multiple invariants, each convenient in their own situations.  The Chern number just happened to appear one of the biggest, early examples, the Integer Quantum Hall Effect, but the winding number actually occurs much more often in a wider variety of circumstances.
 

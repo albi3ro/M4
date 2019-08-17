@@ -103,7 +103,7 @@ Check
 *    By reading aloud
 *    By another person
 
-I recommend [Grammarly](grammarly.com) for automated spelling and grammar check.
+I recommend [Grammarly](https://www.grammarly.com/) for automated spelling and grammar check.
 
 I feel silly harping on this because I have horrible grammar.  I might know exactly how to use a comma in Julia, but I have no idea how to use it in English. But whenever a mistake exists in the sentence, whether anyone realizes it or not, the brain has it's expectations refuted and has to do a little more work to figure out what is going on.  I would prefer the reader's brain to spend its time pondering the significance of symmetry breaking instead of whether or not I meant to put a comma in that sentence.
 
