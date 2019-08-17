@@ -173,7 +173,7 @@ A few simple changes can make a huge difference.  I took the worst site out ther
 <div  style="clear: both;"></div>
 
 
-I recommend [Paletton](paletton.com) for creating a color scheme.  The website generates a palette according to rules of color theory, eliminating the wishy-washyness of someone untrained in design judging based on personal taste.
+I recommend [Paletton](https://paletton.com) for creating a color scheme.  The website generates a palette according to rules of color theory, eliminating the wishy-washyness of someone untrained in design judging based on personal taste.
 
 Sans-serif scripts work best for screens and presentations, but serif characters work best for printed works.  Arial or Helvetica fonts are clear and readable.  You can't really go wrong with these choices.
 

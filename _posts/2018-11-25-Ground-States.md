@@ -235,7 +235,7 @@ plot!(fftshift(k),abs.(fftshift(fΨtrue)), linewidth=5,label="Analytic")
 
 plot!(xlabel="k",ylabel="Absolute Value",title="Fourier Transform of Wavefunction")
 ```
-{% include image.html img="M4/Images/GroundStates/wavefunc_f.png" title="Comparison of Wavefunction Momentums" caption=""%}
+{% include image.html img="M4/Images/GroundStates/wavefunc_F.png" title="Comparison of Wavefunction Momentums" caption=""%}
 
 The Energy of the system converges to $1/2 \hbar \omega$, which in this case is just 1/2.  The potential and kinetic energy each contribute to half of the total energy.
 
