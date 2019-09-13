@@ -926,8 +926,6 @@ fp(x)=f_prep2(x .*[1.])[1]
     
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;output_26_0.svg&quot; alt=&quot;svg&quot; /&gt;&lt;/p&gt;
-
 &lt;p&gt;Here we can see in &lt;b&gt;black&lt;/b&gt; the stationary cycle.  Colored by iteration, we can see the perturbed attempt.While is does move over a little to the right once, the path moves right back over to it’s attractive stationary region.  No amount of iterations will get us any closer to a zero.&lt;/p&gt;
 
 &lt;h2 id=&quot;runaway-iteration&quot;&gt;Runaway Iteration&lt;/h2&gt;
@@ -1954,7 +1952,7 @@ Rand 	[0.267895, -0.144551, 0.0]
 &lt;!-- _includes/image.html --&gt;
 &lt;div class=&quot;image-wrapper&quot;&gt;
     
-        &lt;img src=&quot;http://localhost:4000/M4/Images/GroundStates/wavefunc_f.png&quot; alt=&quot;Comparison of Wavefunction Momentums&quot; /&gt;
+        &lt;img src=&quot;http://localhost:4000/M4/Images/GroundStates/wavefunc_F.png&quot; alt=&quot;Comparison of Wavefunction Momentums&quot; /&gt;
     
     
         &lt;p class=&quot;image-caption&quot;&gt;&lt;/p&gt;
@@ -3504,7 +3502,7 @@ Not shortest, not the most elegant, and not necessarily most efficient.&lt;/p&gt
 &lt;/div&gt;
 &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;I recommend &lt;a href=&quot;paletton.com&quot;&gt;Paletton&lt;/a&gt; for creating a color scheme.  The website generates a palette according to rules of color theory, eliminating the wishy-washyness of someone untrained in design judging based on personal taste.&lt;/p&gt;
+&lt;p&gt;I recommend &lt;a href=&quot;https://paletton.com&quot;&gt;Paletton&lt;/a&gt; for creating a color scheme.  The website generates a palette according to rules of color theory, eliminating the wishy-washyness of someone untrained in design judging based on personal taste.&lt;/p&gt;
 
 &lt;p&gt;Sans-serif scripts work best for screens and presentations, but serif characters work best for printed works.  Arial or Helvetica fonts are clear and readable.  You can’t really go wrong with these choices.&lt;/p&gt;
 
