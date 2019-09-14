@@ -5,6 +5,7 @@ comments: True
 category: Prerequisites Required
 tags:
     Quantum
+series: Quantum_Time_Evolution
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/GroundStates/occupation_show.png"
 description: Evolving a state in imaginary time dissipates away higher energy states, leaving behind the ground state.
@@ -281,3 +282,33 @@ A big thank you to Lee O'Riordan for his expertise. Check out his Github reposit
 Bader, Philipp, Sergio Blanes, and Fernando Casas. "Solving the Schrödinger eigenvalue problem by the imaginary time propagation technique using splitting methods with complex coefficients." The Journal of chemical physics 139.12 (2013): 124117.
 
 O'Riordan, Lee James. Non-equilibrium vortex dynamics in rapidly rotating Bose-Einstein condensates. Diss. Okinawa Institute of Science and Technology Graduate University, 2017.
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Qunatum Time Evolution</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/QHO.html">Quantum Harmonic Oscillator</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites Required</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Time-Evolution.html">Time Evolution Spit Operator Method</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites Required</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4//Ground-States.html">Ground States: Imaginary Time Evolution</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites Required</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum</p></td>
+    </tr>
+</tbody>
+</table>

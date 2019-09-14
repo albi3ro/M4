@@ -3,10 +3,14 @@ title: Monte Carlo Calculation of pi
 layout: post
 comments: True
 category: Numerics
-tags: [Monte Carlo]
+tags: MonteCarlo
+series: MonteCarlo
 author: Christina C. Lee
 description: An Introduction to Monte Carlo methods by calculating Pi
 ---
+
+
+
 
 ## Monte Carlo- Random Numbers to Improve Calculations
 
@@ -180,3 +184,40 @@ width="700px" height="450px"></iframe>
 That's all folks!
 Now here's a picture of some pie to congratulate you on calculating π.
 {% include image.html img="M4/Images/MonteCarlo/pie.jpg" title="pie" caption="By Scott Bauer, USDA ARS - This image was released by the Agricultural Research Service, the research agency of the United States Department of Agriculture, with the ID K7252-47 (next).This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.English | français | македонски | +/−, Public Domain, https://commons.wikimedia.org/w/index.php?curid=264106" %}
+
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Monte Carlo Physics Series</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Monte-Carlo.html">Monte Carlo Calculation of Pi</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">Monte Carlo</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/MCMC.html">Monte Carlo Markov Chain</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">Monte Carlo</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Monte-Carlo-Ferromagnet.html">Monte Carlo Ferromagnet</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites</p></td>
+        <td class="tagprop"><p class="post-meta">MonteCarlo Magnet</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">4</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Phase-Transitions.html">Phase Transitions</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites</p></td>
+        <td class="tagprop"><p class="post-meta">MonteCarlo Magnet</p></td>
+    </tr>
+</tbody>
+</table>

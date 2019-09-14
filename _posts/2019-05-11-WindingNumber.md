@@ -5,6 +5,7 @@ comments: True
 category: Graduate
 tags:
     Quantum Topological
+series: Topological_Physics
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/SSH/phase.png"
 description: The Su-Shrieffer-Heeger Model for trans-polyacetylene with two different topological phases characterized by winding numbers.
@@ -401,3 +402,27 @@ The Su-Schrieffer-Heeger model exhibits two different topological phases.
 [6] Takayama, Hajime, Yo R. Lin-Liu, and Kazumi Maki. "Continuum model for solitons in polyacetylene." Physical Review B 21.6 (1980): 2388.
 
 [7] Meier, E. J. et al. Observation of the topological soliton state in the Su-Schrieffer-Heeger model. Nat. Commun. 7, 13986 doi: 10.1038/ncomms13986 (2016)
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Topological Physics Series</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/QAHE.html">The Chern Number</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Graduate</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum Topological</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/WindingNumber.html">The Winding Number and SSH Model</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Graduate</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum Topological</p></td>
+    </tr>
+</tbody>
+</table>

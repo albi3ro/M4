@@ -9,10 +9,9 @@ tags:
   Magnet
   Quantum
   ED
+series: 1D_Spin_Chain
 description: The first in a series on Exact Diagonalization of the Quantum Mechanical Heisenberg Spin Chain Model, this post covers theoretical background and how we will be manipulating binary numbers.
 ---
-
-clone jupyter notebook: [https://github.com/albi3ro/M4.git](https://github.com/albi3ro/M4.git)
 
 Today's just background :(  I found my post getting a bit bloated, so I decided to pull most of the talking into an introduction post for the series.   Keep reading to learn how to compute, diagonalize, and analyze the matrix corresponding to a many-body, strongly interacting quantum mechanical system.  
 
@@ -416,3 +415,34 @@ Happy physicsing :)
 
 
 [1]  [Field Theories of Condensed Matter Physics](https://www.amazon.com/Field-Theories-Condensed-Matter-Physics/dp/0521764440) by Fradkin.  
+
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">1D Spin Chain</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Jacobi-Transformation.html">Jacobi Transformation</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">ED</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Spin-Chain-Prerequisites.html">1D Spin Chain Prerequisites</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Graduate</p></td>
+          <td class="tagprop"><p class="post-meta">Magnet Quantum ED</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Spin-Chain-pt2.html">1D Spin Chain Values and Vectors</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Graduate</p></td>
+            <td class="tagprop"><p class="post-meta">Magnet Quantum ED</p></td>
+    </tr>
+</tbody>
+</table>

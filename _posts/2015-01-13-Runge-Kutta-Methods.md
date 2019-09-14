@@ -9,10 +9,6 @@ tags: [ODE]
 description:  An introduction to the Runge-Kutta class of Ordinary Differential Equation solvers, specifically covering Euler, Implicit Euler, RK2, and RK4.
 ---
 
-# Ordinary Differential Equation Solvers: Runge-Kutta Methods
-
-### Christina Lee
-
 So what's an <i>Ordinary Differential Equation</i>?
 
 Differential Equation means we have some equation, or equations, that have derivatives in them.

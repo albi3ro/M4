@@ -3,9 +3,10 @@ title: Monte Carlo Ferromagnet
 layout: post
 comments: True
 category: Prerequisites Required
+series: MonteCarlo
 author: Christina C. Lee
 image: "{{base.url}}/M4/Images/Ferromagnet/ParamagnetL30_b2.gif"
-tags: [Magnet]
+tags: MonteCarlo   Magnet
 ---
 
 Post Prerequisites: [Monte Carlo Calculation of pi]({{base.url}}/M4/Monte-Carlo.html), [Monte Carlo Markov Chain]({{base.url}}/M4/MCMC.html)
@@ -332,3 +333,39 @@ This is an extremely rich problem.  Since this post seems long enough for me alr
 * Ferromagnetic versus Antiferromagnetic coupling
 * Autocorrelation function
 * Structure Factorm, Fourier Transform
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Monte Carlo Physics Series</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Monte-Carlo.html">Monte Carlo Calculation of Pi</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">Monte Carlo</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/MCMC.html">Monte Carlo Markov Chain</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">Monte Carlo</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Monte-Carlo-Ferromagnet.html">Monte Carlo Ferromagnet</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites</p></td>
+        <td class="tagprop"><p class="post-meta">MonteCarlo Magnet</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">4</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Phase-Transitions.html">Phase Transitions</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites</p></td>
+        <td class="tagprop"><p class="post-meta">MonteCarlo Magnet</p></td>
+    </tr>
+</tbody>
+</table>

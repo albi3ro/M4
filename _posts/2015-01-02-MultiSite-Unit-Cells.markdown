@@ -4,6 +4,7 @@ layout: post
 comments: True
 category: General Audience
 tags: [Lattices]
+series: Crystals
 author: Christina C. Lee
 description: Here we tile unit cells via Bravais lattice to create some common lattices like honeycomb and diamond.
 image: "https://albi3ro.github.io/M4/Images/Projectile/pyrochloresvg2.png"
@@ -206,3 +207,27 @@ You can see in my image that black sites are only next to white sites, and vice 
 If you keep reading, these lattices will keep cropping up again and again.  I'll probably throw in some new ones as well.
 
 Anyway, we will move onto some Quantum Mechanics to look at atomic orbitals soon!
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Crystals</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Crystal-Shapes.html">Computationally Visualizing Crystals</a></h3></td>
+        <td class="tagprop"><p class="post-meta">General Audience</p></td>
+          <td class="tagprop"><p class="post-meta">Lattices</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/MultiSite-Unit-Cells.html">Computationally Visualizing Crystals Pt. 2</a></h3></td>
+        <td class="tagprop"><p class="post-meta">General Audience</p></td>
+        <td class="tagprop"><p class="post-meta">Lattices</p></td>
+    </tr>
+</tbody>
+</table>

@@ -4,6 +4,7 @@ layout: post
 comments: True
 category: Prerequisites Required
 tags: [Quantum]
+series: Quantum_Time_Evolution
 author: Christina C. Lee
 description: Quantum mechanical time evolution through the split operator method looking at Rabi Oscillations between two harmonic oscillator wells.
 image: "https://albi3ro.github.io/M4/Images/TimeEvolution/shifting.png"
@@ -291,3 +292,33 @@ I'd particularly like to thank Dr. Lee J. O'Riordan [3] for sharing his experien
 [2] Heiko Bauke and Christoph H. Keitel. Accelerating the Fourier split operator method via graphics processing unit. Computer Physics Communications, 182(12):2454–2463 (2011)
 
 [3] Lee James O'Riordan et al., GPUE: Phasegineering release, Zenodo. (2016) [https://github.com/mlxd/GPUE](https://github.com/mlxd/GPUE) DOI:10.5281/zenodo.57968
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Qunatum Time Evolution</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/QHO.html">Quantum Harmonic Oscillator</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites Required</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Time-Evolution.html">Time Evolution Spit Operator Method</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites Required</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4//Ground-States.html">Ground States: Imaginary Time Evolution</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites Required</p></td>
+        <td class="tagprop"><p class="post-meta">Quantum</p></td>
+    </tr>
+</tbody>
+</table>

@@ -5,7 +5,8 @@ comments: True
 category: Prerequisites Required
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/PhaseTransitions/output_23_0.png"
-tags: [Magnet]
+tags: MonteCarlo    Magnet
+series: MonteCarlo
 description:  A look at phase transitions in magnets using a Metropolis-Hastings Algorithm, specifically at the square lattice Ising model.
 ---
 
@@ -485,3 +486,40 @@ title("Comparing Methods of Computing Susceptibility")
 
 
 That's all for now.  Plenty more to talk about on this subject, but hopefully that can keep you occupied.
+
+
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Monte Carlo Physics Series</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Monte-Carlo.html">Monte Carlo Calculation of Pi</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">Monte Carlo</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/MCMC.html">Monte Carlo Markov Chain</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">Monte Carlo</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Monte-Carlo-Ferromagnet.html">Monte Carlo Ferromagnet</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites</p></td>
+        <td class="tagprop"><p class="post-meta">MonteCarlo Magnet</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">4</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Phase-Transitions.html">Phase Transitions</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Prerequisites</p></td>
+        <td class="tagprop"><p class="post-meta">MonteCarlo Magnet</p></td>
+    </tr>
+</tbody>
+</table>

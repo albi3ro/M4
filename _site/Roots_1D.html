@@ -105,12 +105,15 @@
   <header class="post-header">
     <h1 class="post-title" itemprop="name">Root Finding in One Dimension</h1>
     <p class="post-meta">Author: Christina C. Lee &nbsp;&nbsp;&nbsp;&nbsp;
-      Category: <a href="/M4/categories">
+      Category: <a href="/M4/categories#Numerics">
         Numerics</a> &nbsp;  &nbsp; &nbsp; &nbsp;
         Tags:
       
       <a href="/M4/tags#Roots">Roots</a>&nbsp; 
-        </p>
+        
+        &nbsp;  &nbsp; &nbsp; &nbsp;
+      Series: <a href="/M4/series#"></a>
+      </p>
   </header>
 
   <article class="post-content">
@@ -146,13 +149,57 @@ Where will this cannonball hit the ground?</p>
   <li>Could we have an even multiplicity situation?</li>
 </ul>
 
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">ForwardDiff</span>
+<span class="n">using</span> <span class="n">Statistics</span>
+<span class="n">using</span> <span class="n">SpecialFunctions</span>
+<span class="n">using</span> <span class="n">Plots</span>
+<span class="n">plotly</span><span class="x">()</span>
+</code></pre>
+</div>
+
 <h3 id="multiplicity">Multiplicity</h3>
 
-<p>The function $x^2-1$ intersects the x-axis twice.  As we move it up, at the function $x^2$ only intersects once, but we consider it a <i>zero of multiplicity two</i>. We count the zero of $x^2$ as an ‘‘axis-crossing going down’’ and an ‘‘axis-crossing going up’’ both at the same time.</p>
+<p>The function $x^2-1$ intersects the x-axis twice.</p>
 
-<p>If we have multiplicity three like $x^3$ at zero, the function goes up, then down, then back up again.  Overall, $x^3$ heads straight across the x-axis.</p>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"x^2-1"</span><span class="x">)</span>
+    <span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">xlims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">2</span><span class="x">),</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">5</span><span class="x">))</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/Roots/multiplicity1.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<p>As we move the graph up, at the function $x^2$ only intersects once, but we consider it a <i>zero of multiplicity two</i>, or “two zeros at the same point”. We count the zero of $x^2$ as an ‘‘axis-crossing going down’’ and an ‘‘axis-crossing going up’’ both at the same time.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"x^2"</span><span class="x">)</span>
+    <span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">xlims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">2</span><span class="x">),</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">5</span><span class="x">))</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/Roots/multiplicity2.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<p>If we have multiplicity three like $x^3$ at zero, the function goes up, then down, then back up again.  Overall, $x^3$ heads straight across the x-axis.  We see these three zeros seperately if we perturb the function with another term, like $-2x$.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"x^3"</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">x</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"x^3-2x"</span><span class="x">)</span>
+    <span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">xlims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">2</span><span class="x">),</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">5</span><span class="x">))</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/Roots/multiplicity3.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <p>Again at another even multiplicity, $x^4$ with multiplicity 4, the function goes down, up, down, then up.  Overall, $x^4$ hits the axis but never crosses it.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"x^4"</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">x</span><span class="o">-&gt;</span><span class="n">x</span><span class="o">^</span><span class="mi">4</span><span class="o">-</span><span class="mi">3</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"x^4-3x^2+1"</span><span class="x">)</span>
+    <span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">xlims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">2</span><span class="x">),</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">2</span><span class="x">,</span><span class="mi">5</span><span class="x">))</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/Roots/multiplicity4.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <p>When we have zeros of even multiplicity, we will <b>hit the axis</b> $f(x)=0$, but <b>never change signs</b>.</p>
 
@@ -169,14 +216,6 @@ Where will this cannonball hit the ground?</p>
   <li>Regula-Falsi</li>
 </ul>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">using</span> <span class="n">ForwardDiff</span>
-<span class="n">using</span> <span class="n">Statistics</span>
-<span class="n">using</span> <span class="n">SpecialFunctions</span>
-<span class="n">using</span> <span class="n">Plots</span>
-<span class="n">gr</span><span class="x">()</span>
-</code></pre>
-</div>
-
 <h2 id="test-functions">Test Functions</h2>
 
 <ul>
@@ -185,6 +224,7 @@ Where will this cannonball hit the ground?</p>
   <li>$1/x$</li>
   <li>$\text{loop}(x)=x^3 - 2x +2 $</li>
   <li>$x^{1/3}$</li>
+  <li>$\cos(2\pi x) - 0.4x$</li>
 </ul>
 
 <p>The first function is a standard run-of-the-mill transcendental function.  Transcendental: a function that involves non-polynomial terms.  The non-polynomial terms will usually prevent the determination of zeros by algebraic means.</p>
@@ -196,28 +236,22 @@ Where will this cannonball hit the ground?</p>
 <span class="n">recip</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">x</span>
 <span class="n">loop</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span>
 <span class="n">cubert</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="n">cbrt</span><span class="x">(</span><span class="n">x</span><span class="x">)</span>
+<span class="n">n_roots</span><span class="x">(</span><span class="n">x</span><span class="x">)</span><span class="o">=</span><span class="n">cos</span><span class="x">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="n">x</span><span class="x">)</span><span class="o">-</span><span class="mf">0.4</span><span class="o">*</span><span class="n">x</span>
 </code></pre>
 </div>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">xh</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="mf">0.01</span><span class="x">:</span><span class="mf">0.01</span><span class="x">:</span><span class="mi">5</span><span class="x">)</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">xh</span><span class="o">=</span><span class="n">collect</span><span class="x">(</span><span class="mf">0.01</span><span class="x">:</span><span class="mf">0.01</span><span class="x">:</span><span class="mi">5</span><span class="x">)</span>
 
-<span class="n">plot</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Transcendental Function"</span>
-    <span class="x">,</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">1</span><span class="x">,</span><span class="mi">1</span><span class="x">),</span><span class="n">legend</span><span class="o">=</span><span class="x">:</span><span class="n">topleft</span><span class="x">)</span>
-<span class="n">plot!</span><span class="x">(</span><span class="n">x2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Multiplicity 2"</span><span class="x">)</span>
-<span class="n">plot!</span><span class="x">(</span><span class="n">vcat</span><span class="x">(</span><span class="n">xh</span><span class="x">,</span><span class="o">-</span><span class="n">xh</span><span class="x">),</span><span class="n">vcat</span><span class="x">(</span><span class="n">recip</span><span class="o">.</span><span class="x">(</span><span class="n">xh</span><span class="x">),</span><span class="n">recip</span><span class="o">.</span><span class="x">(</span><span class="o">-</span><span class="n">xh</span><span class="x">)),</span><span class="n">label</span><span class="o">=</span><span class="s">"Divergence"</span><span class="x">)</span>
-<span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Zero"</span><span class="x">)</span>
+    <span class="n">plot</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Transcendental Function"</span>
+        <span class="x">,</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">1</span><span class="x">,</span><span class="mi">1</span><span class="x">),</span><span class="n">legend</span><span class="o">=</span><span class="x">:</span><span class="n">topleft</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">x2</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Multiplicity 2"</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">n_roots</span><span class="x">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Many roots"</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">vcat</span><span class="x">(</span><span class="n">xh</span><span class="x">,</span><span class="o">-</span><span class="n">xh</span><span class="x">),</span><span class="n">vcat</span><span class="x">(</span><span class="n">recip</span><span class="o">.</span><span class="x">(</span><span class="n">xh</span><span class="x">),</span><span class="n">recip</span><span class="o">.</span><span class="x">(</span><span class="o">-</span><span class="n">xh</span><span class="x">)),</span><span class="n">label</span><span class="o">=</span><span class="s">"Divergence"</span><span class="x">)</span>
+    <span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">"Zero"</span><span class="x">)</span>
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_4_0.svg" alt="Functions" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/functions.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <h2 id="interchangeability">Interchangeability</h2>
 
@@ -270,6 +304,13 @@ Where will this cannonball hit the ground?</p>
 </code></pre>
 </div>
 
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="c"># How many to loop over</span>
+    <span class="n">N_M</span><span class="o">=</span><span class="mi">10</span>
+</code></pre>
+</div>
+
+<h3 id="midpoint-simple-example-f">Midpoint simple example: f</h3>
+
 <div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">endpoints_M_f</span><span class="o">=</span><span class="n">Zero_Iterator</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">Midpoint</span><span class="x">,[</span><span class="o">-</span><span class="mf">1.0</span><span class="x">,</span><span class="mf">2.0</span><span class="x">],[</span><span class="s">"null"</span><span class="x">],</span><span class="mi">10</span><span class="x">)</span>
 <span class="n">dx_M_f</span><span class="o">=</span><span class="n">endpoints_M_f</span><span class="x">[</span><span class="mi">2</span><span class="x">,:]</span><span class="o">-</span><span class="n">endpoints_M_f</span><span class="x">[</span><span class="mi">1</span><span class="x">,:]</span>
 </code></pre>
@@ -288,6 +329,27 @@ Where will this cannonball hit the ground?</p>
  0.005859375
 </code></pre>
 </div>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">f</span><span class="x">,</span><span class="n">xlims</span><span class="o">=</span><span class="n">endpoints_M_f</span><span class="x">[:,</span><span class="mi">1</span><span class="x">])</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">N_M</span>
+        <span class="n">vline!</span><span class="x">(</span><span class="n">endpoints_M_f</span><span class="x">[:,</span><span class="n">ii</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="n">cgrad</span><span class="x">(:</span><span class="n">viridis</span><span class="x">)[</span><span class="n">ii</span><span class="o">/</span><span class="n">N_M</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+    <span class="k">end</span>
+    <span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Bracketing the zero of f"</span><span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"y"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/Roots/M_f_plot1.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">transpose</span><span class="x">(</span><span class="n">endpoints_M_f</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="x">[</span><span class="s">"Right Boundary"</span><span class="x">,</span>      <span class="s">"Left Boundary"</span><span class="x">])</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Boundary Positions over steps"</span>
+        <span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"steps"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Boundary Position"</span><span class="x">)</span>
+</code></pre>
+</div>
+
+<iframe src="/M4/Images/Roots/M_f_plot2.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
+
+<h3 id="midpoint-complication-1-divergence">Midpoint Complication 1: Divergence</h3>
 
 <div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">endpoints_M_recip</span><span class="o">=</span><span class="n">Zero_Iterator</span><span class="x">(</span><span class="n">recip</span><span class="x">,</span><span class="n">Midpoint</span><span class="x">,[</span><span class="o">-</span><span class="mf">1.4</span><span class="x">,</span><span class="mf">1.0</span><span class="x">],[</span><span class="s">"null"</span><span class="x">],</span><span class="mi">10</span><span class="x">)</span>
 <span class="n">dx_M_recip</span><span class="o">=</span><span class="n">endpoints_M_recip</span><span class="x">[</span><span class="mi">2</span><span class="x">,:]</span><span class="o">-</span><span class="n">endpoints_M_recip</span><span class="x">[</span><span class="mi">1</span><span class="x">,:]</span>
@@ -308,40 +370,36 @@ Where will this cannonball hit the ground?</p>
 </code></pre>
 </div>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">transpose</span><span class="x">(</span><span class="n">endpoints_M_recip</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="x">[</span><span class="s">"Right Boundary"</span><span class="x">,</span><span class="s">"Left Boundary"</span><span class="x">])</span>
-<span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Divergence of 1/x is a zero?"</span>
-    <span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"steps"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Boundary Position"</span><span class="x">)</span>
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">plot</span><span class="x">(</span><span class="n">recip</span><span class="x">,</span><span class="n">xlims</span><span class="o">=</span><span class="n">endpoints_M_recip</span><span class="x">[:,</span><span class="mi">1</span><span class="x">],</span><span class="n">ylims</span><span class="o">=</span><span class="x">(</span><span class="o">-</span><span class="mi">5</span><span class="x">,</span><span class="mi">5</span><span class="x">))</span>
+<span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="mi">1</span><span class="x">:</span><span class="n">N_M</span>
+    <span class="n">vline!</span><span class="x">(</span><span class="n">endpoints_M_recip</span><span class="x">[:,</span><span class="n">ii</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="n">cgrad</span><span class="x">(:</span><span class="n">viridis</span><span class="x">)[</span><span class="n">ii</span><span class="o">/</span><span class="n">N_M</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+<span class="k">end</span>
+<span class="n">hline!</span><span class="x">([</span><span class="mi">0</span><span class="x">],</span><span class="n">label</span><span class="o">=</span><span class="s">""</span><span class="x">)</span>
+<span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Bracketing a divergence"</span><span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"x"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"y"</span><span class="x">)</span>
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_11_0.svg" alt="Midpoint Method on $1/x$" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/M_recip_plot.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
-<div class="language-julia highlighter-rouge"><pre class="highlight"><code><span class="n">endpoints_M_zeta</span><span class="o">=</span><span class="n">Zero_Iterator</span><span class="x">(</span><span class="n">zeta</span><span class="x">,</span><span class="n">Midpoint</span><span class="x">,[</span><span class="o">-</span><span class="mf">17.1</span><span class="x">,</span><span class="o">-</span><span class="mf">15.</span><span class="x">],[</span><span class="s">"null"</span><span class="x">],</span><span class="mi">10</span><span class="x">)</span>
-<span class="n">dx_M_zeta</span><span class="o">=</span><span class="n">endpoints_M_zeta</span><span class="x">[</span><span class="mi">2</span><span class="x">,:]</span><span class="o">-</span><span class="n">endpoints_M_zeta</span><span class="x">[</span><span class="mi">1</span><span class="x">,:]</span>
+<h3 id="midpoint-complication-2-multiple-zeros">Midpoint Complication 2: Multiple Zeros</h3>
+
+<p>With multiple zeros, slight changes in the brackets, while still bracketing the zero, can still give a different answer.  We also have no way to tell that multiple zeros exist without looking over the entire graph.</p>
+
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">endpoints_M_n_roots_1</span><span class="o">=</span><span class="n">Zero_Iterator</span><span class="x">(</span><span class="n">n_roots</span><span class="x">,</span><span class="n">Midpoint</span><span class="x">,[</span><span class="o">-</span><span class="mf">5.</span><span class="x">,</span><span class="mf">5.</span><span class="x">],[</span><span class="s">"null"</span><span class="x">],</span><span class="n">N_M</span><span class="x">)</span>
+    <span class="n">endpoints_M_n_roots_2</span><span class="o">=</span><span class="n">Zero_Iterator</span><span class="x">(</span><span class="n">n_roots</span><span class="x">,</span><span class="n">Midpoint</span><span class="x">,[</span><span class="o">-</span><span class="mf">5.</span><span class="x">,</span><span class="mf">4.5</span><span class="x">],[</span><span class="s">"null"</span><span class="x">],</span><span class="n">N_M</span><span class="x">)</span>
+    <span class="n">endpoints_M_n_roots_3</span><span class="o">=</span><span class="n">Zero_Iterator</span><span class="x">(</span><span class="n">n_roots</span><span class="x">,</span><span class="n">Midpoint</span><span class="x">,[</span><span class="o">-</span><span class="mf">4.5</span><span class="x">,</span><span class="mi">5</span><span class="x">],[</span><span class="s">"null"</span><span class="x">],</span><span class="n">N_M</span><span class="x">)</span>
 </code></pre>
 </div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>10-element Array{Float64,1}:
- 2.1000000000000014   
- 1.0500000000000007   
- 0.5250000000000004   
- 0.2624999999999993   
- 0.13124999999999964  
- 0.06562500000000071  
- 0.03281249999999858  
- 0.01640624999999929  
- 0.008203124999999645 
- 0.0041015625000007105
+<div class="language-julia highlighter-rouge"><pre class="highlight"><code>    <span class="n">plot</span><span class="x">(</span><span class="n">transpose</span><span class="x">(</span><span class="n">endpoints_M_n_roots_1</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="x">[</span><span class="s">"1st Right"</span><span class="x">,</span><span class="s">"1st Left"</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="x">:</span><span class="n">black</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">transpose</span><span class="x">(</span><span class="n">endpoints_M_n_roots_2</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="x">[</span><span class="s">"2nd Right"</span><span class="x">,</span><span class="s">"2nd Left"</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="x">:</span><span class="n">blue</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">transpose</span><span class="x">(</span><span class="n">endpoints_M_n_roots_3</span><span class="x">),</span><span class="n">label</span><span class="o">=</span><span class="x">[</span><span class="s">"3rd Right"</span><span class="x">,</span><span class="s">"3rd Left"</span><span class="x">],</span><span class="n">color</span><span class="o">=</span><span class="x">:</span><span class="n">red</span><span class="x">)</span>
+    <span class="n">plot!</span><span class="x">(</span><span class="n">title</span><span class="o">=</span><span class="s">"Many Root function dependence on endpoints"</span>
+        <span class="x">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s">"steps"</span><span class="x">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s">"Boundary Position"</span><span class="x">)</span>
 </code></pre>
 </div>
+
+<iframe src="/M4/Images/Roots/M_n_roots_plot.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <h2 id="newton-raphson-method">Newton-Raphson Method</h2>
 
@@ -456,15 +514,7 @@ fp(x)=f_prep2(x .*[1.])[1]
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_20_0.svg" alt="Visual Newton Raphson" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/NR_x2_plot.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <p>Yeah… a bit slower.  But at least it will work, unlike the Midpoint algorithm.</p>
 
@@ -581,15 +631,7 @@ fp(x)=f_prep2(x .*[1.])[1]
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_26_0.svg" alt="Newton-Raphson Cycle" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/NRcycle.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <p>Here we can see in <b>black</b> the stationary cycle.  Colored by iteration, we can see the perturbed attempt.While is does move over a little to the right once, the path moves right back over to it’s attractive stationary region.  No amount of iterations will get us any closer to a zero.</p>
 
@@ -638,15 +680,7 @@ fp(x)=f_prep2(x .*[1.])[1]
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_30_0.svg" alt="Failure of Newton-Raphson on the Cube Root" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/runaway.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <h2 id="secant-method">Secant Method</h2>
 
@@ -782,15 +816,7 @@ fp(x)=f_prep2(x .*[1.])[1]
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_40_0.svg" alt="Regula-Falsi Method" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/RF_f.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <p>So when might we want to use this trait of staying bracketed?</p>
 
@@ -823,15 +849,7 @@ fp(x)=f_prep2(x .*[1.])[1]
 </code></pre>
 </div>
 
-<!-- _includes/image.html -->
-<div class="image-wrapper">
-    
-        <img src="http://localhost:4000/M4/Images/Roots/output_45_0.svg" alt="Comparison of Convergence Rates" />
-    
-    
-        <p class="image-caption"></p>
-    
-</div>
+<iframe src="/M4/Images/Roots/comparison.html" style="border:none; background: #ffffff" width="700px" height="450px"></iframe>
 
 <p>In comparing the convergence rates on a non-complicated transcendental function, we see that NR converges the fastest, followed by Secant, then Regula-Falsi, and finally the Midpoint method.</p>
 

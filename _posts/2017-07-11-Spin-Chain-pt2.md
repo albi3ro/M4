@@ -5,6 +5,7 @@ comments: True
 category: Graduate
 tags:
     Magnet Quantum ED
+series: 1D_Spin_Chain
 author: Christina C. Lee
 image: "https://albi3ro.github.io/M4/Images/SpinChainED/spinchain.png"
 description: Construct the matrix corresponding to the 1D Heisenburg Spin Chain and calculate its eigenvalues and eigenvectors.
@@ -341,3 +342,32 @@ Now we have eigenvalues and eigenvectors! You just solved the Heisenburg Spin Ch
 
 In my next post, I will analyze what this tells us about the system and what we can do with the information.
 
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">1D Spin Chain</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Jacobi-Transformation.html">Jacobi Transformation</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Numerics</p></td>
+        <td class="tagprop"><p class="post-meta">ED</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Spin-Chain-Prerequisites.html">1D Spin Chain Prerequisites</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Graduate</p></td>
+          <td class="tagprop"><p class="post-meta">Magnet Quantum ED</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">3</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Spin-Chain-pt2.html">1D Spin Chain Values and Vectors</a></h3></td>
+        <td class="tagprop"><p class="post-meta">Graduate</p></td>
+            <td class="tagprop"><p class="post-meta">Magnet Quantum ED</p></td>
+    </tr>
+</tbody>
+</table>

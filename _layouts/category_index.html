@@ -8,17 +8,17 @@ So before you start a post, how might you figure out if it will be understandabl
 That's where my categories come in.
 </p>
 <ul>
-  <li><b>General:</b> Those with some background in programming, math, and physics should be able to follow.</li>
-  <li><b>Prerequisites:</b> I will spell out classes in the beginning that one should have taken
+  <li><b><a href="#General Audience">General</a>:</b> Those with some background in programming, math, and physics should be able to follow.</li>
+  <li><b><a href="#Prerequisites Required">Prerequisites Required</a>:</b> I will spell out classes in the beginning that one should have taken
     in order to understand the physics of the post.  For example, in order to understand calculating
      the orbitals of a hydrogen-like atom, I will assume you analytically solved it in a Quantum Mechanics course.
    Even if you haven't taken  the classes, feel free to still try.  </li>
-  <li><b>Graduate:</b> Advanced Courses are recommended in order to get the most out of the material. That being said, I
+  <li><b><a href="#Graduate">Graduate</a>:</b> Advanced Courses are recommended in order to get the most out of the material. That being said, I
     try to avoid assuming knowledge of vocabulary or notation. I want to bridge the gap between written descriptions of
     algorithms and full fledged research implementations here.</li>
-  <li><b>Numerics:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
+  <li><b><a href="#Numerics">Numerics</a>:</b>Without a specific physics goal.  Sometimes I may just want to talk about something programming or
     numerical method related.</li>
-  <li><b>Programming:</b>Assorted Julialang topics not to do with numbers.</li>
+  <li><b><a href="#Programming">Programming</a>:</b>Assorted Julialang topics not to do with numbers.</li>
 </ul>
   					<table class="tagtable">
               <tr>
@@ -28,7 +28,7 @@ That's where my categories come in.
               </tr>
   					  <tbody>
   						{% for cat in site.categories %}
-              <tr><td class="cattype"  colspan="3">{{cat || first}}</td></tr>
+              <tr><td class="cattype" id="{{cat || first}}" colspan="3">{{cat || first}}</td></tr>
               {% for posts in cat %}
               {% for post in posts %}
   						<tr class="trtag">

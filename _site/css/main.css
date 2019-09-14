@@ -302,9 +302,6 @@ a.sidebar:active {
 
   .site-header {
     margin-top: 4em; } }
-/**
- * Site header
- */
 .tagtable, .tagtitle, .trtag, .tagprop {
   border: none;
   padding: 0em; }
@@ -327,6 +324,9 @@ a.sidebar:active {
 .tagtitle, .tagprop, .thtitle, .thprop {
   padding-right: 2em; }
 
+/**
+ * Site header
+ */
 .site-title {
   font-size: 32px;
   line-height: 56px;

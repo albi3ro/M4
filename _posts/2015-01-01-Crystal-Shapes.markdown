@@ -4,6 +4,7 @@ layout: post
 comments: True
 category: General Audience
 tags: [Lattices]
+series: Crystals
 author: Christina C. Lee
 description:  Here we compute and view the positions for a few simple Bravais lattices.
 image: "https://albi3ro.github.io/M4/Images/CrystalShapes/fcc.jpg"
@@ -184,4 +185,26 @@ Can you hand draw them on paper?
 
 Let me know what you think, and enjoy the sequel as well!
 
- [<center><i> Multi-site unit cells</i></center>]({{base.url}}/M4/MultiSite-Unit-Cells.html)
+<table class="tagtable" style="table-layout: fixed">
+    <tr><th class="cattype"  colspan="4">Crystals</th></tr>
+        <tr>
+          <th class="thprop" style="width: 1em">#</th>
+          <th class="thtitle" style="width: auto">Title</th>
+          <th class="thprop" style="width: 4em">Level</th>
+          <th class="thprop" style="width: 5em">Tags</th>
+        </tr>
+    <tbody>
+    <tr class="trtag">
+        <td class="tagprop">1</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/Crystal-Shapes.html">Computationally Visualizing Crystals</a></h3></td>
+        <td class="tagprop"><p class="post-meta">General Audience</p></td>
+          <td class="tagprop"><p class="post-meta">Lattices</p></td>
+    </tr>
+    <tr class="trtag">
+        <td class="tagprop">2</td>
+        <td class="tagtitle"><h3><a href="{{base.url}}/M4/MultiSite-Unit-Cells.html">Computationally Visualizing Crystals Pt. 2</a></h3></td>
+        <td class="tagprop"><p class="post-meta">General Audience</p></td>
+        <td class="tagprop"><p class="post-meta">Lattices</p></td>
+    </tr>
+</tbody>
+</table>
