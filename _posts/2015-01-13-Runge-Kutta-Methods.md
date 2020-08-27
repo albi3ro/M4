@@ -87,7 +87,7 @@ $$
 \frac{d}{d t}x=x \;\;\;\;\;\;\; x(t)=C e^t
 $$
 
-Though this only has one dependent variable, we want to structure our code so that we can accommodate a series of dependent variables, $y_1,y_2,...,y_n$, and their associated derivative functions.  Therefore, we create a function for each dependent variable, and then `push` it into an array declared as type `Function`.
+Though this only has one dependent variable, we want to structure our code so that we can accommodate a series of dependent variables, $x_1,x_2,...,x_n$, and their associated derivative functions.  Therefore, we create a function for each dependent variable, and then `push` it into an array declared as type `Function`.
 
 ```julia
 function f1(t::Float64,x::Array{Float64,1})
